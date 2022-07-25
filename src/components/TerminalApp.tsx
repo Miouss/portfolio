@@ -3,10 +3,15 @@ import InteractiveTextArea from "./InteractiveTextArea";
 
 import "../styles/TerminalApp.css"
 
-function TerminalApp(){
+type Props = {
+    setCloseApp : (param: boolean) => void
+  }
+  
+
+function TerminalApp({setCloseApp} : Props){
     return(
         <div className="terminal-app">
-            <WindowBar windowTitle="Terminal" />
+            <WindowBar windowTitle="Terminal" setCloseApp={setCloseApp} />
             <InteractiveTextArea />
         </div>
     )
