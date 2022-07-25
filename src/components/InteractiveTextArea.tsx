@@ -8,7 +8,7 @@ import "../styles/InteractiveTextArea.css";
 function InteractiveTextArea() {
   let [text, updateText] = useState<string>("");
   let [content, updateContent] = useState<string>(
-    "Coucou, j'agis comme une zone de texte"
+    "Hello World"
   );
   let [CSSAnimationName, updateCSSAnimationName] = useState<string>("blink");
 
@@ -44,9 +44,14 @@ function InteractiveTextArea() {
   const keyHandler = useCallback(
     (event: KeyboardEvent) => {
       event.preventDefault();
-
+      console.log(event);
       if (event.key === "Enter") {
-        updateText(text + "\n ");
+        if(event.shiftKey)
+        {
+          updateText("");
+        }else{
+          updateText(text + "\n ");
+        }
       } else if (event.key === "Backspace") {
         updateText(text.slice(0, -1));
       } else if (event.key.length === 1) {
@@ -71,7 +76,7 @@ function InteractiveTextArea() {
 
   return (
     <div id="text-area">
-      {text}
+       {"C:\\>"}{text}
       <span style={{ animationName: CSSAnimationName }} id="cursor"></span>
     </div>
   );
