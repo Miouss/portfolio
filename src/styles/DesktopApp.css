@@ -1,0 +1,12 @@
+.desktop-app-terminal{
+    display: flex;
+    flex-direction: column;
+
+    gap: 0.3rem;
+}
+
+.desktop-app-terminal > :first-child{
+    background-color: black;
+
+    padding: 1rem;
+}
