@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import React from "react";
 import { useState, useEffect, useCallback } from "react";
+import { delay } from "../assets/usefulFunction";
 
 import "../styles/InteractiveTextArea.css";
 
@@ -11,9 +11,6 @@ function InteractiveTextArea() {
     "Hello World"
   );
   let [CSSAnimationName, updateCSSAnimationName] = useState<string>("blink");
-
-  const delay = (ms: number) =>
-    new Promise((resolve) => setTimeout(resolve, ms));
 
   async function simulateKeyPressed(txt: string) {
     await delay(10);
@@ -33,7 +30,7 @@ function InteractiveTextArea() {
     updateContent(updatedContent);
   }
 
-  async function resetCursorAnimation() {
+  async function resetCursorAnimation(){
     updateCSSAnimationName("none");
 
     await delay(30);
