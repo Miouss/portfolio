@@ -42,7 +42,7 @@ function InteractiveTextArea() {
   }
 
   const keyHandler = useCallback(
-    (event) => {
+    (event: KeyboardEvent) => {
       event.preventDefault();
 
       if (event.key === "Enter") {
