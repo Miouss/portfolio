@@ -1,0 +1,41 @@
+.window-bar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: white;
+
+    color: black;
+}
+.window-bar-app-icon{
+    margin: 0.5rem;
+}
+
+.window-bar-title{
+    flex: 1;
+}
+
+.window-bar-functionnal-icons{
+    display: flex;
+}
+
+.window-bar-functionnal-icons > *{
+    padding: 0.5rem;
+}
+
+.window-bar-functionnal-icons > *:hover{
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    background-color: red;
+}
+
+.resize-button {
+    padding: 0.5rem;
+}
+
+.minimize-button {
+    padding: 0.5rem;
+}
