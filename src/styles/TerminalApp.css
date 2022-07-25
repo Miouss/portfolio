@@ -1,0 +1,10 @@
+.terminal-app{
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+
+    border: solid black;
+
+    width: 600px;
+    height: 300px;
+}
