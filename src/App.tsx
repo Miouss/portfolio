@@ -1,11 +1,11 @@
 import React from "react";
-import InteractiveTextArea from "./components/InteractiveTextArea";
+import TerminalApp from "./components/TerminalApp";
 
 import "./App.css";
 
 function App() {
   return (
-    <InteractiveTextArea />
+    <TerminalApp />
   );
 }
 
