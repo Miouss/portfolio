@@ -1,0 +1,21 @@
+#text-area{
+    white-space: pre-line;
+}
+
+#cursor{
+    display: inline-block;
+    height: 3px;
+    width: 8px;
+    background-color: black;
+    animation-name: blink;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+	opacity: 1;
+}
+
+@keyframes blink {
+	0% { opacity: 1; }
+    50% { opacity: 1; }
+    51% { opacity: 0;}
+	100% { opacity: 0; }
+}
