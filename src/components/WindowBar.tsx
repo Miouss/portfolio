@@ -1,17 +1,15 @@
 import "../styles/WindowBar.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faTerminal,
-  faXmark,
-  faWindowMinimize,
-  faMaximize,
-} from "@fortawesome/free-solid-svg-icons";
+
 import { useState } from "react";
 
-function WindowBar(props: any) {
+type Props = {
+  windowTitle : string,
+  setCloseApp: (param: boolean) => void
+}
 
-    const {windowTitle} = props;
+function WindowBar({windowTitle, setCloseApp}: Props) {
 
   let [closeButtonColor, changeCloseButtonColor] = useState<string>("black");
 
@@ -19,22 +17,23 @@ function WindowBar(props: any) {
     <>
       <div className="window-bar">
         <div className="window-bar-app-icon">
-          <FontAwesomeIcon icon={faTerminal} />
+          <FontAwesomeIcon icon="terminal" />
         </div>
         <div className="window-bar-title">{windowTitle}</div>
         <div className="window-bar-functionnal-icons">
           <div className="minimize-button">
-            <FontAwesomeIcon icon={faWindowMinimize} />
+            <FontAwesomeIcon icon="window-minimize" />
           </div>
           <div className="resize-button">
-            <FontAwesomeIcon icon={faMaximize} />
+            <FontAwesomeIcon icon="maximize" />
           </div>
           <div
             className="close-button"
             onMouseOver={() => changeCloseButtonColor("white")}
             onMouseLeave={() => changeCloseButtonColor("black")}
+            onClick={() => setCloseApp(true)}
           >
-            <FontAwesomeIcon icon={faXmark} color={closeButtonColor} />
+            <FontAwesomeIcon icon="xmark" color={closeButtonColor} />
           </div>
         </div>
       </div>
