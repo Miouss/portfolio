@@ -1,0 +1,26 @@
+#desktop{
+    width: 100vw;
+    height: 100vh;
+    
+    background-image: url("../assets/windows-wallpaper.png");
+}
+
+#desktop-app-section{
+    padding: 1rem;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 2.5rem;
+}
+
+#desktop-app-section > *:hover{
+    cursor: pointer;
+}
+
+#desktop-app-section > * > :last-child{
+    color:white;
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
