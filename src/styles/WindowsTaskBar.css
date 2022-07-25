@@ -1,0 +1,41 @@
+#windows-task-bar{
+    position: fixed;
+    width: inherit;
+    height: 45px;
+    bottom: 0;
+
+    background-color: black;
+    color: white;
+
+    opacity: 0.8;
+
+    display: flex;
+}
+
+#windows-task-bar-windows-icon{
+    flex: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 1rem;
+}
+
+#windows-task-bar-windows-icon:hover{
+    background-color:dimgray;
+}
+
+#windows-task-bar-apps-icons{
+    flex: 1;
+}
+
+#windows-task-bar-date{
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-around;
+    align-items: center;
+
+    font-size: 0.8rem;
+    font-weight: bold;
+}
