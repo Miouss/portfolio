@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import "../styles/WindowBar.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -5,12 +7,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
 type Props = {
-  windowTitle : string,
-  setCloseApp: (param: boolean) => void
-}
+  windowTitle: string;
+  setCloseApp: (param: boolean) => void;
+  handleMousePressed: (event: React.MouseEvent<HTMLDivElement>) => void;
+};
 
-function WindowBar({windowTitle, setCloseApp}: Props) {
-
+function WindowBar({
+  windowTitle,
+  setCloseApp,
+  handleMousePressed,
+}: Props) {
   let [closeButtonColor, changeCloseButtonColor] = useState<string>("black");
 
   return (
@@ -19,7 +25,7 @@ function WindowBar({windowTitle, setCloseApp}: Props) {
         <div className="window-bar-app-icon">
           <FontAwesomeIcon icon="terminal" />
         </div>
-        <div className="window-bar-title">{windowTitle}</div>
+        <div className="window-bar-title" onMouseDown={handleMousePressed}  onMouseUp={handleMousePressed}>{windowTitle}</div>
         <div className="window-bar-functionnal-icons">
           <div className="minimize-button">
             <FontAwesomeIcon icon="window-minimize" />
