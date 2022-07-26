@@ -29,7 +29,7 @@ function WindowApp({ windowTitle, setCloseApp, contentComponent }: Props) {
   });
 
   const handleMousePressed = (
-    event: React.MouseEvent<HTMLInputElement>
+    event: React.MouseEvent<HTMLDivElement>
   ): void => {
     event.preventDefault();
     if (event.type === "mousedown") {
