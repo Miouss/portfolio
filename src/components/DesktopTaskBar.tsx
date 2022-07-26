@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import "../styles/WindowsTaskBar.css";
+import "../styles/DesktopTaskBar.css";
 import { useEffect, useState } from "react";
 import { delay } from "../assets/usefulFunction";
 
