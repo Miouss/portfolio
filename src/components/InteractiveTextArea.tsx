@@ -7,9 +7,7 @@ import "../styles/InteractiveTextArea.css";
 
 function InteractiveTextArea() {
   let [text, updateText] = useState<string>("");
-  let [content, updateContent] = useState<string>(
-    "Hello World"
-  );
+  let [content, updateContent] = useState<string>("Hello World");
   let [CSSAnimationName, updateCSSAnimationName] = useState<string>("blink");
 
   async function simulateKeyPressed(txt: string) {
@@ -30,7 +28,7 @@ function InteractiveTextArea() {
     updateContent(updatedContent);
   }
 
-  async function resetCursorAnimation(){
+  async function resetCursorAnimation() {
     updateCSSAnimationName("none");
 
     await delay(30);
@@ -43,10 +41,9 @@ function InteractiveTextArea() {
       event.preventDefault();
       console.log(event);
       if (event.key === "Enter") {
-        if(event.shiftKey)
-        {
+        if (event.shiftKey) {
           updateText("");
-        }else{
+        } else {
           updateText(text + "\n ");
         }
       } else if (event.key === "Backspace") {
@@ -60,20 +57,27 @@ function InteractiveTextArea() {
     [text]
   );
 
-  useEffect(() => {
-    if (content !== "") {
-      simulateKeyPressed(content);
-    }
-  }, [content]);
+  useEffect(
+    function mimicUserTyping() {
+      if (content !== "") {
+        simulateKeyPressed(content);
+      }
+    },
+    [content]
+  );
 
-  useEffect(() => {
-    document.addEventListener("keydown", keyHandler);
-    return () => document.removeEventListener("keydown", keyHandler);
-  }, [keyHandler]);
+  useEffect(
+    function resetEventListener() {
+      document.addEventListener("keydown", keyHandler);
+      return () => document.removeEventListener("keydown", keyHandler);
+    },
+    [keyHandler]
+  );
 
   return (
     <div id="text-area">
-       {"C:\\>"}{text}
+      {"C:\\>"}
+      {text}
       <span style={{ animationName: CSSAnimationName }} id="cursor"></span>
     </div>
   );

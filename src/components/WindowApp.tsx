@@ -5,19 +5,20 @@ import WindowBar from "./WindowBar";
 
 import "../styles/WindowApp.css";
 
-type Props = {
+interface Props {
   windowTitle: string;
   setCloseApp: (param: boolean) => void;
   contentComponent: ReactElement;
-};
+}
 
-type Coordinates = {
+interface Coordinates {
   x: number;
   y: number;
-};
+}
 
 function WindowApp({ windowTitle, setCloseApp, contentComponent }: Props) {
   let [mouseIsPressed, setMouseIsPressed] = useState<boolean>(false);
+
   let [mouseInitialPosition, setMouseInitialPosition] = useState<Coordinates>({
     x: 0,
     y: 0,
@@ -54,31 +55,34 @@ function WindowApp({ windowTitle, setCloseApp, contentComponent }: Props) {
     }
   };
 
-  useEffect(() => {
-    const windowContainer = document.querySelector(
-      ".window-app"
-    ) as HTMLElement;
+  useEffect(
+    function moveWindow() {
+      const windowContainer = document.querySelector(
+        ".window-app"
+      ) as HTMLElement;
 
-    const xMove = mouseInitialPosition.x - mouseNewPostion.x;
-    const yMove = mouseInitialPosition.y - mouseNewPostion.y;
+      const xMove = mouseInitialPosition.x - mouseNewPostion.x;
+      const yMove = mouseInitialPosition.y - mouseNewPostion.y;
 
-    const windowContainerScreenPosition =
-      windowContainer.getBoundingClientRect();
+      const windowContainerScreenPosition =
+        windowContainer.getBoundingClientRect();
 
+      if (windowContainerScreenPosition.y >= -1) {
+        windowContainer.style.left = windowContainer.offsetLeft - xMove + "px";
+        windowContainer.style.top = windowContainer.offsetTop - yMove + "px";
 
-    if (windowContainerScreenPosition.y >= -1) {
-      windowContainer.style.left = windowContainer.offsetLeft - xMove + "px";
-      windowContainer.style.top = windowContainer.offsetTop - yMove + "px";
-
-      setMouseInitialPosition({
-        x: mouseNewPostion.x,
-        y: mouseNewPostion.y,
-      });
-    }else{
-        windowContainer.style.top = windowContainer.offsetTop - windowContainerScreenPosition.y + "px";
+        setMouseInitialPosition({
+          x: mouseNewPostion.x,
+          y: mouseNewPostion.y,
+        });
+      } else {
+        windowContainer.style.top =
+          windowContainer.offsetTop - windowContainerScreenPosition.y + "px";
         setMouseIsPressed(false);
-    }
-  }, [mouseNewPostion]);
+      }
+    },
+    [mouseNewPostion]
+  );
 
   document.onmousemove = handleMouseMovement;
 
