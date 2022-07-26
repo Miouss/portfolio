@@ -1,0 +1,12 @@
+.window-app{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+
+    border: solid black;
+
+    width: 600px;
+    height: 300px;
+
+    z-index: 2;
+}
