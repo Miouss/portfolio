@@ -35,8 +35,6 @@ function Desktop() {
 
   useEffect(() => {
     setCloseApp(null);
-
-    console.log(runningApp);
   }, [runningApp]);
 
   useEffect(() => {
@@ -55,7 +53,7 @@ function Desktop() {
         {runningApp}
       </div>
       <div id="desktop-app-section">{appsList}</div>
-      <DesktopTaskBar />
+      <DesktopTaskBar runningApp={runningApp} />
     </div>
   );
 }
