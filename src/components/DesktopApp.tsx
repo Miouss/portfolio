@@ -4,21 +4,13 @@ import { ReactElement } from "react";
 import "../styles/DesktopApp.css";
 
 interface Props {
-  iconName: any;
-  appName: string;
   displayApp: Array<ReactElement> | null;
   setDisplayApp: (param: Array<ReactElement>) => void;
   component: ReactElement;
 }
 
-function DesktopApp({
-  iconName,
-  appName,
-  displayApp,
-  setDisplayApp,
-  component,
-}: Props) {
-  const iconClass: string = `desktop-app-${iconName}`;
+function DesktopApp({ displayApp, setDisplayApp, component }: Props) {
+  const iconClass: string = `desktop-app-${component.props.iconName}`;
 
   function runApp() {
     if (displayApp === null) {
@@ -33,7 +25,7 @@ function DesktopApp({
         }
       });
 
-      if(!isAppRunning){
+      if (!isAppRunning) {
         setDisplayApp([...displayApp, component]);
       }
     }
@@ -42,9 +34,9 @@ function DesktopApp({
   return (
     <div className={iconClass} onClick={runApp}>
       <span>
-        <FontAwesomeIcon icon={iconName} color="white" />
+        <FontAwesomeIcon icon={component.props.iconName} color="white" />
       </span>
-      <div>{appName}</div>
+      <div>{component.props.appName}</div>
     </div>
   );
 }

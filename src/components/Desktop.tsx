@@ -12,12 +12,10 @@ function Desktop() {
 
   let appsList: Array<ReactElement> = [];
 
-  function addApp(icon: string, app: string, component: ReactElement) {
+  function addApp(component: ReactElement) {
     appsList.push(
       <DesktopApp
         key={`app${appsList.length}`}
-        iconName={icon}
-        appName={app}
         displayApp={displayApp}
         setDisplayApp={setDisplayApp}
         component={component}
@@ -26,12 +24,12 @@ function Desktop() {
   }
 
   addApp(
-    "terminal",
-    "Terminal",
     <TerminalApp
       key="terminal"
       setCloseApp={setCloseApp}
       componentKey="terminal"
+      iconName="terminal"
+      appName="Terminal"
     />
   );
 
@@ -45,6 +43,8 @@ function Desktop() {
         return component.key !== closeApp;
       }
     );
+
+    console.log(appsList);
 
     setDisplayApp(appsCurrentlyRunning);
   }, [closeApp]);
