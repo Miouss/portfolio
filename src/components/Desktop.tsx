@@ -3,19 +3,25 @@ import DesktopApp from "./DesktopApp";
 import TerminalApp from "./TerminalApp";
 
 import "../styles/Desktop.css";
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
+
 
 function Desktop() {
-  let [displayApp, setDisplayApp] = useState<boolean>(false);
+  let [displayApp, setDisplayApp] = useState<ReactElement | null>(null);
   let [closeApp, setCloseApp] = useState<boolean>(false);
 
-  function launchApp() {
-    if (displayApp && !closeApp) {
-      return <TerminalApp setCloseApp={setCloseApp} />;
-    }
+  let appsList : Array<ReactElement> = [];
 
-    return null;
+  function addApp(icon: string, app: string, component: ReactElement ){
+    appsList.push(<DesktopApp
+      iconName={icon}
+      appName={app}
+      setDisplayApp={setDisplayApp}
+      component={component}
+    />);
   }
+
+  addApp("terminal", "Terminal", <TerminalApp setCloseApp={setCloseApp} />);
 
   useEffect(
     function resetCloseButton() {
@@ -26,7 +32,7 @@ function Desktop() {
 
   useEffect(
     function resetDisplayApp() {
-      setDisplayApp(false);
+      setDisplayApp(null);
     },
     [closeApp]
   );
@@ -34,14 +40,10 @@ function Desktop() {
   return (
     <div id="desktop">
       <div style={{ position: "absolute", top: "100px", left: "100px" }}>
-        {launchApp()}
+        {displayApp}
       </div>
       <div id="desktop-app-section">
-        <DesktopApp
-          iconName="terminal"
-          appName="Terminal"
-          setDisplayApp={setDisplayApp}
-        />
+        {appsList}
       </div>
       <DesktopTaskBar />
     </div>
