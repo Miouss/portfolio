@@ -7,8 +7,9 @@ import "../styles/WindowApp.css";
 
 interface Props {
   windowTitle: string;
-  setCloseApp: (param: boolean) => void;
+  setCloseApp: (param: string | null) => void;
   contentComponent: ReactElement;
+  componentKey: string;
 }
 
 interface Coordinates {
@@ -16,7 +17,12 @@ interface Coordinates {
   y: number;
 }
 
-function WindowApp({ windowTitle, setCloseApp, contentComponent }: Props) {
+function WindowApp({
+  windowTitle,
+  setCloseApp,
+  contentComponent,
+  componentKey,
+}: Props) {
   let [mouseIsPressed, setMouseIsPressed] = useState<boolean>(false);
 
   let [mouseInitialPosition, setMouseInitialPosition] = useState<Coordinates>({
@@ -91,6 +97,7 @@ function WindowApp({ windowTitle, setCloseApp, contentComponent }: Props) {
       <WindowBar
         windowTitle={windowTitle}
         setCloseApp={setCloseApp}
+        componentKey={componentKey}
         handleMousePressed={handleMousePressed}
       />
       {contentComponent}
