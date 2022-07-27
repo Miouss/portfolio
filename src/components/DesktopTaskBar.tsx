@@ -1,37 +1,16 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import "../styles/DesktopTaskBar.css";
-import { useEffect, useState } from "react";
-import { delay } from "../assets/usefulFunction";
+import { useState } from "react";
 
-interface FullDate {
-  time: string;
-  date: string;
+import Date from "./DateTime"
+
+interface Props {
+  runningApp : Array<React.ReactElement>
 }
 
-function WindowsTaskBar() {
+function WindowsTaskBar({ runningApp } : Props) {
   let [windowsIconColor, switchWindowsIconColor] = useState<string>("white");
-  let [date, setDate] = useState<Date>(new Date());
-
-  let updatedDate: FullDate = {
-    time: `${date.getHours().toString().padStart(2, "0")}:${date
-      .getMinutes()
-      .toString()
-      .padStart(2, "0")}:${date.getSeconds().toString().padStart(2, "0")}`,
-    date: `${date.getDate().toString().padStart(2, "0")}/${date
-      .getMonth()
-      .toString()
-      .padStart(2, "0")}/${date.getFullYear()}`,
-  };
-
-  useEffect(() => {
-    async function updateDate() {
-      await delay(1000);
-      setDate(new Date());
-    }
-
-    updateDate();
-  }, [date]);
 
   return (
     <div id="windows-task-bar">
@@ -46,11 +25,13 @@ function WindowsTaskBar() {
           size={"lg"}
         />
       </div>
-      <div id="windows-task-bar-apps-icons"></div>
-      <div id="windows-task-bar-date">
-        <div>{updatedDate.time}</div>
-        <div>{updatedDate.date}</div>
+      <div id="windows-task-bar-apps-icons">
+
       </div>
+      <div id="windows-task-bar-date">
+      <Date />
+    </div>
+
     </div>
   );
 }
