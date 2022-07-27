@@ -7,12 +7,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
 interface Props {
-  windowTitle: string;
-  setCloseApp: (param: boolean) => void;
-  handleMousePressed: (event: React.MouseEvent<HTMLDivElement>) => void;
+  windowTitle: string,
+  setCloseApp: (param: string | null) => void,
+  componentKey: string,
+  handleMousePressed: (event: React.MouseEvent<HTMLDivElement>) => void
 }
 
-function WindowBar({ windowTitle, setCloseApp, handleMousePressed }: Props) {
+function WindowBar({ windowTitle, setCloseApp, componentKey, handleMousePressed }: Props) {
   let [closeButtonColor, changeCloseButtonColor] = useState<string>("black");
 
   return (
@@ -38,7 +39,7 @@ function WindowBar({ windowTitle, setCloseApp, handleMousePressed }: Props) {
           className="close-button"
           onMouseOver={() => changeCloseButtonColor("white")}
           onMouseLeave={() => changeCloseButtonColor("black")}
-          onClick={() => setCloseApp(true)}
+          onClick={() => setCloseApp(componentKey)}
         >
           <FontAwesomeIcon icon="xmark" color={closeButtonColor} />
         </div>
