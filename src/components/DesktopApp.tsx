@@ -4,21 +4,21 @@ import { ReactElement } from "react";
 import "../styles/DesktopApp.css";
 
 interface Props {
-  displayApp: Array<ReactElement> | null;
-  setDisplayApp: (param: Array<ReactElement>) => void;
+  runningApp: Array<ReactElement> | null;
+  setRunningApp: (param: Array<ReactElement>) => void;
   component: ReactElement;
 }
 
-function DesktopApp({ displayApp, setDisplayApp, component }: Props) {
+function DesktopApp({ runningApp, setRunningApp, component }: Props) {
   const iconClass: string = `desktop-app-${component.props.iconName}`;
 
   function runApp() {
-    if (displayApp === null) {
-      setDisplayApp([component]);
+    if (runningApp === null) {
+      setRunningApp([component]);
     } else {
       let isAppRunning = false;
 
-      displayApp.forEach((componentStored) => {
+      runningApp.forEach((componentStored) => {
         if (componentStored.key === component.key) {
           alert("App is already running");
           isAppRunning = true;
@@ -26,7 +26,7 @@ function DesktopApp({ displayApp, setDisplayApp, component }: Props) {
       });
 
       if (!isAppRunning) {
-        setDisplayApp([...displayApp, component]);
+        setRunningApp([...runningApp, component]);
       }
     }
   }

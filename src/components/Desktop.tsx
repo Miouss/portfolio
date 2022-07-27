@@ -7,7 +7,7 @@ import "../styles/Desktop.css";
 import { ReactElement, useEffect, useState } from "react";
 
 function Desktop() {
-  let [displayApp, setDisplayApp] = useState<Array<ReactElement>>([]);
+  let [runningApp, setRunningApp] = useState<Array<ReactElement>>([]);
   let [closeApp, setCloseApp] = useState<string | null>(null);
 
   let appsList: Array<ReactElement> = [];
@@ -16,8 +16,8 @@ function Desktop() {
     appsList.push(
       <DesktopApp
         key={`app${appsList.length}`}
-        displayApp={displayApp}
-        setDisplayApp={setDisplayApp}
+        runningApp={runningApp}
+        setRunningApp={setRunningApp}
         component={component}
       />
     );
@@ -35,24 +35,24 @@ function Desktop() {
 
   useEffect(() => {
     setCloseApp(null);
-  }, [displayApp]);
+
+    console.log(runningApp);
+  }, [runningApp]);
 
   useEffect(() => {
-    let appsCurrentlyRunning: Array<ReactElement> = displayApp.filter(
+    let appsCurrentlyRunning: Array<ReactElement> = runningApp.filter(
       (component: ReactElement) => {
         return component.key !== closeApp;
       }
     );
 
-    console.log(appsList);
-
-    setDisplayApp(appsCurrentlyRunning);
+    setRunningApp(appsCurrentlyRunning);
   }, [closeApp]);
 
   return (
     <div id="desktop">
       <div style={{ position: "absolute", top: "100px", left: "100px" }}>
-        {displayApp}
+        {runningApp}
       </div>
       <div id="desktop-app-section">{appsList}</div>
       <DesktopTaskBar />
