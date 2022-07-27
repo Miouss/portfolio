@@ -1,18 +1,20 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ReactComponentElement, ReactElement } from "react";
 
 import "../styles/DesktopApp.css";
 
 interface Props {
   iconName: any;
   appName: string;
-  setDisplayApp: (param: boolean) => void;
+  setDisplayApp: (param: null | ReactElement) => void;
+  component: ReactElement
 }
 
-function DesktopApp({ iconName, appName, setDisplayApp }: Props) {
+function DesktopApp({ iconName, appName, setDisplayApp, component }: Props) {
   const iconClass: string = `desktop-app-${iconName}`;
 
   return (
-      <div className={iconClass} onClick={() => setDisplayApp(true)}>
+      <div className={iconClass} onClick={() => setDisplayApp(component)}>
         <span>
           <FontAwesomeIcon icon={iconName} color="white" />
         </span>
