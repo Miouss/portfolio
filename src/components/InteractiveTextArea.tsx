@@ -5,7 +5,10 @@ import { delay } from "../assets/usefulFunction";
 
 import "../styles/InteractiveTextArea.css";
 
-function InteractiveTextArea() {
+interface Props {
+  windowId: string
+}
+function InteractiveTextArea({windowId} : Props) {
   let [text, updateText] = useState<string>("");
   let [content, updateContent] = useState<string>("Hello World");
   let [CSSAnimationName, updateCSSAnimationName] = useState<string>("blink");
@@ -39,7 +42,7 @@ function InteractiveTextArea() {
   const keyHandler = useCallback(
     (event: KeyboardEvent) => {
       event.preventDefault();
-      console.log(event);
+      console.log("slt");
       if (event.key === "Enter") {
         if (event.shiftKey) {
           updateText("");
@@ -68,8 +71,12 @@ function InteractiveTextArea() {
 
   useEffect(
     function resetEventListener() {
-      document.addEventListener("keydown", keyHandler);
-      return () => document.removeEventListener("keydown", keyHandler);
+      const windowContainer = (document.querySelector('#' + windowId) as HTMLDivElement);
+
+      if(windowContainer !== null){
+        windowContainer.addEventListener("keydown", keyHandler);
+        return () => windowContainer.removeEventListener("keydown", keyHandler);
+      }
     },
     [keyHandler]
   );
