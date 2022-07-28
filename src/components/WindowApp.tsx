@@ -35,10 +35,14 @@ function WindowApp({
     y: 0,
   });
 
+  let [zIndexValue, setZIndexValue] = useState<number>(1);
+
+  const windowId = `window-app-${componentKey}`;
+  let windowContainer = document.querySelector('#' + windowId) as HTMLDivElement;
+
   const handleMousePressed = (
     event: React.MouseEvent<HTMLDivElement>
   ): void => {
-    event.preventDefault();
     if (event.type === "mousedown") {
       setMouseIsPressed(true);
       setMouseInitialPosition({
@@ -63,9 +67,9 @@ function WindowApp({
 
   useEffect(
     function moveWindow() {
-      const windowContainer = document.querySelector(
-        ".window-app"
-      ) as HTMLElement;
+      windowContainer = document.querySelector(
+        '#' + windowId
+      ) as HTMLDivElement;
 
       const xMove = mouseInitialPosition.x - mouseNewPostion.x;
       const yMove = mouseInitialPosition.y - mouseNewPostion.y;
@@ -92,8 +96,12 @@ function WindowApp({
 
   document.onmousemove = handleMouseMovement;
 
+  useEffect(() => {
+    windowContainer.style.zIndex = `${zIndexValue}`;
+  }, [zIndexValue]);
+
   return (
-    <div className="window-app">
+    <div className="window-app" id={windowId} tabIndex={-1} onFocus={() => setZIndexValue(2)} onBlur={() => setZIndexValue(1)}>
       <WindowBar
         windowTitle={windowTitle}
         setCloseApp={setCloseApp}
