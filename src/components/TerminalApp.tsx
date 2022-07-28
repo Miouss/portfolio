@@ -15,7 +15,7 @@ function TerminalApp({ setCloseApp, componentKey, iconName, appName }: Props) {
     <WindowApp
       windowTitle="Terminal"
       setCloseApp={setCloseApp}
-      contentComponent={<InteractiveTextArea />}
+      contentComponent={<InteractiveTextArea windowId={`window-app-${componentKey}`} />}
       componentKey={componentKey}
     />
   );
