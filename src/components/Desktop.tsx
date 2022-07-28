@@ -33,6 +33,16 @@ function Desktop() {
     />
   );
 
+  addApp(
+    <TerminalApp
+      key="dummy"
+      setCloseApp={setCloseApp}
+      componentKey="dummy"
+      iconName="terminal"
+      appName="Dummy"
+    />
+  );
+
   useEffect(() => {
     setCloseApp(null);
   }, [runningApp]);
