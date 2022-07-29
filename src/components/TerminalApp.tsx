@@ -8,15 +8,17 @@ type Props = {
   componentKey: string;
   iconName: string;
   appName: string;
+  setActiveApp: (param: string) => void;
 };
 
-function TerminalApp({ setCloseApp, componentKey, iconName, appName }: Props) {
+function TerminalApp({ setCloseApp, componentKey, iconName, appName, setActiveApp }: Props) {
   return (
     <WindowApp
       windowTitle="Terminal"
       setCloseApp={setCloseApp}
       contentComponent={<InteractiveTextArea windowId={`window-app-${componentKey}`} />}
       componentKey={componentKey}
+      setActiveApp={setActiveApp}
     />
   );
 }

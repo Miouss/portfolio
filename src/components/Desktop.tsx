@@ -9,6 +9,7 @@ import { ReactElement, useEffect, useState } from "react";
 function Desktop() {
   let [runningApp, setRunningApp] = useState<Array<ReactElement>>([]);
   let [closeApp, setCloseApp] = useState<string | null>(null);
+  let [activeApp, setActiveApp] = useState<string | null>(null);
 
   let appsList: Array<ReactElement> = [];
 
@@ -30,6 +31,7 @@ function Desktop() {
       componentKey="terminal"
       iconName="terminal"
       appName="Terminal"
+      setActiveApp={setActiveApp}
     />
   );
 
@@ -40,6 +42,7 @@ function Desktop() {
       componentKey="dummy"
       iconName="terminal"
       appName="Dummy"
+      setActiveApp={setActiveApp}
     />
   );
 
@@ -63,7 +66,7 @@ function Desktop() {
         {runningApp}
       </div>
       <div id="desktop-app-section">{appsList}</div>
-      <DesktopTaskBar runningApp={runningApp} />
+      <DesktopTaskBar runningApp={runningApp} activeApp={activeApp}/>
     </div>
   );
 }

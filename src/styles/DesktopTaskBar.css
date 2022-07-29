@@ -21,6 +21,43 @@
     padding: 1rem;
 }
 
+#windows-task-bar-apps-icons {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    padding-left: 1rem;
+
+    gap: 0.1rem;
+}
+
+#windows-task-bar-apps-icons > * {
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#windows-task-bar-apps-icons > * > :first-child{
+    height: 43px;
+    width: inherit;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+
+#windows-task-bar-apps-icons > * > :last-child{
+    height: 2px;
+    width: 45px;
+    text-align: center;
+    background-color: lightblue;
+    transition: width 0.2s;
+}
+
 #windows-task-bar-windows-icon:hover{
     background-color:dimgray;
 }

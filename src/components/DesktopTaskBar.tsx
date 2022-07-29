@@ -1,17 +1,34 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import "../styles/DesktopTaskBar.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import Date from "./DateTime"
+import DesktopTaskBarApp from "./DesktopTaskBarApp";
+import Date from "./DateTime";
 
 interface Props {
-  runningApp : Array<React.ReactElement>
+  runningApp: Array<React.ReactElement>;
+  activeApp: string | null;
 }
 
-function WindowsTaskBar({ runningApp } : Props) {
+function WindowsTaskBar({ runningApp, activeApp }: Props) {
   let [windowsIconColor, switchWindowsIconColor] = useState<string>("white");
+  let [appsInTaskBarContainer, setAppsInTaskBarContainer] = useState<
+    Array<JSX.Element>
+  >([]);
 
+  useEffect(() => {
+    let newAppsInTaskBarContainer: Array<JSX.Element> = [];
+
+    runningApp.forEach((component) => {
+      newAppsInTaskBarContainer.push(
+        <DesktopTaskBarApp key={`desktop-taskbar-app-${component.key}`} componentRelated={component} activeApp={activeApp} />
+      );
+    });
+
+    setAppsInTaskBarContainer(newAppsInTaskBarContainer);
+  }, [activeApp, runningApp]);
+  
   return (
     <div id="windows-task-bar">
       <div
@@ -25,13 +42,10 @@ function WindowsTaskBar({ runningApp } : Props) {
           size={"lg"}
         />
       </div>
-      <div id="windows-task-bar-apps-icons">
-
-      </div>
+      <div id="windows-task-bar-apps-icons">{appsInTaskBarContainer}</div>
       <div id="windows-task-bar-date">
-      <Date />
-    </div>
-
+        <Date />
+      </div>
     </div>
   );
 }

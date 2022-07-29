@@ -10,6 +10,7 @@ interface Props {
   setCloseApp: (param: string | null) => void;
   contentComponent: ReactElement;
   componentKey: string;
+  setActiveApp: (param: string) => void
 }
 
 interface Coordinates {
@@ -22,6 +23,7 @@ function WindowApp({
   setCloseApp,
   contentComponent,
   componentKey,
+  setActiveApp
 }: Props) {
   let [mouseIsPressed, setMouseIsPressed] = useState<boolean>(false);
 
@@ -42,7 +44,7 @@ function WindowApp({
 
   const handleMousePressed = (
     event: React.MouseEvent<HTMLDivElement>
-  ): void => {
+  ): void => {    
     if (event.type === "mousedown") {
       setMouseIsPressed(true);
       setMouseInitialPosition({
@@ -94,14 +96,18 @@ function WindowApp({
     [mouseNewPostion]
   );
 
-  document.onmousemove = handleMouseMovement;
-
   useEffect(() => {
     windowContainer.style.zIndex = `${zIndexValue}`;
   }, [zIndexValue]);
 
+  useEffect(() => {
+    windowContainer.focus();
+  }, []);
+
+  document.onmousemove = handleMouseMovement;
+
   return (
-    <div className="window-app" id={windowId} tabIndex={-1} onFocus={() => setZIndexValue(2)} onBlur={() => setZIndexValue(1)}>
+    <div className="window-app" id={windowId} tabIndex={-1} onFocus={() => {setActiveApp(componentKey); setZIndexValue(2)}} onBlur={() => setZIndexValue(1)}>
       <WindowBar
         windowTitle={windowTitle}
         setCloseApp={setCloseApp}

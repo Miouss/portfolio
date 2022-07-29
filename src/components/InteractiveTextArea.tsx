@@ -42,7 +42,7 @@ function InteractiveTextArea({windowId} : Props) {
   const keyHandler = useCallback(
     (event: KeyboardEvent) => {
       event.preventDefault();
-      console.log("slt");
+
       if (event.key === "Enter") {
         if (event.shiftKey) {
           updateText("");
