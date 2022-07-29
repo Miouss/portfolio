@@ -1,7 +1,6 @@
 
 import "../styles/DesktopTaskBar.css";
 import { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import DesktopTaskBarApp from "./DesktopTaskBarApp";
 import Date from "./DateTime";
@@ -36,11 +35,7 @@ function WindowsTaskBar({ runningApp, activeApp }: Props) {
         onMouseOver={() => switchWindowsIconColor("lightblue")}
         onMouseLeave={() => switchWindowsIconColor("white")}
       >
-        <FontAwesomeIcon
-          icon={["fab", "windows"]}
-          color={windowsIconColor}
-          size={"lg"}
-        />
+
       </div>
       <div id="windows-task-bar-apps-icons">{appsInTaskBarContainer}</div>
       <div id="windows-task-bar-date">

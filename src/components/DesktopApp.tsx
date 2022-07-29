@@ -1,5 +1,6 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ReactElement } from "react";
+
+import TerminalIcon from '@mui/icons-material/Terminal';
 
 import "../styles/DesktopApp.css";
 
@@ -7,9 +8,10 @@ interface Props {
   runningApp: Array<ReactElement> | null;
   setRunningApp: (param: Array<ReactElement>) => void;
   component: ReactElement;
+  appIcon: ReactElement
 }
 
-function DesktopApp({ runningApp, setRunningApp, component }: Props) {
+function DesktopApp({ runningApp, setRunningApp, component, appIcon }: Props) {
   const iconClass: string = `desktop-app-${component.props.iconName}`;
 
   function runApp() {
@@ -34,7 +36,7 @@ function DesktopApp({ runningApp, setRunningApp, component }: Props) {
   return (
     <div className={iconClass} onClick={runApp}>
       <span>
-        <FontAwesomeIcon icon={component.props.iconName} color="white" />
+        {appIcon}
       </span>
       <div>{component.props.appName}</div>
     </div>

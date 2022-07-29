@@ -1,6 +1,5 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-
+import TerminalIcon from '@mui/icons-material/Terminal';
 
 interface Props {
     componentRelated: React.ReactElement;
@@ -39,7 +38,7 @@ function DesktopTaskBarApp({ componentRelated, activeApp }: Props) {
       onMouseDown={(event) => event.preventDefault()}
     >
       <div style={{backgroundColor : bgColor}}>
-        <FontAwesomeIcon icon={componentRelated.props.iconName} />
+        <TerminalIcon sx={{color: "white"}} />
       </div>
       <div style={{width : lineWidth}} />
     </div>

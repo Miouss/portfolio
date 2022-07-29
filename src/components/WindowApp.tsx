@@ -10,7 +10,8 @@ interface Props {
   setCloseApp: (param: string | null) => void;
   contentComponent: ReactElement;
   componentKey: string;
-  setActiveApp: (param: string) => void
+  setActiveApp: (param: string) => void,
+  appIcon: ReactElement
 }
 
 interface Coordinates {
@@ -23,7 +24,8 @@ function WindowApp({
   setCloseApp,
   contentComponent,
   componentKey,
-  setActiveApp
+  setActiveApp,
+  appIcon
 }: Props) {
   let [mouseIsPressed, setMouseIsPressed] = useState<boolean>(false);
 
@@ -113,6 +115,7 @@ function WindowApp({
         setCloseApp={setCloseApp}
         componentKey={componentKey}
         handleMousePressed={handleMousePressed}
+        appIcon={appIcon}
       />
       {contentComponent}
     </div>

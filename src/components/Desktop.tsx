@@ -1,7 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import DesktopTaskBar from "./DesktopTaskBar";
 import DesktopApp from "./DesktopApp";
+
 import TerminalApp from "./TerminalApp";
+import TerminalIcon from '@mui/icons-material/Terminal';
+
 
 import "../styles/Desktop.css";
 import { ReactElement, useEffect, useState } from "react";
@@ -20,6 +23,7 @@ function Desktop() {
         runningApp={runningApp}
         setRunningApp={setRunningApp}
         component={component}
+        appIcon={component.props.appIcon}
       />
     );
   }
@@ -32,6 +36,7 @@ function Desktop() {
       iconName="terminal"
       appName="Terminal"
       setActiveApp={setActiveApp}
+      appIcon={<TerminalIcon />}
     />
   );
 
@@ -43,6 +48,7 @@ function Desktop() {
       iconName="terminal"
       appName="Dummy"
       setActiveApp={setActiveApp}
+      appIcon={<TerminalIcon />}
     />
   );
 

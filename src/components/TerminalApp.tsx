@@ -1,5 +1,6 @@
-import InteractiveTextArea from "./InteractiveTextArea";
+import TerminalAppContent from "./TerminalAppContent";
 import WindowApp from "./WindowApp";
+
 
 import "../styles/TerminalApp.css";
 
@@ -9,16 +10,18 @@ type Props = {
   iconName: string;
   appName: string;
   setActiveApp: (param: string) => void;
+  appIcon: React.ReactElement
 };
 
-function TerminalApp({ setCloseApp, componentKey, iconName, appName, setActiveApp }: Props) {
+function TerminalApp({ setCloseApp, componentKey, iconName, appName, setActiveApp, appIcon }: Props) {
   return (
     <WindowApp
       windowTitle="Terminal"
       setCloseApp={setCloseApp}
-      contentComponent={<InteractiveTextArea windowId={`window-app-${componentKey}`} />}
+      contentComponent={<TerminalAppContent windowId={`window-app-${componentKey}`} />}
       componentKey={componentKey}
       setActiveApp={setActiveApp}
+      appIcon={appIcon}
     />
   );
 }

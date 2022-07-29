@@ -8,7 +8,7 @@ import "../styles/InteractiveTextArea.css";
 interface Props {
   windowId: string
 }
-function InteractiveTextArea({windowId} : Props) {
+function TerminalAppContent({windowId} : Props) {
   let [text, updateText] = useState<string>("");
   let [content, updateContent] = useState<string>("Hello World");
   let [CSSAnimationName, updateCSSAnimationName] = useState<string>("blink");
@@ -90,4 +90,4 @@ function InteractiveTextArea({windowId} : Props) {
   );
 }
 
-export default InteractiveTextArea;
+export default TerminalAppContent;
