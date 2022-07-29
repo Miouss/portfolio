@@ -22,7 +22,7 @@ function DesktopTaskBarApp({ componentRelated, activeApp }: Props) {
         setBgColor("rgba(100, 100, 100, 0.6)");
         setLineWidth("45px");
     }else{
-        setBgColor("rgba(100, 100, 100, 0.2)");
+        setBgColor("black");
         setLineWidth("35px");   
     }
   }, [activeApp]);
