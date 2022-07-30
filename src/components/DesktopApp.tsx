@@ -1,7 +1,3 @@
-import { ReactElement } from "react";
-
-import TerminalIcon from '@mui/icons-material/Terminal';
-
 import "../styles/DesktopApp.css";
 
 import { openApp, useAppDispatch } from "../redux";
