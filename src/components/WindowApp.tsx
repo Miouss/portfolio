@@ -1,105 +1,47 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { ReactElement, useState, useEffect } from "react";
-
+import "../styles/WindowApp.css";
 import WindowBar from "./WindowBar";
 
-import "../styles/WindowApp.css";
+import { ReactElement, useEffect, useState } from "react";
+import { changeFocusedApp, RootState, useAppDispatch } from "../redux";
+import { useSelector } from "react-redux";
 
 interface Props {
-  windowTitle: string;
-  setCloseApp: (param: string | null) => void;
+  appName: string;
   contentComponent: ReactElement;
-  componentKey: string;
 }
 
-interface Coordinates {
-  x: number;
-  y: number;
-}
+function WindowApp({ appName, contentComponent }: Props) {
+  const isFocused = useSelector((state : RootState) => state.apps[appName].isFocused);
+  const dispatch = useAppDispatch();
 
-function WindowApp({
-  windowTitle,
-  setCloseApp,
-  contentComponent,
-  componentKey,
-}: Props) {
-  let [mouseIsPressed, setMouseIsPressed] = useState<boolean>(false);
+  let [zIndexValue, setZIndexValue] = useState<string>("1");
 
-  let [mouseInitialPosition, setMouseInitialPosition] = useState<Coordinates>({
-    x: 0,
-    y: 0,
-  });
-
-  let [mouseNewPostion, setMouseNewPostion] = useState<Coordinates>({
-    x: 0,
-    y: 0,
-  });
-
-  const handleMousePressed = (
-    event: React.MouseEvent<HTMLDivElement>
-  ): void => {
-    event.preventDefault();
-    if (event.type === "mousedown") {
-      setMouseIsPressed(true);
-      setMouseInitialPosition({
-        x: event.clientX,
-        y: event.clientY,
-      });
-    } else {
-      setMouseIsPressed(false);
+  useEffect(() => {
+    if(isFocused){
+      setZIndexValue("2");
+    }else{
+      setZIndexValue("1");
     }
-  };
+  }, [isFocused])
 
-  const handleMouseMovement = (event: MouseEvent): void => {
-    event.preventDefault();
-
-    if (mouseIsPressed) {
-      setMouseNewPostion({
-        x: event.clientX,
-        y: event.clientY,
-      });
-    }
-  };
-
-  useEffect(
-    function moveWindow() {
-      const windowContainer = document.querySelector(
-        ".window-app"
-      ) as HTMLElement;
-
-      const xMove = mouseInitialPosition.x - mouseNewPostion.x;
-      const yMove = mouseInitialPosition.y - mouseNewPostion.y;
-
-      const windowContainerScreenPosition =
-        windowContainer.getBoundingClientRect();
-
-      if (windowContainerScreenPosition.y >= -1) {
-        windowContainer.style.left = windowContainer.offsetLeft - xMove + "px";
-        windowContainer.style.top = windowContainer.offsetTop - yMove + "px";
-
-        setMouseInitialPosition({
-          x: mouseNewPostion.x,
-          y: mouseNewPostion.y,
-        });
-      } else {
-        windowContainer.style.top =
-          windowContainer.offsetTop - windowContainerScreenPosition.y + "px";
-        setMouseIsPressed(false);
-      }
-    },
-    [mouseNewPostion]
-  );
-
-  document.onmousemove = handleMouseMovement;
+  useEffect(() => {
+    dispatch(changeFocusedApp(appName));
+  }, []);
 
   return (
-    <div className="window-app">
-      <WindowBar
-        windowTitle={windowTitle}
-        setCloseApp={setCloseApp}
-        componentKey={componentKey}
-        handleMousePressed={handleMousePressed}
-      />
+    <div
+      id={`winapp${appName}`}
+      className="window-app"
+      tabIndex={-1}
+      onFocus={() => {
+        dispatch(changeFocusedApp(appName));
+      }}
+      style={{
+        zIndex: zIndexValue
+      }}
+    >
+      <WindowBar appName={appName} />
       {contentComponent}
     </div>
   );

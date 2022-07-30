@@ -1,60 +1,66 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import DesktopTaskBar from "./DesktopTaskBar";
-import DesktopApp from "./DesktopApp";
-import TerminalApp from "./TerminalApp";
-
 import "../styles/Desktop.css";
+
+import { getApp } from "./AppList";
+
+import { addApp, RootState, useAppDispatch } from "../redux";
+
 import { ReactElement, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
+import DesktopApp from "./DesktopApp";
+import DesktopTaskBar from "./DesktopTaskBar";
 
 function Desktop() {
-  let [displayApp, setDisplayApp] = useState<Array<ReactElement>>([]);
-  let [closeApp, setCloseApp] = useState<string | null>(null);
+  const apps = useSelector((state: RootState) => state.apps);
+  const dispatch = useAppDispatch();
 
-  let appsList: Array<ReactElement> = [];
+  let [runningApps, setRunningApps] = useState<Array<ReactElement>>([]);
 
-  function addApp(component: ReactElement) {
-    appsList.push(
-      <DesktopApp
-        key={`app${appsList.length}`}
-        displayApp={displayApp}
-        setDisplayApp={setDisplayApp}
-        component={component}
-      />
+  const showDesktopApp = () => {
+    let destopApp : Array<ReactElement> = [];
+
+    for (const appName in apps) {
+      destopApp.push(<DesktopApp key={appName} appName={appName} />);
+    };
+    
+    return destopApp;
+  };
+
+  useEffect(() => {
+    dispatch(
+      addApp({
+        "terminal" : {
+          isRunning: false,
+          isFocused: false,
+        },
+        "PDFViewer" : {
+          isRunning: false,
+          isFocused: false,
+        },  
+      })
     );
-  }
-
-  addApp(
-    <TerminalApp
-      key="terminal"
-      setCloseApp={setCloseApp}
-      componentKey="terminal"
-      iconName="terminal"
-      appName="Terminal"
-    />
-  );
+  }, []);
 
   useEffect(() => {
-    setCloseApp(null);
-  }, [displayApp]);
+    let runningAppsArray : Array<ReactElement> = [];
 
-  useEffect(() => {
-    let appsCurrentlyRunning: Array<ReactElement> = displayApp.filter(
-      (component: ReactElement) => {
-        return component.key !== closeApp;
+    for (const appName in apps) {
+      if(apps[appName].isRunning){
+        runningAppsArray.push(getApp(appName));
       }
-    );
+    }
 
-    console.log(appsList);
-
-    setDisplayApp(appsCurrentlyRunning);
-  }, [closeApp]);
+    setRunningApps(runningAppsArray);
+  }, [apps]);
 
   return (
     <div id="desktop">
       <div style={{ position: "absolute", top: "100px", left: "100px" }}>
-        {displayApp}
+        {runningApps}
       </div>
-      <div id="desktop-app-section">{appsList}</div>
+      <div id="desktop-app-section">{showDesktopApp()}</div>
+
       <DesktopTaskBar />
     </div>
   );

@@ -1,42 +1,27 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ReactElement } from "react";
+
+import TerminalIcon from '@mui/icons-material/Terminal';
 
 import "../styles/DesktopApp.css";
 
+import { openApp, useAppDispatch } from "../redux";
+import { getIcon } from "./AppList";
+
 interface Props {
-  displayApp: Array<ReactElement> | null;
-  setDisplayApp: (param: Array<ReactElement>) => void;
-  component: ReactElement;
+  appName : string
 }
 
-function DesktopApp({ displayApp, setDisplayApp, component }: Props) {
-  const iconClass: string = `desktop-app-${component.props.iconName}`;
-
-  function runApp() {
-    if (displayApp === null) {
-      setDisplayApp([component]);
-    } else {
-      let isAppRunning = false;
-
-      displayApp.forEach((componentStored) => {
-        if (componentStored.key === component.key) {
-          alert("App is already running");
-          isAppRunning = true;
-        }
-      });
-
-      if (!isAppRunning) {
-        setDisplayApp([...displayApp, component]);
-      }
-    }
-  }
+function DesktopApp({ appName }: Props) {
+  const dispatch = useAppDispatch();
 
   return (
-    <div className={iconClass} onClick={runApp}>
+    <div className="desktop-app-terminal" onClick={() => dispatch(openApp(appName))}>
       <span>
-        <FontAwesomeIcon icon={component.props.iconName} color="white" />
+        {
+          getIcon(appName)
+        }
       </span>
-      <div>{component.props.appName}</div>
+      <div>{appName}</div>
     </div>
   );
 }

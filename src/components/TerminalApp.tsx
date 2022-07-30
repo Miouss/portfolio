@@ -1,22 +1,14 @@
-import InteractiveTextArea from "./InteractiveTextArea";
+import TerminalAppContent from "./TerminalAppContent";
+
 import WindowApp from "./WindowApp";
 
 import "../styles/TerminalApp.css";
 
-type Props = {
-  setCloseApp: (param: string | null) => void;
-  componentKey: string;
-  iconName: string;
-  appName: string;
-};
-
-function TerminalApp({ setCloseApp, componentKey, iconName, appName }: Props) {
+function TerminalApp() {
   return (
     <WindowApp
-      windowTitle="Terminal"
-      setCloseApp={setCloseApp}
-      contentComponent={<InteractiveTextArea />}
-      componentKey={componentKey}
+      appName="terminal"
+      contentComponent={<TerminalAppContent appName="terminal" />}
     />
   );
 }

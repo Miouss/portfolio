@@ -1,12 +1,9 @@
-.window-app{
-    position: absolute;
+.terminal-app{
     display: flex;
     flex-direction: column;
 
-    border: solid black 1px;
+    border: solid black;
 
     width: 600px;
     height: 300px;
-
-    z-index: 2;
 }
