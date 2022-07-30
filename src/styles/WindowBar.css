@@ -3,39 +3,30 @@
     justify-content: center;
     align-items: center;
 
-    background: white;
+    flex-direction: row;
+
+    background-color: white;
 
     color: black;
 }
-.window-bar-app-icon{
-    margin: 0.5rem;
+
+.window-bar > :first-child{
+    margin: 0 0.5rem;
 }
 
-.window-bar-title{
-    flex: 1;
+.window-bar > :nth-child(2):hover{
+    cursor: default;
 }
 
-.window-bar-functionnal-icons{
-    display: flex;
+.window-bar > :last-child{
+    border: 0;
 }
 
-.window-bar-functionnal-icons > *{
-    padding: 0.5rem;
+.window-bar > :last-child > *{
+    border: none;
+    border-radius: 0;
 }
 
-.window-bar-functionnal-icons > *:hover{
+.window-bar > :last-child > *:hover{
     background-color: lightgray;
-    cursor: pointer;
-}
-
-.close-button:hover {
-    background-color: red;
-}
-
-.resize-button {
-    padding: 0.5rem;
-}
-
-.minimize-button {
-    padding: 0.5rem;
 }
