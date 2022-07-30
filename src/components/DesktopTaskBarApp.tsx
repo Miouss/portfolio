@@ -1,46 +1,35 @@
 import { useEffect, useState } from "react";
-import TerminalIcon from '@mui/icons-material/Terminal';
+import TerminalIcon from "@mui/icons-material/Terminal";
+import { useSelector } from "react-redux";
+import { changeFocusedApp, RootState, useAppDispatch } from "../redux";
 
 interface Props {
-    componentRelated: React.ReactElement;
-    activeApp: string | null;
+  appName: string;
 }
 
-function DesktopTaskBarApp({ componentRelated, activeApp }: Props) {
-    let [bgColor, setBgColor] = useState<string>("");
-    let [lineWidth, setLineWidth] = useState<string>("");
+function DesktopTaskBarApp({ appName }: Props) {
+  const app = useSelector((state: RootState) => state.apps[appName]);
+  const dispatch = useAppDispatch();
 
-  const handleClick = (windowsContainer: HTMLElement) => {
-    if (document.activeElement !== windowsContainer) {
-      windowsContainer.focus();
-    }
-  };
+  let [bgColor, setBgColor] = useState<string>("");
+  let [lineWidth, setLineWidth] = useState<string>("");
 
   useEffect(() => {
-    if(activeApp === componentRelated.key){
-        setBgColor("rgba(100, 100, 100, 0.6)");
-        setLineWidth("45px");
-    }else{
-        setBgColor("black");
-        setLineWidth("35px");   
+    if (app.isFocused) {
+      setBgColor("rgba(100, 100, 100, 0.6)");
+      setLineWidth("45px");
+    } else {
+      setBgColor("black");
+      setLineWidth("35px");
     }
-  }, [activeApp]);
+  }, [app.isFocused]);
 
   return (
-    <div
-      onClick={() =>
-        handleClick(
-          document.getElementById(
-            `window-app-${componentRelated.props.componentKey}`
-          ) as HTMLElement
-        )
-      }
-      onMouseDown={(event) => event.preventDefault()}
-    >
-      <div style={{backgroundColor : bgColor}}>
-        <TerminalIcon sx={{color: "white"}} />
+    <div onClick={() => dispatch(changeFocusedApp(appName))} onMouseDown={(event) => event.preventDefault()}>
+      <div style={{ backgroundColor: bgColor }}>
+        <TerminalIcon sx={{ color: "white" }} />
       </div>
-      <div style={{width : lineWidth}} />
+      <div style={{ width: lineWidth }} />
     </div>
   );
 }

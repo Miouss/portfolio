@@ -9,35 +9,103 @@ import MinimizeIcon from "@mui/icons-material/Minimize";
 
 import "../styles/WindowBar.css";
 
-import { ReactElement, useState } from "react";
+import { useEffect, useState } from "react";
+import { getIcon } from "./AppList";
+import { closeApp, useAppDispatch } from "../redux";
 
 interface Props {
-  windowTitle: string;
-  setCloseApp: (param: string | null) => void;
-  componentKey: string;
-  handleMousePressed: (event: React.MouseEvent<HTMLDivElement>) => void;
-  appIcon: ReactElement;
+  appName: string;
 }
 
-function WindowBar({
-  windowTitle,
-  setCloseApp,
-  componentKey,
-  handleMousePressed,
-  appIcon,
-}: Props) {
-  let [closeButtonColor, changeCloseButtonColor] = useState<string>("black");
-  let [bgColor, changeBgColor] = useState<string>("initial");
+interface Coordinates {
+  x: number;
+  y: number;
+}
 
+function WindowBar({ appName }: Props) {
+  const dispatch = useAppDispatch();
+
+  const windowContainer = document.querySelector(`#winapp${appName}`) as HTMLElement;
+
+  let [closeButtonColor, setCloseButtonColor] = useState<string>("black");
+  let [bgColor, setBgColor] = useState<string>("initial");
+
+  let [mouseIsPressed, setMouseIsPressed] = useState<boolean>(false);
+
+  let [mouseInitialPosition, setMouseInitialPosition] = useState<Coordinates>({
+    x: 0,
+    y: 0,
+  });
+
+  let [mouseNewPostion, setMouseNewPostion] = useState<Coordinates>({
+    x: 0,
+    y: 0,
+  });
+
+  const handleMousePressed = (
+    event: React.MouseEvent<HTMLDivElement>
+  ): void => {
+    if (event.type === "mousedown") {
+      setMouseIsPressed(true);
+      setMouseInitialPosition({
+        x: event.clientX,
+        y: event.clientY,
+      });
+    } else {
+      setMouseIsPressed(false);
+    }
+  };
+
+  const handleMouseMovement = (event: MouseEvent): void => {
+    event.preventDefault();
+
+    if (mouseIsPressed) {
+      setMouseNewPostion({
+        x: event.clientX,
+        y: event.clientY,
+      });
+    }
+  };
+
+  useEffect(
+    function moveWindow() {
+      if (windowContainer !== null) {
+        const xMove = mouseInitialPosition.x - mouseNewPostion.x;
+        const yMove = mouseInitialPosition.y - mouseNewPostion.y;
+
+        const windowContainerScreenPosition =
+          windowContainer?.getBoundingClientRect();
+
+        if (windowContainerScreenPosition.y >= -1) {
+          windowContainer.style.left =
+            windowContainer.offsetLeft - xMove + "px";
+          windowContainer.style.top = windowContainer.offsetTop - yMove + "px";
+
+          setMouseInitialPosition({
+            x: mouseNewPostion.x,
+            y: mouseNewPostion.y,
+          });
+        } else {
+          windowContainer.style.top =
+            windowContainer.offsetTop - windowContainerScreenPosition.y + "px";
+          setMouseIsPressed(false);
+        }
+      }
+    },
+    [mouseNewPostion]
+  );
+
+  document.onmousemove = handleMouseMovement;
+  
   return (
     <div className="window-bar">
-      {appIcon}
-      <Typography 
-        style={{flexGrow : 1}}
+      {getIcon(appName)}
+      <Typography
+        style={{ flexGrow: 1 }}
         onMouseDown={handleMousePressed}
         onMouseUp={handleMousePressed}
       >
-        {windowTitle}
+        {appName}
       </Typography>
 
       <ButtonGroup variant="outlined" color="inherit">
@@ -46,14 +114,17 @@ function WindowBar({
         </Button>
         <Button>
           <CropFreeIcon />
-        </Button >
-        <Button style={{ backgroundColor: bgColor}}
-          onClick={() => setCloseApp(componentKey)}
+        </Button>
+        <Button
+          style={{ backgroundColor: bgColor }}
+          onClick={() => dispatch(closeApp(appName))}
           onMouseOver={() => {
-            changeBgColor("red"); changeCloseButtonColor("white")
+            setBgColor("red");
+            setCloseButtonColor("white");
           }}
           onMouseLeave={() => {
-            changeBgColor("initial"); changeCloseButtonColor("initial") 
+            setBgColor("initial");
+            setCloseButtonColor("initial");
           }}
         >
           <CloseIcon style={{ color: closeButtonColor }} />

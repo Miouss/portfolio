@@ -1,122 +1,47 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { ReactElement, useState, useEffect } from "react";
-
+import "../styles/WindowApp.css";
 import WindowBar from "./WindowBar";
 
-import "../styles/WindowApp.css";
+import { ReactElement, useEffect, useState } from "react";
+import { changeFocusedApp, RootState, useAppDispatch } from "../redux";
+import { useSelector } from "react-redux";
 
 interface Props {
-  windowTitle: string;
-  setCloseApp: (param: string | null) => void;
+  appName: string;
   contentComponent: ReactElement;
-  componentKey: string;
-  setActiveApp: (param: string) => void,
-  appIcon: ReactElement
 }
 
-interface Coordinates {
-  x: number;
-  y: number;
-}
+function WindowApp({ appName, contentComponent }: Props) {
+  const isFocused = useSelector((state : RootState) => state.apps[appName].isFocused);
+  const dispatch = useAppDispatch();
 
-function WindowApp({
-  windowTitle,
-  setCloseApp,
-  contentComponent,
-  componentKey,
-  setActiveApp,
-  appIcon
-}: Props) {
-  let [mouseIsPressed, setMouseIsPressed] = useState<boolean>(false);
-
-  let [mouseInitialPosition, setMouseInitialPosition] = useState<Coordinates>({
-    x: 0,
-    y: 0,
-  });
-
-  let [mouseNewPostion, setMouseNewPostion] = useState<Coordinates>({
-    x: 0,
-    y: 0,
-  });
-
-  let [zIndexValue, setZIndexValue] = useState<number>(1);
-
-  const windowId = `window-app-${componentKey}`;
-  let windowContainer = document.querySelector('#' + windowId) as HTMLDivElement;
-
-  const handleMousePressed = (
-    event: React.MouseEvent<HTMLDivElement>
-  ): void => {    
-    if (event.type === "mousedown") {
-      setMouseIsPressed(true);
-      setMouseInitialPosition({
-        x: event.clientX,
-        y: event.clientY,
-      });
-    } else {
-      setMouseIsPressed(false);
-    }
-  };
-
-  const handleMouseMovement = (event: MouseEvent): void => {
-    event.preventDefault();
-
-    if (mouseIsPressed) {
-      setMouseNewPostion({
-        x: event.clientX,
-        y: event.clientY,
-      });
-    }
-  };
-
-  useEffect(
-    function moveWindow() {
-      windowContainer = document.querySelector(
-        '#' + windowId
-      ) as HTMLDivElement;
-
-      const xMove = mouseInitialPosition.x - mouseNewPostion.x;
-      const yMove = mouseInitialPosition.y - mouseNewPostion.y;
-
-      const windowContainerScreenPosition =
-        windowContainer.getBoundingClientRect();
-
-      if (windowContainerScreenPosition.y >= -1) {
-        windowContainer.style.left = windowContainer.offsetLeft - xMove + "px";
-        windowContainer.style.top = windowContainer.offsetTop - yMove + "px";
-
-        setMouseInitialPosition({
-          x: mouseNewPostion.x,
-          y: mouseNewPostion.y,
-        });
-      } else {
-        windowContainer.style.top =
-          windowContainer.offsetTop - windowContainerScreenPosition.y + "px";
-        setMouseIsPressed(false);
-      }
-    },
-    [mouseNewPostion]
-  );
+  let [zIndexValue, setZIndexValue] = useState<string>("1");
 
   useEffect(() => {
-    windowContainer.style.zIndex = `${zIndexValue}`;
-  }, [zIndexValue]);
+    if(isFocused){
+      setZIndexValue("2");
+    }else{
+      setZIndexValue("1");
+    }
+  }, [isFocused])
 
   useEffect(() => {
-    windowContainer.focus();
+    dispatch(changeFocusedApp(appName));
   }, []);
 
-  document.onmousemove = handleMouseMovement;
-
   return (
-    <div className="window-app" id={windowId} tabIndex={-1} onFocus={() => {setActiveApp(componentKey); setZIndexValue(2)}} onBlur={() => setZIndexValue(1)}>
-      <WindowBar
-        windowTitle={windowTitle}
-        setCloseApp={setCloseApp}
-        componentKey={componentKey}
-        handleMousePressed={handleMousePressed}
-        appIcon={appIcon}
-      />
+    <div
+      id={`winapp${appName}`}
+      className="window-app"
+      tabIndex={-1}
+      onFocus={() => {
+        dispatch(changeFocusedApp(appName));
+      }}
+      style={{
+        zIndex: zIndexValue
+      }}
+    >
+      <WindowBar appName={appName} />
       {contentComponent}
     </div>
   );

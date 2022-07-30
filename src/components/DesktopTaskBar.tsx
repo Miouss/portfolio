@@ -4,29 +4,28 @@ import { useEffect, useState } from "react";
 
 import DesktopTaskBarApp from "./DesktopTaskBarApp";
 import Date from "./DateTime";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux";
 
-interface Props {
-  runningApp: Array<React.ReactElement>;
-  activeApp: string | null;
-}
-
-function WindowsTaskBar({ runningApp, activeApp }: Props) {
+function DesktopTaskBar() {
   let [windowsIconColor, switchWindowsIconColor] = useState<string>("white");
   let [appsInTaskBarContainer, setAppsInTaskBarContainer] = useState<
     Array<JSX.Element>
   >([]);
 
+  const apps = useSelector((state: RootState) => state.apps);
+
   useEffect(() => {
     let newAppsInTaskBarContainer: Array<JSX.Element> = [];
 
-    runningApp.forEach((component) => {
-      newAppsInTaskBarContainer.push(
-        <DesktopTaskBarApp key={`desktop-taskbar-app-${component.key}`} componentRelated={component} activeApp={activeApp} />
-      );
-    });
+    for(let appName in apps){
+      if(apps[appName].isRunning){
+        newAppsInTaskBarContainer.push(<DesktopTaskBarApp appName={appName} />)
+      }
+    }
 
     setAppsInTaskBarContainer(newAppsInTaskBarContainer);
-  }, [activeApp, runningApp]);
+  }, [apps]);
   
   return (
     <div id="windows-task-bar">
@@ -45,4 +44,4 @@ function WindowsTaskBar({ runningApp, activeApp }: Props) {
   );
 }
 
-export default WindowsTaskBar;
+export default DesktopTaskBar;

@@ -6,9 +6,10 @@ import { delay } from "../assets/usefulFunction";
 import "../styles/InteractiveTextArea.css";
 
 interface Props {
-  windowId: string
+  appName: string
 }
-function TerminalAppContent({windowId} : Props) {
+
+function TerminalAppContent({appName} : Props) {
   let [text, updateText] = useState<string>("");
   let [content, updateContent] = useState<string>("Hello World");
   let [CSSAnimationName, updateCSSAnimationName] = useState<string>("blink");
@@ -71,7 +72,7 @@ function TerminalAppContent({windowId} : Props) {
 
   useEffect(
     function resetEventListener() {
-      const windowContainer = (document.querySelector('#' + windowId) as HTMLDivElement);
+      const windowContainer = (document.querySelector(`#winapp${appName}`) as HTMLDivElement);
 
       if(windowContainer !== null){
         windowContainer.addEventListener("keydown", keyHandler);

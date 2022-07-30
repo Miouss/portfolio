@@ -4,41 +4,24 @@ import TerminalIcon from '@mui/icons-material/Terminal';
 
 import "../styles/DesktopApp.css";
 
+import { openApp, useAppDispatch } from "../redux";
+import { getIcon } from "./AppList";
+
 interface Props {
-  runningApp: Array<ReactElement> | null;
-  setRunningApp: (param: Array<ReactElement>) => void;
-  component: ReactElement;
-  appIcon: ReactElement
+  appName : string
 }
 
-function DesktopApp({ runningApp, setRunningApp, component, appIcon }: Props) {
-  const iconClass: string = `desktop-app-${component.props.iconName}`;
-
-  function runApp() {
-    if (runningApp === null) {
-      setRunningApp([component]);
-    } else {
-      let isAppRunning = false;
-
-      runningApp.forEach((componentStored) => {
-        if (componentStored.key === component.key) {
-          alert("App is already running");
-          isAppRunning = true;
-        }
-      });
-
-      if (!isAppRunning) {
-        setRunningApp([...runningApp, component]);
-      }
-    }
-  }
+function DesktopApp({ appName }: Props) {
+  const dispatch = useAppDispatch();
 
   return (
-    <div className={iconClass} onClick={runApp}>
+    <div className="desktop-app-terminal" onClick={() => dispatch(openApp(appName))}>
       <span>
-        {appIcon}
+        {
+          getIcon(appName)
+        }
       </span>
-      <div>{component.props.appName}</div>
+      <div>{appName}</div>
     </div>
   );
 }
