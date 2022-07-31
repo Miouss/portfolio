@@ -1,4 +1,3 @@
-
 import "../styles/DesktopTaskBar.css";
 import { useEffect, useState } from "react";
 
@@ -6,6 +5,8 @@ import DesktopTaskBarApp from "./DesktopTaskBarApp";
 import Date from "./DateTime";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux";
+import { SvgIcon } from "@mui/material";
+import { windowsIcon } from "./AppList";
 
 function DesktopTaskBar() {
   let [windowsIconColor, switchWindowsIconColor] = useState<string>("white");
@@ -18,15 +19,17 @@ function DesktopTaskBar() {
   useEffect(() => {
     let newAppsInTaskBarContainer: Array<JSX.Element> = [];
 
-    for(let appName in apps){
-      if(apps[appName].isRunning){
-        newAppsInTaskBarContainer.push(<DesktopTaskBarApp key={`dtbapp${appName}`} appName={appName} />)
+    for (let appName in apps) {
+      if (apps[appName].isRunning) {
+        newAppsInTaskBarContainer.push(
+          <DesktopTaskBarApp key={`dtbapp${appName}`} appName={appName} />
+        );
       }
     }
 
     setAppsInTaskBarContainer(newAppsInTaskBarContainer);
   }, [apps]);
-  
+
   return (
     <div id="windows-task-bar">
       <div
@@ -34,7 +37,7 @@ function DesktopTaskBar() {
         onMouseOver={() => switchWindowsIconColor("lightblue")}
         onMouseLeave={() => switchWindowsIconColor("white")}
       >
-
+        <SvgIcon>{windowsIcon}</SvgIcon>
       </div>
       <div id="windows-task-bar-apps-icons">{appsInTaskBarContainer}</div>
       <div id="windows-task-bar-date">
