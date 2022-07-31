@@ -60,7 +60,6 @@ function WindowBar({ appName }: Props) {
 
   const handleMouseMovement = (event: MouseEvent): void => {
     event.preventDefault();
-    console.log("slt " + appName);
 
     if (mouseIsPressed) {
       setMouseNewPostion({
