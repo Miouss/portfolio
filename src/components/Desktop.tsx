@@ -18,35 +18,39 @@ function Desktop() {
   let [runningApps, setRunningApps] = useState<Array<ReactElement>>([]);
 
   const showDesktopApp = () => {
-    let destopApp : Array<ReactElement> = [];
+    let destopApp: Array<ReactElement> = [];
 
     for (const appName in apps) {
       destopApp.push(<DesktopApp key={appName} appName={appName} />);
-    };
-    
+    }
+
     return destopApp;
   };
 
   useEffect(() => {
     dispatch(
       addApp({
-        "terminal" : {
+        terminal: {
           isRunning: false,
           isFocused: false,
         },
-        "PDFViewer" : {
+        PDFViewer: {
           isRunning: false,
           isFocused: false,
-        },  
+        },
       })
     );
+
+    document.onselectstart = () => {
+      return false;
+    };
   }, []);
 
   useEffect(() => {
-    let runningAppsArray : Array<ReactElement> = [];
+    let runningAppsArray: Array<ReactElement> = [];
 
     for (const appName in apps) {
-      if(apps[appName].isRunning){
+      if (apps[appName].isRunning) {
         runningAppsArray.push(getApp(appName));
       }
     }
