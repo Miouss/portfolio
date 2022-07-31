@@ -33,10 +33,12 @@ function Desktop() {
         terminal: {
           isRunning: false,
           isFocused: false,
+          isMinimized: false
         },
         PDFViewer: {
           isRunning: false,
           isFocused: false,
+          isMinimized: false
         },
       })
     );

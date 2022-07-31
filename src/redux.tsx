@@ -5,7 +5,8 @@ import { PayloadAction } from "@reduxjs/toolkit";
 export interface RunningAppType {
   [app: string] : {
     isRunning: boolean,
-    isFocused: boolean
+    isFocused: boolean,
+    isMinimized: boolean
   }
 }
 
