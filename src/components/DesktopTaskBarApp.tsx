@@ -13,19 +13,35 @@ function DesktopTaskBarApp({ appName }: Props) {
 
   let [bgColor, setBgColor] = useState<string>("");
   let [lineWidth, setLineWidth] = useState<string>("");
+  let [opacityBgColorBoost, setOpacityBgColorBoost] = useState<number>(0);
+
+  const handleMouseOver = (event: React.MouseEvent): void => {
+    event.type === "mouseenter"
+      ? setOpacityBgColorBoost(0.4)
+      : setOpacityBgColorBoost(0);
+  };
 
   useEffect(() => {
-    if (app.isFocused) {
-      setBgColor("rgba(100, 100, 100, 0.6)");
+    if (opacityBgColorBoost === 0.4 && !app.isFocused) {
       setLineWidth("45px");
-    } else {
-      setBgColor("black");
-      setLineWidth("35px");
+    }else{
+      if (app.isFocused) {
+        setBgColor(`rgba(100, 100, 100, ${0.4 + opacityBgColorBoost})`);
+        setLineWidth("45px");
+      } else {
+        setBgColor(`rgba(100, 100, 100, ${opacityBgColorBoost})`);
+        setLineWidth("35px");
+      }
     }
-  }, [app.isFocused]);
+  }, [opacityBgColorBoost, app.isFocused]);
 
   return (
-    <div onClick={() => dispatch(changeFocusedApp(appName))} onMouseDown={(event) => event.preventDefault()}>
+    <div
+      onClick={() => dispatch(changeFocusedApp(appName))}
+      onMouseDown={(event) => event.preventDefault()}
+      onMouseEnter={(event) => handleMouseOver(event)}
+      onMouseLeave={(event) => handleMouseOver(event)}
+    >
       <div style={{ backgroundColor: bgColor }}>
         <TerminalIcon sx={{ color: "white" }} />
       </div>
