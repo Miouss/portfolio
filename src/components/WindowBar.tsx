@@ -11,7 +11,8 @@ import "../styles/WindowBar.css";
 
 import { useEffect, useState } from "react";
 import { getIcon } from "./AppList";
-import { closeApp, useAppDispatch } from "../redux";
+import { closeApp, minimizeApp, RootState, useAppDispatch } from "../redux";
+import { useSelector } from "react-redux";
 
 interface Props {
   appName: string;
@@ -23,6 +24,9 @@ interface Coordinates {
 }
 
 function WindowBar({ appName }: Props) {
+  const isMinimized = useSelector(
+    (state: RootState) => state.apps[appName].isMinimized
+  );
   const dispatch = useAppDispatch();
 
   const windowContainer = document.querySelector(
@@ -69,6 +73,16 @@ function WindowBar({ appName }: Props) {
     }
   };
 
+  useEffect(() => {
+    if (windowContainer !== null) {
+      if (isMinimized) {
+        windowContainer.style.display = "none";
+      } else {
+        windowContainer.style.display = "flex";
+      }
+    }
+  }, [isMinimized]);
+
   useEffect(
     function moveWindow() {
       if (windowContainer !== null) {
@@ -107,7 +121,7 @@ function WindowBar({ appName }: Props) {
       };
     }
   }, [mouseIsPressed]);
-  
+
   return (
     <div className="window-bar">
       {getIcon(appName)}
@@ -120,7 +134,7 @@ function WindowBar({ appName }: Props) {
       </Typography>
 
       <ButtonGroup variant="outlined" color="inherit">
-        <Button>
+        <Button onClick={() => dispatch(minimizeApp(appName))}>
           <MinimizeIcon />
         </Button>
         <Button>
