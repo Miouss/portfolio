@@ -25,7 +25,9 @@ interface Coordinates {
 function WindowBar({ appName }: Props) {
   const dispatch = useAppDispatch();
 
-  const windowContainer = document.querySelector(`#winapp${appName}`) as HTMLElement;
+  const windowContainer = document.querySelector(
+    `#winapp${appName}`
+  ) as HTMLElement;
 
   let [closeButtonColor, setCloseButtonColor] = useState<string>("black");
   let [bgColor, setBgColor] = useState<string>("initial");
@@ -58,6 +60,7 @@ function WindowBar({ appName }: Props) {
 
   const handleMouseMovement = (event: MouseEvent): void => {
     event.preventDefault();
+    console.log("slt " + appName);
 
     if (mouseIsPressed) {
       setMouseNewPostion({
@@ -95,7 +98,16 @@ function WindowBar({ appName }: Props) {
     [mouseNewPostion]
   );
 
-  document.onmousemove = handleMouseMovement;
+  useEffect(() => {
+    if (mouseIsPressed) {
+      document.onmousemove = handleMouseMovement;
+      return () => {
+        document.onmousemove = () => {
+          return false;
+        };
+      };
+    }
+  }, [mouseIsPressed]);
   
   return (
     <div className="window-bar">
