@@ -3,7 +3,7 @@ import "../styles/WindowApp.css";
 import WindowBar from "./WindowBar";
 
 import { ReactElement, useEffect, useState } from "react";
-import { changeFocusedApp, RootState, useAppDispatch } from "../redux";
+import { focusApp, RootState, useAppDispatch } from "../redux";
 import { useSelector } from "react-redux";
 
 interface Props {
@@ -26,7 +26,7 @@ function WindowApp({ appName, contentComponent }: Props) {
   }, [isFocused])
 
   useEffect(() => {
-    dispatch(changeFocusedApp(appName));
+    dispatch(focusApp(appName));
   }, []);
 
   return (
@@ -35,7 +35,7 @@ function WindowApp({ appName, contentComponent }: Props) {
       className="window-app"
       tabIndex={-1}
       onFocus={() => {
-        dispatch(changeFocusedApp(appName));
+        dispatch(focusApp(appName));
       }}
       style={{
         zIndex: zIndexValue
