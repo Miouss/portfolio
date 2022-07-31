@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import TerminalIcon from "@mui/icons-material/Terminal";
 import { useSelector } from "react-redux";
-import { changeFocusedApp, RootState, useAppDispatch } from "../redux";
+import { focusApp, minimizeApp, RootState, useAppDispatch } from "../redux";
 
 interface Props {
   appName: string;
@@ -21,23 +21,28 @@ function DesktopTaskBarApp({ appName }: Props) {
       : setOpacityBgColorBoost(0);
   };
 
+  const handleClick = () => {
+    app.isFocused
+      ? dispatch(minimizeApp(appName))
+      : dispatch(focusApp(appName));
+  };
+
   useEffect(() => {
     if (opacityBgColorBoost === 0.4 && !app.isFocused) {
+      setBgColor(`rgba(100, 100, 100, ${opacityBgColorBoost})`);
       setLineWidth("45px");
-    }else{
-      if (app.isFocused) {
-        setBgColor(`rgba(100, 100, 100, ${0.4 + opacityBgColorBoost})`);
-        setLineWidth("45px");
-      } else {
-        setBgColor(`rgba(100, 100, 100, ${opacityBgColorBoost})`);
-        setLineWidth("35px");
-      }
+    } else if (app.isFocused) {
+      setBgColor(`rgba(100, 100, 100, ${0.4 + opacityBgColorBoost})`);
+      setLineWidth("45px");
+    } else {
+      setBgColor(`rgba(100, 100, 100, ${opacityBgColorBoost})`);
+      setLineWidth("35px");
     }
   }, [opacityBgColorBoost, app.isFocused]);
 
   return (
     <div
-      onClick={() => dispatch(changeFocusedApp(appName))}
+      onClick={handleClick}
       onMouseDown={(event) => event.preventDefault()}
       onMouseEnter={(event) => handleMouseOver(event)}
       onMouseLeave={(event) => handleMouseOver(event)}
