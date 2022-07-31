@@ -19,24 +19,30 @@ const apps = createSlice({
     },
     openApp: (state, action: PayloadAction<string>) => {
         state[action.payload].isRunning = true;
-          changeFocusedApp(action.payload);
+          focusApp(action.payload);
         },
     closeApp: (state, action: PayloadAction<string>) => {
       state[action.payload].isRunning = false;
     },
-    changeFocusedApp: (state, action: PayloadAction<string>) => {
+    focusApp: (state, action: PayloadAction<string>) => {
       for(const app in state){
         if(action.payload === app){
           state[app].isFocused = true;
+          state[app].isMinimized = false;
         }else{
           state[app].isFocused = false;
         }
       }
+    },
+    minimizeApp: (state, action: PayloadAction<string>) => {
+        state[action.payload].isMinimized = true;
+        state[action.payload].isFocused = false;
+      }
     }
   },
-});
+);
 
-export const { addApp, openApp, closeApp, changeFocusedApp } = apps.actions;
+export const { addApp, openApp, closeApp, focusApp, minimizeApp } = apps.actions;
 
 export type RootState = ReturnType<typeof store.getState>;
 
