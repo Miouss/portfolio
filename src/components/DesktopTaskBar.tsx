@@ -20,7 +20,7 @@ function DesktopTaskBar() {
 
     for(let appName in apps){
       if(apps[appName].isRunning){
-        newAppsInTaskBarContainer.push(<DesktopTaskBarApp appName={appName} />)
+        newAppsInTaskBarContainer.push(<DesktopTaskBarApp key={`dtbapp${appName}`} appName={appName} />)
       }
     }
 
