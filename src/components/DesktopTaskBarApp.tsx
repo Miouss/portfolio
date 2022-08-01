@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import TerminalIcon from "@mui/icons-material/Terminal";
 import { useSelector } from "react-redux";
 import { focusApp, minimizeApp, RootState, useAppDispatch } from "../redux";
+import { AppIcon } from "./AppList";
 
 interface Props {
   appName: string;
@@ -11,9 +11,9 @@ function DesktopTaskBarApp({ appName }: Props) {
   const app = useSelector((state: RootState) => state.apps[appName]);
   const dispatch = useAppDispatch();
 
-  let [bgColor, setBgColor] = useState<string>("");
-  let [lineWidth, setLineWidth] = useState<string>("");
-  let [opacityBgColorBoost, setOpacityBgColorBoost] = useState<number>(0);
+  const [bgColor, setBgColor] = useState<string>("");
+  const [lineWidth, setLineWidth] = useState<string>("");
+  const [opacityBgColorBoost, setOpacityBgColorBoost] = useState<number>(0);
 
   const handleMouseOver = (event: React.MouseEvent): void => {
     event.type === "mouseenter"
@@ -48,7 +48,7 @@ function DesktopTaskBarApp({ appName }: Props) {
       onMouseLeave={(event) => handleMouseOver(event)}
     >
       <div style={{ backgroundColor: bgColor }}>
-        <TerminalIcon sx={{ color: "white" }} />
+        <AppIcon appName={appName} />
       </div>
       <div style={{ width: lineWidth }} />
     </div>

@@ -1,0 +1,23 @@
+.pdf-viewer-app-content{
+    background-color: white;
+    padding: 1rem;
+}
+
+#cv-container{
+    position: relative;
+
+}
+
+#cv-preview{
+    border: solid black 1px;
+    border-radius: 2rem;
+    width: 300px;
+
+    height: auto;
+}
+
+#cv-download-button{
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1.5rem;
+}

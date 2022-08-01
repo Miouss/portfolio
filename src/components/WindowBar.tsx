@@ -10,53 +10,31 @@ import MinimizeIcon from "@mui/icons-material/Minimize";
 import "../styles/WindowBar.css";
 
 import { useEffect, useState } from "react";
-import { getIcon } from "./AppList";
+import { AppIcon } from "./AppList";
 import { closeApp, minimizeApp, RootState, useAppDispatch } from "../redux";
 import { useSelector } from "react-redux";
+import { Co2Sharp } from "@mui/icons-material";
 
 interface Props {
   appName: string;
+  windowAppContainer: HTMLElement | null;
 }
 
-interface Coordinates {
-  x: number;
-  y: number;
-}
-
-function WindowBar({ appName }: Props) {
+function WindowBar({ appName, windowAppContainer }: Props) {
   const isMinimized = useSelector(
     (state: RootState) => state.apps[appName].isMinimized
   );
   const dispatch = useAppDispatch();
 
-  const windowContainer = document.querySelector(
-    `#winapp${appName}`
-  ) as HTMLElement;
+  const [closeButtonColor, setCloseButtonColor] = useState<string>("black");
+  const [bgColor, setBgColor] = useState<string>("initial");
 
-  let [closeButtonColor, setCloseButtonColor] = useState<string>("black");
-  let [bgColor, setBgColor] = useState<string>("initial");
-
-  let [mouseIsPressed, setMouseIsPressed] = useState<boolean>(false);
-
-  let [mouseInitialPosition, setMouseInitialPosition] = useState<Coordinates>({
-    x: 0,
-    y: 0,
-  });
-
-  let [mouseNewPostion, setMouseNewPostion] = useState<Coordinates>({
-    x: 0,
-    y: 0,
-  });
-
+  const [mouseIsPressed, setMouseIsPressed] = useState<boolean>(false);
   const handleMousePressed = (
     event: React.MouseEvent<HTMLDivElement>
   ): void => {
     if (event.type === "mousedown") {
       setMouseIsPressed(true);
-      setMouseInitialPosition({
-        x: event.clientX,
-        y: event.clientY,
-      });
     } else {
       setMouseIsPressed(false);
     }
@@ -66,56 +44,40 @@ function WindowBar({ appName }: Props) {
     event.preventDefault();
 
     if (mouseIsPressed) {
-      setMouseNewPostion({
-        x: event.clientX,
-        y: event.clientY,
-      });
+      windowAppContainer!.style.left = windowAppContainer!.offsetLeft + event.movementX + "px";
+      windowAppContainer!.style.top = windowAppContainer!.offsetTop + event.movementY + "px";
+
     }
   };
 
   useEffect(() => {
-    if (windowContainer !== null) {
+    if (windowAppContainer !== null) {
       if (isMinimized) {
-        windowContainer.style.display = "none";
+        windowAppContainer.style.display = "none";
       } else {
-        windowContainer.style.display = "flex";
+        windowAppContainer.style.display = "flex";
       }
     }
   }, [isMinimized]);
 
-  useEffect(
-    function moveWindow() {
-      if (windowContainer !== null) {
-        const xMove = mouseInitialPosition.x - mouseNewPostion.x;
-        const yMove = mouseInitialPosition.y - mouseNewPostion.y;
-
-        const windowContainerScreenPosition =
-          windowContainer?.getBoundingClientRect();
-
-        if (windowContainerScreenPosition.y >= -1) {
-          windowContainer.style.left =
-            windowContainer.offsetLeft - xMove + "px";
-          windowContainer.style.top = windowContainer.offsetTop - yMove + "px";
-
-          setMouseInitialPosition({
-            x: mouseNewPostion.x,
-            y: mouseNewPostion.y,
-          });
-        } else {
-          windowContainer.style.top =
-            windowContainer.offsetTop - windowContainerScreenPosition.y + "px";
-          setMouseIsPressed(false);
-        }
-      }
-    },
-    [mouseNewPostion]
-  );
-
   useEffect(() => {
     if (mouseIsPressed) {
       document.onmousemove = handleMouseMovement;
+      document.onmouseup = () => setMouseIsPressed(false);
+
       return () => {
+          const windonwPos = windowAppContainer!.getBoundingClientRect();
+          if (windonwPos.y < 0) {
+            windowAppContainer!.style.top = -windowAppContainer!.parentElement!.offsetTop + "px";
+          }else if(windonwPos.y > 880){
+            windowAppContainer!.style.top = -windowAppContainer!.parentElement!.offsetTop + 600 +"px";
+          }
+
         document.onmousemove = () => {
+          return false;
+        };
+
+        document.onmouseup = () => {
           return false;
         };
       };
@@ -124,12 +86,8 @@ function WindowBar({ appName }: Props) {
 
   return (
     <div className="window-bar">
-      {getIcon(appName)}
-      <Typography
-        style={{ flexGrow: 1 }}
-        onMouseDown={handleMousePressed}
-        onMouseUp={handleMousePressed}
-      >
+      <AppIcon appName={appName} />
+      <Typography style={{ flexGrow: 1 }} onMouseDown={handleMousePressed}>
         {appName}
       </Typography>
 
