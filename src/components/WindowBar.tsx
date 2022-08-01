@@ -15,7 +15,8 @@ import { closeApp, minimizeApp, RootState, useAppDispatch } from "../redux";
 import { useSelector } from "react-redux";
 
 interface Props {
-  appName: string;
+  appName: string; 
+  windowAppContainer: HTMLElement | null
 }
 
 interface Coordinates {
@@ -23,15 +24,11 @@ interface Coordinates {
   y: number;
 }
 
-function WindowBar({ appName }: Props) {
+function WindowBar({ appName, windowAppContainer }: Props) {
   const isMinimized = useSelector(
     (state: RootState) => state.apps[appName].isMinimized
   );
   const dispatch = useAppDispatch();
-
-  const windowContainer = document.querySelector(
-    `#winapp${appName}`
-  ) as HTMLElement;
 
   let [closeButtonColor, setCloseButtonColor] = useState<string>("black");
   let [bgColor, setBgColor] = useState<string>("initial");
@@ -74,36 +71,36 @@ function WindowBar({ appName }: Props) {
   };
 
   useEffect(() => {
-    if (windowContainer !== null) {
+    if (windowAppContainer !== null) {
       if (isMinimized) {
-        windowContainer.style.display = "none";
+        windowAppContainer.style.display = "none";
       } else {
-        windowContainer.style.display = "flex";
+        windowAppContainer.style.display = "flex";
       }
     }
   }, [isMinimized]);
 
   useEffect(
     function moveWindow() {
-      if (windowContainer !== null) {
+      if (windowAppContainer !== null) {
         const xMove = mouseInitialPosition.x - mouseNewPostion.x;
         const yMove = mouseInitialPosition.y - mouseNewPostion.y;
 
-        const windowContainerScreenPosition =
-          windowContainer?.getBoundingClientRect();
+        const windowAppContainerScreenPosition =
+          windowAppContainer?.getBoundingClientRect();
 
-        if (windowContainerScreenPosition.y >= -1) {
-          windowContainer.style.left =
-            windowContainer.offsetLeft - xMove + "px";
-          windowContainer.style.top = windowContainer.offsetTop - yMove + "px";
+        if (windowAppContainerScreenPosition.y >= -1) {
+          windowAppContainer.style.left =
+            windowAppContainer.offsetLeft - xMove + "px";
+          windowAppContainer.style.top = windowAppContainer.offsetTop - yMove + "px";
 
           setMouseInitialPosition({
             x: mouseNewPostion.x,
             y: mouseNewPostion.y,
           });
         } else {
-          windowContainer.style.top =
-            windowContainer.offsetTop - windowContainerScreenPosition.y + "px";
+          windowAppContainer.style.top =
+            windowAppContainer.offsetTop - windowAppContainerScreenPosition.y + "px";
           setMouseIsPressed(false);
         }
       }
