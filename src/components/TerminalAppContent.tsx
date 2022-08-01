@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { delay } from "../assets/usefulFunction";
 
-import "../styles/InteractiveTextArea.css";
+import "../styles/TerminalAppContent.css";
 
 interface Props {
   appName: string

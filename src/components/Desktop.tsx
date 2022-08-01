@@ -61,9 +61,7 @@ function Desktop() {
 
   return (
     <div id="desktop">
-      <div style={{ position: "absolute", top: "100px", left: "100px" }}>
         {runningApps}
-      </div>
       <div id="desktop-app-section">{showDesktopApp()}</div>
 
       <DesktopTaskBar />

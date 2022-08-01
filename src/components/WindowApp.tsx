@@ -2,7 +2,7 @@
 import "../styles/WindowApp.css";
 import WindowBar from "./WindowBar";
 
-import { createRef, forwardRef, ReactElement, useEffect, useRef, useState } from "react";
+import { ReactElement, useEffect, useRef, useState } from "react";
 import { focusApp, RootState, useAppDispatch } from "../redux";
 import { useSelector } from "react-redux";
 
@@ -17,9 +17,15 @@ function WindowApp({ appName, contentComponent }: Props) {
   );
   const dispatch = useAppDispatch();
 
+  const [cursor, setCursor] = useState<string>("default");
   const [zIndexValue, setZIndexValue] = useState<string>("1");
 
   const windowAppContainer = useRef(null);
+  const handleMouseMove = (event) => {
+
+    if(event.buttons === 1){
+    }
+  }
 
   useEffect(() => {
     if (isFocused) {
@@ -43,7 +49,9 @@ function WindowApp({ appName, contentComponent }: Props) {
       }}
       style={{
         zIndex: zIndexValue,
+        cursor: cursor
       }}
+      onMouseMove={(event) => handleMouseMove(event)}
     >
       <WindowBar  appName={appName} windowAppContainer={windowAppContainer.current} />
       {contentComponent}

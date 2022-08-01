@@ -2,6 +2,8 @@
     position: absolute;
     display: flex;
     flex-direction: column;
+    top: 150px;
+    left: 150px;
 
     border: solid black 1px;
 
