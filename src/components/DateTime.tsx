@@ -3,9 +3,9 @@ import { delay } from "../assets/usefulFunction";
 
 
 function DateTime() {
-  let [date, setDate] = useState<Date>(new Date());
+  const [date, setDate] = useState<Date>(new Date());
 
-  let updatedDate = {
+  const updatedDate = {
     time: `${date.getHours().toString().padStart(2, "0")}:${date
       .getMinutes()
       .toString()
