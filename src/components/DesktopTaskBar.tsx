@@ -34,10 +34,10 @@ function DesktopTaskBar() {
     <div id="windows-task-bar">
       <div
         id="windows-task-bar-windows-icon"
-        onMouseOver={() => switchWindowsIconColor("lightblue")}
+        onMouseOver={() => switchWindowsIconColor("dodgerblue")}
         onMouseLeave={() => switchWindowsIconColor("white")}
       >
-        <SvgIcon>{windowsIcon}</SvgIcon>
+        <SvgIcon>{windowsIcon(windowsIconColor)}</SvgIcon>
       </div>
       <div id="windows-task-bar-apps-icons">{appsInTaskBarContainer}</div>
       <div id="windows-task-bar-date">
