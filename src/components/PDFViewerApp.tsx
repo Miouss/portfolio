@@ -1,4 +1,4 @@
-import TerminalAppContent from "./TerminalAppContent";
+import PDFViewerAppContent from "./PDFViewerAppContent";
 
 import WindowApp from "./WindowApp";
 
@@ -8,7 +8,7 @@ function PDFViewerApp() {
   return (
     <WindowApp
       appName="PDFViewer"
-      contentComponent={<TerminalAppContent appName="PDFViewer" />}
+      contentComponent={<PDFViewerAppContent appName="PDFViewer" />}
     />
   );
 }
