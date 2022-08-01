@@ -10,9 +10,9 @@ interface Props {
 }
 
 function TerminalAppContent({appName} : Props) {
-  let [text, updateText] = useState<string>("");
-  let [content, updateContent] = useState<string>("Hello World");
-  let [CSSAnimationName, updateCSSAnimationName] = useState<string>("blink");
+  const [text, updateText] = useState<string>("");
+  const [content, updateContent] = useState<string>("Hello World");
+  const [CSSAnimationName, updateCSSAnimationName] = useState<string>("blink");
 
   async function simulateKeyPressed(txt: string) {
     await delay(10);

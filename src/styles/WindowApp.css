@@ -5,8 +5,11 @@
 
     border: solid black 1px;
 
-    width: 600px;
-    height: 300px;
+    min-width: 200px;
+    min-height: 100px;
+
+    max-width: fit-content;
+    max-height: fit-content;
 
     z-index: 2;
 }

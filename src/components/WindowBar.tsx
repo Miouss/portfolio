@@ -10,20 +10,19 @@ import MinimizeIcon from "@mui/icons-material/Minimize";
 import "../styles/WindowBar.css";
 
 import { useEffect, useState } from "react";
-import { getIcon } from "./AppList";
+import { AppIcon } from "./AppList";
 import { closeApp, minimizeApp, RootState, useAppDispatch } from "../redux";
 import { useSelector } from "react-redux";
 
 interface Props {
-  appName: string; 
-  windowAppContainer: HTMLElement | null
+  appName: string;
+  windowAppContainer: HTMLElement | null;
 }
 
 interface Coordinates {
   x: number;
   y: number;
 }
-
 function WindowBar({ appName, windowAppContainer }: Props) {
   const isMinimized = useSelector(
     (state: RootState) => state.apps[appName].isMinimized
@@ -92,7 +91,8 @@ function WindowBar({ appName, windowAppContainer }: Props) {
         if (windowAppContainerScreenPosition.y >= -1) {
           windowAppContainer.style.left =
             windowAppContainer.offsetLeft - xMove + "px";
-          windowAppContainer.style.top = windowAppContainer.offsetTop - yMove + "px";
+          windowAppContainer.style.top =
+            windowAppContainer.offsetTop - yMove + "px";
 
           setMouseInitialPosition({
             x: mouseNewPostion.x,
@@ -100,7 +100,9 @@ function WindowBar({ appName, windowAppContainer }: Props) {
           });
         } else {
           windowAppContainer.style.top =
-            windowAppContainer.offsetTop - windowAppContainerScreenPosition.y + "px";
+            windowAppContainer.offsetTop -
+            windowAppContainerScreenPosition.y +
+            "px";
           setMouseIsPressed(false);
         }
       }
@@ -121,7 +123,7 @@ function WindowBar({ appName, windowAppContainer }: Props) {
 
   return (
     <div className="window-bar">
-      {getIcon(appName)}
+      <AppIcon appName={appName} />
       <Typography
         style={{ flexGrow: 1 }}
         onMouseDown={handleMousePressed}
