@@ -5,11 +5,8 @@
 
     border: solid black 1px;
 
-    min-width: 200px;
-    min-height: 100px;
-
-    max-width: fit-content;
-    max-height: fit-content;
+    width: fit-content;
+    height: auto;
 
     z-index: 2;
 }

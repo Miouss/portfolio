@@ -5,12 +5,14 @@
 
 #cv-container{
     position: relative;
+
 }
 
 #cv-preview{
     border: solid black 1px;
     border-radius: 2rem;
-    width: 400px;
+    width: 300px;
+
     height: auto;
 }
 
