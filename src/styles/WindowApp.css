@@ -8,7 +8,7 @@
     border: solid black 1px;
 
     width: fit-content;
-    height: auto;
+    height: fit-content;
 
     z-index: 2;
 }
