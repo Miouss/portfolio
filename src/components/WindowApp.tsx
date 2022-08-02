@@ -28,7 +28,7 @@ function WindowApp({ appName, contentComponent }: Props) {
   }
 
 
-  const handleMouseMove = (event: PointerEvent<HTMLDivElement>) => {
+  const handleMouseMove = (event: PointerEvent<HTMLDivElement>) => {    
     const mouseOffset ={
       left: event.clientX - windowAppContainer.current!.offsetLeft,
       top: event.clientY - windowAppContainer.current!.offsetTop,
@@ -36,13 +36,20 @@ function WindowApp({ appName, contentComponent }: Props) {
       right: windowAppContainer.current!.offsetWidth - (event.clientX - windowAppContainer.current!.offsetLeft),
     }
 
-    if((mouseOffset.left < 10  && mouseOffset.bottom < 10) || (mouseOffset.right < 10 && mouseOffset.top < 10)){
+    const mousePosition = {
+      topLeftBottomRight : ((mouseOffset.left < 10 && mouseOffset.top < 10) || (mouseOffset.right < 10 && mouseOffset.bottom < 10)),
+      topRightBottomLeft : ((mouseOffset.left < 10  && mouseOffset.bottom < 10) || (mouseOffset.right < 10 && mouseOffset.top < 10)),
+      topBottom: ((mouseOffset.left >= 10 && mouseOffset.top < 10)  || (mouseOffset.right >= 10 && mouseOffset.bottom < 10)),
+      leftRight: ((mouseOffset.left < 10 && mouseOffset.top >= 10) || (mouseOffset.right < 10 && mouseOffset.bottom >= 10))
+    }
+
+    if(mousePosition.topRightBottomLeft){
       switchCursor("nesw-resize");
-    }else if((mouseOffset.left < 10 && mouseOffset.top < 10) || (mouseOffset.right < 10 && mouseOffset.bottom < 10)){
+    }else if(mousePosition.topLeftBottomRight){
       switchCursor("nwse-resize");
-    }else if((mouseOffset.left < 10 && mouseOffset.top >= 10) || (mouseOffset.right < 10 && mouseOffset.bottom >= 10)){
+    }else if(mousePosition.leftRight){
       switchCursor("ew-resize");
-    }else if((mouseOffset.left >= 10 && mouseOffset.top < 10)  || (mouseOffset.right >= 10 && mouseOffset.bottom < 10)){
+    }else if(mousePosition.topBottom){
       switchCursor("ns-resize");
     }else{
       switchCursor("default");
