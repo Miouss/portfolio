@@ -2,7 +2,7 @@
 import "../styles/WindowApp.css";
 import WindowBar from "./WindowBar";
 
-import { ReactElement, useEffect, useRef, useState } from "react";
+import { PointerEvent, ReactElement, useEffect, useRef, useState } from "react";
 import { focusApp, RootState, useAppDispatch } from "../redux";
 import { useSelector } from "react-redux";
 
@@ -20,10 +20,32 @@ function WindowApp({ appName, contentComponent }: Props) {
   const [cursor, setCursor] = useState<string>("default");
   const [zIndexValue, setZIndexValue] = useState<string>("1");
 
-  const windowAppContainer = useRef(null);
-  const handleMouseMove = (event) => {
+  const windowAppContainer = useRef<HTMLDivElement | null>(null);
 
-    if(event.buttons === 1){
+  const switchCursor = (newCursor: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    cursor === newCursor ? null : setCursor(newCursor);
+  }
+
+
+  const handleMouseMove = (event: PointerEvent<HTMLDivElement>) => {
+    const mouseOffset ={
+      left: event.clientX - windowAppContainer.current!.offsetLeft,
+      top: event.clientY - windowAppContainer.current!.offsetTop,
+      bottom: windowAppContainer.current!.offsetHeight - (event.clientY - windowAppContainer.current!.offsetTop),
+      right: windowAppContainer.current!.offsetWidth - (event.clientX - windowAppContainer.current!.offsetLeft),
+    }
+
+    if((mouseOffset.left < 10  && mouseOffset.bottom < 10) || (mouseOffset.right < 10 && mouseOffset.top < 10)){
+      switchCursor("nesw-resize");
+    }else if((mouseOffset.left < 10 && mouseOffset.top < 10) || (mouseOffset.right < 10 && mouseOffset.bottom < 10)){
+      switchCursor("nwse-resize");
+    }else if((mouseOffset.left < 10 && mouseOffset.top >= 10) || (mouseOffset.right < 10 && mouseOffset.bottom >= 10)){
+      switchCursor("ew-resize");
+    }else if((mouseOffset.left >= 10 && mouseOffset.top < 10)  || (mouseOffset.right >= 10 && mouseOffset.bottom < 10)){
+      switchCursor("ns-resize");
+    }else{
+      switchCursor("default");
     }
   }
 
@@ -51,7 +73,7 @@ function WindowApp({ appName, contentComponent }: Props) {
         zIndex: zIndexValue,
         cursor: cursor
       }}
-      onMouseMove={(event) => handleMouseMove(event)}
+      onPointerMove={(event) => handleMouseMove(event)}
     >
       <WindowBar  appName={appName} windowAppContainer={windowAppContainer.current} />
       {contentComponent}
