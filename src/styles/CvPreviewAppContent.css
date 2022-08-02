@@ -1,18 +1,18 @@
-.pdf-viewer-app-content{
+.cv-preview-app-content{
     background-color: white;
     padding: 1rem;
 }
 
 #cv-container{
     position: relative;
-
+    width: fit-content;
+    height: auto;
 }
 
 #cv-preview{
     border: solid black 1px;
     border-radius: 2rem;
     width: 300px;
-
     height: auto;
 }
 

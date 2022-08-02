@@ -8,7 +8,7 @@ function CvPreviewApp() {
   return (
     <WindowApp
       appName="Aperçu CV"
-      contentComponent={<CvPreviewAppContent appName="Aperçu CV" />}
+      contentComponent={<CvPreviewAppContent />}
     />
   );
 }

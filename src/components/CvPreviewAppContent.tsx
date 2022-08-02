@@ -15,7 +15,7 @@ import {
   StorybookIcon,
 } from "../assets/customIcons/icons";
 
-function CvPreviewAppContent({ appName }: { appName: string }) {
+function CvPreviewAppContent() {
     const containerRef = useRef(null);
 
     const [startTransition, setStartTransition] = useState<boolean>(false);
@@ -26,7 +26,7 @@ function CvPreviewAppContent({ appName }: { appName: string }) {
 
   return (
     <>
-      <Stack  ref={containerRef} className="pdf-viewer-app-content" direction={"row"} spacing={3}>
+      <Stack  ref={containerRef} className="cv-preview-app-content" direction={"row"} spacing={3} justifyContent={"center"}>
         <Stack justifyContent="space-around">
           <Slide direction="up" in={startTransition} container={containerRef.current} mountOnEnter unmountOnExit>
             <Stack alignItems="center" justifyContent="center" spacing={3}>
