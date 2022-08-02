@@ -13,7 +13,6 @@ import { useEffect, useState } from "react";
 import { AppIcon } from "./AppList";
 import { closeApp, minimizeApp, RootState, useAppDispatch } from "../redux";
 import { useSelector } from "react-redux";
-import { Co2Sharp } from "@mui/icons-material";
 
 interface Props {
   appName: string;
