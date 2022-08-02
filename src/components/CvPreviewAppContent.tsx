@@ -60,10 +60,12 @@ function CvPreviewAppContent() {
         </Divider>
 
         <div id="cv-container">
-          <img id="cv-preview" src={CV} alt="cv-preview" />
-          <Fab id="cv-download-button" color="primary">
+          <div id="cv-preview">
+            <img  src={CV} alt="cv-preview" />
+            <Fab id="cv-download-button" color="primary">
             <DownloadIcon />
           </Fab>
+          </div>
         </div>
       </Stack>
     </>

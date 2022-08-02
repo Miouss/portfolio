@@ -1,15 +1,23 @@
 .cv-preview-app-content{
+    height: 100%;
+    max-width: 100%;
     background-color: white;
     padding: 2rem;
+    overflow: hidden;
 }
 
 #cv-container{
-    position: relative;
-    width: fit-content;
-    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-#cv-preview{
+#cv-preview {
+    position: relative;
+  
+}
+
+#cv-preview > img{
     border: solid black 1px;
     border-radius: 2rem;
     width: 300px;
