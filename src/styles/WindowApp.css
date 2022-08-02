@@ -9,6 +9,6 @@
 
     width: fit-content;
     height: max-content;
-
+    overflow: hidden;
     z-index: 2;
 }
