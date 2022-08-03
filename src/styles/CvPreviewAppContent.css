@@ -1,4 +1,5 @@
 .cv-preview-app-content{
+    height: 100%;
     background-color: white;
     outline: solid black 1px;
     overflow: hidden;
