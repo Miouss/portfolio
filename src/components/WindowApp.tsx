@@ -61,7 +61,9 @@ function WindowApp({ appName, contentComponent }: Props) {
 
   const [originalWindowSize, setOriginalWindowSize] =
     useState<WindowSize | null>(null);
+
   const [cursor, setCursor] = useState<PointerCursor>("default");
+
   const [pointerPosition, setPointerPosition] =
     useState<PointerPosition | null>(null);
 
@@ -69,6 +71,10 @@ function WindowApp({ appName, contentComponent }: Props) {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     cursor === newCursor ? null : setCursor(newCursor);
   };
+
+  
+  const minWidth = 600;
+  const minHeight = 300;
 
   const resizeWindow = (event) => {
     const areaToResize = pointerPosition!.split(/(?=[A-Z])/).map((value) => value.toLowerCase());
@@ -117,11 +123,21 @@ function WindowApp({ appName, contentComponent }: Props) {
     };
 
     areaToResize.forEach((area) => {
-      windowAppContainer.current!.style.left = resize[area!].offsetLeft;
-      windowAppContainer.current!.style.top = resize[area!].offsetTop;
-      windowAppContainer.current!.style.width = resize[area!].width;
-      windowAppContainer.current!.style.height = resize[area!].height;
-    });
+        if((parseInt(resize[area!].width)) < minWidth){
+          resize[area!].width = minWidth + "px";
+        }else{
+          windowAppContainer.current!.style.left = resize[area!].offsetLeft;
+        }
+
+        if((parseInt(resize[area!].height)) < minHeight){
+          resize[area!].height = minHeight + "px";
+        }else{
+          windowAppContainer.current!.style.top = resize[area!].offsetTop;
+        }
+
+        windowAppContainer.current!.style.width = resize[area!].width;
+        windowAppContainer.current!.style.height = resize[area!].height;
+      });
   };
 
   const handlePointerMove = (event) => {
@@ -238,6 +254,10 @@ function WindowApp({ appName, contentComponent }: Props) {
 
   useEffect(() => {
     dispatch(focusApp(appName));
+
+    windowAppContainer.current!.style.minWidth = minWidth + "px";
+    windowAppContainer.current!.style.minHeight = minHeight + "px";
+
   }, []);
 
   return (
