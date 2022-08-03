@@ -1,12 +1,7 @@
 .cv-preview-app-content{
-    height: 100%;
-    width: 100%;
     background-color: white;
     outline: solid black 1px;
-    padding: 2rem;
     overflow: hidden;
-
-    box-sizing: border-box;
 }
 
 #cv-container{
@@ -17,14 +12,14 @@
 
 #cv-preview {
     position: relative;
-  
+    display: flex;
 }
 
 #cv-preview > img{
     border: solid black 1px;
     border-radius: 2rem;
-    width: 300px;
-    height: auto;
+    max-width: 100%;
+    max-height: 400px;
 }
 
 #cv-download-button{
