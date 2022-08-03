@@ -1,14 +1,14 @@
-.window-app{
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    top: 150px;
-    left: 150px;
-
-    border: solid black 1px;
-
-    width: fit-content;
-    height: max-content;
-    overflow: hidden;
-    z-index: 2;
+.window-app {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 150px;
+  left: 150px;
+  padding: 10px;
+  border: solid black 1px;
+  box-sizing: border-box;
+  width: fit-content;
+  height: max-content;
+  overflow: hidden;
+  z-index: 2;
 }
