@@ -13,7 +13,7 @@ import {
   ReactIcon,
   ReduxIcon,
   StorybookIcon,
-} from "../assets/customIcons/icons";
+} from "./custom/icons/iconsList";
 
 function CvPreviewAppContent() {
     const containerRef = useRef(null);
