@@ -13,9 +13,9 @@ import {
   ReactIcon,
   ReduxIcon,
   StorybookIcon,
-} from "../assets/customIcons/icons";
+} from "./custom/icons/iconsList";
 
-function CvPreviewAppContent({ appName }: { appName: string }) {
+function CvPreviewAppContent() {
     const containerRef = useRef(null);
 
     const [startTransition, setStartTransition] = useState<boolean>(false);
@@ -26,7 +26,7 @@ function CvPreviewAppContent({ appName }: { appName: string }) {
 
   return (
     <>
-      <Stack  ref={containerRef} className="pdf-viewer-app-content" direction={"row"} spacing={3}>
+      <Stack  ref={containerRef} className="cv-preview-app-content" direction={"row"} spacing={3} justifyContent={"center"}>
         <Stack justifyContent="space-around">
           <Slide direction="up" in={startTransition} container={containerRef.current} mountOnEnter unmountOnExit>
             <Stack alignItems="center" justifyContent="center" spacing={3}>
@@ -60,10 +60,12 @@ function CvPreviewAppContent({ appName }: { appName: string }) {
         </Divider>
 
         <div id="cv-container">
-          <img id="cv-preview" src={CV} alt="cv-preview" />
-          <Fab id="cv-download-button" color="primary">
+          <div id="cv-preview">
+            <img  src={CV} alt="cv-preview" />
+            <Fab id="cv-download-button" color="primary">
             <DownloadIcon />
           </Fab>
+          </div>
         </div>
       </Stack>
     </>
