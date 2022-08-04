@@ -5,7 +5,7 @@ import DesktopTaskBarApp from "./DesktopTaskBarApp";
 import DateTime from "./DateTime";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux";
-import { WindowsIcon } from "../assets/customIcons/icons";
+import { WindowsIcon } from "./custom/icons/iconsList";
 
 function DesktopTaskBar() {
   const [windowsIconColor, switchWindowsIconColor] = useState<string>("white");
