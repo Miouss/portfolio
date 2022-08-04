@@ -7,8 +7,6 @@
   padding: 10px;
   border: solid black 1px;
   box-sizing: border-box;
-  width: fit-content;
-  height: max-content;
   overflow: hidden;
   z-index: 2;
 }
