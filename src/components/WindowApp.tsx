@@ -1,289 +1,128 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import "../styles/WindowApp.css";
-import WindowBar from "./WindowBar";
 
-import { ReactElement, useEffect, useRef, useState } from "react";
-import { focusApp, RootState, useAppDispatch } from "../redux";
+import Typography from "@mui/material/Typography";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import Button from "@mui/material/Button";
+
+import CloseIcon from "@mui/icons-material/Close";
+import CropFreeIcon from "@mui/icons-material/CropFree";
+import MinimizeIcon from "@mui/icons-material/Minimize";
+
+import { AppIcon } from "./AppList";
+
+import { ReactElement, useEffect, useState } from "react";
+import {
+  focusApp,
+  closeApp,
+  minimizeApp,
+  RootState,
+  useAppDispatch,
+} from "../redux";
 import { useSelector } from "react-redux";
+
+import { ResizableDiv } from "./custom/ResizableDiv";
+import { MovableBar } from "./custom/MovableBar";
+
+import "../styles/WindowBar.css";
+import "../styles/WindowApp.css";
 
 interface Props {
   appName: string;
   contentComponent: ReactElement;
 }
-interface Coordinates {
-  x: number;
-  y: number;
-}
-
-interface PointerOffsetRelative {
-  top: number;
-  right: number;
-  bottom: number;
-  left: number;
-}
-
-interface WindowSize {
-  width: number;
-  height: number;
-}
-
-type PointerPosition =
-  | "top"
-  | "bottom"
-  | "left"
-  | "right"
-  | "topLeft"
-  | "topRight"
-  | "bottomLeft"
-  | "bottomRight";
-
-type PointerCursor =
-  | "ns-resize"
-  | "ew-resize"
-  | "nwse-resize"
-  | "nesw-resize"
-  | "default";
 
 function WindowApp({ appName, contentComponent }: Props) {
+  const isMinimized = useSelector(
+    (state: RootState) => state.apps[appName].isMinimized
+  );
+
   const isFocused = useSelector(
     (state: RootState) => state.apps[appName].isFocused
   );
   const dispatch = useAppDispatch();
 
-  const windowAppContainer = useRef<HTMLDivElement | null>(null);
+  const [pointerWasDown, setPointerWasDown] = useState<boolean>(false);
+
+  const [closeButtonColor, setCloseButtonColor] = useState<string>("black");
+  const [bgColor, setBgColor] = useState<string>("initial");
+
+  const [display, setDisplay] = useState<string>("flex");
   const [zIndexValue, setZIndexValue] = useState<string>("1");
-  const [pointerPressed, setPointerPressed] = useState<boolean>(false);
-
-  const [originalWindowOffset, setOriginalWindowOffset] =
-    useState<Coordinates | null>(null);
-  const [pointerOffsetRelative, setPointerOffsetRelative] =
-    useState<PointerOffsetRelative | null>(null);
-
-  const [originalWindowSize, setOriginalWindowSize] =
-    useState<WindowSize | null>(null);
-
-  const [cursor, setCursor] = useState<PointerCursor>("default");
-
-  const [pointerPosition, setPointerPosition] =
-    useState<PointerPosition | null>(null);
-
-  const switchCursor = (newCursor: PointerCursor) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    cursor === newCursor ? null : setCursor(newCursor);
-  };
-
-  
-  const minWidth = 600;
-  const minHeight = 300;
-
-  const resizeWindow = (event) => {
-    const areaToResize = pointerPosition!.split(/(?=[A-Z])/).map((value) => value.toLowerCase());
-
-    const resize = {
-      left: {
-        offsetLeft:
-          originalWindowOffset!.x +
-          (event.x - originalWindowOffset!.x) -
-          pointerOffsetRelative!.left +
-          "px",
-        width:
-          originalWindowSize!.width -
-          (event.x - originalWindowOffset!.x - pointerOffsetRelative!.left) +
-          "px",
-      },
-      right: {
-        width:
-          originalWindowSize!.width +
-          (event.x -
-            originalWindowSize!.width -
-            pointerOffsetRelative!.right -
-            originalWindowOffset!.x) +
-          "px",
-      },
-      top: {
-        offsetTop:
-          originalWindowOffset!.y +
-          (event.y - originalWindowOffset!.y) -
-          pointerOffsetRelative!.top +
-          "px",
-        height:
-          originalWindowSize!.height -
-          (event.y - originalWindowOffset!.y - pointerOffsetRelative!.top) +
-          "px",
-      },
-      bottom: {
-        height:
-          originalWindowSize!.height +
-          (event.y -
-            originalWindowSize!.height -
-            pointerOffsetRelative!.bottom -
-            originalWindowOffset!.y) +
-          "px",
-      },
-    };
-
-    areaToResize.forEach((area) => {
-        if((parseInt(resize[area!].width)) < minWidth){
-          resize[area!].width = minWidth + "px";
-        }else{
-          windowAppContainer.current!.style.left = resize[area!].offsetLeft;
-        }
-
-        if((parseInt(resize[area!].height)) < minHeight){
-          resize[area!].height = minHeight + "px";
-        }else{
-          windowAppContainer.current!.style.top = resize[area!].offsetTop;
-        }
-
-        windowAppContainer.current!.style.width = resize[area!].width;
-        windowAppContainer.current!.style.height = resize[area!].height;
-      });
-  };
-
-  const handlePointerMove = (event) => {
-    if (pointerPressed) {
-      if (cursor !== "default") {
-        resizeWindow(event);
-      }
-    } else {
-      const pointerOffset = {
-        left: event.clientX - windowAppContainer.current!.offsetLeft,
-        top: event.clientY - windowAppContainer.current!.offsetTop,
-        bottom:
-          windowAppContainer.current!.offsetHeight -
-          (event.clientY - windowAppContainer.current!.offsetTop),
-        right:
-          windowAppContainer.current!.offsetWidth -
-          (event.clientX - windowAppContainer.current!.offsetLeft),
-      };
-
-      const currentPointerPosition = {
-        topLeft: {
-          position: pointerOffset.left <= 10 && pointerOffset.top <= 10,
-          cursor: "nwse-resize",
-        },
-        topRight: {
-          position: pointerOffset.right <= 10 && pointerOffset.top <= 10,
-          cursor: "nesw-resize",
-        },
-        bottomLeft: {
-          position: pointerOffset.left <= 10 && pointerOffset.bottom <= 10,
-          cursor: "nesw-resize",
-        },
-        bottomRight: {
-          position: pointerOffset.right <= 10 && pointerOffset.bottom <= 10,
-          cursor: "nwse-resize",
-        },
-        top: {
-          position: pointerOffset.left > 10 && pointerOffset.top <= 10,
-          cursor: "ns-resize",
-        },
-        bottom: {
-          position: pointerOffset.right > 10 && pointerOffset.bottom <= 10,
-          cursor: "ns-resize",
-        },
-        left: {
-          position: pointerOffset.left <= 10 && pointerOffset.top > 10,
-          cursor: "ew-resize",
-        },
-        right: {
-          position: pointerOffset.right <= 10 && pointerOffset.bottom > 10,
-          cursor: "ew-resize",
-        },
-      };
-
-      let areaFound = false;
-
-      for (let area in currentPointerPosition) {
-        if (currentPointerPosition[area].position && !areaFound) {
-          setPointerPosition(area as PointerPosition);
-          switchCursor(currentPointerPosition[area].cursor);
-          areaFound = true;
-        }
-      }
-
-      if (!areaFound) {
-        setPointerPosition(null);
-        switchCursor("default");
-      }
-    }
-  };
-
-  const handlePointerPressed = (event) => {
-    const windowBoundingClientRect =
-      windowAppContainer.current!.getBoundingClientRect();
-    setOriginalWindowOffset({
-      x: windowAppContainer.current?.offsetLeft as number,
-      y: windowAppContainer.current?.offsetTop as number,
-    });
-    setPointerOffsetRelative({
-      top: event.pageY - windowBoundingClientRect.top,
-      right: event.pageX - windowBoundingClientRect.right,
-      bottom: event.pageY - windowBoundingClientRect.bottom,
-      left: event.pageX - windowBoundingClientRect.left,
-    });
-    setOriginalWindowSize({
-      width: windowBoundingClientRect.width,
-      height: windowBoundingClientRect.height,
-    });
-    setPointerPressed(true);
-  };
 
   useEffect(() => {
-    if (isFocused) {
-      setZIndexValue("2");
-    } else {
-      setZIndexValue("1");
-    }
+    isMinimized ? setDisplay("none") : setDisplay("flex");
+  }, [isMinimized]);
+
+  useEffect(() => {
+    isFocused ? setZIndexValue("2") : setZIndexValue("1");
   }, [isFocused]);
 
   useEffect(() => {
-    if (pointerPressed) {
-      document.onmousemove = (event) => handlePointerMove(event);
-      document.onpointerup = () => setPointerPressed(false);
-      return () => {
-        document.onmousemove = () => {
-          return false;
-        };
-        document.onpointerup = () => {
-          return false;
-        };
-      };
-    }
-  }, [pointerPressed]);
-
-  useEffect(() => {
     dispatch(focusApp(appName));
-
-    windowAppContainer.current!.style.minWidth = minWidth + "px";
-    windowAppContainer.current!.style.minHeight = minHeight + "px";
-
   }, []);
 
+  const switchCloseButtonColor = (event) => {
+    if (event.type === "mouseover") {
+      setBgColor("red");
+      setCloseButtonColor("white");
+    } else {
+      setBgColor("initial");
+      setCloseButtonColor("initial");
+    }
+  };
+
+  const handlePointerEvent = (event) => {
+    if(event === "pointerEnter"){
+      if(event.type === 1){
+        setPointerWasDown(true);
+      }else{
+        setPointerWasDown(false);
+      }
+    }else{
+      if(!pointerWasDown){
+        event.stopPropagation();
+      }
+    }
+  }
+
   return (
-    <div
-      ref={windowAppContainer}
+    <ResizableDiv
       className="window-app"
-      tabIndex={-1}
+      minWidth={400}
+      minHeight={300}
+      display={display}
+      zIndexValue={zIndexValue}
       onFocus={() => {
         dispatch(focusApp(appName));
       }}
-      style={{
-        zIndex: zIndexValue,
-        cursor: cursor,
-      }}
-      onPointerMove={(event) => {
-        if (!pointerPressed) handlePointerMove(event);
-      }}
-      onPointerDown={(event) => handlePointerPressed(event)}
-      onPointerUp={() => setPointerPressed(false)}
     >
-      <WindowBar
-        appName={appName}
-        windowAppContainer={windowAppContainer.current}
-      />
+      <MovableBar
+        className="window-bar"
+      >
+        <AppIcon appName={appName} />
+        <Typography style={{ flexGrow: 1 }}>{appName}</Typography>
+
+        <ButtonGroup variant="outlined" color="inherit" onPointerEnter={(event) => handlePointerEvent(event)} onPointerDown={(event) => handlePointerEvent(event)}>
+          <Button onClick={() => dispatch(minimizeApp(appName))}>
+            <MinimizeIcon />
+          </Button>
+          <Button>
+            <CropFreeIcon />
+          </Button>
+          <Button
+            style={{ backgroundColor: bgColor }}
+            onClick={() => dispatch(closeApp(appName))}
+            onMouseOver={(event) => switchCloseButtonColor(event)}
+            onMouseLeave={(event) => switchCloseButtonColor(event)}
+          >
+            <CloseIcon style={{ color: closeButtonColor }} />
+          </Button>
+        </ButtonGroup>
+      </MovableBar>
+
       {contentComponent}
-    </div>
+    </ResizableDiv>
   );
 }
 
