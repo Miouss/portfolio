@@ -26,7 +26,7 @@ function DesktopTaskBar() {
       }
     }
 
-    setAppsInTaskBarContainer(newAppsInTaskBarContainer);
+    setAppsInTaskBarContainer(newAppsInTaskBarContainer.reverse());
   }, [apps]);
 
   return (
