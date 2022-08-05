@@ -1,11 +1,14 @@
-.desktop-app-terminal{
+.desktop-app{
+    width: 80px;
     display: flex;
     flex-direction: column;
-
+    justify-content: center;
+    align-items: center;
     gap: 0.3rem;
+    padding: 1rem;
+    border: solid lightblue 1px;
 }
 
-.desktop-app-terminal > :first-child{
-
-    padding: 1rem;
+.desktop-app > :first-child{
+    padding-bottom: 1rem;
 }
