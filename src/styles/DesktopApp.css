@@ -7,7 +7,7 @@
     gap: 0.3rem;
     padding: 1rem;
     border: solid lightblue 1px;
-    border: hidden;
+    border-style: hidden;
 }
 
 .desktop-app > :first-child{
