@@ -1,5 +1,6 @@
 .desktop-app{
-    width: 80px;
+    width: 10rem;
+    height: 10rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
