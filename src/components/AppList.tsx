@@ -15,12 +15,12 @@ let appList = {} as AppList;
 
 appList["terminal"] = {
   app: <TerminalApp key="terminal" />,
-  icon: <TerminalIcon />,
+  icon: <TerminalIcon fontSize="inherit" />,
 };
 
 appList["Aperçu CV"] = {
   app: <CvPreviewApp key="CVPreview" />,
-  icon: <ContactMailIcon />,
+  icon: <ContactMailIcon fontSize="inherit" />,
 };
 
 interface Props {

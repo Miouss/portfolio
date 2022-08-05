@@ -47,7 +47,7 @@ function DesktopTaskBarApp({ appName }: Props) {
       onMouseEnter={(event) => handleMouseOver(event)}
       onMouseLeave={(event) => handleMouseOver(event)}
     >
-      <div style={{ backgroundColor: bgColor }}>
+      <div style={{ backgroundColor: bgColor, fontSize: "1.5rem" }}>
         <AppIcon appName={appName} />
       </div>
       <div style={{ width: lineWidth }} />

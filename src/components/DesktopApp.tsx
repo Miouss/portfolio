@@ -76,7 +76,7 @@ function DesktopApp({ appName }: Props) {
       onClick={(event) => handlePointerEvent(event)}
       onDoubleClick={simulateAppLoading}
     >
-      <span>
+      <span style={{fontSize: "4rem"}}>
         <AppIcon appName={appName} />
       </span>
       <div>{appName}</div>
