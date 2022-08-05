@@ -12,12 +12,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-    gap: 2.5rem;
-}
-
-#desktop-app-section > *:hover{
-    cursor: pointer;
 }
 
 #desktop-app-section > * > :last-child{
