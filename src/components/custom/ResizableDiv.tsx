@@ -233,8 +233,17 @@ export function ResizableDiv({
       document.onpointermove = (event) => handlePointerMove(event);
       document.onpointerup = () => setPointerPressed(false);
 
+      const resizableDivRefCurrent = resizableDivRef.current!;
       return () => {
-        document.onpointermove = () => {
+        const windowPos = resizableDivRefCurrent.getBoundingClientRect();
+
+        if(windowPos.top < 0 || windowPos.bottom > document.documentElement.clientHeight || windowPos.left < 0 || windowPos.right > document.documentElement.clientWidth){
+          resizableDivRefCurrent.style.left = originalWindowOffset!.x + "px";
+          resizableDivRefCurrent.style.top = originalWindowOffset!.y + "px";
+          resizableDivRefCurrent.style.width = originalWindowSize!.width + "px";
+          resizableDivRefCurrent.style.height = originalWindowSize!.height + "px";
+        }
+          document.onpointermove = () => {
           return false;
         };
         document.onpointerup = () => {
