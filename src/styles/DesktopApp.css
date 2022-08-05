@@ -13,3 +13,7 @@
 .desktop-app > :first-child{
     padding-bottom: 1rem;
 }
+
+.desktop-app:hover{
+    cursor: default;
+}
