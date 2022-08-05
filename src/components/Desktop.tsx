@@ -9,6 +9,8 @@ import { useSelector } from "react-redux";
 import DesktopApp from "./DesktopApp";
 import DesktopTaskBar from "./DesktopTaskBar";
 import { App } from "./AppList";
+import WindowsWallpaper from "../assets/windows-wallpaper.png"
+
 
 function Desktop() {
   const apps = useSelector((state: RootState) => state.apps);
@@ -61,6 +63,10 @@ function Desktop() {
 
   return (
     <div id="desktop">
+      <div id="wallpaper">
+        <img src={WindowsWallpaper} alt="windows-wallpaper" />
+      </div>
+
         {runningApps}
       <div id="desktop-app-section">{showDesktopApp()}</div>
 
