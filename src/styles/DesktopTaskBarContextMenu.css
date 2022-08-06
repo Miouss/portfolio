@@ -1,0 +1,10 @@
+#context-menu{
+    background-color: rgba(0,0,0,0.8);
+    color: white;
+}
+
+#context-menu > * > * {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.8rem;
+}
