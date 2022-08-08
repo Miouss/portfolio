@@ -63,10 +63,6 @@ function DesktopTaskBarApp({ appName }: Props) {
     }
   }, [anchorEl]);
 
-  useEffect(() => {
-    document.dispatchEvent(new MouseEvent("contextmenu"));
-  }, []);
-
   return (
     <div
       id="basic-button"
@@ -76,9 +72,10 @@ function DesktopTaskBarApp({ appName }: Props) {
       onMouseLeave={(event) => handleMouseOver(event)}
       onContextMenu={(event) => {
         event.preventDefault();
-        if (anchorEl === null) {
-          event.stopPropagation();
+        if(!app.isFocused){
+          dispatch(focusApp(appName));
         }
+
         setAnchorEl(event.currentTarget);
       }}
     >
