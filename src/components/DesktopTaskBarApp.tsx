@@ -1,3 +1,4 @@
+import { Mouse } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { focusApp, minimizeApp, RootState, useAppDispatch } from "../redux";
@@ -63,6 +64,10 @@ function DesktopTaskBarApp({ appName }: Props) {
     }
   }, [anchorEl]);
 
+  useEffect(() => {
+    document.dispatchEvent(new MouseEvent("contextmenu"));
+  }, []);
+
   return (
     <div
       id="basic-button"
@@ -72,8 +77,8 @@ function DesktopTaskBarApp({ appName }: Props) {
       onMouseLeave={(event) => handleMouseOver(event)}
       onContextMenu={(event) => {
         event.preventDefault();
-        if(!app.isFocused){
-          dispatch(focusApp(appName));
+        if (anchorEl === null) {
+          event.stopPropagation();
         }
 
         setAnchorEl(event.currentTarget);
