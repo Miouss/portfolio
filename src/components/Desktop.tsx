@@ -11,12 +11,18 @@ import DesktopTaskBar from "./DesktopTaskBar";
 import { App } from "./AppList";
 import WindowsWallpaper from "../assets/windows-wallpaper.png"
 
-
 function Desktop() {
   const apps = useSelector((state: RootState) => state.apps);
   const dispatch = useAppDispatch();
 
   const [runningApps, setRunningApps] = useState<Array<ReactElement>>([]);
+
+  const bgImageStyle = {
+    backgroundImage: `url(${WindowsWallpaper})`,
+    backgroundPosition: "76% 50%",
+    backgroundSize: "1920px 100%",
+    backgroundRepeat: "no-repeat",
+  }
 
   const showDesktopApp = () => {
     let desktopApp: Array<ReactElement> = [];
@@ -25,7 +31,17 @@ function Desktop() {
       desktopApp.push(<DesktopApp key={appName} appName={appName} />);
     }
 
-    return desktopApp;
+    return <><div id="desktop-apps">{desktopApp}</div></>;
+  };
+
+  const showDesktopShortcut = () => {
+    let desktopApp: Array<ReactElement> = [];
+
+    for (const appName in apps) {
+      desktopApp.push(<DesktopApp key={appName} appName={appName} />);
+    }
+
+    return <><div id="desktop-shortcuts">{desktopApp}</div></>;
   };
 
   useEffect(() => {
@@ -62,11 +78,7 @@ function Desktop() {
   }, [apps]);
 
   return (
-    <div id="desktop">
-      <div id="wallpaper">
-        <img src={WindowsWallpaper} alt="windows-wallpaper" />
-      </div>
-
+    <div id="desktop" style={bgImageStyle}>
         {runningApps}
       <div id="desktop-app-section">{showDesktopApp()}</div>
 
