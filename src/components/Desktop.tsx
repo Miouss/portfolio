@@ -7,6 +7,10 @@ import { ReactElement, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import DesktopGrid from "./DesktopGrid";
+<<<<<<< HEAD
+=======
+import DesktopApp from "./DesktopApp";
+>>>>>>> 57e7dd09119da761e46cb0913fe9c5ca363ce06b
 import DesktopTaskBar from "./DesktopTaskBar";
 import { App } from "./AppList";
 import WindowsWallpaper from "../assets/windows-wallpaper.png";
