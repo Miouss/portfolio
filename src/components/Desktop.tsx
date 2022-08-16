@@ -6,10 +6,10 @@ import { addApp, RootState, useAppDispatch } from "../redux";
 import { ReactElement, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import DesktopApp from "./DesktopApp";
+import DesktopGrid from "./DesktopGrid";
 import DesktopTaskBar from "./DesktopTaskBar";
 import { App } from "./AppList";
-import WindowsWallpaper from "../assets/windows-wallpaper.png"
+import WindowsWallpaper from "../assets/windows-wallpaper.png";
 
 function Desktop() {
   const apps = useSelector((state: RootState) => state.apps);
@@ -20,42 +20,22 @@ function Desktop() {
   const bgImageStyle = {
     backgroundImage: `url(${WindowsWallpaper})`,
     backgroundPosition: "76% 50%",
-    backgroundSize: "1920px 100%",
+    backgroundSize: "1920px 1080px",
     backgroundRepeat: "no-repeat",
-  }
-
-  const showDesktopApp = () => {
-    let desktopApp: Array<ReactElement> = [];
-
-    for (const appName in apps) {
-      desktopApp.push(<DesktopApp key={appName} appName={appName} />);
-    }
-
-    return <><div id="desktop-apps">{desktopApp}</div></>;
-  };
-
-  const showDesktopShortcut = () => {
-    let desktopApp: Array<ReactElement> = [];
-
-    for (const appName in apps) {
-      desktopApp.push(<DesktopApp key={appName} appName={appName} />);
-    }
-
-    return <><div id="desktop-shortcuts">{desktopApp}</div></>;
   };
 
   useEffect(() => {
     dispatch(
       addApp({
-        "terminal": {
+        terminal: {
           isRunning: false,
           isFocused: false,
-          isMinimized: false
+          isMinimized: false,
         },
         "Aperçu CV": {
           isRunning: false,
           isFocused: false,
-          isMinimized: false
+          isMinimized: false,
         },
       })
     );
@@ -79,9 +59,8 @@ function Desktop() {
 
   return (
     <div id="desktop" style={bgImageStyle}>
-        {runningApps}
-      <div id="desktop-app-section">{showDesktopApp()}</div>
-
+      {runningApps}
+      <DesktopGrid />
       <DesktopTaskBar />
     </div>
   );

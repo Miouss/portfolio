@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 
 interface Props {
   appName: string;
+  gridArea: string;
 }
 
 interface AppStyle {
@@ -18,7 +19,7 @@ interface AppStyle {
   cursor?: string;
 }
 
-function DesktopApp({ appName }: Props) {
+function DesktopApp({ appName, gridArea }: Props) {
   const isRunning = useSelector((state : RootState) => state.apps[appName].isRunning);
   const dispatch = useAppDispatch();
   
@@ -70,7 +71,7 @@ function DesktopApp({ appName }: Props) {
   return (
     <div
       className="desktop-app"
-      style={appStyle}
+      style={{...appStyle, gridArea}}
       onPointerEnter={(event) => handlePointerEvent(event)}
       onPointerLeave={(event) => handlePointerEvent(event)}
       onClick={(event) => handlePointerEvent(event)}
