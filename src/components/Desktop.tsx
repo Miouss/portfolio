@@ -6,8 +6,7 @@ import { addApp, RootState, useAppDispatch } from "../redux";
 import { ReactElement, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import DesktopApp from "./DesktopApp";
->>>>>>> 57e7dd09119da761e46cb0913fe9c5ca363ce06b
+import DesktopGrid from "./DesktopGrid";
 import DesktopTaskBar from "./DesktopTaskBar";
 import { App } from "./AppList";
 import WindowsWallpaper from "../assets/windows-wallpaper.png";
