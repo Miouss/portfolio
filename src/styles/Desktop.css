@@ -2,32 +2,3 @@
     width: 100vw;
     height: 100vh;
 }
-
-#desktop-app-section{
-    position: relative;
-
-    width: 100%;
-    height: calc(100% - 45px);
-}
-
-#desktop-app-section > * > * > :last-child{
-    color:white;
-    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
-}
-
-#desktop-apps{
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    display: flex;
-}
-
-
-#desktop-shortcuts{
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-}
