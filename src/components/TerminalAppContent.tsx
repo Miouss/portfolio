@@ -6,10 +6,10 @@ import { delay } from "../assets/usefulFunction";
 import "../styles/TerminalAppContent.css";
 
 interface Props {
-  appName: string
+  appName: string;
 }
 
-function TerminalAppContent({appName} : Props) {
+function TerminalAppContent({ appName }: Props) {
   const TerminalAppContentRef = useRef<HTMLDivElement | null>(null);
 
   const [text, updateText] = useState<string>("");
@@ -45,7 +45,7 @@ function TerminalAppContent({appName} : Props) {
   const keyHandler = useCallback(
     (event: KeyboardEvent) => {
       event.preventDefault();
-      
+
       if (event.key === "Enter") {
         if (event.shiftKey) {
           updateText("");
@@ -74,9 +74,9 @@ function TerminalAppContent({appName} : Props) {
 
   useEffect(
     function resetEventListener() {
-      if(TerminalAppContentRef.current !== null){
-        const content = TerminalAppContentRef.current!.offsetParent as HTMLDivElement;
-        console.log(content);
+      if (TerminalAppContentRef.current !== null) {
+        const content = TerminalAppContentRef.current!
+          .offsetParent as HTMLDivElement;
         content!.addEventListener("keydown", keyHandler);
         return () => content!.removeEventListener("keydown", keyHandler);
       }
