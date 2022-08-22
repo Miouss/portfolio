@@ -139,15 +139,22 @@ export function ResizableDiv({
       resizableDivRef.current!.style.height = resize[area!].height;
     });
 
-    if(resizableDivRef.current!.style.width !== (originalWindowSize!.width + "px") || resizableDivRef.current!.style.height !== (originalWindowSize!.height + "px"))
-    document.dispatchEvent(
-      new CustomEvent("resizing", {
-        detail: {
-          width: resizableDivRef.current!.style.width,
-          height: resizableDivRef.current!.style.height,
-        },
-      })
-    );
+    const currentWindowSize = {
+      height: parseInt(resizableDivRef.current!.style.height),
+      width: parseInt(resizableDivRef.current!.style.width),
+    };
+
+    if (currentWindowSize.width !== originalWindowSize!.width || currentWindowSize.height !== originalWindowSize!.height ) {
+
+      document.dispatchEvent(
+        new CustomEvent("resizing", {
+          detail: {
+            width: currentWindowSize.width,
+            height: currentWindowSize.height,
+          },
+        })
+      );
+    }
   };
 
   const handlePointerMove = (event) => {
