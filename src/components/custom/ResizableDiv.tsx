@@ -236,8 +236,8 @@ export function ResizableDiv({
       const resizableDivRefCurrent = resizableDivRef.current!;
       return () => {
         const windowPos = resizableDivRefCurrent.getBoundingClientRect();
-
-        if(windowPos.top < 0 || windowPos.bottom > document.documentElement.clientHeight || windowPos.left < 0 || windowPos.right > document.documentElement.clientWidth){
+        const defaultPadding = 8;
+        if(windowPos.top < -defaultPadding || windowPos.bottom - defaultPadding > document.documentElement.clientHeight || windowPos.left < -defaultPadding || windowPos.right - defaultPadding > document.documentElement.clientWidth){
           resizableDivRefCurrent.style.left = originalWindowOffset!.x + "px";
           resizableDivRefCurrent.style.top = originalWindowOffset!.y + "px";
           resizableDivRefCurrent.style.width = originalWindowSize!.width + "px";
