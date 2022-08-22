@@ -1,6 +1,7 @@
 import { SvgIcon, Stack } from "@mui/material";
 
 import {
+  linkedinSVG,
   muiSVG,
   mysqlSVG,
   nodejsSVG,
@@ -36,6 +37,10 @@ export function StorybookIcon() {
 
 export function WindowsIcon(props) {
   return <SvgIcon component={() => windowsSVG(props.color)}></SvgIcon>
+}
+
+export function LinkedInIcon({fontSize}) {
+  return <SvgIcon component={linkedinSVG} fontSize={fontSize}></SvgIcon>
 }
 
 const createIcon = (svg, name: string) => {
