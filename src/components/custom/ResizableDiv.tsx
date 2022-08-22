@@ -1,3 +1,4 @@
+import { height } from "@mui/system";
 import { useState, useEffect, useRef } from "react";
 
 interface Props {
@@ -137,75 +138,85 @@ export function ResizableDiv({
       resizableDivRef.current!.style.width = resize[area!].width;
       resizableDivRef.current!.style.height = resize[area!].height;
     });
+
+    if(resizableDivRef.current!.style.width !== (originalWindowSize!.width + "px") || resizableDivRef.current!.style.height !== (originalWindowSize!.height + "px"))
+    document.dispatchEvent(
+      new CustomEvent("resizing", {
+        detail: {
+          width: resizableDivRef.current!.style.width,
+          height: resizableDivRef.current!.style.height,
+        },
+      })
+    );
   };
 
   const handlePointerMove = (event) => {
-      if (pointerPressed) {
-        if (cursor !== "default") {
-          resizeWindow(event);
-        }
-      } else {
-        const pointerOffset = {
-          left: event.clientX - resizableDivRef.current!.offsetLeft,
-          top: event.clientY - resizableDivRef.current!.offsetTop,
-          bottom:
-            resizableDivRef.current!.offsetHeight -
-            (event.clientY - resizableDivRef.current!.offsetTop),
-          right:
-            resizableDivRef.current!.offsetWidth -
-            (event.clientX - resizableDivRef.current!.offsetLeft),
-        };
+    if (pointerPressed) {
+      if (cursor !== "default") {
+        resizeWindow(event);
+      }
+    } else {
+      const pointerOffset = {
+        left: event.clientX - resizableDivRef.current!.offsetLeft,
+        top: event.clientY - resizableDivRef.current!.offsetTop,
+        bottom:
+          resizableDivRef.current!.offsetHeight -
+          (event.clientY - resizableDivRef.current!.offsetTop),
+        right:
+          resizableDivRef.current!.offsetWidth -
+          (event.clientX - resizableDivRef.current!.offsetLeft),
+      };
 
-        const currentPointerPosition = {
-          topLeft: {
-            position: pointerOffset.left <= 10 && pointerOffset.top <= 10,
-            cursor: "nwse-resize",
-          },
-          topRight: {
-            position: pointerOffset.right <= 10 && pointerOffset.top <= 10,
-            cursor: "nesw-resize",
-          },
-          bottomLeft: {
-            position: pointerOffset.left <= 10 && pointerOffset.bottom <= 10,
-            cursor: "nesw-resize",
-          },
-          bottomRight: {
-            position: pointerOffset.right <= 10 && pointerOffset.bottom <= 10,
-            cursor: "nwse-resize",
-          },
-          top: {
-            position: pointerOffset.left > 10 && pointerOffset.top <= 10,
-            cursor: "ns-resize",
-          },
-          bottom: {
-            position: pointerOffset.right > 10 && pointerOffset.bottom <= 10,
-            cursor: "ns-resize",
-          },
-          left: {
-            position: pointerOffset.left <= 10 && pointerOffset.top > 10,
-            cursor: "ew-resize",
-          },
-          right: {
-            position: pointerOffset.right <= 10 && pointerOffset.bottom > 10,
-            cursor: "ew-resize",
-          },
-        };
+      const currentPointerPosition = {
+        topLeft: {
+          position: pointerOffset.left <= 10 && pointerOffset.top <= 10,
+          cursor: "nwse-resize",
+        },
+        topRight: {
+          position: pointerOffset.right <= 10 && pointerOffset.top <= 10,
+          cursor: "nesw-resize",
+        },
+        bottomLeft: {
+          position: pointerOffset.left <= 10 && pointerOffset.bottom <= 10,
+          cursor: "nesw-resize",
+        },
+        bottomRight: {
+          position: pointerOffset.right <= 10 && pointerOffset.bottom <= 10,
+          cursor: "nwse-resize",
+        },
+        top: {
+          position: pointerOffset.left > 10 && pointerOffset.top <= 10,
+          cursor: "ns-resize",
+        },
+        bottom: {
+          position: pointerOffset.right > 10 && pointerOffset.bottom <= 10,
+          cursor: "ns-resize",
+        },
+        left: {
+          position: pointerOffset.left <= 10 && pointerOffset.top > 10,
+          cursor: "ew-resize",
+        },
+        right: {
+          position: pointerOffset.right <= 10 && pointerOffset.bottom > 10,
+          cursor: "ew-resize",
+        },
+      };
 
-        let areaFound = false;
+      let areaFound = false;
 
-        for (let area in currentPointerPosition) {
-          if (currentPointerPosition[area].position && !areaFound) {
-            setPointerPosition(area as PointerPosition);
-            switchCursor(currentPointerPosition[area].cursor);
-            areaFound = true;
-          }
-        }
-
-        if (!areaFound) {
-          setPointerPosition(null);
-          switchCursor("default");
+      for (let area in currentPointerPosition) {
+        if (currentPointerPosition[area].position && !areaFound) {
+          setPointerPosition(area as PointerPosition);
+          switchCursor(currentPointerPosition[area].cursor);
+          areaFound = true;
         }
       }
+
+      if (!areaFound) {
+        setPointerPosition(null);
+        switchCursor("default");
+      }
+    }
   };
 
   const handlePointerPressed = (event) => {
@@ -237,13 +248,21 @@ export function ResizableDiv({
       return () => {
         const windowPos = resizableDivRefCurrent.getBoundingClientRect();
         const defaultPadding = 8;
-        if(windowPos.top < -defaultPadding || windowPos.bottom - defaultPadding > document.documentElement.clientHeight || windowPos.left < -defaultPadding || windowPos.right - defaultPadding > document.documentElement.clientWidth){
+        if (
+          windowPos.top < -defaultPadding ||
+          windowPos.bottom - defaultPadding >
+            document.documentElement.clientHeight ||
+          windowPos.left < -defaultPadding ||
+          windowPos.right - defaultPadding >
+            document.documentElement.clientWidth
+        ) {
           resizableDivRefCurrent.style.left = originalWindowOffset!.x + "px";
           resizableDivRefCurrent.style.top = originalWindowOffset!.y + "px";
           resizableDivRefCurrent.style.width = originalWindowSize!.width + "px";
-          resizableDivRefCurrent.style.height = originalWindowSize!.height + "px";
+          resizableDivRefCurrent.style.height =
+            originalWindowSize!.height + "px";
         }
-          document.onpointermove = () => {
+        document.onpointermove = () => {
           return false;
         };
         document.onpointerup = () => {
