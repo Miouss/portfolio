@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import "../styles/Desktop.css";
 
-import { addApp, RootState, useAppDispatch } from "../redux";
+import { addApp, addShortcut, RootState, useAppDispatch } from "../redux";
 
 import { ReactElement, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -36,6 +36,17 @@ function Desktop() {
           isRunning: false,
           isFocused: false,
           isMinimized: false,
+        },
+      })
+    );
+
+    dispatch(
+      addShortcut({
+        GitHub: {
+          link: "https://github.com/Miouss",
+        },
+        LinkedIn: {
+          link: "https://www.linkedin.com/in/samir-ghabi-aa58a2224/",
         },
       })
     );
