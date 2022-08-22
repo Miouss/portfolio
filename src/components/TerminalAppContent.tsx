@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import { useState, useEffect, useCallback } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { delay } from "../assets/usefulFunction";
 
 import "../styles/TerminalAppContent.css";
@@ -10,6 +10,8 @@ interface Props {
 }
 
 function TerminalAppContent({appName} : Props) {
+  const TerminalAppContentRef = useRef<HTMLDivElement | null>(null);
+
   const [text, updateText] = useState<string>("");
   const [content, updateContent] = useState<string>("Hello World");
   const [CSSAnimationName, updateCSSAnimationName] = useState<string>("blink");
@@ -43,7 +45,7 @@ function TerminalAppContent({appName} : Props) {
   const keyHandler = useCallback(
     (event: KeyboardEvent) => {
       event.preventDefault();
-
+      
       if (event.key === "Enter") {
         if (event.shiftKey) {
           updateText("");
@@ -72,18 +74,18 @@ function TerminalAppContent({appName} : Props) {
 
   useEffect(
     function resetEventListener() {
-      const windowContainer = (document.querySelector(`#winapp${appName}`) as HTMLDivElement);
-
-      if(windowContainer !== null){
-        windowContainer.addEventListener("keydown", keyHandler);
-        return () => windowContainer.removeEventListener("keydown", keyHandler);
+      if(TerminalAppContentRef.current !== null){
+        const content = TerminalAppContentRef.current!.offsetParent as HTMLDivElement;
+        console.log(content);
+        content!.addEventListener("keydown", keyHandler);
+        return () => content!.removeEventListener("keydown", keyHandler);
       }
     },
     [keyHandler]
   );
 
   return (
-    <div id="text-area">
+    <div ref={TerminalAppContentRef} id="text-area" tabIndex={0}>
       {"C:\\>"}
       {text}
       <span style={{ animationName: CSSAnimationName }} id="cursor"></span>
