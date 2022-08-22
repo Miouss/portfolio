@@ -1,16 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import "../styles/Desktop.css";
 
-import { addApp, RootState, useAppDispatch } from "../redux";
+import { addApp, addShortcut, RootState, useAppDispatch } from "../redux";
 
 import { ReactElement, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import DesktopApp from "./DesktopApp";
+import DesktopGrid from "./DesktopGrid";
 import DesktopTaskBar from "./DesktopTaskBar";
 import { App } from "./AppList";
-import WindowsWallpaper from "../assets/windows-wallpaper.png"
-
+import WindowsWallpaper from "../assets/windows-wallpaper.png";
 
 function Desktop() {
   const apps = useSelector((state: RootState) => state.apps);
@@ -18,28 +17,36 @@ function Desktop() {
 
   const [runningApps, setRunningApps] = useState<Array<ReactElement>>([]);
 
-  const showDesktopApp = () => {
-    let desktopApp: Array<ReactElement> = [];
-
-    for (const appName in apps) {
-      desktopApp.push(<DesktopApp key={appName} appName={appName} />);
-    }
-
-    return desktopApp;
+  const bgImageStyle = {
+    backgroundImage: `url(${WindowsWallpaper})`,
+    backgroundPosition: "76% 50%",
+    backgroundSize: "1920px 1080px",
+    backgroundRepeat: "no-repeat",
   };
 
   useEffect(() => {
     dispatch(
       addApp({
-        "terminal": {
+        terminal: {
           isRunning: false,
           isFocused: false,
-          isMinimized: false
+          isMinimized: false,
         },
         "Aperçu CV": {
           isRunning: false,
           isFocused: false,
-          isMinimized: false
+          isMinimized: false,
+        },
+      })
+    );
+
+    dispatch(
+      addShortcut({
+        GitHub: {
+          link: "https://github.com/Miouss",
+        },
+        LinkedIn: {
+          link: "https://www.linkedin.com/in/samir-ghabi-aa58a2224/",
         },
       })
     );
@@ -62,14 +69,9 @@ function Desktop() {
   }, [apps]);
 
   return (
-    <div id="desktop">
-      <div id="wallpaper">
-        <img src={WindowsWallpaper} alt="windows-wallpaper" />
-      </div>
-
-        {runningApps}
-      <div id="desktop-app-section">{showDesktopApp()}</div>
-
+    <div id="desktop" style={bgImageStyle}>
+      {runningApps}
+      <DesktopGrid />
       <DesktopTaskBar />
     </div>
   );

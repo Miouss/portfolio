@@ -2,32 +2,3 @@
     width: 100vw;
     height: 100vh;
 }
-
-#wallpaper{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-
-    z-index: -1;
-}
-
-#wallpaper > img{
-    position: absolute;
-
-    width: 100%;
-    height: 100%;
-}
-
-#desktop-app-section{
-    padding: 1rem;
-    width: fit-content;
-    height: fit-content;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#desktop-app-section > * > :last-child{
-    color:white;
-    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
-}

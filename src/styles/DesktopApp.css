@@ -1,4 +1,5 @@
 .desktop-app{
+    position: relative;
     width: 10rem;
     height: 10rem;
     display: flex;
@@ -15,6 +16,19 @@
     padding-bottom: 1rem;
 }
 
+.desktop-app > :last-child{
+    color: white;
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
 .desktop-app:hover{
     cursor: default;
+}
+
+.desktop-app-shortcut{
+    position: absolute;
+    left:30%;
+    background-color: white;
+
+    display: flex;
 }
