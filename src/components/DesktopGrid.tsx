@@ -9,6 +9,7 @@ import "../styles/DesktopGrid.css";
 
 function DesktopGrid() {
   const apps = useSelector((state: RootState) => state.apps);
+  const shortcuts = useSelector((state: RootState) => state.shortcuts);
 
   const showDesktopApp = () => {
     let desktopApp: Array<ReactElement> = [];
@@ -24,7 +25,7 @@ function DesktopGrid() {
     let col = 1;
 
     for (const appName in apps) {
-      desktopApp.push(<DesktopApp key={appName} appName={appName} gridArea={`1 / ${col} / 1 / ${col+1}`} />);
+      desktopApp.push(<DesktopApp key={appName} type="normal" appName={appName} gridArea={`1 / ${col} / 1 / ${col+1}`} />);
       col++;
     }
   }
@@ -32,8 +33,8 @@ function DesktopGrid() {
   const fillShortcupApp = (desktopApp: Array<ReactElement>) => {
     let col = 9;
 
-    for (const appName in apps) {
-      desktopApp.push(<DesktopApp key={appName} appName={appName} gridArea={`10 / ${col} / 10 / ${col+1}`} />);
+    for (const shortcutName in shortcuts) {
+      desktopApp.push(<DesktopApp key={shortcutName} type="shortcut" appName={shortcutName} gridArea={`10 / ${col} / 10 / ${col+1}`} />);
       col++;
     } 
   }
