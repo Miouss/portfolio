@@ -32,7 +32,7 @@ export function MovableBar({ className, children }) {
         const windowPos =
           windowBarRefCurrent.offsetParent!.getBoundingClientRect();
 
-        if (windowPos.top < 0 || windowPos.bottom > document.documentElement.clientHeight + (windowPos.height / 2) || windowPos.left < -(windowPos.width / 2) || windowPos.right > document.documentElement.clientWidth + (windowPos.width / 2)) {
+        if (windowPos.top < -30 || windowPos.bottom > document.documentElement.clientHeight + (windowPos.height / 2) || windowPos.left < -(windowPos.width / 2) || windowPos.right > document.documentElement.clientWidth + (windowPos.width / 2)) {
           windowBarRefCurrent.offsetParent!.style.top = originalOffset!.top;
           windowBarRefCurrent.offsetParent!.style.left = originalOffset!.left;
         }
