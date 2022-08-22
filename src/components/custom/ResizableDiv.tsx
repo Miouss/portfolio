@@ -80,6 +80,11 @@ export function ResizableDiv({
       .split(/(?=[A-Z])/)
       .map((value) => value.toLowerCase());
 
+    const previousWindowSize = {
+      height: parseInt(resizableDivRef.current!.style.height),
+      width: parseInt(resizableDivRef.current!.style.width),
+    };
+
     const resize = {
       left: {
         offsetLeft:
@@ -144,8 +149,7 @@ export function ResizableDiv({
       width: parseInt(resizableDivRef.current!.style.width),
     };
 
-    if (currentWindowSize.width !== originalWindowSize!.width || currentWindowSize.height !== originalWindowSize!.height ) {
-
+    if (currentWindowSize.width !== previousWindowSize.width || currentWindowSize.height !== previousWindowSize.height){
       document.dispatchEvent(
         new CustomEvent("resizing", {
           detail: {
