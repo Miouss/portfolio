@@ -68,6 +68,8 @@ function Desktop() {
     setRunningApps(runningAppsArray);
   }, [apps]);
 
+  document.addEventListener("mousedown", (event) => event.preventDefault());
+
   return (
     <div id="desktop" style={bgImageStyle}>
       {runningApps}
