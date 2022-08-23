@@ -1,4 +1,3 @@
-import { height } from "@mui/system";
 import { useState, useEffect, useRef } from "react";
 
 interface Props {
@@ -150,7 +149,7 @@ export function ResizableDiv({
     };
 
     if (currentWindowSize.width !== previousWindowSize.width || currentWindowSize.height !== previousWindowSize.height){
-      document.dispatchEvent(
+      resizableDivRef.current!.dispatchEvent(
         new CustomEvent("resizing", {
           detail: {
             width: currentWindowSize.width,
