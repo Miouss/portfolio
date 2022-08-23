@@ -1,10 +1,12 @@
 import { SvgIcon, Stack } from "@mui/material";
 
 import {
+  expressSVG,
   linkedinSVG,
   muiSVG,
   mysqlSVG,
   nodejsSVG,
+  phpSVG,
   reactSVG,
   reduxSVG,
   storybookSVG,
@@ -33,6 +35,14 @@ export function ReduxIcon() {
 
 export function StorybookIcon() {
   return createIcon(storybookSVG, "StoryBook");
+}
+
+export function ExpressIcon(){
+  return createIcon(expressSVG, "Express JS");
+}
+
+export function PhpIcon(){
+  return createIcon(phpSVG, "PHP");
 }
 
 export function WindowsIcon(props) {
