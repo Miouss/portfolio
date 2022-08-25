@@ -1,11 +1,23 @@
 .window-app {
   position: absolute;
-  display: flex;
+
   flex-direction: column;
-  top: 150px;
-  left: 150px;
+
+  max-width: 100vw;
+  max-height: 100vh;
+
   padding: 10px;
+
   box-sizing: border-box;
   overflow: hidden;
   z-index: 2;
+}
+
+.window-app > :last-child{
+  background-color: white;
+  outline: solid black 1px;
+  overflow-y: scroll;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 }
