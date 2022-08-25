@@ -304,7 +304,7 @@ export function ResizableDiv({
       });
     }
   }, [firstRerender]);
-  console.log("re-render !");
+
   return (
     <div
       ref={resizableDivRef}
