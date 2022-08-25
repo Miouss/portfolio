@@ -148,7 +148,10 @@ export function ResizableDiv({
       width: parseInt(resizableDivRef.current!.style.width),
     };
 
-    if (currentWindowSize.width !== previousWindowSize.width || currentWindowSize.height !== previousWindowSize.height){
+    if (
+      currentWindowSize.width !== previousWindowSize.width ||
+      currentWindowSize.height !== previousWindowSize.height
+    ) {
       resizableDivRef.current!.dispatchEvent(
         new CustomEvent("resizing", {
           detail: {
@@ -232,6 +235,7 @@ export function ResizableDiv({
   const handlePointerPressed = (event) => {
     const windowBoundingClientRect =
       resizableDivRef!.current!.getBoundingClientRect();
+
     setOriginalWindowOffset({
       x: resizableDivRef!.current!.offsetLeft as number,
       y: resizableDivRef!.current!.offsetTop as number,
@@ -283,6 +287,24 @@ export function ResizableDiv({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pointerPressed]);
 
+  const [dynamicStyle, setDynamicStyle] = useState({ top: "50%", left: "50%", transform: "translate(-50%, -50%)" });
+  const [firstRerender, setFirstRerender] = useState(false);
+
+  useEffect(() => {
+    setFirstRerender(true);
+  }, []);
+
+  useEffect(() => {
+    if (firstRerender) {
+      const dimensions = resizableDivRef.current?.getBoundingClientRect();
+      setDynamicStyle({
+        top: dimensions!.top + "px",
+        left: dimensions!.left + "px",
+        transform: "none"
+      });
+    }
+  }, [firstRerender]);
+  console.log("re-render !");
   return (
     <div
       ref={resizableDivRef}
@@ -292,8 +314,9 @@ export function ResizableDiv({
         cursor: cursor,
         display: display,
         zIndex: zIndexValue,
-        width: minWidth + "px",
-        height: minHeight + "px",
+        minWidth: minWidth + "px",
+        minHeight: minHeight + "px",
+        ...dynamicStyle,
       }}
       onPointerMove={(event) => {
         handlePointerMove(event);
