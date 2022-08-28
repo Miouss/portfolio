@@ -7,6 +7,7 @@ interface Props {
   zIndexValue?: string;
   display?: string;
   onFocus?: () => void;
+  fullscreen?: boolean;
   children: JSX.Element | JSX.Element[];
 }
 
@@ -51,6 +52,7 @@ export function ResizableDiv({
   zIndexValue = "1",
   display = "flex",
   onFocus = undefined,
+  fullscreen = undefined,
   children,
 }: Props) {
   const resizableDivRef = useRef<HTMLDivElement>(null);
@@ -72,6 +74,15 @@ export function ResizableDiv({
   const switchCursor = (newCursor: PointerCursor) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     cursor === newCursor ? null : setCursor(newCursor);
+  };
+
+  const resizingEvent = (currentWindowSize) => {
+    return new CustomEvent("resizing", {
+      detail: {
+        width: currentWindowSize.width,
+        height: currentWindowSize.height,
+      },
+    });
   };
 
   const resizeWindow = (event) => {
@@ -152,14 +163,7 @@ export function ResizableDiv({
       currentWindowSize.width !== previousWindowSize.width ||
       currentWindowSize.height !== previousWindowSize.height
     ) {
-      resizableDivRef.current!.dispatchEvent(
-        new CustomEvent("resizing", {
-          detail: {
-            width: currentWindowSize.width,
-            height: currentWindowSize.height,
-          },
-        })
-      );
+      resizableDivRef.current!.dispatchEvent(resizingEvent(currentWindowSize));
     }
   };
 
@@ -287,23 +291,75 @@ export function ResizableDiv({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pointerPressed]);
 
-  const [dynamicStyle, setDynamicStyle] = useState({ top: "50%", left: "50%", transform: "translate(-50%, -50%)" });
-  const [firstRerender, setFirstRerender] = useState(false);
+  const [dynamicStyle, setDynamicStyle] = useState({
+    width: "auto",
+    height: "auto",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+  });
+
+  const [forceRerender, setForceRerender] = useState(false);
 
   useEffect(() => {
-    setFirstRerender(true);
+    setForceRerender(!forceRerender);
   }, []);
 
   useEffect(() => {
-    if (firstRerender) {
-      const dimensions = resizableDivRef.current?.getBoundingClientRect();
+    const dimensions = resizableDivRef.current?.getBoundingClientRect();
+
+    setDynamicStyle({
+      width: dimensions!.width + "px",
+      height: dimensions!.height + "px",
+      top: dimensions!.top + "px",
+      left: dimensions!.left + "px",
+      transform: "none",
+    });
+
+    resizableDivRef.current!.dispatchEvent(
+      resizingEvent({
+        width: dimensions!.width,
+        height: dimensions!.height,
+      })
+    );
+  }, [forceRerender]);
+
+  const [previousWiondowPosition, setPreviousWiondowPosition] =
+    useState<DOMRect | null>(null);
+
+  useEffect(() => {
+    if (fullscreen) {
+      setPreviousWiondowPosition(
+        resizableDivRef.current!.getBoundingClientRect()
+      );
       setDynamicStyle({
-        top: dimensions!.top + "px",
-        left: dimensions!.left + "px",
-        transform: "none"
+        width: "calc(100% + 20px)",
+        height: "100%",
+        top: "-10px",
+        left: "-10px",
+        transform: "none",
       });
+
+      resizableDivRef.current!.dispatchEvent(
+        resizingEvent({
+          width: Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) + 20,
+          height: Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0) + 20,
+        })
+      );
+    } else {
+      if (previousWiondowPosition !== null) {
+        setDynamicStyle({
+          width: previousWiondowPosition!.width + "px",
+          height: previousWiondowPosition!.height + "px",
+          top: previousWiondowPosition!.top + "px",
+          left: previousWiondowPosition!.left + "px",
+          transform: "none",
+        });
+
+        setForceRerender(!forceRerender);
+      }
     }
-  }, [firstRerender]);
+  }, [fullscreen]);
 
   return (
     <div
