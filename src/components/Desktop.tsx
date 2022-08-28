@@ -26,29 +26,17 @@ function Desktop() {
 
   useEffect(() => {
     dispatch(
-      addApp({
-        terminal: {
-          isRunning: false,
-          isFocused: false,
-          isMinimized: false,
-        },
-        "Aperçu CV": {
-          isRunning: false,
-          isFocused: false,
-          isMinimized: false,
-        },
-      })
+      addApp("terminal")
+    );
+    dispatch(
+      addApp("Aperçu CV")
     );
 
     dispatch(
-      addShortcut({
-        GitHub: {
-          link: "https://github.com/Miouss",
-        },
-        LinkedIn: {
-          link: "https://www.linkedin.com/in/samir-ghabi-aa58a2224/",
-        },
-      })
+      addShortcut(["GitHub", "https://github.com/Miouss"])
+    );
+    dispatch(
+      addShortcut(["LinkedIn", "https://www.linkedin.com/in/samir-ghabi-aa58a2224/"])
     );
 
     document.onselectstart = () => {
