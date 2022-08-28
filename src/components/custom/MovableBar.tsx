@@ -31,7 +31,7 @@ export function MovableBar({ className, children }) {
       };
 
       const windowBarRefCurrent = windowBarRef.current!;
-      return () => {
+      return () => {        
         const windowPos =
           windowBarRefCurrent.offsetParent!.getBoundingClientRect();
 
@@ -68,6 +68,7 @@ export function MovableBar({ className, children }) {
     <div
       className={className}
       ref={windowBarRef}
+      style={{cursor: "default"}}
       onPointerDown={(event) => {
         event.stopPropagation();
         setMouseIsPressed(true);
