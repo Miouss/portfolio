@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import "../styles/WindowApp.css";
 
+import { Box } from "@mui/system";
+
 import Typography from "@mui/material/Typography";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from "@mui/material/Button";
@@ -18,6 +20,7 @@ import {
   minimizeApp,
   RootState,
   useAppDispatch,
+  toggleFullscreenApp,
 } from "../redux";
 import { useSelector } from "react-redux";
 
@@ -40,6 +43,11 @@ function WindowApp({ appName, contentComponent }: Props) {
   const isFocused = useSelector(
     (state: RootState) => state.apps[appName].isFocused
   );
+
+  const isFullscreen = useSelector(
+    (state: RootState) => state.apps[appName].isFullscreen
+  );
+
   const dispatch = useAppDispatch();
 
   const [pointerWasDown, setPointerWasDown] = useState<boolean>(false);
@@ -89,25 +97,28 @@ function WindowApp({ appName, contentComponent }: Props) {
   return (
     <ResizableDiv
       className="window-app"
-      minWidth={400}
-      minHeight={300}
+      minWidth={800}
+      minHeight={400}
       display={display}
       zIndexValue={zIndexValue}
       onFocus={() => {
         dispatch(focusApp(appName));
       }}
+      fullscreen={isFullscreen}
     >
       <MovableBar
         className="window-bar"
       >
-        <AppIcon appName={appName} />
+        <Box onPointerEnter={(event) => handlePointerEvent(event)} onPointerDown={(event) => handlePointerEvent(event)}>
+          <AppIcon appName={appName} />
+        </Box>
         <Typography style={{ flexGrow: 1 }}>{appName}</Typography>
 
         <ButtonGroup variant="outlined" color="inherit" onPointerEnter={(event) => handlePointerEvent(event)} onPointerDown={(event) => handlePointerEvent(event)}>
           <Button onClick={() => dispatch(minimizeApp(appName))}>
             <MinimizeIcon />
           </Button>
-          <Button>
+          <Button onClick={() => dispatch(toggleFullscreenApp(appName))}>
             <CropFreeIcon />
           </Button>
           <Button
