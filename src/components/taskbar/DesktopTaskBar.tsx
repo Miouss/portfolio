@@ -2,7 +2,7 @@ import "../../styles/DesktopTaskBar.css";
 import { useEffect, useState } from "react";
 
 import DesktopTaskBarApp from "./DesktopTaskBarApp";
-import DateTime from "../desktop/DateTime";
+import DateTime from "./DateTime";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
 import { WindowsIcon } from "../custom/icons/iconsList";
