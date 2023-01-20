@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import delay from "../../utils/delay";
-
+import delay from "../../../utils/delay";
 
 function DateTime() {
   const [date, setDate] = useState<Date>(new Date());
@@ -17,7 +16,7 @@ function DateTime() {
   };
 
   useEffect(() => {
-    async function updateDate(){
+    async function updateDate() {
       await delay(1000);
 
       setDate(new Date());
@@ -26,11 +25,11 @@ function DateTime() {
     updateDate();
   }, [date]);
 
-  return ( 
-    <>
+  return (
+    <div id="windows-task-bar-date">
       <div>{updatedDate.time}</div>
       <div>{updatedDate.date}</div>
-    </>
+    </div>
   );
 }
 

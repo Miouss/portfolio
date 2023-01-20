@@ -1,15 +1,12 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import "../styles/Desktop.css";
-
-import { addApp, addShortcut, RootState, useAppDispatch } from "../redux";
-
 import { ReactElement, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
-import DesktopGrid from "./desktop/DesktopGrid";
-import DesktopTaskBar from "./taskbar/DesktopTaskBar";
-import { App } from "./apps/AppList";
+import { addApp, addShortcut, RootState, useAppDispatch } from "../redux";
+import AppGrid from "./desktop/AppGrid";
+import Taskbar from "./taskbar/Taskbar";
+import { AppComponent } from "./apps/AppList";
 import WindowsWallpaper from "../assets/windows-wallpaper.png";
+
+import "../styles/Desktop.css";
 
 function Desktop() {
   const apps = useSelector((state: RootState) => state.apps);
@@ -25,35 +22,41 @@ function Desktop() {
   };
 
   useEffect(() => {
-    dispatch(
-      addApp("terminal")
-    );
-    dispatch(
-      addApp("Aperçu CV")
-    );
+    const dispatchAddShortcut = (name: string, link: string) => {
+      dispatch(
+        addShortcut({
+          name,
+          link,
+        })
+      );
+    };
 
-    dispatch(
-      addShortcut(["GitHub", "https://github.com/Miouss"])
-    );
-    dispatch(
-      addShortcut(["LinkedIn", "https://www.linkedin.com/in/samir-ghabi-aa58a2224/"])
+    const dispatchAddApp = (name: string) => {
+      dispatch(addApp(name));
+    };
+
+    dispatchAddApp("terminal");
+    dispatchAddApp("Aperçu CV");
+    dispatchAddShortcut("GitHub", "https://github.com/Miouss");
+    dispatchAddShortcut(
+      "LinkedIn",
+      "https://www.linkedin.com/in/samir-ghabi-aa58a2224/"
     );
 
     document.onselectstart = () => {
       return false;
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    let runningAppsArray: Array<ReactElement> = [];
+    const appsRunning = apps.filter((app) => app.status.isRunning);
 
-    for (const appName in apps) {
-      if (apps[appName].isRunning) {
-        runningAppsArray.push(<App key={`App${appName}`} appName={appName} />);
-      }
-    }
-
-    setRunningApps(runningAppsArray);
+    setRunningApps(
+      appsRunning.map((app) => (
+        <AppComponent key={`App${app}`} appName={app.name} />
+      ))
+    );
   }, [apps]);
 
   document.onmousedown = (event) => event.preventDefault();
@@ -61,8 +64,8 @@ function Desktop() {
   return (
     <div id="desktop" style={bgImageStyle}>
       {runningApps}
-      <DesktopGrid />
-      <DesktopTaskBar />
+      <AppGrid />
+      <Taskbar />
     </div>
   );
 }

@@ -1,23 +1,30 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { focusApp, minimizeApp, RootState, useAppDispatch } from "../../redux";
+import { focusApp, minimizeApp, RootState, useAppDispatch } from "../../../../redux";
 
-import { AppIcon } from "../apps/AppList";
-import ContextMenu from "./DesktopTaskBarContextMenu";
+import { AppIcon } from "../../../apps/AppList";
+import AppbarContextMenu from "./AppbarContextMenu/AppbarContextMenu";
 
 interface Props {
   appName: string;
 }
 
-function DesktopTaskBarApp({ appName }: Props) {
-  const app = useSelector((state: RootState) => state.apps[appName]);
+function AppContainer({ appName }: Props) {
+
+  console.log(`AppContainer ${appName} rendered`);
+  
+  const isFocused = useSelector((state: RootState) => {
+    const app = state.apps.find((app) => app.name === appName);
+    return app!.status.isFocused;
+  }); 
+
   const dispatch = useAppDispatch();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const [bgColor, setBgColor] = useState<string>("");
-  const [lineWidth, setLineWidth] = useState<string>("");
-  const [opacityBgColorBoost, setOpacityBgColorBoost] = useState<number>(0);
+  const [bgColor, setBgColor] = useState("");
+  const [lineWidth, setLineWidth] = useState("");
+  const [opacityBgColorBoost, setOpacityBgColorBoost] = useState(0);
 
   const handleMouseOver = (event: React.MouseEvent): void => {
     event.type === "mouseenter"
@@ -26,23 +33,23 @@ function DesktopTaskBarApp({ appName }: Props) {
   };
 
   const handleClick = () => {
-    app.isFocused
+    isFocused
       ? dispatch(minimizeApp(appName))
       : dispatch(focusApp(appName));
   };
 
   useEffect(() => {
-    if (opacityBgColorBoost === 0.4 && !app.isFocused) {
+    if (opacityBgColorBoost === 0.4 && !isFocused) {
       setBgColor(`rgba(100, 100, 100, ${opacityBgColorBoost})`);
       setLineWidth("45px");
-    } else if (app.isFocused) {
+    } else if (isFocused) {
       setBgColor(`rgba(100, 100, 100, ${0.4 + opacityBgColorBoost})`);
       setLineWidth("45px");
     } else {
       setBgColor(`rgba(100, 100, 100, ${opacityBgColorBoost})`);
       setLineWidth("35px");
     }
-  }, [opacityBgColorBoost, app.isFocused]);
+  }, [opacityBgColorBoost, isFocused]);
 
   const handleDocumentContextMenu = (event) => {
     event.preventDefault();
@@ -72,14 +79,14 @@ function DesktopTaskBarApp({ appName }: Props) {
       onMouseLeave={(event) => handleMouseOver(event)}
       onContextMenu={(event) => {
         event.preventDefault();
-        if(!app.isFocused){
+        if(!isFocused){
           dispatch(focusApp(appName));
         }
 
         setAnchorEl(event.currentTarget);
       }}
     >
-      <ContextMenu
+      <AppbarContextMenu
         anchorEl={anchorEl}
         setAnchorEl={setAnchorEl}
         appName={appName}
@@ -93,4 +100,4 @@ function DesktopTaskBarApp({ appName }: Props) {
   );
 }
 
-export default DesktopTaskBarApp;
+export default AppContainer;

@@ -22,8 +22,8 @@ import {
 } from "../../redux";
 import { useSelector } from "react-redux";
 
-import { ResizableDiv } from "../custom/ResizableDiv";
-import { MovableBar } from "../custom/MovableBar";
+import { ResizableDiv } from "../../styles/components/apps/ResizableDiv";
+import { MovableBar } from "../../styles/components/apps/MovableBar";
 
 import "../../styles/WindowBar.css";
 import "../../styles/WindowApp.css";
@@ -33,18 +33,13 @@ interface Props {
   contentComponent: ReactElement;
 }
 
-function WindowApp({ appName, contentComponent }: Props) {
-  const isMinimized = useSelector(
-    (state: RootState) => state.apps[appName].isMinimized
-  );
+export default function WindowApp({ appName, contentComponent }: Props) {
+  const {isMinimized, isFocused, isFullscreen} = useSelector((state: RootState) => {
+    const app = state.apps.find((app) => app.name === appName);	
 
-  const isFocused = useSelector(
-    (state: RootState) => state.apps[appName].isFocused
-  );
+    return app!.status;
+  });
 
-  const isFullscreen = useSelector(
-    (state: RootState) => state.apps[appName].isFullscreen
-  );
 
   const dispatch = useAppDispatch();
 
@@ -134,5 +129,3 @@ function WindowApp({ appName, contentComponent }: Props) {
     </ResizableDiv>
   );
 }
-
-export default WindowApp;

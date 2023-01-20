@@ -40,7 +40,7 @@ interface Props {
   appName: string;
 }
 
-export function App({ appName }: Props) {
+export function AppComponent({ appName }: Props) {
   return appList[`${appName}`].app;
 }
 
