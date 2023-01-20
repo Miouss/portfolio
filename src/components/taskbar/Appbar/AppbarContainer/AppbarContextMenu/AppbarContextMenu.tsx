@@ -1,13 +1,13 @@
 import { MenuList, MenuItem, Popper } from "@mui/material";
 import { ClickAwayListener } from "@mui/base";
-import { closeApp, minimizeApp, useAppDispatch } from "../../redux";
+import { closeApp, minimizeApp, useAppDispatch } from "../../../../../redux";
 
 import CloseIcon from "@mui/icons-material/Close";
 import MinimizeIcon from "@mui/icons-material/Minimize";
 
-import "../../styles/DesktopTaskBarContextMenu.css";
+import "../../../../../styles/DesktopTaskBarContextMenu.css";
 
-function DesktopTaskBarContextMenu({ anchorEl, setAnchorEl, appName }) {
+function AppbarContextMenu({ anchorEl, setAnchorEl, appName }) {
   const dispatch = useAppDispatch();
 
   const onOverBgColor = "rgba(100,100,100, 0.5)";
@@ -23,8 +23,15 @@ function DesktopTaskBarContextMenu({ anchorEl, setAnchorEl, appName }) {
       event.type === "pointerover" ? onOverBgColor : defaultBgColor;
   };
 
-  return (<></>
-/*     <Popper id="context-menu" open={Boolean(anchorEl)} anchorEl={anchorEl}>
+  return (
+    <Popper
+      id="context-menu"
+      open={!!anchorEl}
+      anchorEl={anchorEl}
+      nonce={undefined}
+      onResize={undefined}
+      onResizeCapture={undefined}
+    >
       <ClickAwayListener onClickAway={() => setAnchorEl(null)}>
         <MenuList>
           <MenuItem
@@ -43,8 +50,8 @@ function DesktopTaskBarContextMenu({ anchorEl, setAnchorEl, appName }) {
           </MenuItem>
         </MenuList>
       </ClickAwayListener>
-    </Popper> */
+    </Popper>
   );
 }
 
-export default DesktopTaskBarContextMenu;
+export default AppbarContextMenu;

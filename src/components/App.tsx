@@ -1,15 +1,12 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import "../styles/Desktop.css";
-
-import { addApp, addShortcut, RootState, useAppDispatch } from "../redux";
-
 import { ReactElement, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
-import Taskbar from "./taskbar/Taskbar";
-import { App } from "./apps/AppList";
-import WindowsWallpaper from "../assets/windows-wallpaper.png";
+import { addApp, addShortcut, RootState, useAppDispatch } from "../redux";
 import AppGrid from "./desktop/AppGrid";
+import Taskbar from "./taskbar/Taskbar";
+import { AppComponent } from "./apps/AppList";
+import WindowsWallpaper from "../assets/windows-wallpaper.png";
+
+import "../styles/Desktop.css";
 
 function Desktop() {
   const apps = useSelector((state: RootState) => state.apps);
@@ -49,17 +46,16 @@ function Desktop() {
     document.onselectstart = () => {
       return false;
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
+    const appsRunning = apps.filter((app) => app.status.isRunning);
+
     setRunningApps(
-      apps.map((app, index) =>
-        app.status.isRunning ? (
-          <App key={`App${index}`} appName={app.name} />
-        ) : (
-          <></>
-        )
-      )
+      appsRunning.map((app) => (
+        <AppComponent key={`App${app}`} appName={app.name} />
+      ))
     );
   }, [apps]);
 

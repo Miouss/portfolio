@@ -2,7 +2,7 @@ import {
   pointerEnterStyle,
   pointerLeaveStyle,
   pointerDownStyle,
-} from "../../custom/styles/appStyle";
+} from "../../../styles/components/desktop/pointerEvents";
 
 import { AppStyle } from "../AppGrid";
 

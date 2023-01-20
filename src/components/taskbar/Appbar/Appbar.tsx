@@ -1,7 +1,7 @@
-import { ReactElement, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import AppContainer from "./AppContainer/AppContainer";
+import AppbarContainer from "./AppbarContainer/AppbarContainer";
 
 import { RootState } from "../../../redux";
 
@@ -11,18 +11,14 @@ export default function Appbar() {
   const apps = useSelector((state: RootState) => state.apps);
 
   useEffect(() => {
+    const appsRunning = apps.filter((app) => app.status.isRunning);
+
     setAppsContainers(
-      apps
-        .map((app, index) => {
-          return app.status.isRunning ? (
-            <AppContainer key={`AppContainer${index}`} appName={app.name} />
-          ) : (
-            <></>
-          );
-        })
-        .reverse()
+      appsRunning.map((app, index) => {
+        return <AppbarContainer key={`TaskBarApp${index}`} appName={app.name} />;
+      })
     );
   }, [apps]);
 
-  return { appsContainers };
+  return <div id="windows-task-bar-apps-icons">{appsContainers}</div>;
 }

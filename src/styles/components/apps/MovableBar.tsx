@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 
-import "../../styles/WindowBar.css";
+import "../../../styles/WindowBar.css";
 
 interface Offset {
   left: string;

@@ -3,14 +3,21 @@ import { useSelector } from "react-redux";
 import { focusApp, minimizeApp, RootState, useAppDispatch } from "../../../../redux";
 
 import { AppIcon } from "../../../apps/AppList";
-import ContextMenu from "../../DesktopTaskBarContextMenu";
+import AppbarContextMenu from "./AppbarContextMenu/AppbarContextMenu";
 
 interface Props {
   appName: string;
 }
 
 function AppContainer({ appName }: Props) {
-  const app = useSelector((state: RootState) => state.apps[appName]);
+
+  console.log(`AppContainer ${appName} rendered`);
+  
+  const isFocused = useSelector((state: RootState) => {
+    const app = state.apps.find((app) => app.name === appName);
+    return app!.status.isFocused;
+  }); 
+
   const dispatch = useAppDispatch();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -26,23 +33,23 @@ function AppContainer({ appName }: Props) {
   };
 
   const handleClick = () => {
-    app.isFocused
+    isFocused
       ? dispatch(minimizeApp(appName))
       : dispatch(focusApp(appName));
   };
 
   useEffect(() => {
-    if (opacityBgColorBoost === 0.4 && !app.isFocused) {
+    if (opacityBgColorBoost === 0.4 && !isFocused) {
       setBgColor(`rgba(100, 100, 100, ${opacityBgColorBoost})`);
       setLineWidth("45px");
-    } else if (app.isFocused) {
+    } else if (isFocused) {
       setBgColor(`rgba(100, 100, 100, ${0.4 + opacityBgColorBoost})`);
       setLineWidth("45px");
     } else {
       setBgColor(`rgba(100, 100, 100, ${opacityBgColorBoost})`);
       setLineWidth("35px");
     }
-  }, [opacityBgColorBoost, app.isFocused]);
+  }, [opacityBgColorBoost, isFocused]);
 
   const handleDocumentContextMenu = (event) => {
     event.preventDefault();
@@ -72,14 +79,14 @@ function AppContainer({ appName }: Props) {
       onMouseLeave={(event) => handleMouseOver(event)}
       onContextMenu={(event) => {
         event.preventDefault();
-        if(!app.isFocused){
+        if(!isFocused){
           dispatch(focusApp(appName));
         }
 
         setAnchorEl(event.currentTarget);
       }}
     >
-      <ContextMenu
+      <AppbarContextMenu
         anchorEl={anchorEl}
         setAnchorEl={setAnchorEl}
         appName={appName}

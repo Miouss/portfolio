@@ -68,7 +68,7 @@ const apps = createSlice({
       state.forEach((app) => {
         if (payload === app.name) {
           app.status.isFocused = true;
-          app.status.isMinimized = true;
+          app.status.isMinimized = false;
         } else {
           app.status.isFocused = false;
         }
