@@ -1,6 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import "../styles/WindowApp.css";
-
 import { Box } from "@mui/system";
 
 import Typography from "@mui/material/Typography";
@@ -21,14 +19,14 @@ import {
   RootState,
   useAppDispatch,
   toggleFullscreenApp,
-} from "../redux";
+} from "../../redux";
 import { useSelector } from "react-redux";
 
-import { ResizableDiv } from "./custom/ResizableDiv";
-import { MovableBar } from "./custom/MovableBar";
+import { ResizableDiv } from "../custom/ResizableDiv";
+import { MovableBar } from "../custom/MovableBar";
 
-import "../styles/WindowBar.css";
-import "../styles/WindowApp.css";
+import "../../styles/WindowBar.css";
+import "../../styles/WindowApp.css";
 
 interface Props {
   appName: string;

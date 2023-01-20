@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { focusApp, minimizeApp, RootState, useAppDispatch } from "../redux";
+import { focusApp, minimizeApp, RootState, useAppDispatch } from "../../redux";
 
-import { AppIcon } from "./AppList";
+import { AppIcon } from "../apps/AppList";
 import ContextMenu from "./DesktopTaskBarContextMenu";
 
 interface Props {

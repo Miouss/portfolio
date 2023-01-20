@@ -1,11 +1,11 @@
 import { MenuList, MenuItem, Popper } from "@mui/material";
 import { ClickAwayListener } from "@mui/base";
-import { closeApp, minimizeApp, useAppDispatch } from "../redux";
+import { closeApp, minimizeApp, useAppDispatch } from "../../redux";
 
 import CloseIcon from "@mui/icons-material/Close";
 import MinimizeIcon from "@mui/icons-material/Minimize";
 
-import "../styles/DesktopTaskBarContextMenu.css";
+import "../../styles/DesktopTaskBarContextMenu.css";
 
 function DesktopTaskBarContextMenu({ anchorEl, setAnchorEl, appName }) {
   const dispatch = useAppDispatch();

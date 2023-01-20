@@ -1,15 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import "../styles/Desktop.css";
+import "../../styles/Desktop.css";
 
-import { addApp, addShortcut, RootState, useAppDispatch } from "../redux";
+import { addApp, addShortcut, RootState, useAppDispatch } from "../../redux";
 
 import { ReactElement, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import DesktopGrid from "./DesktopGrid";
-import DesktopTaskBar from "./DesktopTaskBar";
-import { App } from "./AppList";
-import WindowsWallpaper from "../assets/windows-wallpaper.png";
+import DesktopTaskBar from "../taskbar/DesktopTaskBar";
+import { App } from "../apps/AppList";
+import WindowsWallpaper from "../../assets/windows-wallpaper.png";
 
 function Desktop() {
   const apps = useSelector((state: RootState) => state.apps);
