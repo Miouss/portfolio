@@ -1,17 +1,17 @@
-import "../styles/DesktopApp.css";
+import "../../styles/DesktopApp.css";
 
-import { openApp, RootState, useAppDispatch, focusApp } from "../redux";
-import { AppIcon } from "./AppList";
+import { openApp, RootState, useAppDispatch, focusApp } from "../../redux";
+import { AppIcon } from "../apps/AppList";
 import { useState } from "react";
 
 import {
   pointerEnterStyle,
   pointerLeaveStyle,
   pointerDownStyle,
-} from "./custom/styles/appStyle";
+} from "../custom/styles/appStyle";
 
 import ShortcutIcon from '@mui/icons-material/Shortcut';
-import { delay } from "../assets/usefulFunction";
+import { delay } from "../../assets/usefulFunction";
 import { useSelector } from "react-redux";
 
 interface Props {

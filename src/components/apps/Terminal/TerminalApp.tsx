@@ -1,8 +1,8 @@
 import TerminalAppContent from "./TerminalAppContent";
 
-import WindowApp from "./WindowApp";
+import WindowApp from "../WindowApp";
 
-import "../styles/TerminalApp.css";
+import "../../../styles/TerminalApp.css";
 
 function TerminalApp() {
   return (

@@ -3,9 +3,9 @@ import { ReactElement } from "react";
 import DesktopApp from "./DesktopApp";
 
 import { useSelector } from "react-redux";
-import { RootState } from "../redux";
+import { RootState } from "../../redux";
 
-import "../styles/DesktopGrid.css";
+import "../../styles/DesktopGrid.css";
 
 function DesktopGrid() {
   const apps = useSelector((state: RootState) => state.apps);
