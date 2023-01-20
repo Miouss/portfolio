@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import delay from "../../utils/delay";
+import delay from "../../../utils/delay";
 
 
 function DateTime() {

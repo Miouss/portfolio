@@ -23,8 +23,8 @@ function DesktopTaskBarContextMenu({ anchorEl, setAnchorEl, appName }) {
       event.type === "pointerover" ? onOverBgColor : defaultBgColor;
   };
 
-  return (
-    <Popper id="context-menu" open={Boolean(anchorEl)} anchorEl={anchorEl}>
+  return (<></>
+/*     <Popper id="context-menu" open={Boolean(anchorEl)} anchorEl={anchorEl}>
       <ClickAwayListener onClickAway={() => setAnchorEl(null)}>
         <MenuList>
           <MenuItem
@@ -43,7 +43,7 @@ function DesktopTaskBarContextMenu({ anchorEl, setAnchorEl, appName }) {
           </MenuItem>
         </MenuList>
       </ClickAwayListener>
-    </Popper>
+    </Popper> */
   );
 }
 

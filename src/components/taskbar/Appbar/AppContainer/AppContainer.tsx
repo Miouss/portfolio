@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { focusApp, minimizeApp, RootState, useAppDispatch } from "../../redux";
+import { focusApp, minimizeApp, RootState, useAppDispatch } from "../../../../redux";
 
-import { AppIcon } from "../apps/AppList";
-import ContextMenu from "./DesktopTaskBarContextMenu";
+import { AppIcon } from "../../../apps/AppList";
+import ContextMenu from "../../DesktopTaskBarContextMenu";
 
 interface Props {
   appName: string;
 }
 
-function DesktopTaskBarApp({ appName }: Props) {
+function AppContainer({ appName }: Props) {
   const app = useSelector((state: RootState) => state.apps[appName]);
   const dispatch = useAppDispatch();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const [bgColor, setBgColor] = useState<string>("");
-  const [lineWidth, setLineWidth] = useState<string>("");
-  const [opacityBgColorBoost, setOpacityBgColorBoost] = useState<number>(0);
+  const [bgColor, setBgColor] = useState("");
+  const [lineWidth, setLineWidth] = useState("");
+  const [opacityBgColorBoost, setOpacityBgColorBoost] = useState(0);
 
   const handleMouseOver = (event: React.MouseEvent): void => {
     event.type === "mouseenter"
@@ -93,4 +93,4 @@ function DesktopTaskBarApp({ appName }: Props) {
   );
 }
 
-export default DesktopTaskBarApp;
+export default AppContainer;

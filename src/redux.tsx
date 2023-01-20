@@ -2,26 +2,31 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import { PayloadAction } from "@reduxjs/toolkit";
 
-export interface RunningAppType {
-  [app: string]: {
-    isRunning: boolean;
-    isFocused: boolean;
-    isMinimized: boolean;
-    isFullscreen: boolean;
-  };
+export interface AppStatus {
+  isRunning: boolean;
+  isFocused: boolean;
+  isMinimized: boolean;
+  isFullscreen: boolean;
 }
 
-export type ShortcutApp = [string, string];
+export interface RunningApp {
+  name: string;
+  status: AppStatus;
+}
+
+export interface ShortcutApp {
+  name: string;
+  link?: string;
+}
 
 const shortcuts = createSlice({
   name: "shortcuts",
-  initialState: {} as ShortcutApp,
+  initialState: [] as ShortcutApp[],
   reducers: {
-    addShortcut: (state, action: PayloadAction<ShortcutApp>) => {
-      state = Object.assign(state, {
-        [`${action.payload[0]}`]: {
-          link: action.payload[1],
-        },
+    addShortcut: (state, {payload}: PayloadAction<ShortcutApp>) => {
+      state.push({
+        name: payload.name,
+        link: payload.link,
       });
     },
   },
@@ -29,51 +34,73 @@ const shortcuts = createSlice({
 
 const apps = createSlice({
   name: "apps",
-  initialState: {} as RunningAppType,
+  initialState: [] as RunningApp[],
   reducers: {
-    addApp: (state, action: PayloadAction<string>) => {
-      state = Object.assign(state, {
-        [action.payload]: {
+    addApp: (state, { payload }: PayloadAction<string>) => {
+      state.push({
+        name: payload,
+        status: {
           isRunning: false,
           isFocused: false,
           isMinimized: false,
-          isFullscreen: false
+          isFullscreen: false,
         },
       });
     },
-    openApp: (state, action: PayloadAction<string>) => {
-      state[action.payload].isRunning = true;
-      focusApp(action.payload);
-    },
-    closeApp: (state, action: PayloadAction<string>) => {
-      state[action.payload].isRunning = false;
-      state[action.payload].isFocused = false;
-      state[action.payload].isMinimized = false;
-      state[action.payload].isFullscreen = false;
-    },
-    focusApp: (state, action: PayloadAction<string>) => {
-      for (const app in state) {
-        if (action.payload === app) {
-          state[app].isFocused = true;
-          state[app].isMinimized = false;
-        } else {
-          state[app].isFocused = false;
-        }
+    openApp: (state, { payload }: PayloadAction<string>) => {
+      const app = state.find((app) => app.name === payload);
+      if (app) {
+        app.status.isRunning = true;
+        focusApp(payload);
       }
     },
-    minimizeApp: (state, action: PayloadAction<string>) => {
-      state[action.payload].isMinimized = true;
-      state[action.payload].isFocused = false;
+    closeApp: (state, { payload }: PayloadAction<string>) => {
+      const app = state.find((app) => app.name === payload);
+
+      if (app) {
+        app.status.isRunning = false;
+        app.status.isFocused = false;
+        app.status.isMinimized = false;
+        app.status.isFullscreen = false;
+      }
     },
-    toggleFullscreenApp: (state, action: PayloadAction<string>) => {
-      state[action.payload].isFullscreen = !state[action.payload].isFullscreen;
-      state[action.payload].isFocused = true;
+    focusApp: (state, { payload }: PayloadAction<string>) => {
+      state.forEach((app) => {
+        if (payload === app.name) {
+          app.status.isFocused = true;
+          app.status.isMinimized = true;
+        } else {
+          app.status.isFocused = false;
+        }
+      });
+    },
+    minimizeApp: (state, { payload }: PayloadAction<string>) => {
+      const app = state.find((app) => app.name === payload);
+      
+      if (app) {
+        app.status.isMinimized = true;
+        app.status.isFocused = false;
+      }
+    },
+    toggleFullscreenApp: (state, { payload }: PayloadAction<string>) => {
+      const app = state.find((app) => app.name === payload);
+
+      if (app) {
+        app.status.isFullscreen = !app.status.isFullscreen;
+        app.status.isFocused = true;
+      }
     },
   },
 });
 
-export const { addApp, openApp, closeApp, focusApp, minimizeApp, toggleFullscreenApp } =
-  apps.actions;
+export const {
+  addApp,
+  openApp,
+  closeApp,
+  focusApp,
+  minimizeApp,
+  toggleFullscreenApp,
+} = apps.actions;
 export const { addShortcut } = shortcuts.actions;
 
 export type RootState = ReturnType<typeof store.getState>;

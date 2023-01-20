@@ -6,10 +6,10 @@ import { addApp, addShortcut, RootState, useAppDispatch } from "../redux";
 import { ReactElement, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import DesktopGrid from "./desktop/DesktopGrid";
-import DesktopTaskBar from "./taskbar/DesktopTaskBar";
+import Taskbar from "./taskbar/Taskbar";
 import { App } from "./apps/AppList";
 import WindowsWallpaper from "../assets/windows-wallpaper.png";
+import AppGrid from "./desktop/AppGrid";
 
 function Desktop() {
   const apps = useSelector((state: RootState) => state.apps);
@@ -25,18 +25,25 @@ function Desktop() {
   };
 
   useEffect(() => {
-    dispatch(
-      addApp("terminal")
-    );
-    dispatch(
-      addApp("Aperçu CV")
-    );
+    const dispatchAddShortcut = (name: string, link: string) => {
+      dispatch(
+        addShortcut({
+          name,
+          link,
+        })
+      );
+    };
 
-    dispatch(
-      addShortcut(["GitHub", "https://github.com/Miouss"])
-    );
-    dispatch(
-      addShortcut(["LinkedIn", "https://www.linkedin.com/in/samir-ghabi-aa58a2224/"])
+    const dispatchAddApp = (name: string) => {
+      dispatch(addApp(name));
+    };
+
+    dispatchAddApp("terminal");
+    dispatchAddApp("Aperçu CV");
+    dispatchAddShortcut("GitHub", "https://github.com/Miouss");
+    dispatchAddShortcut(
+      "LinkedIn",
+      "https://www.linkedin.com/in/samir-ghabi-aa58a2224/"
     );
 
     document.onselectstart = () => {
@@ -45,15 +52,15 @@ function Desktop() {
   }, []);
 
   useEffect(() => {
-    let runningAppsArray: Array<ReactElement> = [];
-
-    for (const appName in apps) {
-      if (apps[appName].isRunning) {
-        runningAppsArray.push(<App key={`App${appName}`} appName={appName} />);
-      }
-    }
-
-    setRunningApps(runningAppsArray);
+    setRunningApps(
+      apps.map((app, index) =>
+        app.status.isRunning ? (
+          <App key={`App${index}`} appName={app.name} />
+        ) : (
+          <></>
+        )
+      )
+    );
   }, [apps]);
 
   document.onmousedown = (event) => event.preventDefault();
@@ -61,8 +68,8 @@ function Desktop() {
   return (
     <div id="desktop" style={bgImageStyle}>
       {runningApps}
-      <DesktopGrid />
-      <DesktopTaskBar />
+      <AppGrid />
+      <Taskbar />
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import "../../styles/DesktopTaskBar.css";
 import { useEffect, useState } from "react";
 
-import DesktopTaskBarApp from "./DesktopTaskBarApp";
-import DateTime from "./DateTime";
+import DesktopTaskBarApp from "./Appbar/AppContainer/AppContainer";
+import DateTime from "./Date/DateTime";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
 import { WindowsIcon } from "../custom/icons/iconsList";
@@ -16,17 +16,15 @@ function DesktopTaskBar() {
   const apps = useSelector((state: RootState) => state.apps);
 
   useEffect(() => {
-    let newAppsInTaskBarContainer: Array<JSX.Element> = [];
-
-    for (let appName in apps) {
-      if (apps[appName].isRunning) {
-        newAppsInTaskBarContainer.push(
-          <DesktopTaskBarApp key={`dtbapp${appName}`} appName={appName} />
+    setAppsInTaskBarContainer(
+      apps.map((app, index) => {
+        return app.status.isRunning ? (
+          <DesktopTaskBarApp key={`TaskBarApp${index}`} appName={app.name} />
+        ) : (
+          <></>
         );
-      }
-    }
-
-    setAppsInTaskBarContainer(newAppsInTaskBarContainer.reverse());
+      })
+    );
   }, [apps]);
 
   return (
