@@ -34,12 +34,13 @@ interface Props {
 }
 
 export default function WindowApp({ appName, contentComponent }: Props) {
-  const {isMinimized, isFocused, isFullscreen} = useSelector((state: RootState) => {
-    const app = state.apps.find((app) => app.name === appName);	
+  const { isMinimized, isFullscreen } = useSelector(
+    (state: RootState) => {
+      const app = state.apps.find((app) => app.name === appName);
 
-    return app!.status;
-  });
-
+      return app!.status;
+    }
+  );
 
   const dispatch = useAppDispatch();
 
@@ -49,15 +50,10 @@ export default function WindowApp({ appName, contentComponent }: Props) {
   const [bgColor, setBgColor] = useState<string>("initial");
 
   const [display, setDisplay] = useState<string>("flex");
-  const [zIndexValue, setZIndexValue] = useState<string>("1");
 
   useEffect(() => {
     isMinimized ? setDisplay("none") : setDisplay("flex");
   }, [isMinimized]);
-
-  useEffect(() => {
-    isFocused ? setZIndexValue("2") : setZIndexValue("1");
-  }, [isFocused]);
 
   useEffect(() => {
     dispatch(focusApp(appName));
@@ -74,40 +70,43 @@ export default function WindowApp({ appName, contentComponent }: Props) {
   };
 
   const handlePointerEvent = (event) => {
-    if(event === "pointerEnter"){
-      if(event.type === 1){
+    if (event === "pointerEnter") {
+      if (event.type === 1) {
         setPointerWasDown(true);
-      }else{
+      } else {
         setPointerWasDown(false);
       }
-    }else{
-      if(!pointerWasDown){
+    } else {
+      if (!pointerWasDown) {
         event.stopPropagation();
       }
     }
-  }
+  };
 
   return (
     <ResizableDiv
+      appName={appName}
       className="window-app"
       minWidth={800}
       minHeight={400}
       display={display}
-      zIndexValue={zIndexValue}
-      onFocus={() => {
-        dispatch(focusApp(appName));
-      }}
       fullscreen={isFullscreen}
     >
-      <MovableBar
-        className="window-bar"
-      >
-        <Box onPointerEnter={(event) => handlePointerEvent(event)} onPointerDown={(event) => handlePointerEvent(event)}>
+      <MovableBar appName={appName} className="window-bar">
+        <Box
+          onPointerEnter={(event) => handlePointerEvent(event)}
+          onPointerDown={(event) => handlePointerEvent(event)}
+        >
           <AppIcon appName={appName} />
         </Box>
         <Typography style={{ flexGrow: 1 }}>{appName}</Typography>
 
-        <ButtonGroup variant="outlined" color="inherit" onPointerEnter={(event) => handlePointerEvent(event)} onPointerDown={(event) => handlePointerEvent(event)}>
+        <ButtonGroup
+          variant="outlined"
+          color="inherit"
+          onPointerEnter={(event) => handlePointerEvent(event)}
+          onPointerDown={(event) => handlePointerEvent(event)}
+        >
           <Button onClick={() => dispatch(minimizeApp(appName))}>
             <MinimizeIcon />
           </Button>

@@ -1,12 +1,15 @@
 import { useState, useEffect, useRef } from "react";
+import { RootState, focusApp, useAppDispatch } from "../../../redux";
+import { useSelector } from "react-redux";
 
 interface Props {
+  appName: string;
   className?: string;
   minWidth: number;
   minHeight: number;
   zIndexValue?: string;
   display?: string;
-  onFocus?: () => void;
+  onFocus?: boolean;
   fullscreen?: boolean;
   children: JSX.Element | JSX.Element[];
 }
@@ -46,12 +49,11 @@ type PointerCursor =
   | "default";
 
 export function ResizableDiv({
+  appName,
   className,
   minWidth,
   minHeight,
-  zIndexValue = "1",
   display = "flex",
-  onFocus = undefined,
   fullscreen = undefined,
   children,
 }: Props) {
@@ -70,6 +72,22 @@ export function ResizableDiv({
 
   const [pointerPosition, setPointerPosition] =
     useState<PointerPosition | null>(null);
+
+    const [dynamicStyle, setDynamicStyle] = useState({
+      width: "auto",
+      height: "auto",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+    });
+  
+    const [forceRerender, setForceRerender] = useState(false);
+
+    const isFocused = useSelector((state: RootState) => {
+      const app = state.apps.find((app) => app.name === appName);	
+  
+      return app!.status.isFocused;
+    });
 
   const switchCursor = (newCursor: PointerCursor) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
@@ -235,8 +253,11 @@ export function ResizableDiv({
       }
     }
   };
-
-  const handlePointerPressed = (event) => {
+  const dispatch = useAppDispatch();
+  
+  const handlePointerDown = (event) => {
+    dispatch(focusApp(appName));
+    
     const windowBoundingClientRect =
       resizableDivRef!.current!.getBoundingClientRect();
 
@@ -291,15 +312,6 @@ export function ResizableDiv({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pointerPressed]);
 
-  const [dynamicStyle, setDynamicStyle] = useState({
-    width: "auto",
-    height: "auto",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-  });
-
-  const [forceRerender, setForceRerender] = useState(false);
 
   useEffect(() => {
     setForceRerender(!forceRerender);
@@ -361,6 +373,12 @@ export function ResizableDiv({
     }
   }, [fullscreen]);
 
+  const [zIndexValue, setZIndexValue] = useState<string>("1");
+    
+  useEffect(() => {
+    isFocused ? setZIndexValue("2") : setZIndexValue("1");
+  }, [isFocused]);
+
   return (
     <div
       ref={resizableDivRef}
@@ -377,9 +395,8 @@ export function ResizableDiv({
       onPointerMove={(event) => {
         handlePointerMove(event);
       }}
-      onPointerDown={(event) => handlePointerPressed(event)}
+      onPointerDown={(event) => handlePointerDown(event)}
       onPointerUp={() => setPointerPressed(false)}
-      onFocus={onFocus}
     >
       {children}
     </div>
