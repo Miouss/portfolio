@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
-
+import verifyWindowPosition from "../utils/verifyWindowPosition";
 import { Coordinates, WindowSize } from "../ResizableDiv";
 
 export default function useWindowResizingPointersEvents(
@@ -17,20 +17,17 @@ export default function useWindowResizingPointersEvents(
 
       return () => {
         // Reposition window if it's outside of the screen
+
         const windowPos = currentResizableDivRef.getBoundingClientRect();
         const refStyle = currentResizableDivRef.style;
-        const defaultPadding = 8;
 
-        const windowIsOutsideOfScreen = verifyWindowPosition(
-          windowPos,
-          defaultPadding
-        );
+        const windowIsOutsideOfScreen = verifyWindowPosition(windowPos);
 
         if (windowIsOutsideOfScreen) {
           resetWindowPosition(
             refStyle,
-            originalWindowOffset,
-            originalWindowSize
+            originalWindowOffset!,
+            originalWindowSize!
           );
         }
 
@@ -42,34 +39,14 @@ export default function useWindowResizingPointersEvents(
 }
 
 function resetWindowPosition(
-  refStyle,
-  originalWindowOffset,
-  originalWindowSize
+  refStyle: CSSStyleDeclaration,
+  originalWindowOffset: Coordinates,
+  originalWindowSize: WindowSize
 ) {
   refStyle.left = originalWindowOffset!.x + "px";
   refStyle.top = originalWindowOffset!.y + "px";
   refStyle.width = originalWindowSize!.width + "px";
   refStyle.height = originalWindowSize!.height + "px";
-}
-
-function verifyWindowPosition(windowPos, defaultPadding) {
-  const topLimitReached = windowPos.top < -defaultPadding;
-  const bottomLimitReached =
-    windowPos.bottom - defaultPadding > document.documentElement.clientHeight;
-  const leftLimitReached = windowPos.left < -defaultPadding;
-  const rightLimitReached =
-    windowPos.right - defaultPadding > document.documentElement.clientWidth;
-
-  if (
-    topLimitReached ||
-    bottomLimitReached ||
-    leftLimitReached ||
-    rightLimitReached
-  ) {
-    return true;
-  }
-
-  return false;
 }
 
 function cleanUpPointerEvents() {

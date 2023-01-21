@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import verifyWindowPosition from "../utils/verifyWindowPosition";
 
 interface Offset {
   left: string;
@@ -19,7 +20,6 @@ export default function useWindowMovingEffect(
 
     if (refOffsetParent == null) return;
 
-    const windowPos = refOffsetParent.getBoundingClientRect();
     const refStyle = refOffsetParent.style;
 
     const handleMouseMovement = (event): void => {
@@ -38,18 +38,17 @@ export default function useWindowMovingEffect(
       };
 
       return () => {
-        if (
-          windowPos.top < -30 ||
-          windowPos.bottom >
-            document.documentElement.clientHeight + windowPos.height / 2 ||
-          windowPos.left < -(windowPos.width / 2) ||
-          windowPos.right >
-            document.documentElement.clientWidth + windowPos.width / 2
-        ) {
+        const newWindowPos = refOffsetParent.getBoundingClientRect();
+
+        if (verifyWindowPosition(newWindowPos)) {
           refStyle.top = originalOffset!.top;
           refStyle.left = originalOffset!.left;
+        } else {
+          setOriginalOffset({
+            left: refOffsetParent.offsetLeft + "px",
+            top: refOffsetParent.offsetTop + "px",
+          });
         }
-
         document.onpointerup = (event) => {
           event.preventDefault();
         };
@@ -58,12 +57,18 @@ export default function useWindowMovingEffect(
           event.preventDefault();
         };
       };
-    } else {
-      setOriginalOffset({
-        left: refOffsetParent.offsetLeft + "px",
-        top: refOffsetParent.offsetTop + "px",
-      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mouseIsPressed]);
+
+  useEffect(() => {
+    if (currentWindowBarRef == null) return;
+
+    const refOffsetParent = currentWindowBarRef.offsetParent;
+
+    setOriginalOffset({
+      left: refOffsetParent.offsetLeft + "px",
+      top: refOffsetParent.offsetTop + "px",
+    });
+  }, [currentWindowBarRef]);
 }
