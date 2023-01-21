@@ -70,7 +70,6 @@ function CvPreviewAppContent() {
   }, []);
 
   return (
-    <>
       <Stack
         ref={containerRef}
         className="cv-preview-app-content"
@@ -129,7 +128,6 @@ function CvPreviewAppContent() {
           </Fab>
         </div>
       </Stack>
-    </>
   );
 }
 
