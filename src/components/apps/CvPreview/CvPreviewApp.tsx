@@ -2,8 +2,6 @@ import CvPreviewAppContent from "./CvPreviewAppContent";
 
 import WindowApp from "../WindowApp";
 
-import "../../../styles/CvPreviewApp.css";
-
 function CvPreviewApp() {
   return (
     <WindowApp
