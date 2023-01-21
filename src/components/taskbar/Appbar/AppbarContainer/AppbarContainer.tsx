@@ -10,9 +10,6 @@ interface Props {
 }
 
 function AppContainer({ appName }: Props) {
-
-  console.log(`AppContainer ${appName} rendered`);
-  
   const isFocused = useSelector((state: RootState) => {
     const app = state.apps.find((app) => app.name === appName);
     return app!.status.isFocused;
@@ -57,7 +54,7 @@ function AppContainer({ appName }: Props) {
   };
 
   useEffect(() => {
-    if (Boolean(anchorEl)) {
+    if (!!anchorEl) {
       document.addEventListener(
         "contextmenu",
         (event) => handleDocumentContextMenu(event),

@@ -1,13 +1,21 @@
 import { useRef, useState, useEffect } from "react";
 
 import "../../../styles/WindowBar.css";
+import { focusApp, useAppDispatch } from "../../../redux";
 
 interface Offset {
   left: string;
   top: string;
 }
 
-export function MovableBar({ className, children }) {
+interface Props {
+  className?: string;
+  appName: string;
+  children: React.ReactNode;
+}
+
+export function MovableBar({ className, appName, children } : Props) {
+  const dispatch = useAppDispatch();
   const windowBarRef = useRef<HTMLDivElement>(null) as any;
   const [mouseIsPressed, setMouseIsPressed] = useState<boolean>(false);
   const [originalOffset, setOriginalOffset] = useState<Offset>();
@@ -71,6 +79,7 @@ export function MovableBar({ className, children }) {
       style={{cursor: "default"}}
       onPointerDown={(event) => {
         event.stopPropagation();
+        dispatch(focusApp(appName));
         setMouseIsPressed(true);
       }}
     >

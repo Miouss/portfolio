@@ -8,7 +8,7 @@ import WindowsWallpaper from "../assets/windows-wallpaper.png";
 
 import "../styles/Desktop.css";
 
-function Desktop() {
+export default function App() {
   const apps = useSelector((state: RootState) => state.apps);
   const dispatch = useAppDispatch();
 
@@ -46,15 +46,14 @@ function Desktop() {
     document.onselectstart = () => {
       return false;
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     const appsRunning = apps.filter((app) => app.status.isRunning);
-
     setRunningApps(
       appsRunning.map((app) => (
-        <AppComponent key={`App${app}`} appName={app.name} />
+        <AppComponent key={`${app.name}`} appName={app.name} />
       ))
     );
   }, [apps]);
@@ -69,5 +68,3 @@ function Desktop() {
     </div>
   );
 }
-
-export default Desktop;
