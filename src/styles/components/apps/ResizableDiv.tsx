@@ -1,6 +1,13 @@
-import { useState, useEffect, useRef } from "react";
-import { RootState, focusApp, useAppDispatch } from "../../../redux";
-import { useSelector } from "react-redux";
+import { useState, useRef, CSSProperties } from "react";
+import { focusApp, useAppDispatch } from "../../../redux";
+
+import resizeWindow from "./utils/resizeWIndow";
+import rememberWindowPosition from "./utils/rememberWindowPosition";
+import monitoringPointerMovingUnpressed from "./utils/monitoringPointerMovingUnpressed";
+import useFullscreenEffect from "./hooks/useFullscreenEffect";
+import useFocusEffect from "./hooks/useFocusEffect";
+import useWindowResizingPointersEvents from "./hooks/useWindowResizingPointersEvents";
+import useUpdateDivPosition from "./hooks/useUpdateDivPosition";
 
 interface Props {
   appName: string;
@@ -14,24 +21,24 @@ interface Props {
   children: JSX.Element | JSX.Element[];
 }
 
-interface Coordinates {
+export interface Coordinates {
   x: number;
   y: number;
 }
 
-interface PointerOffsetRelative {
+export interface PointerOffsetRelative {
   top: number;
   right: number;
   bottom: number;
   left: number;
 }
 
-interface WindowSize {
+export interface WindowSize {
   width: number;
   height: number;
 }
 
-type PointerPosition =
+export type PointerPosition =
   | "top"
   | "bottom"
   | "left"
@@ -41,7 +48,7 @@ type PointerPosition =
   | "bottomLeft"
   | "bottomRight";
 
-type PointerCursor =
+export type PointerCursor =
   | "ns-resize"
   | "ew-resize"
   | "nwse-resize"
@@ -57,6 +64,8 @@ export function ResizableDiv({
   fullscreen = undefined,
   children,
 }: Props) {
+  const dispatch = useAppDispatch();
+
   const resizableDivRef = useRef<HTMLDivElement>(null);
   const [pointerPressed, setPointerPressed] = useState<boolean>(false);
 
@@ -73,311 +82,78 @@ export function ResizableDiv({
   const [pointerPosition, setPointerPosition] =
     useState<PointerPosition | null>(null);
 
-    const [dynamicStyle, setDynamicStyle] = useState({
-      width: "auto",
-      height: "auto",
-      top: "50%",
-      left: "50%",
-      transform: "translate(-50%, -50%)",
-    });
-  
-    const [forceRerender, setForceRerender] = useState(false);
+  const [dynamicStyle, setDynamicStyle] = useState<CSSProperties>({
+    width: "auto",
+    height: "auto",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+  });
 
-    const isFocused = useSelector((state: RootState) => {
-      const app = state.apps.find((app) => app.name === appName);	
-  
-      return app!.status.isFocused;
-    });
-
-  const switchCursor = (newCursor: PointerCursor) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    cursor === newCursor ? null : setCursor(newCursor);
-  };
-
-  const resizingEvent = (currentWindowSize) => {
-    return new CustomEvent("resizing", {
-      detail: {
-        width: currentWindowSize.width,
-        height: currentWindowSize.height,
-      },
-    });
-  };
-
-  const resizeWindow = (event) => {
-    const areaToResize = pointerPosition!
-      .split(/(?=[A-Z])/)
-      .map((value) => value.toLowerCase());
-
-    const previousWindowSize = {
-      height: parseInt(resizableDivRef.current!.style.height),
-      width: parseInt(resizableDivRef.current!.style.width),
-    };
-
-    const resize = {
-      left: {
-        offsetLeft:
-          originalWindowOffset!.x +
-          (event.x - originalWindowOffset!.x) -
-          pointerOffsetRelative!.left +
-          "px",
-        width:
-          originalWindowSize!.width -
-          (event.x - originalWindowOffset!.x - pointerOffsetRelative!.left) +
-          "px",
-      },
-      right: {
-        width:
-          originalWindowSize!.width +
-          (event.x -
-            originalWindowSize!.width -
-            pointerOffsetRelative!.right -
-            originalWindowOffset!.x) +
-          "px",
-      },
-      top: {
-        offsetTop:
-          originalWindowOffset!.y +
-          (event.y - originalWindowOffset!.y) -
-          pointerOffsetRelative!.top +
-          "px",
-        height:
-          originalWindowSize!.height -
-          (event.y - originalWindowOffset!.y - pointerOffsetRelative!.top) +
-          "px",
-      },
-      bottom: {
-        height:
-          originalWindowSize!.height +
-          (event.y -
-            originalWindowSize!.height -
-            pointerOffsetRelative!.bottom -
-            originalWindowOffset!.y) +
-          "px",
-      },
-    };
-    areaToResize.forEach((area) => {
-      if (parseInt(resize[area!].width) < minWidth) {
-        resize[area!].width = minWidth + "px";
-      } else {
-        resizableDivRef.current!.style.left = resize[area!].offsetLeft;
-      }
-
-      if (parseInt(resize[area!].height) < minHeight) {
-        resize[area!].height = minHeight + "px";
-      } else {
-        resizableDivRef.current!.style.top = resize[area!].offsetTop;
-      }
-
-      resizableDivRef.current!.style.width = resize[area!].width;
-      resizableDivRef.current!.style.height = resize[area!].height;
-    });
-
-    const currentWindowSize = {
-      height: parseInt(resizableDivRef.current!.style.height),
-      width: parseInt(resizableDivRef.current!.style.width),
-    };
-
-    if (
-      currentWindowSize.width !== previousWindowSize.width ||
-      currentWindowSize.height !== previousWindowSize.height
-    ) {
-      resizableDivRef.current!.dispatchEvent(resizingEvent(currentWindowSize));
-    }
-  };
+  const [updateDivPosition, setUpdateDivPosition] = useState(false);
 
   const handlePointerMove = (event) => {
     if (pointerPressed) {
       if (cursor !== "default") {
-        resizeWindow(event);
+        resizeWindow(
+          event,
+          resizableDivRef.current!,
+          pointerPosition,
+          originalWindowOffset!,
+          originalWindowSize!,
+          pointerOffsetRelative!,
+          minWidth,
+          minHeight
+        );
       }
     } else {
-      const pointerOffset = {
-        left: event.clientX - resizableDivRef.current!.offsetLeft,
-        top: event.clientY - resizableDivRef.current!.offsetTop,
-        bottom:
-          resizableDivRef.current!.offsetHeight -
-          (event.clientY - resizableDivRef.current!.offsetTop),
-        right:
-          resizableDivRef.current!.offsetWidth -
-          (event.clientX - resizableDivRef.current!.offsetLeft),
-      };
-
-      const currentPointerPosition = {
-        topLeft: {
-          position: pointerOffset.left <= 10 && pointerOffset.top <= 10,
-          cursor: "nwse-resize",
-        },
-        topRight: {
-          position: pointerOffset.right <= 10 && pointerOffset.top <= 10,
-          cursor: "nesw-resize",
-        },
-        bottomLeft: {
-          position: pointerOffset.left <= 10 && pointerOffset.bottom <= 10,
-          cursor: "nesw-resize",
-        },
-        bottomRight: {
-          position: pointerOffset.right <= 10 && pointerOffset.bottom <= 10,
-          cursor: "nwse-resize",
-        },
-        top: {
-          position: pointerOffset.left > 10 && pointerOffset.top <= 10,
-          cursor: "ns-resize",
-        },
-        bottom: {
-          position: pointerOffset.right > 10 && pointerOffset.bottom <= 10,
-          cursor: "ns-resize",
-        },
-        left: {
-          position: pointerOffset.left <= 10 && pointerOffset.top > 10,
-          cursor: "ew-resize",
-        },
-        right: {
-          position: pointerOffset.right <= 10 && pointerOffset.bottom > 10,
-          cursor: "ew-resize",
-        },
-      };
-
-      let areaFound = false;
-
-      for (let area in currentPointerPosition) {
-        if (currentPointerPosition[area].position && !areaFound) {
-          setPointerPosition(area as PointerPosition);
-          switchCursor(currentPointerPosition[area].cursor);
-          areaFound = true;
-        }
-      }
-
-      if (!areaFound) {
-        setPointerPosition(null);
-        switchCursor("default");
-      }
+      monitoringPointerMovingUnpressed(
+        event,
+        resizableDivRef.current!,
+        setCursor,
+        cursor,
+        setPointerPosition
+      );
     }
   };
-  const dispatch = useAppDispatch();
-  
+
   const handlePointerDown = (event) => {
     dispatch(focusApp(appName));
-    
-    const windowBoundingClientRect =
-      resizableDivRef!.current!.getBoundingClientRect();
 
-    setOriginalWindowOffset({
-      x: resizableDivRef!.current!.offsetLeft,
-      y: resizableDivRef!.current!.offsetTop,
-    });
-    setPointerOffsetRelative({
-      top: event.pageY - windowBoundingClientRect.top,
-      right: event.pageX - windowBoundingClientRect.right,
-      bottom: event.pageY - windowBoundingClientRect.bottom,
-      left: event.pageX - windowBoundingClientRect.left,
-    });
-    setOriginalWindowSize({
-      width: windowBoundingClientRect.width,
-      height: windowBoundingClientRect.height,
-    });
-    setPointerPressed(true);
+    rememberWindowPosition(
+      event,
+      resizableDivRef.current!,
+      setOriginalWindowOffset,
+      setPointerOffsetRelative,
+      setOriginalWindowSize,
+      setPointerPressed
+    );
   };
 
-  useEffect(() => {
-    if (pointerPressed) {
-      document.onpointermove = (event) => handlePointerMove(event);
-      document.onpointerup = () => setPointerPressed(false);
+  const zIndexValue = useFocusEffect(appName);
 
-      const resizableDivRefCurrent = resizableDivRef.current!;
-      return () => {
-        const windowPos = resizableDivRefCurrent.getBoundingClientRect();
-        const defaultPadding = 8;
-        if (
-          windowPos.top < -defaultPadding ||
-          windowPos.bottom - defaultPadding >
-            document.documentElement.clientHeight ||
-          windowPos.left < -defaultPadding ||
-          windowPos.right - defaultPadding >
-            document.documentElement.clientWidth
-        ) {
-          resizableDivRefCurrent.style.left = originalWindowOffset!.x + "px";
-          resizableDivRefCurrent.style.top = originalWindowOffset!.y + "px";
-          resizableDivRefCurrent.style.width = originalWindowSize!.width + "px";
-          resizableDivRefCurrent.style.height =
-            originalWindowSize!.height + "px";
-        }
-        document.onpointermove = () => {
-          return false;
-        };
-        document.onpointerup = () => {
-          return false;
-        };
-      };
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pointerPressed]);
+  useWindowResizingPointersEvents(
+    resizableDivRef.current!,
+    originalWindowOffset,
+    originalWindowSize,
+    pointerPressed,
+    setPointerPressed,
+    handlePointerMove
+  );
 
+  useUpdateDivPosition(
+    resizableDivRef.current,
+    updateDivPosition,
+    setUpdateDivPosition,
+    setDynamicStyle
+  );
 
-  useEffect(() => {
-    setForceRerender(!forceRerender);
-  }, []);
-
-  useEffect(() => {
-    const dimensions = resizableDivRef.current?.getBoundingClientRect();
-
-    setDynamicStyle({
-      width: dimensions!.width + "px",
-      height: dimensions!.height + "px",
-      top: dimensions!.top + "px",
-      left: dimensions!.left + "px",
-      transform: "none",
-    });
-
-    resizableDivRef.current!.dispatchEvent(
-      resizingEvent({
-        width: dimensions!.width,
-        height: dimensions!.height,
-      })
-    );
-  }, [forceRerender]);
-
-  const [previousWiondowPosition, setPreviousWiondowPosition] =
-    useState<DOMRect | null>(null);
-
-  useEffect(() => {
-    if (fullscreen) {
-      setPreviousWiondowPosition(
-        resizableDivRef.current!.getBoundingClientRect()
-      );
-      setDynamicStyle({
-        width: "calc(100% + 20px)",
-        height: "100%",
-        top: "-10px",
-        left: "-10px",
-        transform: "none",
-      });
-
-      resizableDivRef.current!.dispatchEvent(
-        resizingEvent({
-          width: Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) + 20,
-          height: Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0) + 20,
-        })
-      );
-    } else {
-      if (previousWiondowPosition !== null) {
-        setDynamicStyle({
-          width: previousWiondowPosition!.width + "px",
-          height: previousWiondowPosition!.height + "px",
-          top: previousWiondowPosition!.top + "px",
-          left: previousWiondowPosition!.left + "px",
-          transform: "none",
-        });
-
-        setForceRerender(!forceRerender);
-      }
-    }
-  }, [fullscreen]);
-
-  const [zIndexValue, setZIndexValue] = useState<string>("1");
-    
-  useEffect(() => {
-    isFocused ? setZIndexValue("2") : setZIndexValue("1");
-  }, [isFocused]);
+  useFullscreenEffect(
+    resizableDivRef.current!,
+    setDynamicStyle,
+    setUpdateDivPosition,
+    fullscreen
+  );
 
   return (
     <div
