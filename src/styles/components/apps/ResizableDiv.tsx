@@ -241,8 +241,8 @@ export function ResizableDiv({
       resizableDivRef!.current!.getBoundingClientRect();
 
     setOriginalWindowOffset({
-      x: resizableDivRef!.current!.offsetLeft as number,
-      y: resizableDivRef!.current!.offsetTop as number,
+      x: resizableDivRef!.current!.offsetLeft,
+      y: resizableDivRef!.current!.offsetTop,
     });
     setPointerOffsetRelative({
       top: event.pageY - windowBoundingClientRect.top,
