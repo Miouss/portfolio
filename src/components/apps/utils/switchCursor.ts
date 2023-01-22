@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { PointerCursor } from "../types/types";
+import { PointerCursor } from "../types";
 
 export default function switchCursor(
   newCursor: PointerCursor,

@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import switchCursor from "./switchCursor";
-import { PointerCursor, PointerPosition } from "../types/types";
+import { PointerCursor, PointerPosition } from "../types";
 
 
 export default function monitoringPointerMovingUnpressed(

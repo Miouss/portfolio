@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { Coordinates, PointerOffsetRelative, WindowSize } from "../types/types";
+import { Coordinates, PointerOffsetRelative, WindowSize } from "../types";
 
 
 export default function rememberWindowPosition(

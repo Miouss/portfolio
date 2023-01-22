@@ -16,7 +16,7 @@ import {
   PointerOffsetRelative,
   PointerPosition,
   WindowSize,
-} from "../types/types";
+} from "../types";
 
 interface Props {
   appName: string;
