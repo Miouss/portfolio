@@ -16,7 +16,6 @@ import {
   focusApp,
   closeApp,
   minimizeApp,
-  RootState,
   useAppDispatch,
   toggleFullscreenApp,
 } from "../../redux";
