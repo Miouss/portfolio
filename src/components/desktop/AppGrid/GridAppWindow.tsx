@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState, focusApp, openApp, useAppDispatch } from "../../redux";
-import { AppIcon } from "../apps/collection/Collection";
-import simulateAppLoading from "./utils/simulateAppLoading";
-import handlePointerEvent from "./utils/handlePointerEvent";
-import { AppStyle } from "./AppGrid";
+import { RootState, focusApp, openApp, useAppDispatch } from "../../../redux";
+import { AppIcon } from "../../apps/collection/Collection";
+import simulateAppLoading from "../utils/simulateAppLoading";
+import handlePointerEvent from "../utils/handlePointerEvent";
+import { AppStyle } from "../AppGrid";
 
 interface Props {
   appName: string;

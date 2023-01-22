@@ -2,8 +2,8 @@ import { ReactElement } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
 
-import NormalApp from "./NormalApp";
-import ShortcutApp from "./ShortcutApp";
+import NormalApp from "./AppGrid/GridAppWindow";
+import ShortcutApp from "./AppGrid/GridAppShortcut";
 
 import "../../styles/DesktopGrid.css";
 import "../../styles/DesktopApp.css";
