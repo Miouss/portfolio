@@ -5,8 +5,8 @@ import ContactMailIcon from "@mui/icons-material/ContactMail";
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { LinkedInIcon } from "../custom/icons/iconsList";
 
-import TerminalApp from "./Terminal/TerminalApp";
-import CvPreviewApp from "./CvPreview/CvPreviewApp";
+import TerminalApp from "./collection/Terminal/TerminalApp";
+import CvPreviewApp from "./collection/CvPreview/CvPreviewApp";
 
 interface AppList {
   app: ReactElement | null;

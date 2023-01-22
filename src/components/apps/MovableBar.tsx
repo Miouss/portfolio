@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-import "../../../styles/WindowBar.css";
+import "../../styles/WindowBar.css";
 import { focusApp, useAppDispatch } from "../../redux";
 import useWindowMovingEffect from "./hooks/useWindowMovingEffect";
 
