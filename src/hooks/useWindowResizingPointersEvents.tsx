@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
-import verifyWindowPosition from "../utils/verifyWindowPosition";
-import { Coordinates, WindowSize } from "../types/types";
+import verifyWindowPosition from "../components/apps/utils/verifyWindowPosition";
+import { Coordinates, WindowSize } from "../components/apps/types/types";
 
 export default function useWindowResizingPointersEvents(
   currentResizableDivRef: HTMLDivElement,

@@ -5,7 +5,7 @@ import {
   useEffect,
   CSSProperties,
 } from "react";
-import dispatchResizingEvent from "../utils/dispatchResizingEvent";
+import dispatchResizingEvent from "../components/apps/utils/dispatchResizingEvent";
 
 export default function useFullscreenEffect(
   currentResizableDivRef: any,

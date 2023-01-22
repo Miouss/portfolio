@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
-import dispatchResizingEvent from "../utils/dispatchResizingEvent";
+import dispatchResizingEvent from "../components/apps/utils/dispatchResizingEvent";
 
 import { Dispatch, SetStateAction, CSSProperties } from "react";
 
