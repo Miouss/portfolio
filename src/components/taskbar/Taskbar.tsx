@@ -1,17 +1,14 @@
-import "../../styles/DesktopTaskBar.css";
-
 import DateTime from "./Date/DateTime";
 import Appbar from "./Appbar/Appbar";
 import StartMenu from "./StartMenu/StartMenu";
+import { Taskbar } from "./StartMenu/styled/Taskbar";
 
-function DesktopTaskBar() {
+export default function DesktopTaskBar() {
   return (
-    <div id="windows-task-bar">
+    <Taskbar direction={"row"}>
       <StartMenu />
       <Appbar />
       <DateTime />
-    </div>
+    </Taskbar>
   );
 }
-
-export default DesktopTaskBar;
