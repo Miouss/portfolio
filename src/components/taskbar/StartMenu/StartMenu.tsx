@@ -1,4 +1,4 @@
-import { StartMenuBox } from "./styled/StartMenu";
+import { StartMenuBox } from "../styled/StartMenu";
 import { WindowsIcon } from "../../../assets/icons/iconsList";
 import { useState } from "react";
 

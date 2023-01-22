@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { DateTimeBox } from "../StartMenu/styled/DateTime";
+import { DateTimeBox } from "../styled/DateTime";
 import { Box } from "@mui/material";
 import delay from "../../../utils/delay";
 

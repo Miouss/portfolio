@@ -13,7 +13,7 @@ import {
   AppIconBox,
   AppUnderline,
   AppTaskContainer,
-} from "../../StartMenu/styled/Appbar";
+} from "../../styled/Appbar";
 
 interface Props {
   appName: string;
