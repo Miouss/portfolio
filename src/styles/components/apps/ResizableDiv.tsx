@@ -1,5 +1,5 @@
 import { useState, useRef, CSSProperties } from "react";
-import { focusApp, useAppDispatch } from "../../../redux";
+import { RootState, focusApp, useAppDispatch } from "../../../redux";
 
 import resizeWindow from "./utils/resizeWIndow";
 import rememberWindowPosition from "./utils/rememberWindowPosition";
@@ -8,6 +8,7 @@ import useFullscreenEffect from "./hooks/useFullscreenEffect";
 import useFocusEffect from "./hooks/useFocusEffect";
 import useWindowResizingPointersEvents from "./hooks/useWindowResizingPointersEvents";
 import useUpdateDivPosition from "./hooks/useUpdateDivPosition";
+import { useSelector } from "react-redux";
 
 interface Props {
   appName: string;
@@ -61,10 +62,16 @@ export function ResizableDiv({
   minWidth,
   minHeight,
   display = "flex",
-  fullscreen = undefined,
   children,
 }: Props) {
   const dispatch = useAppDispatch();
+
+  const isFullscreen = useSelector(
+    (store: RootState) => {
+      const app = store.apps.find((app) => app.name === appName);
+      return app!.status.isFullscreen;
+    }
+  );
 
   const resizableDivRef = useRef<HTMLDivElement>(null);
   const [pointerPressed, setPointerPressed] = useState<boolean>(false);
@@ -152,7 +159,7 @@ export function ResizableDiv({
     resizableDivRef.current!,
     setDynamicStyle,
     setUpdateDivPosition,
-    fullscreen
+    isFullscreen,
   );
 
   return (
