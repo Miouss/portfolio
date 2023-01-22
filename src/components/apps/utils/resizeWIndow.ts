@@ -1,4 +1,4 @@
-import { Coordinates, PointerOffsetRelative, WindowSize } from "../ResizableDiv";
+import { Coordinates, WindowSize, PointerOffsetRelative } from "../types/types";
 
 export default function resizeWindow(event: MouseEvent,
     currentResizableDivRef: HTMLDivElement,

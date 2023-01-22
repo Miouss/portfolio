@@ -1,11 +1,17 @@
-import { Dispatch, SetStateAction, useState, useEffect, CSSProperties } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useState,
+  useEffect,
+  CSSProperties,
+} from "react";
 import dispatchResizingEvent from "../utils/dispatchResizingEvent";
 
 export default function useFullscreenEffect(
   currentResizableDivRef: any,
   setDynamicStyle: Dispatch<SetStateAction<CSSProperties>>,
   setUpdateDivPosition: Dispatch<SetStateAction<boolean>>,
-  fullscreen?: boolean,
+  fullscreen?: boolean
 ) {
   const [previousWiondowPosition, setPreviousWindowPosition] =
     useState<DOMRect | null>(null);
@@ -15,7 +21,7 @@ export default function useFullscreenEffect(
       setPreviousWindowPosition(currentResizableDivRef.getBoundingClientRect());
       setDynamicStyle({
         width: "calc(100% + 20px)",
-        height: "100%",
+        height: "calc(100% - 26px)",
         top: "-10px",
         left: "-10px",
         transform: "none",

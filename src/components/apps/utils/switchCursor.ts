@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { PointerCursor } from "../ResizableDiv";
+import { PointerCursor } from "../types/types";
 
 export default function switchCursor(
   newCursor: PointerCursor,

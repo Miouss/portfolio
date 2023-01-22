@@ -3,10 +3,10 @@ import { ReactElement } from "react";
 import TerminalIcon from "@mui/icons-material/Terminal";
 import ContactMailIcon from "@mui/icons-material/ContactMail";
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { LinkedInIcon } from "../custom/icons/iconsList";
+import { LinkedInIcon } from "../../custom/icons/iconsList";
 
-import TerminalApp from "./collection/Terminal/TerminalApp";
-import CvPreviewApp from "./collection/CvPreview/CvPreviewApp";
+import TerminalApp from "./Terminal/TerminalApp";
+import CvPreviewApp from "./CvPreview/CvPreviewApp";
 
 interface AppList {
   app: ReactElement | null;

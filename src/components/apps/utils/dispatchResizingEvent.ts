@@ -1,4 +1,4 @@
-import { WindowSize } from "../ResizableDiv";
+import { WindowSize } from "../types/types";
 
 export default function dispatchResizingEvent(
   resizableDivRef: HTMLDivElement,
