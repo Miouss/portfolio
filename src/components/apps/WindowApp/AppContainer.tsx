@@ -6,11 +6,11 @@ import resizeWindow from "../utils/resizeWIndow";
 import rememberWindowPosition from "../utils/rememberWindowPosition";
 import monitoringPointerMovingUnpressed from "../utils/monitoringPointerMovingUnpressed";
 
-import useFullscreenEffect from "../../../hooks/useFullscreenEffect";
-import useFocusEffect from "../../../hooks/useFocusEffect";
-import useWindowResizingPointersEvents from "../../../hooks/useWindowResizingPointersEvents";
-import useUpdateDivPosition from "../../../hooks/useUpdateDivPosition";
-import useMinimizedEffect from "../../../hooks/useMinimizedEffect";
+import useFullscreenEffect from "../hooks/useFullscreenEffect";
+import useFocusEffect from "../hooks/useFocusEffect";
+import useWindowResizingPointersEvents from "../hooks/useWindowResizingPointersEvents";
+import useUpdateDivPosition from "../hooks/useUpdateDivPosition";
+import useMinimizedEffect from "../hooks/useMinimizedEffect";
 
 import {
   Coordinates,

@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState, focusApp, useAppDispatch } from "../../../../redux";
-import useWindowMovingEffect from "../../../../hooks/useWindowMovingEffect";
+import useWindowMovingEffect from "../../hooks/useWindowMovingEffect";
 import "../../../../styles/WindowBar.css";
 
 interface Props {
