@@ -20,7 +20,6 @@ import {
   useAppDispatch,
   toggleFullscreenApp,
 } from "../../redux";
-import { useSelector } from "react-redux";
 
 import { ResizableDiv } from "../../styles/components/apps/ResizableDiv";
 import { MovableBar } from "../../styles/components/apps/MovableBar";
@@ -34,14 +33,6 @@ interface Props {
 }
 
 export default function WindowApp({ appName, contentComponent }: Props) {
-  const isMinimized = useSelector(
-    (state: RootState) => {
-      const app = state.apps.find((app) => app.name === appName);
-
-      return app!.status.isMinimized;
-    }
-  );
-
   const dispatch = useAppDispatch();
 
   const [pointerWasDown, setPointerWasDown] = useState<boolean>(false);
@@ -49,11 +40,6 @@ export default function WindowApp({ appName, contentComponent }: Props) {
   const [closeButtonColor, setCloseButtonColor] = useState<string>("black");
   const [bgColor, setBgColor] = useState<string>("initial");
 
-  const [display, setDisplay] = useState<string>("flex");
-
-  useEffect(() => {
-    isMinimized ? setDisplay("none") : setDisplay("flex");
-  }, [isMinimized]);
 
   useEffect(() => {
     dispatch(focusApp(appName));
@@ -89,7 +75,6 @@ export default function WindowApp({ appName, contentComponent }: Props) {
       className="window-app"
       minWidth={800}
       minHeight={400}
-      display={display}
     >
       <MovableBar appName={appName} className="window-bar">
         <Box
