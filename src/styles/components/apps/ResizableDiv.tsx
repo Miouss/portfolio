@@ -9,6 +9,7 @@ import useFocusEffect from "./hooks/useFocusEffect";
 import useWindowResizingPointersEvents from "./hooks/useWindowResizingPointersEvents";
 import useUpdateDivPosition from "./hooks/useUpdateDivPosition";
 import { useSelector } from "react-redux";
+import useMinimizedEffect from "./hooks/useMinimizedEffect";
 
 interface Props {
   appName: string;
@@ -16,9 +17,7 @@ interface Props {
   minWidth: number;
   minHeight: number;
   zIndexValue?: string;
-  display?: string;
   onFocus?: boolean;
-  fullscreen?: boolean;
   children: JSX.Element | JSX.Element[];
 }
 
@@ -61,15 +60,14 @@ export function ResizableDiv({
   className,
   minWidth,
   minHeight,
-  display = "flex",
   children,
 }: Props) {
   const dispatch = useAppDispatch();
 
-  const isFullscreen = useSelector(
+  const {isMinimized, isFullscreen} = useSelector(
     (store: RootState) => {
       const app = store.apps.find((app) => app.name === appName);
-      return app!.status.isFullscreen;
+      return app!.status;
     }
   );
 
@@ -161,6 +159,8 @@ export function ResizableDiv({
     setUpdateDivPosition,
     isFullscreen,
   );
+
+  const display = useMinimizedEffect(isMinimized);
 
   return (
     <div
