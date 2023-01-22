@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { DateTimeBox } from "../styled/DateTime";
+import { Box } from "@mui/material";
 import delay from "../../../utils/delay";
 
 function DateTime() {
@@ -8,9 +10,8 @@ function DateTime() {
     time: `${date.getHours().toString().padStart(2, "0")}:${date
       .getMinutes()
       .toString()
-      .padStart(2, "0")}:${date.getSeconds().toString().padStart(2, "0")}`,
-    date: `${date.getDate().toString().padStart(2, "0")}/${date
-      .getMonth()
+      .padStart(2, "0")}`,
+    date: `${date.getDate().toString().padStart(2, "0")}/${(date.getMonth() + 1)
       .toString()
       .padStart(2, "0")}/${date.getFullYear()}`,
   };
@@ -26,10 +27,10 @@ function DateTime() {
   }, [date]);
 
   return (
-    <div id="windows-task-bar-date">
-      <div>{updatedDate.time}</div>
-      <div>{updatedDate.date}</div>
-    </div>
+    <DateTimeBox>
+      <Box>{updatedDate.time}</Box>
+      <Box>{updatedDate.date}</Box>
+    </DateTimeBox>
   );
 }
 
