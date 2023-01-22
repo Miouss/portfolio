@@ -34,11 +34,11 @@ interface Props {
 }
 
 export default function WindowApp({ appName, contentComponent }: Props) {
-  const { isMinimized, isFullscreen } = useSelector(
+  const isMinimized = useSelector(
     (state: RootState) => {
       const app = state.apps.find((app) => app.name === appName);
 
-      return app!.status;
+      return app!.status.isMinimized;
     }
   );
 
@@ -90,7 +90,6 @@ export default function WindowApp({ appName, contentComponent }: Props) {
       minWidth={800}
       minHeight={400}
       display={display}
-      fullscreen={isFullscreen}
     >
       <MovableBar appName={appName} className="window-bar">
         <Box
