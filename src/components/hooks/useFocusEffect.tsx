@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { RootState } from "../../../redux";
+import { RootState } from "../../redux";
 import { useSelector } from "react-redux";
 
 export default function useFocusEffect(appName: string) {
