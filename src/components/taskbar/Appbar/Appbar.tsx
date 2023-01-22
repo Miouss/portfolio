@@ -15,9 +15,11 @@ export default function Appbar() {
     const appsRunning = apps.filter((app) => app.status.isRunning);
 
     setAppsContainers(
-      appsRunning.map((app, index) => {
-        return <AppTask key={`TaskBarApp${index}`} appName={app.name} />;
-      })
+      appsRunning
+        .map((app, index) => {
+          return <AppTask key={`TaskBarApp${index}`} appName={app.name} />;
+        })
+        .reverse() // Reverse the array to have the last opened app on the right
     );
   }, [apps]);
 
