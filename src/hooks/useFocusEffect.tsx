@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
+<<<<<<<< HEAD:src/hooks/useFocusEffect.tsx
 import { RootState } from "../redux";
+========
+import { RootState } from "../../redux";
+>>>>>>>> 3dc54207ff97cc63f972d86421994f825440a827:src/components/hooks/useFocusEffect.tsx
 import { useSelector } from "react-redux";
 
 export default function useFocusEffect(appName: string) {
