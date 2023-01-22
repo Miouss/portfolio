@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { addApp, addShortcut, RootState, useAppDispatch } from "../redux";
 import AppGrid from "./desktop/AppGrid";
 import Taskbar from "./taskbar/Taskbar";
-import { AppComponent } from "./apps/AppList";
+import { AppComponent } from "./apps/collection/Collection";
 import WindowsWallpaper from "../assets/windows-wallpaper.png";
 
 import "../styles/Desktop.css";

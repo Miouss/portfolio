@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { focusApp, minimizeApp, RootState, useAppDispatch } from "../../../../redux";
 
-import { AppIcon } from "../../../apps/AppList";
+import { AppIcon } from "../../../apps/collection/Collection";
 import AppbarContextMenu from "./AppbarContextMenu/AppbarContextMenu";
 
 interface Props {

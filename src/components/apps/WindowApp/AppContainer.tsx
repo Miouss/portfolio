@@ -1,13 +1,22 @@
 import { useState, useRef, CSSProperties } from "react";
-import { focusApp, useAppDispatch } from "../../../redux";
+import { useSelector } from "react-redux";
+import { RootState, focusApp, useAppDispatch } from "../../../redux";
 
-import resizeWindow from "./utils/resizeWIndow";
-import rememberWindowPosition from "./utils/rememberWindowPosition";
-import monitoringPointerMovingUnpressed from "./utils/monitoringPointerMovingUnpressed";
-import useFullscreenEffect from "./hooks/useFullscreenEffect";
-import useFocusEffect from "./hooks/useFocusEffect";
-import useWindowResizingPointersEvents from "./hooks/useWindowResizingPointersEvents";
-import useUpdateDivPosition from "./hooks/useUpdateDivPosition";
+import resizeWindow from "../utils/resizeWIndow";
+import rememberWindowPosition from "../utils/rememberWindowPosition";
+import monitoringPointerMovingUnpressed from "../utils/monitoringPointerMovingUnpressed";
+import useFullscreenEffect from "../hooks/useFullscreenEffect";
+import useFocusEffect from "../hooks/useFocusEffect";
+import useWindowResizingPointersEvents from "../hooks/useWindowResizingPointersEvents";
+import useUpdateDivPosition from "../hooks/useUpdateDivPosition";
+import useMinimizedEffect from "../hooks/useMinimizedEffect";
+import {
+  Coordinates,
+  PointerCursor,
+  PointerOffsetRelative,
+  PointerPosition,
+  WindowSize,
+} from "../types/types";
 
 interface Props {
   appName: string;
@@ -15,56 +24,23 @@ interface Props {
   minWidth: number;
   minHeight: number;
   zIndexValue?: string;
-  display?: string;
   onFocus?: boolean;
-  fullscreen?: boolean;
   children: JSX.Element | JSX.Element[];
 }
 
-export interface Coordinates {
-  x: number;
-  y: number;
-}
-
-export interface PointerOffsetRelative {
-  top: number;
-  right: number;
-  bottom: number;
-  left: number;
-}
-
-export interface WindowSize {
-  width: number;
-  height: number;
-}
-
-export type PointerPosition =
-  | "top"
-  | "bottom"
-  | "left"
-  | "right"
-  | "topLeft"
-  | "topRight"
-  | "bottomLeft"
-  | "bottomRight";
-
-export type PointerCursor =
-  | "ns-resize"
-  | "ew-resize"
-  | "nwse-resize"
-  | "nesw-resize"
-  | "default";
-
-export function ResizableDiv({
+export default function ResizableDiv({
   appName,
   className,
   minWidth,
   minHeight,
-  display = "flex",
-  fullscreen = undefined,
   children,
 }: Props) {
   const dispatch = useAppDispatch();
+
+  const { isMinimized, isFullscreen } = useSelector((store: RootState) => {
+    const app = store.apps.find((app) => app.name === appName);
+    return app!.status;
+  });
 
   const resizableDivRef = useRef<HTMLDivElement>(null);
   const [pointerPressed, setPointerPressed] = useState<boolean>(false);
@@ -93,27 +69,29 @@ export function ResizableDiv({
   const [updateDivPosition, setUpdateDivPosition] = useState(false);
 
   const handlePointerMove = (event) => {
-    if (pointerPressed) {
-      if (cursor !== "default") {
-        resizeWindow(
+    if (!isFullscreen) {
+      if (pointerPressed) {
+        if (cursor !== "default") {
+          resizeWindow(
+            event,
+            resizableDivRef.current!,
+            pointerPosition,
+            originalWindowOffset!,
+            originalWindowSize!,
+            pointerOffsetRelative!,
+            minWidth,
+            minHeight
+          );
+        }
+      } else {
+        monitoringPointerMovingUnpressed(
           event,
           resizableDivRef.current!,
-          pointerPosition,
-          originalWindowOffset!,
-          originalWindowSize!,
-          pointerOffsetRelative!,
-          minWidth,
-          minHeight
+          setCursor,
+          cursor,
+          setPointerPosition
         );
       }
-    } else {
-      monitoringPointerMovingUnpressed(
-        event,
-        resizableDivRef.current!,
-        setCursor,
-        cursor,
-        setPointerPosition
-      );
     }
   };
 
@@ -152,8 +130,10 @@ export function ResizableDiv({
     resizableDivRef.current!,
     setDynamicStyle,
     setUpdateDivPosition,
-    fullscreen
+    isFullscreen
   );
+
+  const display = useMinimizedEffect(isMinimized);
 
   return (
     <div

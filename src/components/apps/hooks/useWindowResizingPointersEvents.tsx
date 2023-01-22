@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
 import verifyWindowPosition from "../utils/verifyWindowPosition";
-import { Coordinates, WindowSize } from "../ResizableDiv";
+import { Coordinates, WindowSize } from "../types/types";
 
 export default function useWindowResizingPointersEvents(
   currentResizableDivRef: HTMLDivElement,
@@ -8,7 +8,7 @@ export default function useWindowResizingPointersEvents(
   originalWindowSize: WindowSize | null,
   pointerPressed: boolean,
   setPointerPressed: Dispatch<SetStateAction<boolean>>,
-  handlePointerMove: (event: PointerEvent) => void
+  handlePointerMove: (event: PointerEvent) => void,
 ) {
   useEffect(() => {
     if (pointerPressed) {

@@ -1,9 +1,9 @@
 import DownloadIcon from "@mui/icons-material/Download";
 import { Typography, Stack, Fab, Slide } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
-import CV from "../../../assets/cv.png";
+import CV from "../../../../assets/cv.png";
 
-import "../../../styles/CvPreviewAppContent.css";
+import "../../../../styles/CvPreviewAppContent.css";
 
 import {
   MuiIcon,
@@ -14,7 +14,7 @@ import {
   StorybookIcon,
   ExpressIcon,
   PhpIcon
-} from "../../custom/icons/iconsList";
+} from "../../../custom/icons/iconsList";
 
 interface WindowSize {
   width: number;

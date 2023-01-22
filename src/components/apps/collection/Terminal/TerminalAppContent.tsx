@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { useRef, useState, useEffect, useCallback } from "react";
-import delay from "../../../utils/delay";
+import delay from "../../../../utils/delay";
 
-import "../../../styles/TerminalAppContent.css";
+import "../../../../styles/TerminalAppContent.css";
 
 interface Props {
   appName: string;

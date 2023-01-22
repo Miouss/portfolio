@@ -9,17 +9,16 @@ interface Offset {
 export default function useWindowMovingEffect(
   currentWindowBarRef: any,
   mouseIsPressed: boolean,
-  setMouseIsPressed: React.Dispatch<React.SetStateAction<boolean>>
+  setMouseIsPressed: React.Dispatch<React.SetStateAction<boolean>>,
+  isFullscreen: boolean
 ) {
   const [originalOffset, setOriginalOffset] = useState<Offset>();
+  const [forceFirstRerender, setForceFirstRerender] = useState(false);
 
   useEffect(() => {
     if (currentWindowBarRef == null) return;
 
     const refOffsetParent = currentWindowBarRef.offsetParent;
-
-    if (refOffsetParent == null) return;
-
     const refStyle = refOffsetParent.style;
 
     const handleMouseMovement = (event): void => {
@@ -30,7 +29,7 @@ export default function useWindowMovingEffect(
       }
     };
 
-    if (mouseIsPressed) {
+    if (mouseIsPressed && !isFullscreen) {
       document.onpointerup = () => setMouseIsPressed(false);
       document.onpointermove = (event) => {
         event.stopPropagation();
@@ -59,16 +58,22 @@ export default function useWindowMovingEffect(
       };
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mouseIsPressed]);
+  }, [mouseIsPressed, isFullscreen]);
 
   useEffect(() => {
-    if (currentWindowBarRef == null) return;
+    setForceFirstRerender(true); // We force the first render to get the original offset of the window after the ref is set
+  }, []);
 
-    const refOffsetParent = currentWindowBarRef.offsetParent;
+  useEffect(() => {
+    // This useEffect is used to get the original offset of the window at the first render
+    if (currentWindowBarRef === undefined) return;
+
+    const refStyle = currentWindowBarRef.offsetParent.getBoundingClientRect();
 
     setOriginalOffset({
-      left: refOffsetParent.offsetLeft + "px",
-      top: refOffsetParent.offsetTop + "px",
+      left: `${refStyle.left}px`,
+      top: `${refStyle.top}px`,
     });
-  }, [currentWindowBarRef]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [forceFirstRerender]);
 }

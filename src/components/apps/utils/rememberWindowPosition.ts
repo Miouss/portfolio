@@ -1,9 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
-import {
-  Coordinates,
-  PointerOffsetRelative,
-  WindowSize,
-} from "../ResizableDiv";
+import { Coordinates, PointerOffsetRelative, WindowSize } from "../types/types";
+
 
 export default function rememberWindowPosition(
   event: MouseEvent,

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
-import { AppIcon } from "../apps/AppList";
+import { AppIcon } from "../apps/collection/Collection";
 import { AppStyle } from "./AppGrid";
 import handlePointerEvent from "./utils/handlePointerEvent";
 import ShortcutIcon from "@mui/icons-material/Shortcut";
