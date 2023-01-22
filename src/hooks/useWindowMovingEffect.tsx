@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
-<<<<<<<< HEAD:src/hooks/useWindowMovingEffect.tsx
 import verifyWindowPosition from "../components/apps/utils/verifyWindowPosition";
-========
-import verifyWindowPosition from "../apps/utils/verifyWindowPosition";
->>>>>>>> 3dc54207ff97cc63f972d86421994f825440a827:src/components/hooks/useWindowMovingEffect.tsx
 
 interface Offset {
   left: string;

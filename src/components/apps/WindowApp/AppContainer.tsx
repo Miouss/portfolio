@@ -5,19 +5,13 @@ import { RootState, focusApp, useAppDispatch } from "../../../redux";
 import resizeWindow from "../utils/resizeWIndow";
 import rememberWindowPosition from "../utils/rememberWindowPosition";
 import monitoringPointerMovingUnpressed from "../utils/monitoringPointerMovingUnpressed";
-<<<<<<< HEAD
+
 import useFullscreenEffect from "../../../hooks/useFullscreenEffect";
 import useFocusEffect from "../../../hooks/useFocusEffect";
 import useWindowResizingPointersEvents from "../../../hooks/useWindowResizingPointersEvents";
 import useUpdateDivPosition from "../../../hooks/useUpdateDivPosition";
 import useMinimizedEffect from "../../../hooks/useMinimizedEffect";
-=======
-import useFullscreenEffect from "../../hooks/useFullscreenEffect";
-import useFocusEffect from "../../hooks/useFocusEffect";
-import useWindowResizingPointersEvents from "../../hooks/useWindowResizingPointersEvents";
-import useUpdateDivPosition from "../../hooks/useUpdateDivPosition";
-import useMinimizedEffect from "../../hooks/useMinimizedEffect";
->>>>>>> 3dc54207ff97cc63f972d86421994f825440a827
+
 import {
   Coordinates,
   PointerCursor,
