@@ -1,5 +1,5 @@
 import { useState, useRef, CSSProperties } from "react";
-import { RootState, focusApp, useAppDispatch } from "../../../redux";
+import { RootState, focusApp, useAppDispatch } from "../../redux";
 
 import resizeWindow from "./utils/resizeWIndow";
 import rememberWindowPosition from "./utils/rememberWindowPosition";

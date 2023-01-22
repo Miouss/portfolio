@@ -20,8 +20,8 @@ import {
   toggleFullscreenApp,
 } from "../../redux";
 
-import { ResizableDiv } from "../../styles/components/apps/ResizableDiv";
-import { MovableBar } from "../../styles/components/apps/MovableBar";
+import { ResizableDiv } from "./ResizableDiv";
+import { MovableBar } from "./MovableBar";
 
 import "../../styles/WindowBar.css";
 import "../../styles/WindowApp.css";
