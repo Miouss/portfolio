@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { WindowsIcon } from "../../custom/icons/iconsList";
+import { WindowsIcon } from "../../../assets/icons/iconsList";
 
 export default function StartMenu() {
   const [windowsIconColor, switchWindowsIconColor] = useState("white");

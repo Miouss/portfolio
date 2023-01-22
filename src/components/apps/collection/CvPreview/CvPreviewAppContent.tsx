@@ -14,7 +14,7 @@ import {
   StorybookIcon,
   ExpressIcon,
   PhpIcon
-} from "../../../custom/icons/iconsList";
+} from "../../../../assets/icons/iconsList";
 
 interface WindowSize {
   width: number;
