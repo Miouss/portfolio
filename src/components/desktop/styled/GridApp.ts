@@ -1,4 +1,4 @@
-import { styled } from "@mui/system";
+import styled from "@mui/system/styled";
 import { Stack } from "@mui/material";
 
 const pointerNotDownStyle = {
@@ -18,21 +18,13 @@ const pointerDownStyle = {
 
 export const GridAppContainer = styled(Stack, {
   shouldForwardProp: (prop) => prop !== "cursor",
-})(({ cursor, clickEventHappened }: { cursor?: "default" | "progress", clickEventHappened?: boolean }) => ({
+})(({ cursor, clickEventHappened }: { cursor?: "default" | "progress", clickEventHappened?: boolean}) => ({
   position: "relative",
   boxSizing: "border-box",
   cursor: cursor ?? "default",
-  width: "10rem",
-  height: "10rem",
-  display: "flex",
-  flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
   border: clickEventHappened ? "solid lightblue 1px" : "none",
-  gap: "0.3rem",
-  "&:hover": {
-    border: "solid lightblue 1px",
-  },
 }));
 
 export const BackgroundColorLayer = styled("div")(

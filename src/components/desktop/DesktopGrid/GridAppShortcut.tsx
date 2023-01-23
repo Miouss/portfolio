@@ -1,6 +1,4 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../../../redux";
-import { AppIcon } from "../../apps/collection/Collection";
+import { ShortcutDesktopIcon, getShortcutLink } from "../../apps/AppWindow/Window/Contents/list";
 import ShortcutIcon from "@mui/icons-material/Shortcut";
 import {
   GridAppBadge,
@@ -11,25 +9,17 @@ import {
 
 interface Props {
   shortcutName: string;
-  gridArea: string;
 }
 
-export default function ShortcutApp({ shortcutName, gridArea }: Props) {
-  const urlRedirect = useSelector(({ shortcuts }: RootState) => {
-    const shortcut = shortcuts.find(
-      (shortcut) => shortcut.name === shortcutName
-    );
-    if (shortcut) return shortcut.link;
-  });
-
+export default function ShortcutApp({ shortcutName }: Props) {
+  const urlRedirect = getShortcutLink(shortcutName);
 
   return (
     <GridAppContainer
-      style={{ gridArea }}
-      onClick={() => window.open(urlRedirect!)}
+      onDoubleClick={() => window.open(urlRedirect!)}
     >
       <GridAppIcon style={{ fontSize: "4rem" }}>
-        <AppIcon appName={shortcutName} />
+        <ShortcutDesktopIcon name={shortcutName} />
       </GridAppIcon>
       <GridAppBadge className="desktop-app-shortcut">
         <ShortcutIcon fontSize="small" />

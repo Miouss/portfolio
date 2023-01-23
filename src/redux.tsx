@@ -14,24 +14,6 @@ export interface RunningApp {
   status: AppStatus;
 }
 
-export interface ShortcutApp {
-  name: string;
-  link?: string;
-}
-
-const shortcuts = createSlice({
-  name: "shortcuts",
-  initialState: [] as ShortcutApp[],
-  reducers: {
-    addShortcut: (state, {payload}: PayloadAction<ShortcutApp>) => {
-      state.push({
-        name: payload.name,
-        link: payload.link,
-      });
-    },
-  },
-});
-
 const apps = createSlice({
   name: "apps",
   initialState: [] as RunningApp[],
@@ -101,14 +83,12 @@ export const {
   minimizeApp,
   toggleFullscreenApp,
 } = apps.actions;
-export const { addShortcut } = shortcuts.actions;
 
 export type RootState = ReturnType<typeof store.getState>;
 
 export const store = configureStore({
   reducer: {
     apps: apps.reducer,
-    shortcuts: shortcuts.reducer,
   },
 });
 

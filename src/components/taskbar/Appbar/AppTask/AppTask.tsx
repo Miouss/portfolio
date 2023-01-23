@@ -7,8 +7,8 @@ import {
   useAppDispatch,
 } from "../../../../redux";
 
-import { AppIcon } from "../../../apps/collection/Collection";
-import AppbarContextMenu from "./AppTask/ContextMenu";
+import { AppTaskIcon } from "../../../apps/AppWindow/Window/Contents/list";
+import ContextMenu from "./AppTaskContextMenu/ContextMenu";
 import {
   AppIconBox,
   AppUnderline,
@@ -66,14 +66,14 @@ export default function AppTask({ appName }: Props) {
         setAnchorEl(event.currentTarget);
       }}
     >
-      <AppbarContextMenu
+      <ContextMenu
         anchorEl={anchorEl}
         setAnchorEl={setAnchorEl}
         appName={appName}
       />
 
       <AppIconBox>
-        <AppIcon appName={appName} />
+        <AppTaskIcon name={appName} />
       </AppIconBox>
       <AppUnderline />
     </AppTaskContainer>

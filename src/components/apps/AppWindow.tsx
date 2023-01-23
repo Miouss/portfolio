@@ -1,16 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Window from "./AppWindow/Window";
 import MovableBar from "./AppWindow/Window/MovableBar";
+import Content from "./AppWindow/Window/Content";
 
-import { ReactElement, useEffect } from "react";
+
+import { useEffect } from "react";
 import { focusApp, useAppDispatch } from "../../redux";
 
 interface Props {
   appName: string;
-  contentComponent: ReactElement;
 }
 
-export default function AppWindow({ appName, contentComponent }: Props) {
+export default function AppWindow({ appName }: Props) {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -25,7 +26,7 @@ export default function AppWindow({ appName, contentComponent }: Props) {
     >
       <MovableBar appName={appName} />
 
-      {contentComponent}
+      <Content appName={appName} />
     </Window>
   );
 }

@@ -1,15 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { useRef, useState, useEffect, useCallback } from "react";
-import delay from "../../../../utils/delay";
+import delay from "../../../../../../utils/delay";
 
-import "../../../../styles/TerminalAppContent.css";
 
-interface Props {
-  appName: string;
-}
-
-function TerminalAppContent({ appName }: Props) {
+export default function TerminalApp() {
   const TerminalAppContentRef = useRef<HTMLDivElement | null>(null);
 
   const [text, updateText] = useState<string>("");
@@ -92,5 +87,3 @@ function TerminalAppContent({ appName }: Props) {
     </div>
   );
 }
-
-export default TerminalAppContent;

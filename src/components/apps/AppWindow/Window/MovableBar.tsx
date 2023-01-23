@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState, focusApp, useAppDispatch } from "../../../../redux";
 import useWindowMovingEffect from "../../hooks/useWindowMovingEffect";
 import { MovableBarContainer, MovableBarIcon, MovableBarTitle } from "../../styled/MovableBar";
-import { AppIcon } from "../../collection/Collection";
+import { AppWindowIcon } from "./Contents/list";
 import BarButtonGroup from "./MovableBar/BarButtonGroup";
 
 interface Props {
@@ -40,7 +40,7 @@ export default function MovableBar({ appName }: Props) {
       onPointerDown={(event) => handlePointerDown(event)}
     >
       <MovableBarIcon>
-        <AppIcon appName={appName} />
+        <AppWindowIcon name={appName} />
       </MovableBarIcon>
       <MovableBarTitle>{appName}</MovableBarTitle>
 

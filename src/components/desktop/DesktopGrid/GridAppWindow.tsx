@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState, focusApp, openApp, useAppDispatch } from "../../../redux";
-import { AppIcon } from "../../apps/collection/Collection";
+import { AppDesktopIcon } from "../../apps/AppWindow/Window/Contents/list";
 import {
   BackgroundColorLayer,
   GridAppContainer,
@@ -11,10 +11,9 @@ import {
 
 interface Props {
   appName: string;
-  gridArea: string;
 }
 
-export default function NormalApp({ appName, gridArea }: Props) {
+export default function NormalApp({ appName }: Props) {
   const dispatch = useAppDispatch();
   const isRunning = useSelector((state: RootState) => {
     const app = state.apps.find((app) => app.name === appName);
@@ -49,14 +48,12 @@ export default function NormalApp({ appName, gridArea }: Props) {
     <GridAppContainer
       clickEventHappened={clickEventHappened}
       cursor={cursor}
-      className="desktop-app"
-      style={{ gridArea }}
       onClick={handleClick}
       onDoubleClick={handleDbCLick}
     >
       <BackgroundColorLayer clickEventHappened={clickEventHappened} />
       <GridAppIcon style={{ fontSize: "4rem" }}>
-        <AppIcon appName={appName} />
+        <AppDesktopIcon name={appName} /> 
       </GridAppIcon>
       <GridAppLabel>{appName}</GridAppLabel>
     </GridAppContainer>
