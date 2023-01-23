@@ -1,13 +1,19 @@
 import { ReactElement } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux";
 
 import NormalApp from "./DesktopGrid/GridAppWindow";
 import ShortcutApp from "./DesktopGrid/GridAppShortcut";
 
 import "../../styles/DesktopGrid.css";
-import { DesktopGrid } from "./styled/DesktopGrid";
-
+import {
+  DesktopEmptyGridItem,
+  DesktopGridContainer,
+} from "./styled/DesktopGrid";
+import {
+  getAllAppsName,
+  getAllShortcutsName,
+  getAppGridPostion,
+  getShortcutGridPostion,
+} from "../apps/AppWindow/Window/Contents/list";
 
 export interface AppStyle {
   borderStyle?: string;
@@ -16,48 +22,76 @@ export interface AppStyle {
   cursor?: string;
 }
 
-export default function AppGrid() {
-  const apps = useSelector((state: RootState) => state.apps);
-  const shortcuts = useSelector((state: RootState) => state.shortcuts);
+export default function DesktopGrid() {
+  const appsName = getAllAppsName();
+  const shortcutsName = getAllShortcutsName();
+  let desktopAppFilled: ReactElement[] = [];
 
-  const showDesktopApp = () => {
-    let desktopApp: Array<ReactElement> = [];
-
-    fillNormalApp(desktopApp);
-    fillShortcupApp(desktopApp);
-
-    return desktopApp;
+  let currentGridPosition = {
+    col: 1,
+    row: 1,
   };
 
-  const fillNormalApp = (desktopApp: Array<ReactElement>) => {
-    let col = 1;
+  let desktopApp: Array<ReactElement> = [];
 
-    apps.forEach((app, index) => {      
+  const fillNormalApp = (desktopApp: Array<ReactElement>) => {
+    appsName.forEach((appName, index) => {
+      fillEmptyCell(desktopApp, appName, getAppGridPostion);
+
       desktopApp.push(
-        <NormalApp
-          key={`normalApp${index}`}
-          appName={app.name}
-          gridArea={`1 / ${col} / 1 / ${col + 1}`}
-        />
+        <NormalApp key={`normalApp${index}`} appName={appName} />
       );
-      col++;
     });
   };
 
   const fillShortcupApp = (desktopApp: Array<ReactElement>) => {
-    let col = 9;
+    shortcutsName.forEach((shortcutName, index) => {
+      fillEmptyCell(desktopApp, shortcutName, getShortcutGridPostion);
 
-    shortcuts.forEach((shortcut, index) => {
       desktopApp.push(
-        <ShortcutApp
-          key={`shortcutApp${index}`}
-          shortcutName={shortcut.name}
-          gridArea={`1 / ${col} / 1 / ${col + 1}`}
-        />
+        <ShortcutApp key={`shortcutApp${index}`} shortcutName={shortcutName} />
       );
-      col++;
     });
   };
 
-  return <DesktopGrid className="desktop-grid">{showDesktopApp()}</DesktopGrid>;
+  const fillEmptyCell = (
+    desktopApp: Array<ReactElement>,
+    appName: string,
+    getGridPostion
+  ) => {
+    const gridPostion = getGridPostion(appName);
+
+    while (
+      gridPostion.col !== currentGridPosition.col ||
+      gridPostion.row !== currentGridPosition.row
+    ) {
+      desktopApp.push(
+        <DesktopEmptyGridItem
+          key={`${appName} ${currentGridPosition.col} ${currentGridPosition.row}`}
+        />
+      );
+
+      if (currentGridPosition.col >= 10) {
+        currentGridPosition.row++;
+        currentGridPosition.col = 1;
+      } else {
+        currentGridPosition.col++;
+      }
+    }
+
+    // Add position of the NOT EMPTY CELL that will be added after
+    if (currentGridPosition.col < 10) {
+      currentGridPosition.col++;
+    } else {
+      currentGridPosition.row++;
+    }
+  };
+
+  fillNormalApp(desktopApp);
+  fillShortcupApp(desktopApp);
+
+  desktopAppFilled = desktopApp;
+
+  return <DesktopGridContainer>{desktopAppFilled}</DesktopGridContainer>;
+  //return <DesktopGrid className="desktop-grid">{showDesktopApp()}</DesktopGrid>;
 }

@@ -1,5 +1,5 @@
 import { StartMenuBox } from "../styled/StartMenu";
-import { WindowsIcon } from "../../../assets/icons/iconsList";
+import WindowsLogo from "../../../assets/WindowsLogo";
 import { useState } from "react";
 
 export default function StartMenu() {
@@ -9,7 +9,7 @@ export default function StartMenu() {
     <StartMenuBox
       onMouseEnter={() => setColor("dodgerblue")}
       onMouseLeave={() => setColor("white")}>
-      <WindowsIcon color={color} />
+      <WindowsLogo color={color} />
     </StartMenuBox>
   );
 }

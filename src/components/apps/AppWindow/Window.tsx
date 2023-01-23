@@ -142,6 +142,7 @@ export default function ResizableDiv({
     <WindowContainer
       display={display}
       zIndex={zIndex}
+      cursor={cursor}
       ref={resizableDivRef}
       tabIndex={-1}
       style={{

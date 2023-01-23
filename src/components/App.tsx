@@ -1,11 +1,11 @@
 import { ReactElement, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { addApp, addShortcut, RootState, useAppDispatch } from "../redux";
+import { addApp, RootState, useAppDispatch } from "../redux";
 import AppGrid from "./desktop/DesktopGrid";
 import Taskbar from "./taskbar/Taskbar";
-import { AppComponent } from "./apps/collection/Collection";
-import WindowsWallpaper from "../assets/windows-wallpaper.png";
 
+import AppWindow from "./apps/AppWindow";
+import WindowsWallpaper from "../assets/windows-wallpaper.png";
 import "../styles/Desktop.css";
 
 export default function App() {
@@ -22,38 +22,23 @@ export default function App() {
   };
 
   useEffect(() => {
-    const dispatchAddShortcut = (name: string, link: string) => {
-      dispatch(
-        addShortcut({
-          name,
-          link,
-        })
-      );
-    };
-
     const dispatchAddApp = (name: string) => {
       dispatch(addApp(name));
     };
 
     dispatchAddApp("terminal");
     dispatchAddApp("Aperçu CV");
-    dispatchAddShortcut("GitHub", "https://github.com/Miouss");
-    dispatchAddShortcut(
-      "LinkedIn",
-      "https://www.linkedin.com/in/samir-ghabi-aa58a2224/"
-    );
 
     document.onselectstart = () => {
       return false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   useEffect(() => {
     const appsRunning = apps.filter((app) => app.status.isRunning);
     setRunningApps(
-      appsRunning.map((app) => (
-        <AppComponent key={`${app.name}`} appName={app.name} />
+      appsRunning.map((appRunning) => (
+        <AppWindow key={`Component ${appRunning.name}`} appName={appRunning.name}  />
       ))
     );
   }, [apps]);
