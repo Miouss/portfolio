@@ -1,6 +1,6 @@
 import TerminalAppContent from "./TerminalAppContent";
 
-import WindowApp from "../../WindowApp";
+import WindowApp from "../../AppWindow";
 
 import "../../../../styles/TerminalApp.css";
 
