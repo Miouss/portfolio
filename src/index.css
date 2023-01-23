@@ -10,6 +10,12 @@ body {
   overflow: hidden;
 }
 
+#root {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
