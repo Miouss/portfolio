@@ -2,11 +2,11 @@ import { ReactElement } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
 
-import NormalApp from "./AppGrid/GridAppWindow";
-import ShortcutApp from "./AppGrid/GridAppShortcut";
+import NormalApp from "./DesktopGrid/GridAppWindow";
+import ShortcutApp from "./DesktopGrid/GridAppShortcut";
 
 import "../../styles/DesktopGrid.css";
-import "../../styles/DesktopApp.css";
+import { DesktopGrid } from "./styled/DesktopGrid";
 
 
 export interface AppStyle {
@@ -59,5 +59,5 @@ export default function AppGrid() {
     });
   };
 
-  return <div className="desktop-grid">{showDesktopApp()}</div>;
+  return <DesktopGrid className="desktop-grid">{showDesktopApp()}</DesktopGrid>;
 }
