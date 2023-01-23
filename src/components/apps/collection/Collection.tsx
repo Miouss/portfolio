@@ -17,12 +17,12 @@ let appList = {} as AppList;
 
 appList["terminal"] = {
   app: <TerminalApp key="terminal" />,
-  icon: <TerminalIcon fontSize="inherit" />,
+  icon: <TerminalIcon style={{color:'white'}} fontSize="inherit" />,
 };
 
 appList["Aperçu CV"] = {
   app: <CvPreviewApp key="CVPreview" />,
-  icon: <ContactMailIcon fontSize="inherit" />,
+  icon: <ContactMailIcon style={{color:'white'}} fontSize="inherit" />,
 };
 
 appList["GitHub"] = {

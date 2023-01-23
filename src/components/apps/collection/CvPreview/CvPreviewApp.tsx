@@ -1,6 +1,6 @@
 import CvPreviewAppContent from "./CvPreviewAppContent";
 
-import WindowApp from "../../WindowApp";
+import WindowApp from "../../AppWindow";
 
 function CvPreviewApp() {
   return (

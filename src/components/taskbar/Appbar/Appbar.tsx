@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
-import AppbarContainer from "./AppbarContainer/AppbarContainer";
-
 import { RootState } from "../../../redux";
+
+import AppTask from "./AppTask/AppTask";
+
+import { AppbarContainer } from "../styled/Appbar";
 
 export default function Appbar() {
   const [appsContainers, setAppsContainers] = useState<JSX.Element[]>([]);
@@ -14,11 +15,13 @@ export default function Appbar() {
     const appsRunning = apps.filter((app) => app.status.isRunning);
 
     setAppsContainers(
-      appsRunning.map((app, index) => {
-        return <AppbarContainer key={`TaskBarApp${index}`} appName={app.name} />;
-      })
+      appsRunning
+        .map((app, index) => {
+          return <AppTask key={`TaskBarApp${index}`} appName={app.name} />;
+        })
+        .reverse() // Reverse the array to have the last opened app on the right
     );
   }, [apps]);
 
-  return <div id="windows-task-bar-apps-icons">{appsContainers}</div>;
+  return <AppbarContainer>{appsContainers}</AppbarContainer>;
 }

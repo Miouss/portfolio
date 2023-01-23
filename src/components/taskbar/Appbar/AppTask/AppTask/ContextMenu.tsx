@@ -5,9 +5,7 @@ import { closeApp, minimizeApp, useAppDispatch } from "../../../../../redux";
 import CloseIcon from "@mui/icons-material/Close";
 import MinimizeIcon from "@mui/icons-material/Minimize";
 
-import "../../../../../styles/DesktopTaskBarContextMenu.css";
-
-function AppbarContextMenu({ anchorEl, setAnchorEl, appName }) {
+export default function ContextMenu({ anchorEl, setAnchorEl, appName }) {
   const dispatch = useAppDispatch();
 
   const onOverBgColor = "rgba(100,100,100, 0.5)";
@@ -25,7 +23,6 @@ function AppbarContextMenu({ anchorEl, setAnchorEl, appName }) {
 
   return (
     <Popper
-      id="context-menu"
       open={!!anchorEl}
       anchorEl={anchorEl}
       nonce={undefined}
@@ -53,5 +50,3 @@ function AppbarContextMenu({ anchorEl, setAnchorEl, appName }) {
     </Popper>
   );
 }
-
-export default AppbarContextMenu;

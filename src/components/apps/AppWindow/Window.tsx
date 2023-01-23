@@ -19,6 +19,7 @@ import {
   PointerPosition,
   WindowSize,
 } from "../types";
+import { WindowContainer } from "../styled/Window";
 
 interface Props {
   appName: string;
@@ -110,7 +111,7 @@ export default function ResizableDiv({
     );
   };
 
-  const zIndexValue = useFocusEffect(appName);
+  const zIndex = useFocusEffect(appName);
 
   useWindowResizingPointersEvents(
     resizableDivRef.current!,
@@ -135,19 +136,15 @@ export default function ResizableDiv({
     isFullscreen
   );
 
-  const display = useMinimizedEffect(isMinimized);
+  const display: "flex" | "none" = useMinimizedEffect(isMinimized);
 
   return (
-    <div
+    <WindowContainer
+      display={display}
+      zIndex={zIndex}
       ref={resizableDivRef}
-      className={className}
       tabIndex={-1}
       style={{
-        cursor: cursor,
-        display: display,
-        zIndex: zIndexValue,
-        minWidth: minWidth + "px",
-        minHeight: minHeight + "px",
         ...dynamicStyle,
       }}
       onPointerMove={(event) => {
@@ -157,6 +154,6 @@ export default function ResizableDiv({
       onPointerUp={() => setPointerPressed(false)}
     >
       {children}
-    </div>
+    </WindowContainer>
   );
 }

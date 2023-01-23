@@ -2,15 +2,15 @@ import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState, focusApp, useAppDispatch } from "../../../../redux";
 import useWindowMovingEffect from "../../hooks/useWindowMovingEffect";
-import "../../../../styles/WindowBar.css";
+import { MovableBarContainer, MovableBarIcon, MovableBarTitle } from "../../styled/MovableBar";
+import { AppIcon } from "../../collection/Collection";
+import BarButtonGroup from "./MovableBar/BarButtonGroup";
 
 interface Props {
-  className?: string;
   appName: string;
-  children: React.ReactNode;
 }
 
-export default function MovableBar({ className, appName, children }: Props) {
+export default function MovableBar({ appName }: Props) {
   const dispatch = useAppDispatch();
   const windowBarRef = useRef<HTMLDivElement>() as any;
   const [mouseIsPressed, setMouseIsPressed] = useState<boolean>(false);
@@ -34,13 +34,17 @@ export default function MovableBar({ className, appName, children }: Props) {
   );
 
   return (
-    <div
-      className={className}
+    <MovableBarContainer
       ref={windowBarRef}
       style={{ cursor: "default" }}
       onPointerDown={(event) => handlePointerDown(event)}
     >
-      {children}
-    </div>
+      <MovableBarIcon>
+        <AppIcon appName={appName} />
+      </MovableBarIcon>
+      <MovableBarTitle>{appName}</MovableBarTitle>
+
+      <BarButtonGroup appName={appName} />
+    </MovableBarContainer>
   );
 }

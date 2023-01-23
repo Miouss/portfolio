@@ -1,16 +1,15 @@
-import { useState } from "react";
+import { StartMenuBox } from "../styled/StartMenu";
 import { WindowsIcon } from "../../../assets/icons/iconsList";
+import { useState } from "react";
 
 export default function StartMenu() {
-  const [windowsIconColor, switchWindowsIconColor] = useState("white");
+  const [color, setColor] = useState("white");
 
   return (
-    <div
-      id="windows-task-bar-windows-icon"
-      onMouseOver={() => switchWindowsIconColor("dodgerblue")}
-      onMouseLeave={() => switchWindowsIconColor("white")}
-    >
-      <WindowsIcon color={windowsIconColor} />
-    </div>
+    <StartMenuBox
+      onMouseEnter={() => setColor("dodgerblue")}
+      onMouseLeave={() => setColor("white")}>
+      <WindowsIcon color={color} />
+    </StartMenuBox>
   );
 }
