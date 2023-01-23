@@ -8,7 +8,10 @@ import AppWindow from "./apps/AppWindow";
 import WindowsWallpaper from "../assets/windows-wallpaper.png";
 import "../styles/Desktop.css";
 
+import Login from "./Login/Login";
+
 export default function App() {
+  const [isLogged, setIsLogged] = useState(false);
   const apps = useSelector((state: RootState) => state.apps);
   const dispatch = useAppDispatch();
 
@@ -38,18 +41,25 @@ export default function App() {
     const appsRunning = apps.filter((app) => app.status.isRunning);
     setRunningApps(
       appsRunning.map((appRunning) => (
-        <AppWindow key={`Component ${appRunning.name}`} appName={appRunning.name}  />
+        <AppWindow
+          key={`Component ${appRunning.name}`}
+          appName={appRunning.name}
+        />
       ))
     );
   }, [apps]);
 
-  document.onmousedown = (event) => event.preventDefault();
-
-  return (
-    <div id="desktop" style={bgImageStyle}>
-      {runningApps}
-      <AppGrid />
-      <Taskbar />
-    </div>
-  );
+  if (isLogged) {
+    return (
+      <div id="desktop" style={bgImageStyle}>
+        {runningApps}
+        <AppGrid />
+        <Taskbar />
+      </div>
+    );
+  } else {
+    return (
+        <Login setIsLogged={setIsLogged} />
+    );
+  }
 }
