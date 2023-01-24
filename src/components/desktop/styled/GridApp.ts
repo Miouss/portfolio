@@ -17,24 +17,24 @@ const pointerDownStyle = {
 };
 
 export const GridAppContainer = styled(Stack, {
-  shouldForwardProp: (prop) => prop !== "cursor",
-})(({ cursor, clickEventHappened }: { cursor?: "default" | "progress", clickEventHappened?: boolean}) => ({
+  shouldForwardProp: (prop) => prop !== "cursor" && prop !== "click",
+})(({ cursor, click }: { cursor?: "default" | "progress", click?: boolean}) => ({
   position: "relative",
   boxSizing: "border-box",
   cursor: cursor ?? "default",
   justifyContent: "center",
   alignItems: "center",
-  border: clickEventHappened ? "solid lightblue 1px" : "none",
+  border: click ? "solid lightblue 1px" : "none",
 }));
 
 export const BackgroundColorLayer = styled("div")(
-  ({ clickEventHappened }: { clickEventHappened: boolean }) => ({
+  ({ click }: { click: boolean }) => ({
     position: "absolute",
     width: "100%",
     height: "100%",
     backgroundColor: "white",
 
-    ...(clickEventHappened ? pointerDownStyle : pointerNotDownStyle),
+    ...(click ? pointerDownStyle : pointerNotDownStyle),
   })
 );
 

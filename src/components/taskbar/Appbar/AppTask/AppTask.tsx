@@ -54,7 +54,7 @@ export default function AppTask({ appName }: Props) {
 
   return (
     <AppTaskContainer
-      isFocused={isFocused}
+    focus={isFocused}
       onClick={handleClick}
       onMouseDown={(event) => event.preventDefault()}
       onContextMenu={(event) => {
