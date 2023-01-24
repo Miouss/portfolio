@@ -1,13 +1,17 @@
-import { Stack } from "@mui/material";
+import {
+  ProjetPreviewApp,
+} from "./CvPreview";
 
 
+import ProjectLolMood from "./ProjectLolMood";
+import ProjectSmartDl from "./ProjectSmartDl";
 
-function CvPreviewAppContent() {
+export default function CvPreviewAppContent() {
+
   return (
-      <Stack>
-        coucou
-      </Stack>
+    <ProjetPreviewApp>
+      <ProjectLolMood />
+      <ProjectSmartDl />
+    </ProjetPreviewApp>
   );
 }
-
-export default CvPreviewAppContent;

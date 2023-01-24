@@ -18,6 +18,7 @@ export default function useUpdateDivPosition(
 
     const currentDimensions = currentResizableDivRef.getBoundingClientRect();
 
+    
     setDynamicStyle({
       width: currentDimensions.width + "px",
       height: currentDimensions.height + "px",
