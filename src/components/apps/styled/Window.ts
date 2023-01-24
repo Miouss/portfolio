@@ -20,8 +20,7 @@ export const WindowContainer = styled("div", {
   overflow: "hidden",
   "& > :last-child": {
     backgroundColor: "white",
-    overflowY: "scroll",
-    overflowX: "scroll",
+    overflow: "auto",
     width: "100%",
     height: "100%",
     boxSizing: "border-box",
