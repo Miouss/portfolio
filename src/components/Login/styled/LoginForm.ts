@@ -41,7 +41,7 @@ export const LoginFormButton = styled(Button)({
   borderRadius: "10px",
 });
 
-export const LoginInput = styled(Input)({
+export const LoginFormInput = styled(Input)({
   border: "5px solid 	rgba(211,211,211, 0.3)",
   "& > *": {
     backgroundColor: "white !important",
@@ -52,7 +52,7 @@ export const LoginInput = styled(Input)({
   },
 });
 
-LoginInput.defaultProps = {
+LoginFormInput.defaultProps = {
   type: "password",
   disableUnderline: true,
   placeholder: "Password",
@@ -70,3 +70,17 @@ export const InputButton = styled(Button)({
   borderLeft: "1px solid black",
   borderRadius: "0",
 });
+
+export const LoginFormLoadingContainer = styled(Stack)({
+  marginTop: "60px",
+  width: "100%",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: "20px",
+  color: "white",
+  fontSize: "1.2rem",
+});
+
+LoginFormLoadingContainer.defaultProps = {
+  direction: "row",
+};

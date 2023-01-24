@@ -7,6 +7,7 @@ export const LoginContainer = styled(Stack)({
     height: "100%",
     width: "100%",
     position:"relative",
+    transition: "width 0.5s 0.5s, height 0.5s 0.5s, opacity 0.5s",
 });
 
 export const BackgroundLayer = styled("div")({

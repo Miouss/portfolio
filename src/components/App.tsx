@@ -1,6 +1,6 @@
 import { ReactElement, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { addApp, openApp, RootState, useAppDispatch } from "../redux";
+import { addApp, RootState, useAppDispatch } from "../redux";
 import AppGrid from "./desktop/DesktopGrid";
 import Taskbar from "./taskbar/Taskbar";
 
@@ -11,7 +11,7 @@ import "../styles/Desktop.css";
 import Login from "./Login/Login";
 
 export default function App() {
-  const [isLogged, setIsLogged] = useState(true);
+  const [isLogged, setIsLogged] = useState(false);
   const apps = useSelector((state: RootState) => state.apps);
   const dispatch = useAppDispatch();
 
@@ -31,7 +31,6 @@ export default function App() {
 
     dispatchAddApp("terminal");
     dispatchAddApp("Aperçu CV");
-    dispatch(openApp("Aperçu CV"));
 
     document.onselectstart = () => {
       return false;
@@ -50,17 +49,16 @@ export default function App() {
     );
   }, [apps]);
 
-  if (isLogged) {
-    return (
-      <div id="desktop" style={bgImageStyle}>
-        {runningApps}
-        <AppGrid />
-        <Taskbar />
-      </div>
-    );
-  } else {
-    return (
-        <Login setIsLogged={setIsLogged} />
-    );
-  }
+  return (
+    <>
+        <div id="desktop" style={{ width: "100%", visibility: isLogged ? "visible" : "hidden", ...bgImageStyle}}>
+          {runningApps}
+          <AppGrid />
+          <Taskbar />
+        </div>
+        <div style={{ position: "absolute", width: "100%", height: "100%", opacity : !isLogged ? "1" : "0", transition: "opacity 0.5s ease-out", zIndex: '3' }}>
+          <Login setIsLogged={setIsLogged} />
+        </div>
+    </>
+  );
 }
