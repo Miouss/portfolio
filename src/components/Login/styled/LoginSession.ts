@@ -19,6 +19,9 @@ export const LoginSessionContainer = styled(Stack)(({selected} : {selected: bool
     height: "fit-content",
     backgroundColor: selected ? "rgba(255, 255, 255, 0.5)" : "transparent",
     gap: "20px",
+    "&:hover": {
+        backgroundColor: !selected && "rgba(255, 255, 255, 0.3)",
+    },
 }));
 
 LoginSessionContainer.defaultProps = {
