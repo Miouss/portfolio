@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { addApp, RootState, useAppDispatch } from "../redux";
 import AppGrid from "./desktop/DesktopGrid";
@@ -14,6 +14,8 @@ export default function App() {
   const [isLogged, setIsLogged] = useState(false);
   const apps = useSelector((state: RootState) => state.apps);
   const dispatch = useAppDispatch();
+
+  const loginRef = useRef<HTMLDivElement>(null);
 
   const [runningApps, setRunningApps] = useState<Array<ReactElement>>([]);
 
@@ -49,16 +51,38 @@ export default function App() {
     );
   }, [apps]);
 
+  useEffect(() => {
+    if (loginRef.current?.style.opacity === "0") {
+      setTimeout(() => (loginRef.current!.style.visibility = "hidden"), 500);
+    }
+  }, [isLogged]);
+
   return (
     <>
-        <div id="desktop" style={{ width: "100%", visibility: isLogged ? "visible" : "hidden", ...bgImageStyle}}>
-          {runningApps}
-          <AppGrid />
-          <Taskbar />
-        </div>
-        <div style={{ position: "absolute", width: "100%", height: "100%", opacity : !isLogged ? "1" : "0", transition: "opacity 0.5s ease-out", zIndex: '3' }}>
-          <Login setIsLogged={setIsLogged} />
-        </div>
+      <div
+        id="desktop"
+        style={{
+          width: "100%",
+          visibility: isLogged ? "visible" : "hidden",
+          ...bgImageStyle,
+        }}
+      >
+        {runningApps}
+        <AppGrid />
+        <Taskbar />
+      </div>
+      <div
+        ref={loginRef}
+        style={{
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+          opacity: !isLogged ? "1" : "0",
+          transition: "opacity 0.5s ease-out",
+        }}
+      >
+        <Login setIsLogged={setIsLogged} />
+      </div>
     </>
   );
 }
