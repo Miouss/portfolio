@@ -25,6 +25,6 @@ export const BackgroundLayer = styled("div")({
 export const LoginBox = styled(Stack)({
     width: "100%",
     height: "100%",
-    backdropFilter: "blur(3px)",
+    backdropFilter: "blur(10px)",
     alignItems: "center",
 });
