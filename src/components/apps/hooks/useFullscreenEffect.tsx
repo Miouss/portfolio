@@ -27,8 +27,8 @@ export default function useFullscreenEffect(
       checkResponsiveness(window.innerWidth, dispatch, setWindowResponsiveFont);
       setPreviousWindowPosition(currentResizableDivRef.getBoundingClientRect());
       setDynamicStyle({
-        width: `${window.innerWidth + 20}px`,
-        height: `${window.innerWidth - 25}px`,
+        width: "calc(100% + 20px)",
+        height: "calc(100% - 25px)",
         top: "-10px",
         left: "-10px",
         transform: "none",
