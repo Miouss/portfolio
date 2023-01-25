@@ -1,6 +1,6 @@
 import { ReactElement, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { addApp, RootState, useAppDispatch } from "../redux";
+import { addApp, openApp, RootState, useAppDispatch } from "../redux";
 import AppGrid from "./desktop/DesktopGrid";
 import Taskbar from "./taskbar/Taskbar";
 
@@ -11,7 +11,7 @@ import "../styles/Desktop.css";
 import Login from "./Login/Login";
 
 export default function App() {
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(true);
   const apps = useSelector((state: RootState) => state.apps);
   const dispatch = useAppDispatch();
 
@@ -33,6 +33,7 @@ export default function App() {
 
     dispatchAddApp("terminal");
     dispatchAddApp("Aperçu CV");
+    dispatch(openApp("terminal"));
 
     document.onselectstart = () => {
       return false;
@@ -71,7 +72,7 @@ export default function App() {
         <AppGrid />
         <Taskbar />
       </div>
-      <div
+{/*       <div
         ref={loginRef}
         style={{
           position: "absolute",
@@ -82,7 +83,7 @@ export default function App() {
         }}
       >
         <Login setIsLogged={setIsLogged} />
-      </div>
+      </div> */}
     </>
   );
 }
