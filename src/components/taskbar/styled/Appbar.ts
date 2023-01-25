@@ -14,18 +14,20 @@ AppbarContainer.defaultProps = {
 
 // create AppTaskContainer styled components
 
-export const AppTaskContainer = styled(Stack)(
-  ({ isFocused }: { isFocused: boolean }) => ({
+export const AppTaskContainer = styled(Stack, {
+  shouldForwardProp: (prop) => prop !== "focus",
+})(
+  ({ focus }: { focus: boolean }) => ({
     height: "100%",
     width: "54px",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: isFocused ? "rgba(150, 150, 150, 0.4)" : "transparent",
+    backgroundColor: focus ? "rgba(150, 150, 150, 0.4)" : "transparent",
     "&:hover": {
-      backgroundColor: isFocused ? "rgba(150, 150, 150, 0.4)" : "rgba(150, 150, 150, 0.2)",
+      backgroundColor: focus ? "rgba(150, 150, 150, 0.4)" : "rgba(150, 150, 150, 0.2)",
     },
     "> :last-child" : {
-      width: isFocused ? "100%" : "75%",
+      width: focus ? "100%" : "75%",
     },
     "&:hover > :last-child": {
       width: "100%",

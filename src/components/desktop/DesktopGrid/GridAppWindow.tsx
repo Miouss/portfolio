@@ -21,7 +21,7 @@ export default function NormalApp({ appName }: Props) {
     return app?.status.isRunning;
   });
 
-  const [clickEventHappened, setClickEventHappened] = useState(false);
+  const [click, setClick] = useState(false);
   const [cursor, setCursor] = useState<"default" | "progress">("default");
 
   const handleDbCLick = () => {
@@ -36,22 +36,22 @@ export default function NormalApp({ appName }: Props) {
   };
 
   const handleClick = () => {
-    setClickEventHappened(true);
+    setClick(true);
 
     document.onpointerdown = () => {
-      setClickEventHappened(false);
+      setClick(false);
       document.onpointerdown = null;
     };
   };
 
   return (
     <GridAppContainer
-      clickEventHappened={clickEventHappened}
+      click={click}
       cursor={cursor}
       onClick={handleClick}
       onDoubleClick={handleDbCLick}
     >
-      <BackgroundColorLayer clickEventHappened={clickEventHappened} />
+      <BackgroundColorLayer click={click} />
       <GridAppIcon style={{ fontSize: "4rem" }}>
         <AppDesktopIcon name={appName} /> 
       </GridAppIcon>
