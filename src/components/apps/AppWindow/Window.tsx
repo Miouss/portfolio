@@ -62,11 +62,10 @@ export default function ResizableDiv({
     useState<PointerPosition | null>(null);
 
   const [dynamicStyle, setDynamicStyle] = useState<CSSProperties>({
-    width: "auto",
-    height: "auto",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
+    width: "50%",
+    height: "50%",
+    top: "25%",
+    left: "25%",
   });
 
   const [updateDivPosition, setUpdateDivPosition] = useState(false);

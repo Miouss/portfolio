@@ -1,33 +1,25 @@
 import styled from "@mui/system/styled";
 
-import { Stack } from "@mui/material";
-
-export const ProjetPreviewApp = styled(Stack)({
-  boxSizing: "border-box",
+export const ProjetPreviewApp = styled("div")({
+  display: "flex",
+  flexDirection: "column",
   padding: "1rem",
-  gap: "2rem",
-  flexWrap: "wrap",
+  rowGap: "10rem",
   backgroundColor: "lightgray !important",
-  justifyContent: "center",
-  alignItems: "center",
   overflow: "scroll",
 });
 
-ProjetPreviewApp.defaultProps = {
-  direction: "row",
-};
-
-export const ProjectContainer = styled(Stack)({
+export const ProjectContainer = styled("div")({
   position: "relative",
   width: "80%",
+
+  display: "flex",
   justifyContent: "center",
-  alignItems: "center",
+  alignItems: "center", 
+  alignSelf: "center",
 });
 
-export const BackgroundLayer = styled(Stack)({
-  border: "1px solid black",
-  borderRadius: "1rem",
-  overflow: "hidden",
+export const BackgroundLayer = styled("div")({
   "& > *": {
     height: "auto",
     width: "100%",

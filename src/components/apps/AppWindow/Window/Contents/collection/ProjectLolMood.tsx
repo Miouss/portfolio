@@ -19,7 +19,7 @@ export default function ProjectLolMood() {
   concernant le jeu vidéo League of Legends. Le site collecte les
   données des parties classées jouées via l'API Public de l'éditeur Riot Games
   et les stockent dans une base de donnée privée et les traitent pour afficher diverses statistiques au joueur.`;
-  const image = LolMoodBg;
+  const imageUrl = LolMoodBg;
 
   const techs: Tech[] = [
     {
@@ -27,7 +27,7 @@ export default function ProjectLolMood() {
       icon: reactSVG,
     },
     {
-        name: "Material UI",
+        name: "MUI",
         icon: muiSVG,
     },
     {
@@ -46,12 +46,12 @@ export default function ProjectLolMood() {
 
   return (
     <ProjectContentBuilder
-      projectName={name}
-      projectDescription={description}
-      projectImage={image}
-      projectTechs={techs}
-      projectRepo={repo}
-      projectLink={link}
+      name={name}
+      description={description}
+      imageUrl={imageUrl}
+      techs={techs}
+      repo={repo}
+      link={link}
     />
   );
 }
