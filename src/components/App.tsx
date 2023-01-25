@@ -33,7 +33,7 @@ export default function App() {
 
     dispatchAddApp("terminal");
     dispatchAddApp("Aperçu CV");
-    dispatch(openApp("terminal"));
+    //dispatch(openApp("terminal"));
 
     document.onselectstart = () => {
       return false;

@@ -23,7 +23,7 @@ export default function ProjectSmartDl() {
    Ces providers ne mettant pas à disposition d'API, j'ai dû étudier la façon dont fonctionne leur api privé puis j'ai développé un système de scraping pour récupérer les liens de téléchargement des fragments.
    De plus, grâce à la puissance de leur API, j'ai pu récupérer les métadonnées des vidéos et les proposer en téléchargement dans l'application.`;
 
-  const image = SmartDlBg;
+  const imageUrl = SmartDlBg;
 
   const techs: Tech[] = [
     {
@@ -31,19 +31,19 @@ export default function ProjectSmartDl() {
       icon: reactSVG,
     },
     {
-      name: "Material UI",
+      name: "MUI",
       icon: muiSVG,
     },
     {
-      name: "Node JS",
+      name: "Node",
       icon: nodejsSVG,
     },
     {
-      name: "Express JS",
+      name: "Express",
       icon: expressSVG,
     },
     {
-      name: "Electron JS",
+      name: "Electron",
       icon: electronSVG,
     },
   ];
@@ -54,12 +54,12 @@ export default function ProjectSmartDl() {
 
   return (
     <ProjectContentBuilder
-      projectName={name}
-      projectDescription={description}
-      projectImage={image}
-      projectTechs={techs}
-      projectRepo={repo}
-      projectLink={link}
+      name={name}
+      description={description}
+      imageUrl={imageUrl}
+      techs={techs}
+      repo={repo}
+      link={link}
     />
   );
 }

@@ -2,15 +2,22 @@ import LaunchIcon from "@mui/icons-material/Launch";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
 import {
-  ProjectContent,
-  ProjectTitle,
-  ProjectDescription,
-  ProjectTech,
-  ProjectTechItem,
-  ProjectRedirect,
-  ProjectRedirectItem,
-  ProjectDetails,
-  ProjectLink,
+  Content,
+  Title,
+  Description,
+  TechContainer,
+  TechItem,
+  RedirectContainer,
+  RedirectItem,
+  Details,
+  Link,
+  TechTitle,
+  TechItemsContainer,
+  Subcontent,
+  LinkIcon,
+  LinkTitle,
+  TechItemIcon,
+  TechItemName,
 } from "./ProjectContent";
 import { BackgroundLayer, ProjectContainer } from "./CvPreview";
 import { Box, SvgIcon } from "@mui/material";
@@ -21,53 +28,64 @@ interface Tech {
 }
 
 interface Props {
-  projectName: string;
-  projectDescription: string;
-  projectImage: string;
-  projectRepo: string;
-  projectTechs: Tech[];
-  projectLink?: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+  repo: string;
+  techs: Tech[];
+  link?: string;
 }
 
-export default function ProjectContentBuilder({
-  projectName,
-  projectDescription,
-  projectImage,
-  projectRepo,
-  projectTechs,
-  projectLink,
+export default function ContentBuilder({
+  name,
+  description,
+  imageUrl,
+  repo,
+  techs,
+  link,
 }: Props) {
-  const projectTechItems = projectTechs.map((tech) => (
-    <ProjectTechItem>
-      <SvgIcon>{tech.icon}</SvgIcon>
-      <Box>{tech.name}</Box>
-    </ProjectTechItem>
+  const TechItems = techs.map((tech, i) => (
+    <TechItem key={`${tech}${i}`}>
+      <TechItemIcon>{tech.icon}</TechItemIcon>
+      <TechItemName>{tech.name}</TechItemName>
+    </TechItem>
   ));
 
   return (
     <ProjectContainer>
       <BackgroundLayer>
-        <img src={projectImage} alt="lolmood" />
+        <img src={imageUrl} alt="lolmood" />
       </BackgroundLayer>
-      <ProjectContent>
-        <ProjectTitle>{projectName}</ProjectTitle>
-        <ProjectDescription>{projectDescription}</ProjectDescription>
-        <ProjectDetails>
-          <ProjectTech>{projectTechItems}</ProjectTech>
-          <ProjectRedirect>
-            <ProjectRedirectItem>
-              <ProjectLink href={`${projectLink}`}>
-                <LaunchIcon /> <Box> Vers le site web</Box>
-              </ProjectLink>
-            </ProjectRedirectItem>
-            <ProjectRedirectItem>
-              <ProjectLink href={`${projectRepo}`}>
-                <GitHubIcon /> <Box>Accéder au repo GitHub</Box>
-              </ProjectLink>
-            </ProjectRedirectItem>
-          </ProjectRedirect>
-        </ProjectDetails>
-      </ProjectContent>
+      <Content>
+        <Title>{name}</Title>
+        <Subcontent>
+          <Details>
+            <Description>{description}</Description>
+            <TechContainer>
+              <TechTitle>Technologies :</TechTitle>
+              <TechItemsContainer>{TechItems}</TechItemsContainer>
+            </TechContainer>
+          </Details>
+          <RedirectContainer>
+            <RedirectItem>
+              <Link href={`${link}`}>
+                <LinkIcon>
+                  <LaunchIcon />{" "}
+                </LinkIcon>
+                <LinkTitle> Vers le site web</LinkTitle>
+              </Link>
+            </RedirectItem>
+            <RedirectItem>
+              <Link href={`${repo}`}>
+                <LinkIcon>
+                  <GitHubIcon />{" "}
+                </LinkIcon>
+                <LinkTitle>Accéder au repo GitHub</LinkTitle>
+              </Link>
+            </RedirectItem>
+          </RedirectContainer>
+        </Subcontent>
+      </Content>
     </ProjectContainer>
   );
 }
