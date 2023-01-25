@@ -5,7 +5,7 @@ import { Stack, Button, Input } from "@mui/material";
 export const LoginFormContainer = styled(Stack)({
   marginTop: "150px",
   width: "100%",
-  maxWidth: "400px",
+  maxWidth: "300px",
   "& > *": {
     textAlign: "center",
     width: "100%",
@@ -15,24 +15,26 @@ export const LoginFormContainer = styled(Stack)({
 export const LoginFormBadge = styled(Stack)({
   backgroundColor: "white",
   borderRadius: "50%",
-  width: "100%",
-  height: "240px",
+  maxWidth: "170px",
+  maxHeight: "170px",
+  alignSelf: "center",
   justifyContent: "center",
   alignItems: "center",
   background: "transparent",
   "& > *": {
     height: "100%",
-    width: "auto",
+    width: "100%",
     borderRadius: "50%",
   },
 });
 
 export const LoginFormTitle = styled("h2")({
   color: "white",
+  fontSize: "1.4rem",
 });
 
 export const LoginFormButton = styled(Button)({
-  height: "50px",
+  height: "35px",
   background: "rgba(255, 255, 255, 0.2)",
   "&:hover": {
     background: "rgba(255, 255, 255, 0.4)",
@@ -41,16 +43,33 @@ export const LoginFormButton = styled(Button)({
   borderRadius: "10px",
 });
 
-export const LoginFormInput = styled(Input)({
-  border: "5px solid 	rgba(211,211,211, 0.3)",
-  "& > *": {
-    backgroundColor: "white !important",
+const test = {
+  "@keyframes test": {
+    "0%": {
+      transform: "translateX(-1%)",
+    },
+    "50%": {
+      transform: "translateX(1%)",
+    },
+    "100%": {
+      transform: "translateX(0%)",
+    },
   },
-  "& > :first-child": {
+};
+export const LoginFormInput = styled(Input, {
+  shouldForwardProp: (prop) => prop !== "anim",
+})(({ anim }: { anim: boolean }) => ({
+  border: "5px solid 	rgba(211,211,211, 0.3)",
+
+  "& > :first-of-type": {
+    backgroundColor: "white",
+
     paddingLeft: "10px",
     paddingRight: "10px",
   },
-});
+  animation: anim ? "test 0.1s linear forwards" : "none",
+  ...test,
+}));
 
 LoginFormInput.defaultProps = {
   type: "password",
@@ -84,3 +103,19 @@ export const LoginFormLoadingContainer = styled(Stack)({
 LoginFormLoadingContainer.defaultProps = {
   direction: "row",
 };
+
+export const LoginFormError = styled(Stack)({
+  paddingTop: "10px",
+  color: "white",
+  gap: "7px",
+  fontSize: "0.9rem",
+  "& > :first-of-type": {
+    fontStyle: "italic",
+  },
+  "& > :last-of-type": {
+    backgroundColor: "red",
+    backgroundClip: "text",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+  },
+});
