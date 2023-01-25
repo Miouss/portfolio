@@ -1,10 +1,16 @@
 import { useState, useRef, CSSProperties } from "react";
 import { useSelector } from "react-redux";
-import { RootState, focusApp, useAppDispatch } from "../../../redux";
+import {
+  RootState,
+  focusApp,
+  setWindowResponsiveFont,
+  useAppDispatch,
+} from "../../../redux";
 
 import resizeWindow from "../utils/resizeWIndow";
 import rememberWindowPosition from "../utils/rememberWindowPosition";
 import monitoringPointerMovingUnpressed from "../utils/monitoringPointerMovingUnpressed";
+import checkResponsiveness from "../utils/checkResponsiveness";
 
 import useFullscreenEffect from "../hooks/useFullscreenEffect";
 import useFocusEffect from "../hooks/useFocusEffect";
@@ -74,7 +80,7 @@ export default function ResizableDiv({
     if (!isFullscreen) {
       if (pointerPressed) {
         if (cursor !== "default") {
-          resizeWindow(
+          const currentWidth = resizeWindow(
             event,
             resizableDivRef.current!,
             pointerPosition,
@@ -84,6 +90,8 @@ export default function ResizableDiv({
             minWidth,
             minHeight
           );
+
+          checkResponsiveness(currentWidth, dispatch, setWindowResponsiveFont);
         }
       } else {
         monitoringPointerMovingUnpressed(
