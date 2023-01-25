@@ -6,13 +6,11 @@ import {
   CSSProperties,
 } from "react";
 
-import dispatchResizingEvent from "../utils/dispatchResizingEvent";
-
 export default function useFullscreenEffect(
   currentResizableDivRef: any,
   setDynamicStyle: Dispatch<SetStateAction<CSSProperties>>,
   setUpdateDivPosition: Dispatch<SetStateAction<boolean>>,
-  fullscreen?: boolean
+  fullscreen?: boolean,
 ) {
   const [previousWiondowPosition, setPreviousWindowPosition] =
     useState<DOMRect | null>(null);
@@ -26,23 +24,6 @@ export default function useFullscreenEffect(
         top: "-10px",
         left: "-10px",
         transform: "none",
-      });
-
-      const maxWindowWidth =
-        Math.max(
-          document.documentElement.clientWidth || 0,
-          window.innerWidth || 0
-        ) + 20;
-
-      const maxWindowHeight =
-        Math.max(
-          document.documentElement.clientHeight || 0,
-          window.innerHeight || 0
-        ) + 20;
-
-      dispatchResizingEvent(currentResizableDivRef, {
-        width: maxWindowWidth,
-        height: maxWindowHeight,
       });
     } else {
       if (previousWiondowPosition !== null) {

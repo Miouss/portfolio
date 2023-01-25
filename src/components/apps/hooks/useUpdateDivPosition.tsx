@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
-import dispatchResizingEvent from "../utils/dispatchResizingEvent";
 import { Dispatch, SetStateAction, CSSProperties } from "react";
 
 export default function useUpdateDivPosition(
@@ -17,7 +16,6 @@ export default function useUpdateDivPosition(
     if (currentResizableDivRef === null) return;
 
     const currentDimensions = currentResizableDivRef.getBoundingClientRect();
-
     
     setDynamicStyle({
       width: currentDimensions.width + "px",
@@ -25,11 +23,6 @@ export default function useUpdateDivPosition(
       top: currentDimensions.top + "px",
       left: currentDimensions.left + "px",
       transform: "none",
-    });
-
-    dispatchResizingEvent(currentResizableDivRef, {
-      width: currentDimensions.width,
-      height: currentDimensions.height,
     });
   }, [updateDivPosition]);
 }
