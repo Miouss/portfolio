@@ -1,18 +1,17 @@
 import styled from "@mui/system/styled";
 
 export const ProjetPreviewApp = styled("div")({
+  flex: 1,
   display: "flex",
   flexDirection: "column",
   padding: "1rem",
   rowGap: "10rem",
   backgroundColor: "lightgray !important",
-  overflow: "scroll",
 });
 
 export const ProjectContainer = styled("div")({
   position: "relative",
   width: "80%",
-
   display: "flex",
   justifyContent: "center",
   alignItems: "center", 
@@ -20,8 +19,15 @@ export const ProjectContainer = styled("div")({
 });
 
 export const BackgroundLayer = styled("div")({
+  position: "absolute",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "100%",
+  overflow: "hidden",
+  
   "& > *": {
-    height: "auto",
     width: "100%",
+    objectFit: "cover",
   },
 });

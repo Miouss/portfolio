@@ -20,7 +20,6 @@ import {
   TechItemName,
 } from "./ProjectContent";
 import { BackgroundLayer, ProjectContainer } from "./CvPreview";
-import { Box, SvgIcon } from "@mui/material";
 
 interface Tech {
   name: string;

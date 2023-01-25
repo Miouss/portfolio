@@ -1,9 +1,8 @@
 import styled from "@mui/system/styled";
 
 export const Content = styled("article")({
-  position: "absolute",
-  height: "100%",
-
+  flex: 1,
+  
   display: "flex",
   flexDirection: "column",
 
@@ -36,9 +35,11 @@ export const Subcontent = styled("section")({
   flex: 0.8,
   display: "flex",
   flexDirection: "row",
+  paddingBottom: "150px",
 });
 
 export const Details = styled("section")({
+  
   display: "flex",
   flex: 1.6,
   flexShrink: 0,
@@ -79,6 +80,8 @@ export const TechItemsContainer = styled("section")({
   
   paddingLeft: "96px",
   gap: "1rem",
+  paddingBottom: "48px",  
+
 });
 
 export const TechItem = styled("i")({
