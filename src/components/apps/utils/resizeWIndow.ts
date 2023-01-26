@@ -76,7 +76,6 @@ export default function resizeWindow(event: MouseEvent,
     currentResizableDivRef.style.width = resize[area!].width;
     currentResizableDivRef.style.height = resize[area!].height;
   });
-
   const currentWindowSize = {
     height: parseInt(currentResizableDivRef.style.height),
     width: parseInt(currentResizableDivRef.style.width),
@@ -95,4 +94,5 @@ export default function resizeWindow(event: MouseEvent,
       })
     );
   }
+  return currentWindowSize.width;
 }

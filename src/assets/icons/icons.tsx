@@ -183,3 +183,32 @@ export const electronSVG = (
     </g>
   </svg>
 );
+
+export const visibilitySVG = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="#D3D3D3"
+    width="80px"
+    height="80px"
+    viewBox="0 0 24 24"
+  >
+    <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+  </svg>
+);
+
+export const chevronSVG = (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    shapeRendering="geometricPrecision"
+    textRendering="geometricPrecision"
+    imageRendering="optimizeQuality"
+    fillRule="evenodd"
+    clipRule="evenodd"
+    viewBox="0 0 298 511.93"
+  >
+    <path
+      fillRule="nonzero"
+      d="M70.77 499.85c-16.24 16.17-42.53 16.09-58.69-.15-16.17-16.25-16.09-42.54.15-58.7l185.5-185.03L12.23 70.93c-16.24-16.16-16.32-42.45-.15-58.7 16.16-16.24 42.45-16.32 58.69-.15l215.15 214.61c16.17 16.25 16.09 42.54-.15 58.7l-215 214.46z"
+    />
+  </svg>
+);

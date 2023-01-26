@@ -8,7 +8,7 @@ import {
 } from "./icons";
 
 import TerminalApp from "./collection/TerminalApp";
-import CvPreviewApp from "./collection/CvPreviewApp";
+import ProjectPreviewApp from "./collection/ProjectPreviewApp";
 
 import { AppList, ShortcutList } from "./types";
 
@@ -16,7 +16,7 @@ let appList = {} as AppList[];
 let shortcutList = {} as ShortcutList[];
 
 addApp("terminal", <TerminalApp />, <TerminalAppIcon  fontSize="inherit" />, 1, 1);
-addApp("Aperçu CV", <CvPreviewApp />, <CvPreviewAppIcon  fontSize="inherit" />, 1, 2);
+addApp("Aperçu CV", <ProjectPreviewApp />, <CvPreviewAppIcon  fontSize="inherit" />, 1, 2);
 
 addShortcut(
   "GitHub",

@@ -75,6 +75,16 @@ const apps = createSlice({
   },
 });
 
+const windowResponsiveFont = createSlice({
+  name: "windowResponsiveFont",
+  initialState: 1,
+  reducers: {
+    setWindowResponsiveFont: (state, { payload }: PayloadAction<number>) => {
+      return payload;
+    },
+  },
+});
+
 export const {
   addApp,
   openApp,
@@ -84,11 +94,14 @@ export const {
   toggleFullscreenApp,
 } = apps.actions;
 
+export const { setWindowResponsiveFont } = windowResponsiveFont.actions;
+
 export type RootState = ReturnType<typeof store.getState>;
 
 export const store = configureStore({
   reducer: {
     apps: apps.reducer,
+    windowResponsiveFont: windowResponsiveFont.reducer,
   },
 });
 

@@ -6,19 +6,25 @@ import {
   CSSProperties,
 } from "react";
 
-import dispatchResizingEvent from "../utils/dispatchResizingEvent";
+import checkResponsiveness from "../utils/checkResponsiveness";
+
+import { useAppDispatch, setWindowResponsiveFont } from "../../../redux";
 
 export default function useFullscreenEffect(
   currentResizableDivRef: any,
   setDynamicStyle: Dispatch<SetStateAction<CSSProperties>>,
   setUpdateDivPosition: Dispatch<SetStateAction<boolean>>,
-  fullscreen?: boolean
+  fullscreen?: boolean,
 ) {
-  const [previousWiondowPosition, setPreviousWindowPosition] =
+  const [previousWindowPosition, setPreviousWindowPosition] =
     useState<DOMRect | null>(null);
 
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
+    
     if (fullscreen) {
+      checkResponsiveness(window.innerWidth, dispatch, setWindowResponsiveFont);
       setPreviousWindowPosition(currentResizableDivRef.getBoundingClientRect());
       setDynamicStyle({
         width: "calc(100% + 20px)",
@@ -27,30 +33,14 @@ export default function useFullscreenEffect(
         left: "-10px",
         transform: "none",
       });
-
-      const maxWindowWidth =
-        Math.max(
-          document.documentElement.clientWidth || 0,
-          window.innerWidth || 0
-        ) + 20;
-
-      const maxWindowHeight =
-        Math.max(
-          document.documentElement.clientHeight || 0,
-          window.innerHeight || 0
-        ) + 20;
-
-      dispatchResizingEvent(currentResizableDivRef, {
-        width: maxWindowWidth,
-        height: maxWindowHeight,
-      });
     } else {
-      if (previousWiondowPosition !== null) {
+      if (previousWindowPosition !== null) {
+        checkResponsiveness(previousWindowPosition.width, dispatch, setWindowResponsiveFont);
         setDynamicStyle({
-          width: previousWiondowPosition!.width + "px",
-          height: previousWiondowPosition!.height + "px",
-          top: previousWiondowPosition!.top + "px",
-          left: previousWiondowPosition!.left + "px",
+          width: previousWindowPosition!.width + "px",
+          height: previousWindowPosition!.height + "px",
+          top: previousWindowPosition!.top + "px",
+          left: previousWindowPosition!.left + "px",
           transform: "none",
         });
 
@@ -58,5 +48,6 @@ export default function useFullscreenEffect(
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, [fullscreen]);
 }
