@@ -1,152 +1,216 @@
 import styled from "@mui/system/styled";
 
-export const Content = styled("article")({
-  flex: 1,
+const fontSizeResponsive = {
+  shouldForwardProp: (prop) => prop !== "fsresp",
+};
+
+interface ResponsiveFontSize {
+  fsresp: number;
+}
+
+// ProjectContainer >
+export const Content = styled("article", {
+  shouldForwardProp: (prop) => prop !== "showGallery",
+})(({ showGallery }: { showGallery: boolean | undefined}) => ({  
+  "& > :last-child": {
+    animation:
+      showGallery !== undefined
+        ? showGallery
+          ? "slideOut 1s ease-in-out alternate forwards"
+          : "slideIn 1s ease-in-out alternate forwards"
+        : "none",
+  },
+  "& > :first-child": {
+    visibility: showGallery ? "visible" : "hidden",
+    animation: showGallery ? "fadeIn 2s ease-in-out" : "none",
+  },
+
+  "@keyframes slideOut": {
+    "0%": {
+      transform: "translateY(0%)",
+    },
+    "100%": {
+      transform: "translateY(-100%)",
+      visibility: "hidden",
+    },
+  },
+
+  "@keyframes slideIn": {
+    "0%": {
+      transform: "translateY(-100%)",
+      visibility: "visible",
+    },
+    "100%": {
+      transform: "translateY(0%)",
+    },
+  },
+
   
+  "@keyframes fadeIn": {
+    "0%": {
+      opacity: "0",
+    },
+    "100%": {
+      opacity: "1",
+    },
+  },
+
+  overflow: "hidden",
+}));
+
+// Content >
+export const ProjectContent = styled("section")({
   display: "flex",
   flexDirection: "column",
 
-  backdropFilter: "blur(2px)",
-  backgroundColor: "rgba(0, 0, 0, 0.5)",
-
-  fontFamily: "Lato",
-  fontSize: "18px",
-  lineHeight: "22px",
-  textAlign: "left",
-
-  "& > *": {
-    textShadow: "1px 1px 1px black",
-    color: "white",
-  },
+  background: "rgba(242, 242, 242, 0.3)",
+  backdropFilter: "blur(10px)",
 });
 
-export const Title = styled("h2")({
+// ProjectContent >
+export const Title = styled("h2", fontSizeResponsive)(({fsresp}: ResponsiveFontSize) => ({
+  margin: 0,
+  padding: fsresp >= 12 ? "80px 0 35px 160px" : "20px",
+  textAlign: fsresp >= 12 ? "left" : "center",
+
   fontFamily: "'Lato'",
   fontStyle: "normal",
   fontWeight: "400",
-  fontSize: "4rem",
+  fontSize: fsresp >= 12 ? "64px" : "48px",
   lineHeight: "77px",
+}));
 
-  paddingLeft: "160px",
-  marginBottom: "25px",
-});
-
-export const Subcontent = styled("section")({
-  flex: 0.8,
+//  ProjectContent >
+export const Subcontent = styled("section", fontSizeResponsive)(({fsresp}: ResponsiveFontSize) => ({
   display: "flex",
-  flexDirection: "row",
-  paddingBottom: "150px",
-});
+  flexDirection: fsresp >= 12 ? "row" : "column",
+  gap: fsresp >= 12 ? "0" : "3rem",
+  marginBottom: fsresp >= 12 ? "150px" : "30px",
+}));
 
+// Subcontent >
 export const Details = styled("section")({
-  
-  display: "flex",
-  flex: 1.6,
-  flexShrink: 0,
-  flexDirection: "column",
+  flex: 2,
 
-  paddingLeft: "48px",
-  paddingRight: "48px",
-  paddingTop: "32px",
+  display: "flex",
+  flexDirection: "column",
+  gap: "1rem",
+
+  padding: "32px 48px 0px 48px",
 
   background: "rgba(242, 242, 242, 0.6)",
-  boxShadow: "1px 2px 2px rgba(0, 0, 0, 0.25)",
   backdropFilter: "blur(15px)",
 });
 
-export const Description = styled("p")({
-  display: "flex",
-
-  flex: 1,
-  justifyContent: "center",
-  alignItems: "center",
-
-  margin: "0",
-
-  fontSize: "1.2rem",
-});
+//  Details >
+export const Description = styled("p", fontSizeResponsive)(({fsresp}: ResponsiveFontSize) => ({
+  fontFamily: "'Lato'",
+  fontStyle: "normal",
+  fontWeight: "400",
+  fontSize: fsresp >= 12 ? "18px" : "16px",
+  lineHeight: "22px",
+}));
 
 export const TechContainer = styled("section")({
   display: "flex",
   flexDirection: "column",
-  flex: 1,
-});
-
-export const TechTitle = styled("h3")({});
-
-export const TechItemsContainer = styled("section")({
-  display: "flex",
-  width: "50%",
-  
-  paddingLeft: "96px",
   gap: "1rem",
-  paddingBottom: "48px",  
-
 });
 
-export const TechItem = styled("i")({
+//  TechContainer >
+export const TechTitle = styled("h3", fontSizeResponsive)(({ fsresp }: ResponsiveFontSize) => ({
+  paddingLeft: fsresp >= 12 ? "24px" : "0px",
+}));
+
+export const TechItemsContainer = styled("section", fontSizeResponsive)(({ fsresp }: ResponsiveFontSize) => ({
+  width: fsresp >= 12 ? "70%" : "100%",
+
   display: "flex",
-  width: "100px !important",
-  flexDirection: "column",
+  flexWrap: "wrap",
+  justifyContent: "space-around",
+  fontSize: "10px",
+  paddingLeft: fsresp >= 12 ? "48px" : "0px",
+}));
 
-  gap: "0.5rem",
-  padding: "1rem",
+// TechItemsContainer >
+export const TechItem = styled("i")({});
 
-  background: "rgba(242, 242, 242, 0.5)",
-
-  "& > svg": {
-    fontSize: "3rem",
-  },
-});
-
+// TechItem >
 export const TechItemIcon = styled("svg")({
   width: "48px",
   height: "48px",
-
-  alignSelf: "center",
 });
 
 export const TechItemName = styled("h4")({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
   textAlign: "center",
-
-  flex: 1,
-  margin: "0",
-  fontSize: "1rem",
-
-  fontStyle: "normal",
 });
 
-export const RedirectContainer = styled("section")({
+// Subcontent >
+export const Options = styled("section")({
   flex: 1,
+
   display: "flex",
   flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-  gap: "1rem",
-  alignSelf: "flex-end",
+  gap: "8rem",
+
+  "& > *": {
+    flex: 1,
+  },
 });
 
-export const RedirectItem = styled("button")({
-  flex: 1,
-  display: "flex",
-  width: "100%",
-  maxWidth: "300px",
+// Options >
+export const VisibilityIconContainer = styled(
+  "section",
+  fontSizeResponsive
+)(({ fsresp }: ResponsiveFontSize) => ({
+  alignSelf: "center",
 
-  gap: "1rem",
+  display: fsresp >= 12 ? "block" : "none",
+}));
 
-  border: "1px solid white",
-
-  background: "rgba(255, 255, 255, 0.6)",
-  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+// VisibilityIconContainer >
+export const VisibilityIconButton = styled("button")({
+  border: "none",
+  background: "none",
 
   "&:hover": {
-    animation: "tranquille 1s ease-in-out infinite",
+    cursor: "pointer",
+  },
+});
+
+// Options >
+export const RedirectContainer = styled("section", fontSizeResponsive)(({ fsresp }: ResponsiveFontSize) => ({
+  display: "flex",
+  flexDirection: fsresp >= 12 ? "column" : "row",
+  gap: "1rem",
+
+  justifyContent: "space-around",
+}));
+
+// RedirectContainer >
+export const RedirectItem = styled("button", fontSizeResponsive)(({ fsresp }: ResponsiveFontSize) => ({
+  width: fsresp >= 12 ? "70%" : "40%",
+  backgroundColor: "rgba(242, 242, 242, 0.6)",
+  alignSelf: "center",
+}));
+
+// RedirectItem >
+export const Link = styled("a")({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+
+  textDecoration: "none",
+
+  "& > *": {
+    flex: 1,
   },
 
-  "@keyframes tranquille": {
+  "&:hover": {
+    animation: "scale 1.5s ease-in-out infinite forwards"
+  },
+
+  "@keyframes scale": {
     "0%": {
       transform: "scale(1)",
     },
@@ -157,24 +221,7 @@ export const RedirectItem = styled("button")({
       transform: "scale(1)",
     },
   },
-});
 
-export const Link = styled("a")({
-  display: "flex",
-  width: "100%",
-
-  textAlign: "center",
-  justifyContent: "center",
-  alignItems: "center",
-
-  gap: "1rem",
-
-  textDecoration: "none",
-  color: "#333333",
-
-  "& > *": {
-    display: "flex",
-  },
 });
 
 Link.defaultProps = {
@@ -182,11 +229,222 @@ Link.defaultProps = {
   rel: "noreferrer",
 };
 
+// Link >
 export const LinkIcon = styled("i")({
-  flex: 1,
-  justifyContent: "center",
+  flex: 0.3,
+
+  color: "#000000",  
 });
 
 export const LinkTitle = styled("h4")({
-  flex: 2,
+  flex: 3,
+  color: "#000000",  
 });
+
+// ProjectContent >
+export const HideVisibilityButton = styled("button")({
+  position: "absolute",
+  bottom: "20%",
+  right: "5%",
+
+  border: "none",
+  background: "none",
+
+  opacity: 0.5,
+
+  "&:hover": {
+    cursor: "pointer",
+  },
+});
+
+export const Chevrons = styled("div")({
+  position: "absolute",
+  height: "100%",
+  width: "100%",
+
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+
+  "& > *": {
+    border: "none",
+    background: "none",
+    "&:hover": {
+      cursor: "pointer",
+      animationPlayState: "paused",
+    },
+
+    zIndex: 1,
+    flex: 0.05,
+  },
+});
+
+const chevronBouncingRight = {
+  "@keyframes chevronBouncingRight": {
+    "0%": {
+      transform: "translateX(0)",
+    },
+    "50%": {
+      transform: "translateX(-10px)",
+    },
+    "100%": {
+      transform: "translateX(0)",
+    },
+  },
+};
+
+const chevronBouncingLeft = {
+  "@keyframes chevronBouncingLeft": {
+    "0%": {
+      transform: "translateX(0)",
+    },
+    "50%": {
+      transform: "translateX(10px)",
+    },
+    "100%": {
+      transform: "translateX(0)",
+    },
+  },
+};
+
+const bouncingAnimRight = `chevronBouncingRight 1.5s ease-in infinite both`;
+const bouncingAnimLeft = `chevronBouncingLeft 1.5s ease-in infinite both`;
+
+export const ChevronLeft = styled("button")({
+  animation: bouncingAnimLeft,
+  chevronBouncingLeft,
+});
+
+export const ChevronRight = styled("button")({
+  animation: bouncingAnimRight,
+  
+  chevronBouncingRight,
+});
+
+const forwardAnimProp = { shouldForwardProp: (prop) => prop !== "anim" };
+
+interface AnimProp {
+  anim: string;
+}
+
+const slideRightFromCenter = {
+  "@keyframes slide-right-from-center": {
+    "0%": {
+      transform: "translateX(0)",
+    },
+    "100%": {
+      transform: "translateX(100%)",
+    },
+  },
+};
+
+const slideLeftFromCenter = {
+  "@keyframes slide-left-from-center": {
+    "0%": {
+      transform: "translateX(0)",
+    },
+    "100%": {
+      transform: "translateX(-100%)",
+    },
+  },
+};
+
+const slideCenterFromRight = {
+  "@keyframes slide-center-from-right": {
+    "0%": {
+      transform: "translateX(100%)",
+    },
+    "100%": {
+      transform: "translateX(0)",
+    },
+  },
+};
+
+const slideCenterFromLeft = {
+  "@keyframes slide-center-from-left": {
+    "0%": {
+      transform: "translateX(-100%)",
+    },
+    "100%": {
+      transform: "translateX(0)",
+    },
+  },
+};
+
+const swipeRightToLeft = {
+  "@keyframes swipe-right-to-left": {
+    "0%": {
+      transform: "translateX(-100%)",
+    },
+    "100%": {
+      transform: "translateX(-100%)",
+    },
+  },
+};
+
+const swipeLeftToRight = {
+  "@keyframes swipe-left-to-right": {
+    "0%": {
+      transform: "translateX(100%)",
+    },
+    "100%": {
+      transform: "translateX(100%)",
+    },
+  },
+};
+
+export const ImageOne = styled(
+  "div",
+  forwardAnimProp
+)(({ anim }: AnimProp) => ({
+  animation: `${anim} 1s ease-in-out forwards`,
+  ...slideRightFromCenter,
+  ...slideLeftFromCenter,
+  ...slideCenterFromRight,
+  ...slideCenterFromLeft,
+  ...swipeRightToLeft,
+  ...swipeLeftToRight,
+
+  position: "absolute",
+  width: "100%",
+  height: "100%",
+}));
+
+export const ImageTwo = styled(
+  "div",
+  forwardAnimProp
+)(({ anim }: AnimProp) => ({
+  position: "absolute",
+  width: "100%",
+  height: "100%",
+  transform: "translateX(100%)",
+
+  animation: `${anim} 1s ease-in-out forwards`,
+
+  ...slideRightFromCenter,
+  ...slideLeftFromCenter,
+  ...slideCenterFromRight,
+  ...slideCenterFromLeft,
+  ...swipeRightToLeft,
+  ...swipeLeftToRight,
+}));
+
+export const ImageThree = styled(
+  "div",
+  forwardAnimProp
+)(({ anim }: AnimProp) => ({
+  position: "absolute",
+  width: "100%",
+  height: "100%",
+
+  transform: "translateX(-100%)",
+
+  animation: `${anim} 1s ease-in-out forwards`,
+
+  ...slideRightFromCenter,
+  ...slideLeftFromCenter,
+  ...slideCenterFromRight,
+  ...slideCenterFromLeft,
+  ...swipeRightToLeft,
+  ...swipeLeftToRight,
+}));
