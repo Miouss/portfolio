@@ -20,10 +20,6 @@ export const Content = styled("article", {
           : "slideIn 1s ease-in-out alternate forwards"
         : "none",
   },
-  "& > :first-child": {
-    visibility: showGallery ? "visible" : "hidden",
-    animation: showGallery ? "fadeIn 2s ease-in-out" : "none",
-  },
 
   "@keyframes slideOut": {
     "0%": {
@@ -42,16 +38,6 @@ export const Content = styled("article", {
     },
     "100%": {
       transform: "translateY(0%)",
-    },
-  },
-
-  
-  "@keyframes fadeIn": {
-    "0%": {
-      opacity: "0",
-    },
-    "100%": {
-      opacity: "1",
     },
   },
 
@@ -257,7 +243,9 @@ export const HideVisibilityButton = styled("button")({
   },
 });
 
-export const Chevrons = styled("div")({
+export const Chevrons = styled("div", {
+  shouldForwardProp: (prop) => prop !== "showGallery",
+})(({ showGallery }: { showGallery: boolean | undefined }) => ({
   position: "absolute",
   height: "100%",
   width: "100%",
@@ -277,7 +265,10 @@ export const Chevrons = styled("div")({
     zIndex: 1,
     flex: 0.05,
   },
-});
+
+  visibility: showGallery ? "visible" : "hidden",
+  animation: showGallery ? "fadeIn 2s ease-in-out" : "none",
+}));
 
 const chevronBouncingRight = {
   "@keyframes chevronBouncingRight": {

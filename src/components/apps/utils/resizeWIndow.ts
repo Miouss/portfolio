@@ -18,6 +18,8 @@ export default function resizeWindow(event: MouseEvent,
     width: parseInt(currentResizableDivRef.style.width),
   };
 
+  if(event.x === undefined) return;
+  
   const resize = {
     left: {
       offsetLeft:
@@ -60,6 +62,7 @@ export default function resizeWindow(event: MouseEvent,
         "px",
     },
   };
+    
   areaToResize.forEach((area) => {
     if (parseInt(resize[area!].width) < minWidth) {
       resize[area!].width = minWidth + "px";
@@ -94,5 +97,6 @@ export default function resizeWindow(event: MouseEvent,
       })
     );
   }
+
   return currentWindowSize.width;
 }

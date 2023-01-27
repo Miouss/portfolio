@@ -44,7 +44,7 @@ export default function MovableBar({ appName }: Props) {
       </MovableBarIcon>
       <MovableBarTitle>{appName}</MovableBarTitle>
 
-      <BarButtonGroup appName={appName} />
+      <BarButtonGroup appName={appName} refAppWindow={windowBarRef.current?.offsetParent} />
     </MovableBarContainer>
   );
 }

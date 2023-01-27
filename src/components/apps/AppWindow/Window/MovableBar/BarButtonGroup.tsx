@@ -16,9 +16,10 @@ import {
 
 interface Props {
   appName: string;
+  refAppWindow: HTMLDivElement;
 }
 
-export default function BarButtonGroup({ appName }: Props) {
+export default function BarButtonGroup({ appName, refAppWindow }: Props) {
   const [pointerWasDown, setPointerWasDown] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
@@ -36,7 +37,7 @@ export default function BarButtonGroup({ appName }: Props) {
       }
     }
   };
-
+  console.log(refAppWindow);
   return (
     <BarButtonGroupContainer
       variant="outlined"
@@ -50,7 +51,14 @@ export default function BarButtonGroup({ appName }: Props) {
       <Button onClick={() => dispatch(toggleFullscreenApp(appName))}>
         <CropFreeIcon />
       </Button>
-      <CloseButtonContainer onClick={() => dispatch(closeApp(appName))}>
+      <CloseButtonContainer
+        onClick={() => {
+          refAppWindow.style.animation = "despawn 0.15s ease-out forwards";
+          setTimeout(() => {
+            dispatch(closeApp(appName));
+          }, 150);
+        }}
+      >
         <CloseIcon />
       </CloseButtonContainer>
     </BarButtonGroupContainer>
