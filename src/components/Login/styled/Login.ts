@@ -25,6 +25,19 @@ export const BackgroundLayer = styled("div")({
 export const LoginBox = styled(Stack)({
     width: "100%",
     height: "100%",
+    display: "flex",
+    flexDirection: "column",
+
     backdropFilter: "blur(10px)",
     alignItems: "center",
+});
+
+export const LoginSubBox = styled("section")({
+    width: "100%",
+    height: "100%",
+    
+    display: "flex",
+    alignItems: "flex-end",
+    justifyContent: "space-between",
+    paddingBottom: "2rem",
 });

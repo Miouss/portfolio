@@ -1,8 +1,14 @@
-import { LoginContainer, BackgroundLayer, LoginBox } from "./styled/Login";
+import {
+  LoginContainer,
+  BackgroundLayer,
+  LoginBox,
+  LoginSubBox,
+} from "./styled/Login";
 import LoginBackground from "../../assets/login-background.png";
 import LoginForm from "./LoginForm/LoginForm";
 import LoginSession from "./LoginSession/LoginSession";
 import { createContext, useState } from "react";
+import LoginIcon from "./LoginIcon/LoginIcon";
 
 export type LoginSessionProp = "Samir" | "Miouss";
 
@@ -22,23 +28,25 @@ export default function Login({ setIsLogged }: Props) {
     useState<LoginSessionProp>("Samir");
 
   return (
-      <LoginContainer>
-        <BackgroundLayer>
-          <img src={`${LoginBackground}`} alt={"login background"}></img>
-        </BackgroundLayer>
-        <LoginBox>
-          <StateContext.Provider value={selectedLoginSession}>
-            <LoginDispatchContext.Provider value={setIsLogged}>
-              <LoginForm />
-            </LoginDispatchContext.Provider>
-          </StateContext.Provider>
-
+    <LoginContainer>
+      <BackgroundLayer>
+        <img src={`${LoginBackground}`} alt={"login background"}></img>
+      </BackgroundLayer>
+      <LoginBox>
+        <StateContext.Provider value={selectedLoginSession}>
+          <LoginDispatchContext.Provider value={setIsLogged}>
+            <LoginForm />
+          </LoginDispatchContext.Provider>
+        </StateContext.Provider>
+        <LoginSubBox>
           <StateContext.Provider value={selectedLoginSession}>
             <DispatchContext.Provider value={setSelectedLoginSession}>
               <LoginSession />
             </DispatchContext.Provider>
           </StateContext.Provider>
-        </LoginBox>
-      </LoginContainer>
+          <LoginIcon />
+        </LoginSubBox>
+      </LoginBox>
+    </LoginContainer>
   );
 }
