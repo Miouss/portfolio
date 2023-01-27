@@ -22,6 +22,10 @@ export default function LoginFormSamir() {
     setTimeout(() => {
       setIsLogged(true);
     }, 1500);
+    setTimeout(() => {
+      setLoadDesktop(false);
+    }, 3000);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadDesktop]);
 

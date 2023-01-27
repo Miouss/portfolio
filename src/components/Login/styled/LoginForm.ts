@@ -43,8 +43,8 @@ export const LoginFormButton = styled(Button)({
   borderRadius: "10px",
 });
 
-const test = {
-  "@keyframes test": {
+const wrongPassWordAnim = {
+  "@keyframes wrong-password": {
     "0%": {
       transform: "translateX(-1%)",
     },
@@ -56,6 +56,7 @@ const test = {
     },
   },
 };
+
 export const LoginFormInput = styled(Input, {
   shouldForwardProp: (prop) => prop !== "anim",
 })(({ anim }: { anim: boolean }) => ({
@@ -67,8 +68,8 @@ export const LoginFormInput = styled(Input, {
     paddingLeft: "10px",
     paddingRight: "10px",
   },
-  animation: anim ? "test 0.1s linear forwards" : "none",
-  ...test,
+  animation: anim ? "wrong-password 0.1s linear forwards" : "none",
+  ...wrongPassWordAnim,
 }));
 
 LoginFormInput.defaultProps = {

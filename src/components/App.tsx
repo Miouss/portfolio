@@ -1,6 +1,6 @@
-import { ReactElement, useEffect, useRef, useState } from "react";
+import { ReactElement, createContext, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { addApp, openApp, RootState, useAppDispatch } from "../redux";
+import { addApp, closeApp, RootState, useAppDispatch } from "../redux";
 import AppGrid from "./desktop/DesktopGrid";
 import Taskbar from "./taskbar/Taskbar";
 
@@ -9,9 +9,12 @@ import WindowsWallpaper from "../assets/windows-wallpaper.png";
 import "../styles/Desktop.css";
 
 import Login from "./Login/Login";
+import { LoginContainer } from "./AppStyleComp";
+
+export const LoginDispathContext = createContext((isLogged:boolean) => {});
 
 export default function App() {
-  const [isLogged, setIsLogged] = useState(true);
+  const [isLogged, setIsLogged] = useState(false);
   const apps = useSelector((state: RootState) => state.apps);
   const dispatch = useAppDispatch();
 
@@ -40,6 +43,7 @@ export default function App() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   useEffect(() => {
     const appsRunning = apps.filter((app) => app.status.isRunning);
     setRunningApps(
@@ -53,8 +57,14 @@ export default function App() {
   }, [apps]);
 
   useEffect(() => {
-    if (loginRef.current?.style.opacity === "0") {
-      setTimeout(() => (loginRef.current!.style.visibility = "hidden"), 500);
+    const appsRunning = apps.filter((app) => app.status.isRunning);
+
+    if(!isLogged){
+      appsRunning?.forEach((app) => {
+        if (app.status.isRunning) {
+          dispatch(closeApp(app.name));
+        }
+      });
     }
   }, [isLogged]);
 
@@ -70,20 +80,17 @@ export default function App() {
       >
         {runningApps}
         <AppGrid />
+        <LoginDispathContext.Provider value={setIsLogged}>
         <Taskbar />
+        </LoginDispathContext.Provider>
+
       </div>
-{/*       <div
+      <LoginContainer
         ref={loginRef}
-        style={{
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          opacity: !isLogged ? "1" : "0",
-          transition: "opacity 0.5s ease-out",
-        }}
+        isLogged={isLogged}
       >
         <Login setIsLogged={setIsLogged} />
-      </div> */}
+      </LoginContainer>
     </>
   );
 }
