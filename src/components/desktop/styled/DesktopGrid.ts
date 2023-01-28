@@ -2,12 +2,11 @@ import styled from "@mui/system/styled";
 import { Stack } from "@mui/material";
 
 export const DesktopGridContainer = styled(Stack)({
-    height: "calc(100% - 45px)",
+    height: "calc(100vh - 45px)",
     flexWrap: "wrap",
     overflow: "hidden", 
     "& > *":   {
         flexBasis: "10% !important",
-        height: "16%",
     },
     marginRight: "1rem",
 });
