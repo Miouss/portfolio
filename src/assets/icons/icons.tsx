@@ -1,4 +1,41 @@
 /* eslint-disable react/style-prop-object */
+import React from "react";
+
+import {
+  SiWindows,
+  SiWindowsterminal,
+  SiGithub,
+  SiLinkedin,
+} from "react-icons/si";
+import { GoProject } from "react-icons/go";
+import { FaGlobe, FaWifi, FaPowerOff } from "react-icons/fa";
+
+export const GithubIcon = (style?: React.CSSProperties) => (
+  <SiGithub style={style} />
+);
+export const LinkedinIcon = (style?: React.CSSProperties) => (
+  <SiLinkedin style={style} />
+);
+export const ProjectIcon = (style?: React.CSSProperties) => (
+  <GoProject style={style} />
+);
+export const WindowsIcon = (style?: React.CSSProperties) => (
+  <SiWindows style={style} />
+);
+export const TerminalIcon = (style?: React.CSSProperties) => (
+  <SiWindowsterminal style={style} />
+);
+export const PowerIcon = (style?: React.CSSProperties) => (
+  <FaPowerOff style={style} />
+);
+export const WifiIcon = (style?: React.CSSProperties) => (
+  <FaWifi style={style} />
+);
+export const LangIcon = (style?: React.CSSProperties) => (
+  <FaGlobe style={style} />
+);
+
+
 export const muiSVG = (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
     <polygon fill="#29b6f6" points="1,5 7,9 7,29 1,25" />

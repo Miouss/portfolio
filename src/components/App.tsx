@@ -41,8 +41,8 @@ export default function App() {
       dispatch(addApp(name));
     };
 
-    dispatchAddApp("terminal");
-    dispatchAddApp("Aperçu CV");
+    dispatchAddApp("Terminal");
+    dispatchAddApp("Projets");
     dispatchAddApp("Welcome");
 
     document.onselectstart = () => {

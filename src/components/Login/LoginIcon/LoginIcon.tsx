@@ -1,14 +1,17 @@
-import GitHub from "@mui/icons-material/GitHub";
 import { LoginIconContainer, IconButton } from "./LoginIconStyle";
+import { LangIcon, PowerIcon, WifiIcon } from "../../../assets/icons/icons";
 
 export default function LoginIcon() {
   return (
     <LoginIconContainer>
       <IconButton>
-        <GitHub style={{color: "white"}} />
+        <LangIcon />
       </IconButton>
       <IconButton>
-        <GitHub style={{color: "white"}} />
+        <WifiIcon />
+      </IconButton>
+      <IconButton>
+        <PowerIcon />
       </IconButton>
     </LoginIconContainer>
   );

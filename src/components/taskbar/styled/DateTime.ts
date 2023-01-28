@@ -2,6 +2,7 @@ import { styled } from "@mui/styles";
 import { Stack } from "@mui/material";
 
 export const DateTimeBox = styled(Stack)({
+    cursor: "default",
     alignItems: "center",
     justifyContent: "space-evenly",
     gap: "0.3rem",
