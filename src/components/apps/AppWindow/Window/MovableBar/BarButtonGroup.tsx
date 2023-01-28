@@ -44,6 +44,7 @@ export default function BarButtonGroup({ appName, refAppWindow }: Props) {
       color="inherit"
       onPointerEnter={(event) => handlePointerEvent(event)}
       onPointerDown={(event) => handlePointerEvent(event)}
+      onDoubleClick={(event) => event.stopPropagation()}
     >
       <Button onClick={() => dispatch(minimizeApp(appName))}>
         <MinimizeIcon />
@@ -53,7 +54,8 @@ export default function BarButtonGroup({ appName, refAppWindow }: Props) {
       </Button>
       <CloseButtonContainer
         onClick={() => {
-          refAppWindow.style.animation = "despawn 0.15s ease-out forwards";
+          refAppWindow.style.animation =
+            "despawnWindow 0.15s ease-out forwards";
         }}
       >
         <CloseIcon />
