@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux";
 
+import { Animation } from "../AppWindow/Window";
+
 export default function useMinimizedEffect(appName: string) {
-  const [display, setDisplay] = useState<"default" | "visible" | "hidden">("default");
+  const [animation, setAnimation] = useState<Animation>("spawnWindow");
   const [isFirstRender, setIsFirstRender] = useState(true);
 
   const isMinimized = useSelector((store: RootState) => {
@@ -14,16 +16,16 @@ export default function useMinimizedEffect(appName: string) {
   useEffect(
     () => {
       if(isFirstRender) {
-        setDisplay("default");
+        setAnimation("spawnWindow");
         setIsFirstRender(false);
         return;
       }
 
-      setDisplay(isMinimized ? "hidden" : "visible")
+      setAnimation(isMinimized ? "fadeOutWindow" : "fadeInWindow")
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [isMinimized]
   );
 
-  return display;
+  return animation;
 }

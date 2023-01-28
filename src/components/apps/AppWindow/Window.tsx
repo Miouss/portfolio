@@ -35,6 +35,7 @@ interface Props {
   onFocus?: boolean;
   children: JSX.Element | JSX.Element[];
 }
+export type Animation = "spawnWindow" | "fadeInWindow" | "fadeOutWindow";
 
 export default function ResizableDiv({
   appName,
@@ -122,7 +123,7 @@ export default function ResizableDiv({
 
   useFullscreenEffect(resizableDivRef.current!, setDynamicStyle, isFullscreen);
 
-  const visibility: "default" | "visible" | "hidden" = useMinimizedEffect(appName);
+  const animation: Animation = useMinimizedEffect(appName);
 
   return (
     <WindowContainer
@@ -130,7 +131,7 @@ export default function ResizableDiv({
 
         // We set the style of the window after the first animation is finished
         // To avoid the style to be unset for moving/resizing the window
-        if(e.animationName === "spawn"){ 
+        if(e.animationName === "spawnWindow"){ 
           const currentDimensions = resizableDivRef!.current!.getBoundingClientRect();
     
           setDynamicStyle({
@@ -143,11 +144,13 @@ export default function ResizableDiv({
           return;
         };
 
-        if(e.animationName === "despawn"){
+        if(e.animationName === "despawnWindow"){
           dispatch(closeApp(appName));
+
+          return;
         }
       }}
-      visibility={visibility}
+      animationName={animation}
       zIndex={zIndex}
       cursor={cursor}
       ref={resizableDivRef}
