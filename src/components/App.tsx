@@ -1,6 +1,12 @@
-import { ReactElement, createContext, useEffect, useRef, useState } from "react";
+import {
+  ReactElement,
+  createContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useSelector } from "react-redux";
-import { addApp, closeApp, RootState, useAppDispatch } from "../redux";
+import { addApp, closeApp, openApp, RootState, useAppDispatch } from "../redux";
 import AppGrid from "./desktop/DesktopGrid";
 import Taskbar from "./taskbar/Taskbar";
 
@@ -11,10 +17,11 @@ import "../styles/Desktop.css";
 import Login from "./Login/Login";
 import { LoginContainer } from "./AppStyleComp";
 
-export const LoginDispathContext = createContext((isLogged:boolean) => {});
+export const LoginDispathContext = createContext((isLogged: boolean) => {});
 
 export default function App() {
-  const [isLogged, setIsLogged] = useState(true);
+  const [isLogged, setIsLogged] = useState(false);
+  const [alreadyLogged, setAlreadyLogged] = useState(false);
   const apps = useSelector((state: RootState) => state.apps);
   const dispatch = useAppDispatch();
 
@@ -36,7 +43,7 @@ export default function App() {
 
     dispatchAddApp("terminal");
     dispatchAddApp("Aperçu CV");
-    //dispatch(openApp("terminal"));
+    dispatchAddApp("Welcome");
 
     document.onselectstart = () => {
       return false;
@@ -59,12 +66,18 @@ export default function App() {
   useEffect(() => {
     const appsRunning = apps.filter((app) => app.status.isRunning);
 
-    if(!isLogged){
+    if (!isLogged) {
       appsRunning?.forEach((app) => {
         if (app.status.isRunning) {
           dispatch(closeApp(app.name));
         }
       });
+    } else if (isLogged && !alreadyLogged) {
+      setTimeout(() => {
+        dispatch(openApp("Welcome"));
+      }, 1000);
+
+      setAlreadyLogged(true);
     }
   }, [isLogged]);
 
@@ -81,16 +94,12 @@ export default function App() {
         {runningApps}
         <AppGrid />
         <LoginDispathContext.Provider value={setIsLogged}>
-        <Taskbar />
+          <Taskbar />
         </LoginDispathContext.Provider>
-
       </div>
-{/*       <LoginContainer
-        ref={loginRef}
-        isLogged={isLogged}
-      >
+      <LoginContainer ref={loginRef} isLogged={isLogged}>
         <Login setIsLogged={setIsLogged} />
-      </LoginContainer> */}
+      </LoginContainer>
     </>
   );
 }

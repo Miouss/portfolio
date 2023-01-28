@@ -4,7 +4,12 @@ import { useRef, useState, useEffect } from "react";
 import delay from "../../../../../../utils/delay";
 import { TerminalAppContainer, TerminalAppContent } from "./TerminalAppStyle";
 
-export default function TerminalApp() {
+interface Props {
+  mode?: "notepad";
+}
+
+export default function TerminalApp({ mode }: Props) {
+  const terminalAppRef = useRef<HTMLDivElement | null>(null);
   const terminalAppContentRef = useRef<HTMLDivElement | null>(null);
   const [blink, setBlink] = useState(false);
   const [previousTextLength, setPreviousTextLength] = useState(0);
@@ -19,10 +24,20 @@ export default function TerminalApp() {
 
   useEffect(() => {
     const mimicUserTyping = async () => {
-      const welcomeMessage = `Microsoft Windows [Version 10.0.19042.867]\n(c) 2020 Microsoft Corporation. All rights reserved.`;
+      const welcomeMessage = !mode
+        ? `Microsoft Windows [Version 10.0.19042.867]\n
+      (c) 2020 Microsoft Corporation. All rights reserved.`
+        : `
+      Bonjour et bienvenue sur mon portofolio !\n
+      Comme vous pouvez le constater, j'ai imité le comportement de Windows 10 pour ce projet.\n
+      Je vous laisse soin d'explorer les différentes applications disponibles.\n
+      Bonne visite !\n\n
+      Appuyez sur une touche pour continuer...`;
       await simulateKeyPressed(welcomeMessage);
+      console.log("coucou");
       terminalAppContentRef.current!.textContent! += currentDir;
-      setCurrentDir("C:\\>");
+      if (!mode) setCurrentDir("C:\\>");
+      terminalAppContentRef.current!.focus();
     };
     mimicUserTyping();
     setBlink(!blink);
@@ -30,6 +45,13 @@ export default function TerminalApp() {
 
   const keyHandler = (event) => {
     event.preventDefault();
+
+    if (mode) {
+      (terminalAppRef!.current!.offsetParent as HTMLElement).style.animation =
+        "despawnWindow 0.15s ease-out forwards";
+      return;
+    }
+
     if (event.key.length !== 1) {
       switch (event.key) {
         case "Enter":
@@ -76,7 +98,10 @@ export default function TerminalApp() {
           setCurrentDir((prevState) => prevState.slice(0, -1) + "User>");
           return;
         case "cd ..":
-          setCurrentDir((prevState) => prevState.substring(0, prevState.lastIndexOf("\\")) + "\\>");
+          setCurrentDir(
+            (prevState) =>
+              prevState.substring(0, prevState.lastIndexOf("\\")) + "\\>"
+          );
           return;
         case "cd":
           setCurrentDir("C:\\>");
@@ -109,7 +134,7 @@ export default function TerminalApp() {
   }, [keyHandler]);
 
   useEffect(() => {
-    if(terminalAppContentRef!.current!.textContent!.length === 0) return;
+    if (terminalAppContentRef!.current!.textContent!.length === 0) return;
     terminalAppContentRef!.current!.textContent! += `\n\n` + currentDir;
     setPreviousTextLength(terminalAppContentRef.current!.textContent!.length);
   }, [currentDir]);
@@ -121,10 +146,14 @@ export default function TerminalApp() {
       });
     }
   }, [previousTextLength]);
-  console.log(`Current dir: ${currentDir}`);
+
   return (
-    <TerminalAppContainer>
-      <TerminalAppContent ref={terminalAppContentRef} blink={blink} />
+    <TerminalAppContainer ref={terminalAppRef}>
+      <TerminalAppContent
+        tabIndex={0}
+        ref={terminalAppContentRef}
+        blink={blink}
+      />
     </TerminalAppContainer>
   );
 }
