@@ -8,7 +8,7 @@ import MinimizeIcon from "@mui/icons-material/Minimize";
 export default function ContextMenu({ anchorEl, setAnchorEl, appName }) {
   const dispatch = useAppDispatch();
 
-  const onOverBgColor = "rgba(100,100,100, 0.5)";
+  const onOverBgColor = "rgba(255,255,255, 0.4)";
   const defaultBgColor = "initial";
 
   const handleClick = (action: string) => {
@@ -21,6 +21,12 @@ export default function ContextMenu({ anchorEl, setAnchorEl, appName }) {
       event.type === "pointerover" ? onOverBgColor : defaultBgColor;
   };
 
+  const itemListStyle = {
+    display: "flex",
+    width: "140px",
+    gap: "10px",
+  }
+
   return (
     <Popper
       open={!!anchorEl}
@@ -28,6 +34,10 @@ export default function ContextMenu({ anchorEl, setAnchorEl, appName }) {
       nonce={undefined}
       onResize={undefined}
       onResizeCapture={undefined}
+      style={{
+        backgroundColor: "rgba(0,0,0,0.5)",
+        color: "white",
+      }}
     >
       <ClickAwayListener onClickAway={() => setAnchorEl(null)}>
         <MenuList>
@@ -35,6 +45,7 @@ export default function ContextMenu({ anchorEl, setAnchorEl, appName }) {
             onClick={() => handleClick("minimize")}
             onPointerOver={(event) => handlePointerOver(event)}
             onPointerOut={(event) => handlePointerOver(event)}
+            style={itemListStyle}
           >
             <MinimizeIcon /> Minimiser
           </MenuItem>
@@ -42,6 +53,7 @@ export default function ContextMenu({ anchorEl, setAnchorEl, appName }) {
             onClick={() => handleClick("close")}
             onPointerOver={(event) => handlePointerOver(event)}
             onPointerOut={(event) => handlePointerOver(event)}
+            style={itemListStyle}
           >
             <CloseIcon /> Fermer
           </MenuItem>
