@@ -19,20 +19,30 @@ export default function TerminalApp({ mode }: Props) {
   async function simulateKeyPressed(txt: string) {
     await delay(20);
     if(txt[0] === "£"){
-      await delay(50);
-      terminalAppContentRef.current!.textContent += txt.slice(1);
+      const lastIndexFound = txt.indexOf('£', 2);
+      const blockText = txt.slice(1, lastIndexFound);
+      if(lastIndexFound){
+        txt = txt.slice(lastIndexFound);
+      }else{
+        txt = "";
+      }
+      await delay(100);
+      terminalAppContentRef.current!.textContent += blockText;
     } 
     else{
       terminalAppContentRef.current!.textContent += txt[0];
-      if (txt.length > 1) return simulateKeyPressed(txt.slice(1));
     }
+
+    console.log(txt);
+
+    if (txt.length > 1) return simulateKeyPressed(txt.slice(1));
   }
 
   useEffect(() => {
     const mimicUserTyping = async () => {
       const welcomeMessage = !mode
-        ? `Microsoft Windows [Version 10.0.19042.867]\n
-      (c) 2020 Microsoft Corporation. All rights reserved.`
+        ? `£Microsoft Windows [Version 10.0.19042.867]
+      (c) 2020 Microsoft Corporation. All rights reserved.£`
         : `
       Bonjour et bienvenue sur mon portofolio !\n
       Comme vous pouvez le constater, j'ai imité le comportement de Windows 10 pour ce projet.\n
