@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { useRef, useState, useEffect } from "react";
-import delay from "../../../../../../utils/delay";
+import delay from "../../../../../../../utils/delay";
 import { TerminalAppContainer, TerminalAppContent } from "./TerminalAppStyle";
 
 interface Props {

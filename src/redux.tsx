@@ -7,6 +7,7 @@ export interface AppStatus {
   isFocused: boolean;
   isMinimized: boolean;
   isFullscreen: boolean;
+  isSpecial?: boolean;
 }
 
 export interface RunningApp {
@@ -26,6 +27,18 @@ const apps = createSlice({
           isFocused: false,
           isMinimized: false,
           isFullscreen: false,
+        },
+      });
+    },
+    addSpecialApp: (state, { payload }: PayloadAction<string>) => {
+      state.push({
+        name: payload,
+        status: {
+          isRunning: false,
+          isFocused: false,
+          isMinimized: false,
+          isFullscreen: false,
+          isSpecial: true,
         },
       });
     },
@@ -87,6 +100,7 @@ const windowResponsiveFont = createSlice({
 
 export const {
   addApp,
+  addSpecialApp,
   openApp,
   closeApp,
   focusApp,

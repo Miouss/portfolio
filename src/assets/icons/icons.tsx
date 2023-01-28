@@ -9,7 +9,19 @@ import {
 } from "react-icons/si";
 import { GoProject } from "react-icons/go";
 import { FaGlobe, FaWifi, FaPowerOff } from "react-icons/fa";
+import { BiMailSend } from "react-icons/bi";
+import { TbSend } from "react-icons/tb";
+import { HiOutlineChevronDoubleRight } from "react-icons/hi";
 
+export const MailIcon = (style?: React.CSSProperties) => (
+  <BiMailSend style={style} />
+);
+export const SendMailIcon = (style?: React.CSSProperties) => (
+  <TbSend style={style} />
+);
+export const MailMinimizeIcon = (style?: React.CSSProperties) => (
+  <HiOutlineChevronDoubleRight style={style} />
+);
 export const GithubIcon = (style?: React.CSSProperties) => (
   <SiGithub style={style} />
 );
@@ -34,7 +46,6 @@ export const WifiIcon = (style?: React.CSSProperties) => (
 export const LangIcon = (style?: React.CSSProperties) => (
   <FaGlobe style={style} />
 );
-
 
 export const muiSVG = (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">

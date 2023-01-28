@@ -3,11 +3,11 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
-import { visibilitySVG } from "../../../../../../assets/icons/icons";
+import { visibilitySVG } from "../../../../../../../assets/icons/icons";
 
-import Lolmood from "../../../../../../assets/projets/lolmood.png";
-import Lolmood2 from "../../../../../../assets/projets/lolmood2.png";
-import Lolmood3 from "../../../../../../assets/projets/lolmood3.png";
+import Lolmood from "../../../../../../../assets/projets/lolmood.png";
+import Lolmood2 from "../../../../../../../assets/projets/lolmood2.png";
+import Lolmood3 from "../../../../../../../assets/projets/lolmood3.png";
 
 import {
   Content,
@@ -40,7 +40,7 @@ import {
 } from "./ProjectContent";
 import { BackgroundLayer, ProjectContainer } from "./ProjectPreview";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../../../redux";
+import { RootState } from "../../../../../../../redux";
 import { useState } from "react";
 
 interface Tech {

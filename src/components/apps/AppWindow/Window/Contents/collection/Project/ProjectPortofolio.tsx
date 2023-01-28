@@ -1,10 +1,10 @@
 import ProjectContentBuilder from "./ProjectContentBuilder";
-import PortofolioBG from "../../../../../../assets/projets/portofolio.png";
+import PortofolioBG from "../../../../../../../assets/projets/portofolio.png";
 import {
   reactSVG,
   muiSVG,
   reduxSVG,
-} from "../../../../../../assets/icons/icons";
+} from "../../../../../../../assets/icons/icons";
 
 interface Tech {
   name: string;

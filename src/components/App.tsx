@@ -6,7 +6,14 @@ import {
   useState,
 } from "react";
 import { useSelector } from "react-redux";
-import { addApp, closeApp, openApp, RootState, useAppDispatch } from "../redux";
+import {
+  addApp,
+  addSpecialApp,
+  closeApp,
+  openApp,
+  RootState,
+  useAppDispatch,
+} from "../redux";
 import AppGrid from "./desktop/DesktopGrid";
 import Taskbar from "./taskbar/Taskbar";
 
@@ -16,6 +23,7 @@ import "../styles/Desktop.css";
 
 import Login from "./Login/Login";
 import { LoginContainer } from "./AppStyleComp";
+import { AppComponent } from "./apps/AppWindow/Window/Contents/list";
 
 export const LoginDispathContext = createContext((isLogged: boolean) => {});
 
@@ -43,6 +51,7 @@ export default function App() {
 
     dispatchAddApp("Terminal");
     dispatchAddApp("Projets");
+    dispatch(addSpecialApp("Mail Sender"));
     dispatchAddApp("Welcome");
 
     document.onselectstart = () => {
@@ -54,12 +63,22 @@ export default function App() {
   useEffect(() => {
     const appsRunning = apps.filter((app) => app.status.isRunning);
     setRunningApps(
-      appsRunning.map((appRunning) => (
-        <AppWindow
-          key={`Component ${appRunning.name}`}
-          appName={appRunning.name}
-        />
-      ))
+      appsRunning.map((appRunning) => {
+        if (appRunning.status.isSpecial)
+          return (
+            <AppComponent
+              key={`Component ${appRunning.name}`}
+              name={appRunning.name}
+            />
+          );
+
+        return (
+          <AppWindow
+            key={`Component ${appRunning.name}`}
+            appName={appRunning.name}
+          />
+        );
+      })
     );
   }, [apps]);
 
