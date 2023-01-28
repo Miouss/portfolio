@@ -17,6 +17,8 @@ let shortcutList = {} as ShortcutList[];
 
 addApp("terminal", <TerminalApp />, <TerminalAppIcon  fontSize="inherit" />, 1, 1);
 addApp("Aperçu CV", <ProjectPreviewApp />, <CvPreviewAppIcon  fontSize="inherit" />, 1, 2);
+addApp("Welcome", <TerminalApp mode="notepad" />, <TerminalAppIcon  fontSize="inherit" />, 0, 0, true);
+
 
 addShortcut(
   "GitHub",
@@ -58,7 +60,10 @@ export function getAppGridPostion(appName: string) {
 }
 
 export function getAllAppsName() {
-  return Object.keys(appList).map((app) => appList[app].name);
+  return Object.keys(appList).reduce((acc, app) => {
+    if(!appList[app].isSecret) acc.push(appList[app].name);
+    return acc;
+  }, [] as string[]);
 }
 
 export function ShortcutDesktopIcon({ name }: Props) {
@@ -83,8 +88,9 @@ function addApp(
   appName: string,
   Window: ReactElement,
   Icon: any,
-  col: number,
-  row: number
+  col?: number,
+  row?: number,
+  isSecret?: boolean,
 ) {
   appList[`${appName}`] = {
     name: appName,
@@ -98,6 +104,7 @@ function addApp(
       col: col,
       row: row,
     },
+    isSecret: isSecret ?? false,
   };
 }
 
@@ -106,7 +113,7 @@ function addShortcut(
   Icon: any,
   link: string,
   col: number,
-  row: number
+  row: number,
 ) {
   shortcutList[`${shortcutName}`] = {
     name: shortcutName,
