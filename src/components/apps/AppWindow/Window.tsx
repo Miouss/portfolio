@@ -2,6 +2,7 @@ import { useState, useRef, CSSProperties } from "react";
 import { useSelector } from "react-redux";
 import {
   RootState,
+  closeApp,
   focusApp,
   setWindowResponsiveFont,
   useAppDispatch,
@@ -15,7 +16,6 @@ import checkResponsiveness from "../utils/checkResponsiveness";
 import useFullscreenEffect from "../hooks/useFullscreenEffect";
 import useFocusEffect from "../hooks/useFocusEffect";
 import useWindowResizingPointersEvents from "../hooks/useWindowResizingPointersEvents";
-import useUpdateDivPosition from "../hooks/useUpdateDivPosition";
 import useMinimizedEffect from "../hooks/useMinimizedEffect";
 
 import {
@@ -29,26 +29,25 @@ import { WindowContainer } from "../styled/Window";
 
 interface Props {
   appName: string;
-  className?: string;
   minWidth: number;
   minHeight: number;
   zIndexValue?: string;
   onFocus?: boolean;
   children: JSX.Element | JSX.Element[];
 }
+export type Animation = "spawnWindow" | "fadeInWindow" | "fadeOutWindow";
 
 export default function ResizableDiv({
   appName,
-  className,
   minWidth,
   minHeight,
   children,
 }: Props) {
   const dispatch = useAppDispatch();
 
-  const { isMinimized, isFullscreen } = useSelector((store: RootState) => {
+  const isFullscreen = useSelector((store: RootState) => {
     const app = store.apps.find((app) => app.name === appName);
-    return app!.status;
+    return app!.status.isFullscreen;
   });
 
   const resizableDivRef = useRef<HTMLDivElement>(null);
@@ -67,14 +66,7 @@ export default function ResizableDiv({
   const [pointerPosition, setPointerPosition] =
     useState<PointerPosition | null>(null);
 
-  const [dynamicStyle, setDynamicStyle] = useState<CSSProperties>({
-    width: "50%",
-    height: "50%",
-    top: "25%",
-    left: "25%",
-  });
-
-  const [updateDivPosition, setUpdateDivPosition] = useState(false);
+  const [dynamicStyle, setDynamicStyle] = useState<CSSProperties>({});
 
   const handlePointerMove = (event) => {
     if (!isFullscreen) {
@@ -129,25 +121,36 @@ export default function ResizableDiv({
     handlePointerMove
   );
 
-  useUpdateDivPosition(
-    resizableDivRef.current,
-    updateDivPosition,
-    setUpdateDivPosition,
-    setDynamicStyle
-  );
+  useFullscreenEffect(resizableDivRef.current!, setDynamicStyle, isFullscreen);
 
-  useFullscreenEffect(
-    resizableDivRef.current!,
-    setDynamicStyle,
-    setUpdateDivPosition,
-    isFullscreen
-  );
-
-  const display: "flex" | "none" = useMinimizedEffect(isMinimized);
+  const animation: Animation = useMinimizedEffect(appName);
 
   return (
     <WindowContainer
-      display={display}
+      onAnimationEnd={(e) => {
+
+        // We set the style of the window after the first animation is finished
+        // To avoid the style to be unset for moving/resizing the window
+        if(e.animationName === "spawnWindow"){ 
+          const currentDimensions = resizableDivRef!.current!.getBoundingClientRect();
+    
+          setDynamicStyle({
+            width: currentDimensions.width + "px",
+            height: currentDimensions.height + "px",
+            top: currentDimensions.top + "px",
+            left: currentDimensions.left + "px",
+          });
+
+          return;
+        };
+
+        if(e.animationName === "despawnWindow"){
+          dispatch(closeApp(appName));
+
+          return;
+        }
+      }}
+      animationName={animation}
       zIndex={zIndex}
       cursor={cursor}
       ref={resizableDivRef}

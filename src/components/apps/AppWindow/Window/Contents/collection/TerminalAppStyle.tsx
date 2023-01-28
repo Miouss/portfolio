@@ -6,7 +6,7 @@ export const TerminalAppContainer = styled(Box)({
   color: "white !important",
 });
 
-export const TerminalAppContent = styled(Box, {
+export const TerminalAppContent = styled("div", {
   shouldForwardProp: (prop) => prop !== "blink",
 })(({ blink }: { blink: boolean }) => ({
   color: "white !important",

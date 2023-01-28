@@ -13,7 +13,6 @@ import { useAppDispatch, setWindowResponsiveFont } from "../../../redux";
 export default function useFullscreenEffect(
   currentResizableDivRef: any,
   setDynamicStyle: Dispatch<SetStateAction<CSSProperties>>,
-  setUpdateDivPosition: Dispatch<SetStateAction<boolean>>,
   fullscreen?: boolean,
 ) {
   const [previousWindowPosition, setPreviousWindowPosition] =
@@ -43,8 +42,6 @@ export default function useFullscreenEffect(
           left: previousWindowPosition!.left + "px",
           transform: "none",
         });
-
-        setUpdateDivPosition((prevState: boolean) => !prevState);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

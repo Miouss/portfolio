@@ -1,8 +1,17 @@
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState, focusApp, useAppDispatch } from "../../../../redux";
+import {
+  RootState,
+  focusApp,
+  toggleFullscreenApp,
+  useAppDispatch,
+} from "../../../../redux";
 import useWindowMovingEffect from "../../hooks/useWindowMovingEffect";
-import { MovableBarContainer, MovableBarIcon, MovableBarTitle } from "../../styled/MovableBar";
+import {
+  MovableBarContainer,
+  MovableBarIcon,
+  MovableBarTitle,
+} from "../../styled/MovableBar";
 import { AppWindowIcon } from "./Contents/list";
 import BarButtonGroup from "./MovableBar/BarButtonGroup";
 
@@ -38,13 +47,21 @@ export default function MovableBar({ appName }: Props) {
       ref={windowBarRef}
       style={{ cursor: "default" }}
       onPointerDown={(event) => handlePointerDown(event)}
+      onDoubleClick={(event) => {
+        event.stopPropagation();
+        dispatch(toggleFullscreenApp(appName));
+        setMouseIsPressed(false);
+      }}
     >
       <MovableBarIcon>
         <AppWindowIcon name={appName} />
       </MovableBarIcon>
       <MovableBarTitle>{appName}</MovableBarTitle>
 
-      <BarButtonGroup appName={appName} />
+      <BarButtonGroup
+        appName={appName}
+        refAppWindow={windowBarRef.current?.offsetParent}
+      />
     </MovableBarContainer>
   );
 }

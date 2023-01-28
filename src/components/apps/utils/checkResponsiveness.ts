@@ -3,6 +3,8 @@ export default function checkResponsiveness(
   dispatch,
   setWindowResponsiveFont
 ) {
+  if(currentWidth === undefined) return;
+  
   if (currentWidth < 1720 && currentWidth >= 1540) {
     dispatch(setWindowResponsiveFont(12));
     return;

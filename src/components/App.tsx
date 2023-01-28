@@ -14,7 +14,7 @@ import { LoginContainer } from "./AppStyleComp";
 export const LoginDispathContext = createContext((isLogged:boolean) => {});
 
 export default function App() {
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(true);
   const apps = useSelector((state: RootState) => state.apps);
   const dispatch = useAppDispatch();
 
@@ -85,12 +85,12 @@ export default function App() {
         </LoginDispathContext.Provider>
 
       </div>
-      <LoginContainer
+{/*       <LoginContainer
         ref={loginRef}
         isLogged={isLogged}
       >
         <Login setIsLogged={setIsLogged} />
-      </LoginContainer>
+      </LoginContainer> */}
     </>
   );
 }

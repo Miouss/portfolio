@@ -150,7 +150,7 @@ export default function ContentBuilder({
         <ImageThree anim={animImageThree}>{imgSrc[2]}</ImageThree>
       </BackgroundLayer>
       <Content showGallery={showGallery}>
-        <Chevrons>
+        <Chevrons showGallery={showGallery}>
           <HideVisibilityButton onClick={() => setShowGallery(false)}>
             {visibilitySVG}
           </HideVisibilityButton>
