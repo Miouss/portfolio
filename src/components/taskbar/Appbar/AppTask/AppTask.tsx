@@ -28,6 +28,7 @@ export default function AppTask({ appName }: Props) {
   const dispatch = useAppDispatch();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [contextmenu, setContextmenu] = useState(false);
 
   const handleClick = () => {
     isFocused ? dispatch(minimizeApp(appName)) : dispatch(focusApp(appName));
@@ -40,29 +41,30 @@ export default function AppTask({ appName }: Props) {
 
   useEffect(() => {
     if (!!anchorEl) {
+      setContextmenu(true);
+
       document.addEventListener(
         "contextmenu",
         (event) => handleDocumentContextMenu(event),
         true
       );
-      return () =>
+      return () => {
+        setContextmenu(false);
         document.removeEventListener("contextmenu", (event) =>
           handleDocumentContextMenu(event)
         );
+      };
     }
   }, [anchorEl]);
 
   return (
     <AppTaskContainer
-    focus={isFocused}
+      focus={isFocused}
+      contextmenu={contextmenu}
       onClick={handleClick}
       onMouseDown={(event) => event.preventDefault()}
       onContextMenu={(event) => {
         event.preventDefault();
-        if (!isFocused) {
-          dispatch(focusApp(appName));
-        }
-
         setAnchorEl(event.currentTarget);
       }}
     >
