@@ -61,7 +61,6 @@ export const LoginFormInput = styled(Input, {
   shouldForwardProp: (prop) => prop !== "anim",
 })(({ anim }: { anim: boolean }) => ({
   border: "5px solid 	rgba(211,211,211, 0.3)",
-
   "& > :first-of-type": {
     backgroundColor: "white",
 
@@ -99,6 +98,7 @@ export const LoginFormLoadingContainer = styled(Stack)({
   gap: "20px",
   color: "white",
   fontSize: "1.2rem",
+  cursor: "default",
 });
 
 LoginFormLoadingContainer.defaultProps = {
