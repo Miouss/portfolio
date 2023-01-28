@@ -217,8 +217,8 @@ Link.defaultProps = {
 
 // Link >
 export const LinkIcon = styled("i")({
-  flex: 0.3,
-
+  flex: 1,
+  
   color: "#000000",  
 });
 
