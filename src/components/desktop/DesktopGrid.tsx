@@ -24,7 +24,6 @@ export interface AppStyle {
 
 export default function DesktopGrid() {
   const appsName = getAllAppsName();
-  console.log(appsName);
   const shortcutsName = getAllShortcutsName();
   let desktopAppFilled: ReactElement[] = [];
 

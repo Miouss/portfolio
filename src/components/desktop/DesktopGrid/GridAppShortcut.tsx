@@ -28,7 +28,7 @@ export default function ShortcutApp({ shortcutName }: Props) {
       document.onpointerdown = null;
     };
   };
-    console.log(click);
+
   return (
     <GridAppContainer click={click} onDoubleClick={() => window.open(urlRedirect!)} onClick={handleClick}>
       <BackgroundColorLayer click={click} />
