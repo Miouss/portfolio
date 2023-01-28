@@ -5,18 +5,21 @@ import {
   ProjectIcon,
   GithubIcon,
   LinkedinIcon,
+  MailIcon,
 } from "../../../../../assets/icons/icons";
 
 import TerminalApp from "./collection/Terminal/TerminalApp";
 import ProjectPreviewApp from "./collection/Project/ProjectPreviewApp";
 
 import { AppList, ShortcutList } from "./types";
+import MailSender from "./collection/MailSender/MailSender";
 
 let appList = {} as AppList[];
 let shortcutList = {} as ShortcutList[];
 
 addApp("Terminal", <TerminalApp />, <TerminalIcon  fontSize="inherit" />, 1, 1);
 addApp("Projets", <ProjectPreviewApp />, <ProjectIcon  fontSize="inherit" />, 1, 2);
+addApp("Mail Sender", <MailSender appName="Mail Sender" />, <MailIcon  fontSize="inherit" />, 2, 2);
 addApp("Welcome", <TerminalApp mode="notepad" />, <TerminalIcon  fontSize="inherit" />, 0, 0, true);
 
 
