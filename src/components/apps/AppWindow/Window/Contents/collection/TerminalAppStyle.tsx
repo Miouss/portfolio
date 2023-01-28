@@ -13,7 +13,6 @@ export const TerminalAppContent = styled("div", {
   boxSizing: "border-box",
   whiteSpace: "pre-line",
   paddingTop: "10px",
-  cursor: "text",
   overflowWrap: "break-word",
   width: "100%",
   fontFamily: "Consolas !important",
