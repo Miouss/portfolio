@@ -17,9 +17,15 @@ export default function TerminalApp({ mode }: Props) {
   const [command, setCommand] = useState("");
 
   async function simulateKeyPressed(txt: string) {
-    await delay(10);
-    terminalAppContentRef.current!.textContent += txt[0];
-    if (txt.length > 1) return simulateKeyPressed(txt.slice(1));
+    await delay(20);
+    if(txt[0] === "£"){
+      await delay(50);
+      terminalAppContentRef.current!.textContent += txt.slice(1);
+    } 
+    else{
+      terminalAppContentRef.current!.textContent += txt[0];
+      if (txt.length > 1) return simulateKeyPressed(txt.slice(1));
+    }
   }
 
   useEffect(() => {
@@ -31,7 +37,7 @@ export default function TerminalApp({ mode }: Props) {
       Bonjour et bienvenue sur mon portofolio !\n
       Comme vous pouvez le constater, j'ai imité le comportement de Windows 10 pour ce projet.\n
       Je vous laisse soin d'explorer les différentes applications disponibles.\n
-      Bonne visite !\n\n
+      Bonne visite !£\n\n
       Appuyez sur une touche pour continuer...`;
       await simulateKeyPressed(welcomeMessage);
       console.log("coucou");
