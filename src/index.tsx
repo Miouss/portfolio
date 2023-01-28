@@ -10,12 +10,6 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLInputElement
 );
 
-/* document.onmousedown = (event: any) => {
-  
-  if(event?.target?.localName === "input") return;
-  event.preventDefault();;
-};
- */
 root.render(
   <Provider store={store}>
     <App />
