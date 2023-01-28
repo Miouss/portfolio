@@ -54,9 +54,6 @@ export default function BarButtonGroup({ appName, refAppWindow }: Props) {
       <CloseButtonContainer
         onClick={() => {
           refAppWindow.style.animation = "despawn 0.15s ease-out forwards";
-          setTimeout(() => {
-            dispatch(closeApp(appName));
-          }, 150);
         }}
       >
         <CloseIcon />

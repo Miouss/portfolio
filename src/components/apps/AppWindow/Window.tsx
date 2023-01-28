@@ -2,6 +2,7 @@ import { useState, useRef, CSSProperties } from "react";
 import { useSelector } from "react-redux";
 import {
   RootState,
+  closeApp,
   focusApp,
   setWindowResponsiveFont,
   useAppDispatch,
@@ -65,7 +66,6 @@ export default function ResizableDiv({
     useState<PointerPosition | null>(null);
 
   const [dynamicStyle, setDynamicStyle] = useState<CSSProperties>({});
-  const [updatePositionAtFirstAnimation, setUpdatePositionAtFirstAnimation] = useState<boolean>(true);
 
   const handlePointerMove = (event) => {
     if (!isFullscreen) {
@@ -127,18 +127,25 @@ export default function ResizableDiv({
   return (
     <WindowContainer
       onAnimationEnd={(e) => {
-        if(!updatePositionAtFirstAnimation) return;
 
-        const currentDimensions = resizableDivRef!.current!.getBoundingClientRect();
+        // We set the style of the window after the first animation is finished
+        // To avoid the style to be unset for moving/resizing the window
+        if(e.animationName === "spawn"){ 
+          const currentDimensions = resizableDivRef!.current!.getBoundingClientRect();
     
-        setDynamicStyle({
-          width: currentDimensions.width + "px",
-          height: currentDimensions.height + "px",
-          top: currentDimensions.top + "px",
-          left: currentDimensions.left + "px",
-        });
+          setDynamicStyle({
+            width: currentDimensions.width + "px",
+            height: currentDimensions.height + "px",
+            top: currentDimensions.top + "px",
+            left: currentDimensions.left + "px",
+          });
 
-        setUpdatePositionAtFirstAnimation(false);
+          return;
+        };
+
+        if(e.animationName === "despawn"){
+          dispatch(closeApp(appName));
+        }
       }}
       visibility={visibility}
       zIndex={zIndex}
