@@ -1,11 +1,11 @@
 import ProjectContentBuilder from "./ProjectContentBuilder";
-import LolMoodBg from "../../../../../../assets/projets/lolmood.png";
+import LolMoodBg from "../../../../../../../assets/projets/lolmood.png";
 import {
   reactSVG,
   phpSVG,
   mysqlSVG,
   muiSVG
-} from "../../../../../../assets/icons/icons";
+} from "../../../../../../../assets/icons/icons";
 
 interface Tech {
   name: string;

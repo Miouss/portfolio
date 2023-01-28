@@ -7,8 +7,8 @@ import {
   LinkedinIcon,
 } from "../../../../../assets/icons/icons";
 
-import TerminalApp from "./collection/TerminalApp";
-import ProjectPreviewApp from "./collection/ProjectPreviewApp";
+import TerminalApp from "./collection/Terminal/TerminalApp";
+import ProjectPreviewApp from "./collection/Project/ProjectPreviewApp";
 
 import { AppList, ShortcutList } from "./types";
 

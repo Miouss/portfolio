@@ -1,12 +1,12 @@
 import ProjectContentBuilder from "./ProjectContentBuilder";
-import SmartDlBg from "../../../../../../assets/projets/smartdl.png";
+import SmartDlBg from "../../../../../../../assets/projets/smartdl.png";
 import {
   reactSVG,
   nodejsSVG,
   muiSVG,
   expressSVG,
   electronSVG,
-} from "../../../../../../assets/icons/icons";
+} from "../../../../../../../assets/icons/icons";
 
 interface Tech {
   name: string;
