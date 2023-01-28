@@ -129,6 +129,7 @@ export const TechItemIcon = styled("svg")({
 
 export const TechItemName = styled("h4")({
   textAlign: "center",
+  fontSize: "12px",
 });
 
 // Subcontent >
