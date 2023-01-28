@@ -1,11 +1,11 @@
 import { ReactElement } from "react";
 
 import {
-  TerminalAppIcon,
-  CvPreviewAppIcon,
-  GitHubShortcutIcon,
-  LinkedInShortcutIcon,
-} from "./icons";
+  TerminalIcon,
+  ProjectIcon,
+  GithubIcon,
+  LinkedinIcon,
+} from "../../../../../assets/icons/icons";
 
 import TerminalApp from "./collection/TerminalApp";
 import ProjectPreviewApp from "./collection/ProjectPreviewApp";
@@ -15,21 +15,21 @@ import { AppList, ShortcutList } from "./types";
 let appList = {} as AppList[];
 let shortcutList = {} as ShortcutList[];
 
-addApp("terminal", <TerminalApp />, <TerminalAppIcon  fontSize="inherit" />, 1, 1);
-addApp("Aperçu CV", <ProjectPreviewApp />, <CvPreviewAppIcon  fontSize="inherit" />, 1, 2);
-addApp("Welcome", <TerminalApp mode="notepad" />, <TerminalAppIcon  fontSize="inherit" />, 0, 0, true);
+addApp("Terminal", <TerminalApp />, <TerminalIcon  fontSize="inherit" />, 1, 1);
+addApp("Projets", <ProjectPreviewApp />, <ProjectIcon  fontSize="inherit" />, 1, 2);
+addApp("Welcome", <TerminalApp mode="notepad" />, <TerminalIcon  fontSize="inherit" />, 0, 0, true);
 
 
 addShortcut(
   "GitHub",
-  <GitHubShortcutIcon fontSize="inherit" />,
+  <GithubIcon fontSize="inherit" />,
   "https://github.com/Miouss",
   9,
   6
 );
 addShortcut(
   "LinkedIn",
-  <LinkedInShortcutIcon fontSize="inherit"  />,
+  <LinkedinIcon fontSize="inherit"  />,
   "https://www.linkedin.com/in/samir-ghabi-aa58a2224/",
   10,
   6

@@ -1,5 +1,5 @@
 import { StartMenuBox } from "../styled/StartMenu";
-import WindowsLogo from "../../../assets/WindowsLogo";
+import { WindowsIcon } from "../../../assets/icons/icons";
 import { useEffect, useState } from "react";
 import ContextMenu from "./ContextMenu";
 
@@ -40,7 +40,7 @@ export default function StartMenu() {
       onMouseLeave={() => {!displayContextMenu && setColor("white")}}
       onContextMenu={(e) => openContextMenu(e)}>
         <ContextMenu displayContextMenu={displayContextMenu} setDisplayContextMenu={setDisplayContextMenu} mousePosition={mousePosition}></ContextMenu>
-      <WindowsLogo color={color} />
+      <WindowsIcon color={color} />
     </StartMenuBox>
   );
 }
