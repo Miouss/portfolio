@@ -11,7 +11,7 @@ import { GoProject } from "react-icons/go";
 import { FaGlobe, FaWifi, FaPowerOff } from "react-icons/fa";
 import { BiMailSend } from "react-icons/bi";
 import { TbSend } from "react-icons/tb";
-import { HiOutlineChevronDoubleRight } from "react-icons/hi";
+import { HiOutlineChevronDoubleRight, HiOutlineChevronDoubleLeft } from "react-icons/hi";
 
 export const MailIcon = (style?: React.CSSProperties) => (
   <BiMailSend style={style} />
@@ -21,6 +21,9 @@ export const SendMailIcon = (style?: React.CSSProperties) => (
 );
 export const MailMinimizeIcon = (style?: React.CSSProperties) => (
   <HiOutlineChevronDoubleRight style={style} />
+);
+export const MailRefocusIcon = (style?: React.CSSProperties) => (
+  <HiOutlineChevronDoubleLeft style={style} />
 );
 export const GithubIcon = (style?: React.CSSProperties) => (
   <SiGithub style={style} />
