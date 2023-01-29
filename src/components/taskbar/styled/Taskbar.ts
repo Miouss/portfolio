@@ -4,5 +4,5 @@ export const Taskbar = styled(Stack)({
     color: "white",
     width: "100%",
     height: "45px",
-    backgroundColor: "rgba(25,35,72, 0.9)",
+    backgroundColor: "#1B2A3F",
 })
