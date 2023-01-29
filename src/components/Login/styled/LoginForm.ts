@@ -39,8 +39,21 @@ export const LoginFormButton = styled(Button)({
   "&:hover": {
     background: "rgba(255, 255, 255, 0.4)",
     cursor: "default",
+    animationPlayState: "paused",
+
   },
   borderRadius: "10px",
+
+  animation: "breathing 1s ease-in-out infinite alternate",
+
+  "@keyframes breathing": {
+    "0%": {
+      transform: "scale(1)",
+    },
+    "100%": {
+      transform: "scale(1.1)",
+    },
+  },
 });
 
 const wrongPassWordAnim = {

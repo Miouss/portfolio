@@ -44,7 +44,7 @@ export const GridAppIcon = styled("div")({
 
 export const GridAppLabel = styled("div")({
   color: "white",
-  textShadow: "1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000",
+  textShadow: "rgb(0, 0, 0) 0px 0px 3px",
 });
 
 export const GridAppBadge = styled("div")({
