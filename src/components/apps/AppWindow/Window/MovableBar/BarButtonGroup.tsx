@@ -37,7 +37,7 @@ export default function BarButtonGroup({ appName, refAppWindow }: Props) {
       }
     }
   };
-  console.log(refAppWindow);
+
   return (
     <BarButtonGroupContainer
       variant="outlined"
