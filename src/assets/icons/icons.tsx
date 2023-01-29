@@ -11,8 +11,54 @@ import { GoProject } from "react-icons/go";
 import { FaGlobe, FaWifi, FaPowerOff } from "react-icons/fa";
 import { BiMailSend } from "react-icons/bi";
 import { TbSend } from "react-icons/tb";
-import { HiOutlineChevronDoubleRight, HiOutlineChevronDoubleLeft } from "react-icons/hi";
+import {
+  HiOutlineChevronDoubleRight,
+  HiOutlineChevronDoubleLeft,
+} from "react-icons/hi";
+import { RiSoundcloudLine } from "react-icons/ri";
 
+import {
+  TbPlayerPlay,
+  TbPlayerPause,
+  TbPlayerStop,
+  TbPlayerSkipBack,
+  TbPlayerSkipForward,
+  TbVolumeOff,
+  TbVolume,
+  TbVolume2,
+  TbVolume3,
+} from "react-icons/tb";
+export const PlayIcon = (style?: React.CSSProperties) => (
+  <TbPlayerPlay style={style} />
+);
+export const PauseIcon = (style?: React.CSSProperties) => (
+  <TbPlayerPause style={style} />
+);
+export const StopIcon = (style?: React.CSSProperties) => (
+  <TbPlayerStop style={style} />
+);
+export const SkipBackIcon = (style?: React.CSSProperties) => (
+  <TbPlayerSkipBack style={style} />
+);
+export const SkipForwardIcon = (style?: React.CSSProperties) => (
+  <TbPlayerSkipForward style={style} />
+);
+export const VolumeOffIcon = (style?: React.CSSProperties) => (
+  <TbVolumeOff style={style} />
+);
+export const VolumeHighIcon = (style?: React.CSSProperties) => (
+  <TbVolume style={style} />
+);
+export const VolumeLowIcon = (style?: React.CSSProperties) => (
+  <TbVolume2 style={style} />
+);
+export const VolumeZeroIcon = (style?: React.CSSProperties) => (
+  <TbVolume3 style={style} />
+);
+  
+export const PlaylistIcon = (style?: React.CSSProperties) => (
+  <RiSoundcloudLine style={style} />
+);
 export const MailIcon = (style?: React.CSSProperties) => (
   <BiMailSend style={style} />
 );

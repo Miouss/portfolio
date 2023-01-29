@@ -6,6 +6,7 @@ import {
   GithubIcon,
   LinkedinIcon,
   MailIcon,
+  PlaylistIcon,
 } from "../../../../../assets/icons/icons";
 
 import TerminalApp from "./collection/Terminal/TerminalApp";
@@ -13,6 +14,7 @@ import ProjectPreviewApp from "./collection/Project/ProjectPreviewApp";
 
 import { AppList, ShortcutList } from "./types";
 import MailSender from "./collection/MailSender/MailSender";
+import ChillBeats from "./collection/ChillBeats/ChillBeats";
 
 let appList = {} as AppList[];
 let shortcutList = {} as ShortcutList[];
@@ -20,6 +22,7 @@ let shortcutList = {} as ShortcutList[];
 addApp("Terminal", <TerminalApp />, <TerminalIcon  fontSize="inherit" />, 1, 1);
 addApp("Projets", <ProjectPreviewApp />, <ProjectIcon  fontSize="inherit" />, 1, 2);
 addApp("Mail Sender", <MailSender appName="Mail Sender" />, <MailIcon  fontSize="inherit" />, 2, 2);
+addApp("Chill Beats", <ChillBeats appName="Chill Beats" />, <PlaylistIcon  fontSize="inherit" />, 3, 4);
 addApp("Welcome", <TerminalApp mode="notepad" />, <TerminalIcon  fontSize="inherit" />, 0, 0, true);
 
 
