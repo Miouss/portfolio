@@ -6,6 +6,7 @@ import {
   Message,
   MinimizeButton,
   Name,
+  RefocusButton,
   Subject,
   Submit,
 } from "./MailSenderStyled";
@@ -14,8 +15,9 @@ import {
   MailIcon,
   SendMailIcon,
   MailMinimizeIcon,
+  MailRefocusIcon,
 } from "../../../../../../../assets/icons/icons";
-import { useEffect, useRef, useState } from "react";
+import { useEffect  , useState } from "react";
 import {
   useAppDispatch,
   focusApp,
@@ -23,7 +25,6 @@ import {
   RootState,
 } from "../../../../../../../redux";
 import useFocusEffect from "../../../../../hooks/useFocusEffect";
-import useMinimizedEffect from "../../../../../hooks/useMinimizedEffect";
 import { useSelector } from "react-redux";
 
 export default function MailSender({ appName }: { appName: string }) {
@@ -64,6 +65,11 @@ export default function MailSender({ appName }: { appName: string }) {
       <MinimizeButton onClick={handleMinimize}>
         <MailMinimizeIcon />
       </MinimizeButton>
+      {
+        isMinimized && <RefocusButton>
+          <MailRefocusIcon />
+        </RefocusButton>
+      }
       <BigMailIcon>
         <MailIcon />
       </BigMailIcon>
