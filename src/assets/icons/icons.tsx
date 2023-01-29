@@ -28,6 +28,15 @@ import {
   TbVolume2,
   TbVolume3,
 } from "react-icons/tb";
+
+import {
+  IoVolumeHighOutline,
+  IoVolumeMediumOutline,
+  IoVolumeLowOutline,
+  IoVolumeOffOutline,
+  IoVolumeMuteOutline,
+} from "react-icons/io5";
+
 export const PlayIcon = (style?: React.CSSProperties) => (
   <TbPlayerPlay style={style} />
 );
@@ -43,19 +52,22 @@ export const SkipBackIcon = (style?: React.CSSProperties) => (
 export const SkipForwardIcon = (style?: React.CSSProperties) => (
   <TbPlayerSkipForward style={style} />
 );
-export const VolumeOffIcon = (style?: React.CSSProperties) => (
-  <TbVolumeOff style={style} />
+export const VolumeMuteIcon = (style?: React.CSSProperties) => (
+  <IoVolumeMuteOutline style={style} />
 );
 export const VolumeHighIcon = (style?: React.CSSProperties) => (
-  <TbVolume style={style} />
+  <IoVolumeHighOutline style={style} />
+);
+export const VolumeMediumIcon = (style?: React.CSSProperties) => (
+  <IoVolumeMediumOutline style={style} />
 );
 export const VolumeLowIcon = (style?: React.CSSProperties) => (
-  <TbVolume2 style={style} />
+  <IoVolumeLowOutline style={style} />
 );
 export const VolumeZeroIcon = (style?: React.CSSProperties) => (
-  <TbVolume3 style={style} />
+  <IoVolumeOffOutline style={style} />
 );
-  
+
 export const PlaylistIcon = (style?: React.CSSProperties) => (
   <RiSoundcloudLine style={style} />
 );

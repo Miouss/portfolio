@@ -7,42 +7,51 @@ import {
 } from "../../../apps/AppWindow/Window/Contents/list";
 import { NotifWindow } from "../NotifbarStyled";
 import { useSelector } from "react-redux";
-import { RootState, focusApp, minimizeApp, useAppDispatch } from "../../../../redux";
+import {
+  RootState,
+  closeApp,
+  focusApp,
+  minimizeApp,
+  useAppDispatch,
+} from "../../../../redux";
 
 interface Props {
   appName: string;
-  setNotifWindowContent: Dispatch<SetStateAction<JSX.Element | null>>;
 }
-export default function AppNotif({ appName, setNotifWindowContent }: Props) {
+export default function AppNotif({ appName }: Props) {
   const dispatch = useAppDispatch();
-  const notifWindow: JSX.Element = <NotifWindow><AppComponent name={appName} /></NotifWindow>;
 
-  const {isMinimized, isFocused} = useSelector((store: RootState) => {
+  const { isMinimized, isFocused } = useSelector((store: RootState) => {
     const app = store.apps.find((app) => app.name === appName);
     return app?.status!;
   });
 
   const handleClick = () => {
-    if(isMinimized) return dispatch(focusApp(appName));
-    dispatch(minimizeApp(appName));
+    if (isFocused) return dispatch(minimizeApp(appName));
+    dispatch(focusApp(appName));
+  };
+
+  const handleContextMenuClick = (e) => {
+    e.preventDefault();
+    dispatch(closeApp(appName));
   };
 
   useEffect(() => {
-    return () => setNotifWindowContent(null);
+    dispatch(focusApp(appName));
   }, []);
 
-  useEffect(() => {
-    if (isMinimized && !isFocused) return setNotifWindowContent(null);
-    
-    setNotifWindowContent((prevState: JSX.Element | null) => {
-      if (prevState === notifWindow) return null;
-      return notifWindow;
-    }); 
-  }, [isMinimized, isFocused]);
-
   return (
-    <AppNotifButton onClick={handleClick}>
-      <AppNotifIcon name={appName} />
-    </AppNotifButton>
+    <>
+      <NotifWindow visible={isFocused}>
+        <AppComponent name={appName} />
+      </NotifWindow>
+
+      <AppNotifButton
+        onClick={handleClick}
+        onContextMenu={handleContextMenuClick}
+      >
+        <AppNotifIcon name={appName} />
+      </AppNotifButton>
+    </>
   );
 }

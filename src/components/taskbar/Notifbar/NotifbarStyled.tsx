@@ -5,14 +5,19 @@ export const NotifbarContainer = styled("div")({
     display: "flex",
 });
 
-export const NotifWindow = styled("div")({
+export const NotifWindow = styled("div", {
+    shouldForwardProp: (prop) => prop !== "visible",
+})(({ visible }: { visible: boolean }) => ({
     position: "absolute",
     top: 0,
-    height: "100px",
+    height: "fit-content",
     width: "285px",
-    transform: "translate(-50%, -100%)",
+    transform: "translate(-59%, -100%)",
+    visibility: visible ? "visible" : "hidden",
     
-
-    backgroundColor: "rgba(0, 0, 0, 0.7)",
-    zIndex: 4,
-});
+    display: "flex",
+    border: "1px solid #3C3F43",
+    borderBottom: "none",
+    background: "#222A2F",
+    zIndex: 2,
+}));
