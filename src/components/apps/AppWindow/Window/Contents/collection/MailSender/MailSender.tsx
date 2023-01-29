@@ -6,6 +6,7 @@ import {
   Message,
   MinimizeButton,
   Name,
+  RefocusButton,
   Subject,
   Submit,
 } from "./MailSenderStyled";
@@ -14,8 +15,9 @@ import {
   MailIcon,
   SendMailIcon,
   MailMinimizeIcon,
+  MailRefocusIcon,
 } from "../../../../../../../assets/icons/icons";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   useAppDispatch,
   focusApp,
@@ -23,7 +25,6 @@ import {
   RootState,
 } from "../../../../../../../redux";
 import useFocusEffect from "../../../../../hooks/useFocusEffect";
-import useMinimizedEffect from "../../../../../hooks/useMinimizedEffect";
 import { useSelector } from "react-redux";
 
 export default function MailSender({ appName }: { appName: string }) {
@@ -35,6 +36,7 @@ export default function MailSender({ appName }: { appName: string }) {
   const dispatch = useAppDispatch();
 
   const [animation, setAnimation] = useState("slideInMail 0.5s forwards");
+  const [animationEnded, setAnimationEnded] = useState(false);
 
   useEffect(() => {
     dispatch(focusApp(appName));
@@ -52,7 +54,9 @@ export default function MailSender({ appName }: { appName: string }) {
   const zIndex = useFocusEffect(appName);
 
   useEffect(() => {
-    setAnimation(isMinimized ? "slideOutMail 0.5s forwards" : "slideInMail 0.5s forwards");
+    setAnimation(
+      isMinimized ? "slideOutMail 0.5s forwards" : "slideInMail 0.5s forwards"
+    );
   }, [isMinimized]);
 
   return (
@@ -60,10 +64,26 @@ export default function MailSender({ appName }: { appName: string }) {
       animation={animation}
       zIndex={zIndex}
       onClick={() => dispatch(focusApp(appName))}
+      onAnimationStart={(e) => {
+        if (e.animationName === "slideInMail") {
+          setAnimationEnded(false);
+        }
+      }}
+      onAnimationEnd={(e) => {
+        if (e.animationName === "slideOutMail") {
+          setAnimationEnded(true);
+          return;
+        }
+      }}
     >
       <MinimizeButton onClick={handleMinimize}>
         <MailMinimizeIcon />
       </MinimizeButton>
+      {animationEnded && (
+        <RefocusButton>
+          <MailRefocusIcon />
+        </RefocusButton>
+      )}
       <BigMailIcon>
         <MailIcon />
       </BigMailIcon>
