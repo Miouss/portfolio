@@ -29,6 +29,7 @@ export const LoginDispathContext = createContext((isLogged: boolean) => {});
 
 export default function App() {
   const [isLogged, setIsLogged] = useState(false);
+  const [isValid, setIsValid] = useState(false);
   const [alreadyLogged, setAlreadyLogged] = useState(false);
   const apps = useSelector((state: RootState) => state.apps);
   const dispatch = useAppDispatch();
@@ -99,7 +100,34 @@ export default function App() {
       setAlreadyLogged(true);
     }
   }, [isLogged]);
-
+  if (window.location.hostname !== "localhost") {
+    const handleSiteEntrance = (e) => {
+      e.preventDefault();
+      console.log(e.target[0].value);
+      if (e.target[0].value === "miouss") {
+        setIsValid(true);
+      }
+    };
+    if (!isValid) {
+      return (
+        <form
+          style={{
+            flex: 1,
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "lightgrey",
+          }}
+          onSubmit={handleSiteEntrance}
+        >
+          <input type="text" placeholder="password" />
+          <button type="submit">Valider</button>
+        </form>
+      );
+    }
+  }
   return (
     <>
       <div
