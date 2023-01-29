@@ -105,3 +105,20 @@ export const MinimizeButton = styled("button")({
         width: "20px",
     },
 });
+
+export const RefocusButton = styled("button")({
+    position: "absolute",
+    left: "0",
+    transform: "translateX(-20px)",
+    backgroundColor: "#232327",
+    borderRadius: "40%",
+    border: "none",
+    height: "40px",
+    cursor: "pointer",
+
+    "& > *": {
+        color: "white",
+        height: "20px",
+        width: "20px",
+    },
+});
