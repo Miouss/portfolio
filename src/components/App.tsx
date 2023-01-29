@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import {
   addApp,
   addSpecialApp,
+  addNotifApp,
   closeApp,
   openApp,
   RootState,
@@ -28,9 +29,9 @@ import { AppComponent } from "./apps/AppWindow/Window/Contents/list";
 export const LoginDispathContext = createContext((isLogged: boolean) => {});
 
 export default function App() {
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(true);
   const [isValid, setIsValid] = useState(false);
-  const [alreadyLogged, setAlreadyLogged] = useState(false);
+  const [alreadyLogged, setAlreadyLogged] = useState(true);
   const apps = useSelector((state: RootState) => state.apps);
   const dispatch = useAppDispatch();
 
@@ -53,6 +54,7 @@ export default function App() {
     dispatchAddApp("Terminal");
     dispatchAddApp("Projets");
     dispatch(addSpecialApp("Mail Sender"));
+    dispatch(addNotifApp("Chill Beats"));
     dispatchAddApp("Welcome");
 
     document.onselectstart = () => {
@@ -65,20 +67,23 @@ export default function App() {
     const appsRunning = apps.filter((app) => app.status.isRunning);
     setRunningApps(
       appsRunning.map((appRunning) => {
-        if (appRunning.status.isSpecial)
+        if (appRunning.status.isSpecial === true)
           return (
             <AppComponent
               key={`Component ${appRunning.name}`}
               name={appRunning.name}
             />
           );
+        if (!appRunning.status.isSpecial) {
+          return (
+            <AppWindow
+              key={`Component ${appRunning.name}`}
+              appName={appRunning.name}
+            />
+          );
+        }
 
-        return (
-          <AppWindow
-            key={`Component ${appRunning.name}`}
-            appName={appRunning.name}
-          />
-        );
+        return <></>;
       })
     );
   }, [apps]);
@@ -144,9 +149,9 @@ export default function App() {
           <Taskbar />
         </LoginDispathContext.Provider>
       </div>
-      <LoginContainer ref={loginRef} isLogged={isLogged}>
+      {/*       <LoginContainer ref={loginRef} isLogged={isLogged}>
         <Login setIsLogged={setIsLogged} />
-      </LoginContainer>
+      </LoginContainer> */}
     </>
   );
 }

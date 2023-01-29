@@ -23,7 +23,7 @@ addApp("Terminal", <TerminalApp />, <TerminalIcon  fontSize="inherit" />, 1, 1);
 addApp("Projets", <ProjectPreviewApp />, <ProjectIcon  fontSize="inherit" />, 1, 2);
 addApp("Mail Sender", <MailSender appName="Mail Sender" />, <MailIcon  fontSize="inherit" />, 2, 2);
 addApp("Chill Beats", <ChillBeats appName="Chill Beats" />, <PlaylistIcon  fontSize="inherit" />, 3, 4);
-addApp("Welcome", <TerminalApp mode="notepad" />, <TerminalIcon  fontSize="inherit" />, 0, 0, true);
+addApp("Welcome", <TerminalApp key="welcome" mode="notepad" />, <TerminalIcon  fontSize="inherit" />, 0, 0, true);
 
 
 addShortcut(
@@ -59,6 +59,10 @@ export function AppWindowIcon({ name }: Props) {
 
 export function AppTaskIcon({ name }: Props) {
   return appList[name].icon.task;
+}
+
+export function AppNotifIcon({ name }: Props) {
+  return appList[name].icon.notif;
 }
 
 export function getAppGridPostion(appName: string) {
@@ -105,6 +109,7 @@ function addApp(
       application: Icon,
       desktop: Icon,
       task: Icon,
+      notif: Icon,
     },
     gridPostion: {
       col: col,
