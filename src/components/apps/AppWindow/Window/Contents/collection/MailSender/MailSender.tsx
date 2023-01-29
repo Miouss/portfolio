@@ -17,7 +17,7 @@ import {
   MailMinimizeIcon,
   MailRefocusIcon,
 } from "../../../../../../../assets/icons/icons";
-import { useEffect  , useState } from "react";
+import { useEffect, useState } from "react";
 import {
   useAppDispatch,
   focusApp,
@@ -36,6 +36,7 @@ export default function MailSender({ appName }: { appName: string }) {
   const dispatch = useAppDispatch();
 
   const [animation, setAnimation] = useState("slideInMail 0.5s forwards");
+  const [animationEnded, setAnimationEnded] = useState(false);
 
   useEffect(() => {
     dispatch(focusApp(appName));
@@ -53,7 +54,9 @@ export default function MailSender({ appName }: { appName: string }) {
   const zIndex = useFocusEffect(appName);
 
   useEffect(() => {
-    setAnimation(isMinimized ? "slideOutMail 0.5s forwards" : "slideInMail 0.5s forwards");
+    setAnimation(
+      isMinimized ? "slideOutMail 0.5s forwards" : "slideInMail 0.5s forwards"
+    );
   }, [isMinimized]);
 
   return (
@@ -61,15 +64,26 @@ export default function MailSender({ appName }: { appName: string }) {
       animation={animation}
       zIndex={zIndex}
       onClick={() => dispatch(focusApp(appName))}
+      onAnimationStart={(e) => {
+        if (e.animationName === "slideInMail") {
+          setAnimationEnded(false);
+        }
+      }}
+      onAnimationEnd={(e) => {
+        if (e.animationName === "slideOutMail") {
+          setAnimationEnded(true);
+          return;
+        }
+      }}
     >
       <MinimizeButton onClick={handleMinimize}>
         <MailMinimizeIcon />
       </MinimizeButton>
-      {
-        isMinimized && <RefocusButton>
+      {animationEnded && (
+        <RefocusButton>
           <MailRefocusIcon />
         </RefocusButton>
-      }
+      )}
       <BigMailIcon>
         <MailIcon />
       </BigMailIcon>

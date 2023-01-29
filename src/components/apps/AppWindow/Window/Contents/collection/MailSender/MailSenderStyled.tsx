@@ -1,8 +1,8 @@
 import styled from "@mui/system/styled";
 
 export const MailSenderContainer = styled("div", {
-    shouldForwardProp: (prop) => prop !== "animation" && prop !== "zIndex",
-})(({ zIndex, animation }: { zIndex: string, animation?: string }) => ({
+  shouldForwardProp: (prop) => prop !== "animation" && prop !== "zIndex",
+})(({ zIndex, animation }: { zIndex: string; animation?: string }) => ({
   position: "absolute",
   width: "30%",
   height: "calc(100% - 45px)",
@@ -26,12 +26,12 @@ export const MailSenderContainer = styled("div", {
 
   "@keyframes slideOutMail": {
     "0%": {
-        transform: "translateX(0)",
+      transform: "translateX(0)",
     },
     "100%": {
-        transform: "translateX(100%)",
+      transform: "translateX(100%)",
     },
-    },
+  },
 }));
 
 export const BigMailIcon = styled("i")({
@@ -48,77 +48,92 @@ export const BigMailIcon = styled("i")({
 
 export const Form = styled("form")({
   flex: 3,
-    width: "100%",
-    height: "100%",
+  width: "100%",
+  height: "100%",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   gap: "1rem",
   paddingBottom: "1rem",
 
-    "& > *": {
-        width: "80% !important",
-        backgroundColor: "rgb(0, 0, 0, 0.4)",
-        border: "none",
-        outline: "none",
-        color: "white",
-        padding: "0.5rem",
-        borderRadius: "0.5rem",
-    },
+  "& > *": {
+    width: "80% !important",
+    backgroundColor: "rgb(0, 0, 0, 0.4)",
+    border: "none",
+    outline: "none",
+    color: "white",
+    padding: "0.5rem",
+    borderRadius: "0.5rem",
+  },
 });
 
-export const Name = styled("input")({
-});
+export const Name = styled("input")({});
 
-export const Email = styled("input")({
-});
+export const Email = styled("input")({});
 
-export const Subject = styled("input")({
-});
+export const Subject = styled("input")({});
 
 export const Message = styled("textarea")({
-    flex: 1,
+  flex: 1,
 
-    resize: "none",
+  resize: "none",
 });
 
 export const Submit = styled("button")({
-    "&:hover": {
-        cursor: "pointer",
-        backgroundColor: "rgb(255, 255, 255, 0.05)",
-    },
+  "&:hover": {
+    cursor: "pointer",
+    backgroundColor: "rgb(255, 255, 255, 0.05)",
+  },
 });
 
 export const MinimizeButton = styled("button")({
-    position: "absolute",
-    left: "0",
-    border: "none",
-    backgroundColor: "transparent",
+  position: "absolute",
+  left: "0",
+  border: "none",
+  backgroundColor: "transparent",
 
-    "&:hover": {
-        cursor: "pointer",
-    },
+  "&:hover": {
+    cursor: "pointer",
+  },
 
-    "& > *": {
-        color: "white",
-        height: "20px",
-        width: "20px",
-    },
+  "& > *": {
+    color: "white",
+    height: "20px",
+    width: "20px",
+  },
 });
 
 export const RefocusButton = styled("button")({
-    position: "absolute",
-    left: "0",
-    transform: "translateX(-20px)",
-    backgroundColor: "#232327",
-    borderRadius: "40%",
-    border: "none",
-    height: "40px",
-    cursor: "pointer",
+  position: "absolute",
+  left: "0",
+  transform: "translateX(-23px)",
+  backgroundColor: "#232327",
+  borderRadius: "40%",
+  border: "none",
+  height: "100%",
+  width: "100%",
 
-    "& > *": {
-        color: "white",
-        height: "20px",
-        width: "20px",
+  maxHeight: "30px",
+  maxWidth: "30px",
+  cursor: "pointer",
+
+  animation: "refocusButton 2s ease-in-out infinite",
+
+  "@keyframes refocusButton": {
+    "0%": {
+      transform: "translateX(-18px)",
     },
+    "50%": {
+      transform: "translateX(-23px)",
+    },
+    "100%": {
+      transform: "translateX(-18px)",
+    },
+  },
+
+  "& > *": {
+    color: "white",
+    height: "100%",
+    width: "100%",
+  },
 });
