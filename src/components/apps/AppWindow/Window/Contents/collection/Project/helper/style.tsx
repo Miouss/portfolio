@@ -8,6 +8,39 @@ interface ResponsiveFontSize {
   fsresp: number;
 }
 
+
+
+export const ProjectContainer = styled("div")({
+  position: "relative",
+  alignSelf: "center",
+  width: "70%",
+  display: "flex",
+  flexDirection: "column",
+
+  border: "1px solid rgba(0, 0, 0, 0.2)",
+});
+
+export const BackgroundLayer = styled("div")({
+  position: "absolute",
+  height: "100%",
+  width: "100%",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  overflow: "hidden",
+
+  "& > *": {
+    flex: 1,
+  },
+
+  "& > * > img": {
+    width: "100%",
+    height: "100%",
+    objectFit: "scale-down",
+  },
+});
+
+
 // ProjectContainer >
 export const Content = styled("article", {
   shouldForwardProp: (prop) => prop !== "showGallery",

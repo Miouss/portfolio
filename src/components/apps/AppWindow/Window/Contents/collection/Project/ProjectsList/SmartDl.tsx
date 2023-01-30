@@ -1,19 +1,19 @@
-import ProjectContentBuilder from "./ProjectContentBuilder";
-import SmartDlBg from "../../../../../../../assets/projets/smartdl.png";
+import ProjectContentBuilder from "../helper/ProjectContentBuilder";
+import SmartDlBg from "../../../../../../../../assets/projets/smartdl.png";
 import {
   reactSVG,
   nodejsSVG,
   muiSVG,
   expressSVG,
   electronSVG,
-} from "../../../../../../../assets/icons/icons";
+} from "../../../../../../../../assets/icons/icons";
 
 interface Tech {
   name: string;
   icon: JSX.Element;
 }
 
-export default function ProjectSmartDl() {
+export default function SmartDl() {
   const name = "Smart Dl";
   const description = `Smart DL est un projet qui a pour but de faciliter le téléchargement
    de n'importe quelle vidéo d'un provider style Netflix, Disney+, etc.

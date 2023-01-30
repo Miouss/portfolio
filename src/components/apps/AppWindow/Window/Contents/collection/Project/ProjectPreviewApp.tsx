@@ -1,19 +1,15 @@
-import { ProjetPreviewApp } from "./ProjectPreview";
+import { ProjetPreviewApp } from "./style";
 
-import ProjectLolMood from "./ProjectLolMood";
-import ProjectPortofolio from "./ProjectPortofolio";
-import ProjectSmartDl from "./ProjectSmartDl";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../../../../redux";
+import LolMood from "./ProjectsList/LolMood";
+import Portofolio from "./ProjectsList/Portofolio";
+import SmartDl from "./ProjectsList/SmartDl";
 
 export default function ProjectPreviewApp() {
-  const fsresp = useSelector((store: RootState) => store.windowResponsiveFont);
-  
   return (
-    <ProjetPreviewApp fsresp={fsresp}>
-      <ProjectLolMood />
-      <ProjectSmartDl />
-      <ProjectPortofolio />
+    <ProjetPreviewApp>
+      <LolMood />
+      <SmartDl />
+      <Portofolio />
     </ProjetPreviewApp>
   );
 }

@@ -1,18 +1,18 @@
-import ProjectContentBuilder from "./ProjectContentBuilder";
-import LolMoodBg from "../../../../../../../assets/projets/lolmood.png";
+import ProjectContentBuilder from "../helper/ProjectContentBuilder";
+import LolMoodBg from "../../../../../../../../assets/projets/lolmood.png";
 import {
   reactSVG,
   phpSVG,
   mysqlSVG,
   muiSVG
-} from "../../../../../../../assets/icons/icons";
+} from "../../../../../../../../assets/icons/icons";
 
 interface Tech {
   name: string;
   icon: JSX.Element;
 }
 
-export default function ProjectLolMood() {
+export default function LolMood() {
   const name = "LOL MOOD";
   const description = `LoL Mood fût mon premier gros projet mettant en pratique mes
   connaissances en React, PHP, et MySQL. Il s'agit d'un site web

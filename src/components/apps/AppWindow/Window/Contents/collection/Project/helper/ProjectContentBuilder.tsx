@@ -3,13 +3,15 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
-import { visibilitySVG } from "../../../../../../../assets/icons/icons";
+import { visibilitySVG } from "../../../../../../../../assets/icons/icons";
 
-import Lolmood from "../../../../../../../assets/projets/lolmood.png";
-import Lolmood2 from "../../../../../../../assets/projets/lolmood2.png";
-import Lolmood3 from "../../../../../../../assets/projets/lolmood3.png";
+import Lolmood from "../../../../../../../../assets/projets/lolmood.png";
+import Lolmood2 from "../../../../../../../../assets/projets/lolmood2.png";
+import Lolmood3 from "../../../../../../../../assets/projets/lolmood3.png";
 
 import {
+  BackgroundLayer, 
+  ProjectContainer,
   Content,
   Title,
   Description,
@@ -37,10 +39,9 @@ import {
   ImageTwo,
   ImageThree,
   HideVisibilityButton,
-} from "./ProjectContent";
-import { BackgroundLayer, ProjectContainer } from "./ProjectPreview";
+} from "./style";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../../../../redux";
+import { RootState } from "../../../../../../../../redux";
 import { useState } from "react";
 
 interface Tech {
@@ -65,7 +66,9 @@ export default function ContentBuilder({
   techs,
   link,
 }: Props) {
-  const [showGallery, setShowGallery] = useState<boolean | undefined>(undefined);
+  const [showGallery, setShowGallery] = useState<boolean | undefined>(
+    undefined
+  );
   const fsresp = useSelector((store: RootState) => store.windowResponsiveFont);
 
   const TechItems = techs.map((tech, i) => (
@@ -174,7 +177,9 @@ export default function ContentBuilder({
               <Description fsresp={fsresp}>{description}</Description>
               <TechContainer>
                 <TechTitle fsresp={fsresp}>Technologies :</TechTitle>
-                <TechItemsContainer fsresp={fsresp}>{TechItems}</TechItemsContainer>
+                <TechItemsContainer fsresp={fsresp}>
+                  {TechItems}
+                </TechItemsContainer>
               </TechContainer>
             </Details>
             <Options>

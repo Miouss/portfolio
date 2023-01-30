@@ -1,17 +1,17 @@
-import ProjectContentBuilder from "./ProjectContentBuilder";
-import PortofolioBG from "../../../../../../../assets/projets/portofolio.png";
+import ProjectContentBuilder from "../helper/ProjectContentBuilder";
+import PortofolioBG from "../../../../../../../../assets/projets/portofolio.png";
 import {
   reactSVG,
   muiSVG,
   reduxSVG,
-} from "../../../../../../../assets/icons/icons";
+} from "../../../../../../../../assets/icons/icons";
 
 interface Tech {
   name: string;
   icon: JSX.Element;
 }
 
-export default function ProjectPortofolio() {
+export default function Portofolio() {
   const name = "Portofolio Windows 10";
   const description = `Le portofolio étant la vitrine du développeur web autodidacte, je me devais de faire un projet 
   qui sort de la norme afin de me démarquer. J'ai donc décidé de faire un portofolio ayant 
