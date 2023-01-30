@@ -4,7 +4,7 @@ import { RootState } from "../../../redux";
 
 import AppTask from "./AppTask/AppTask";
 
-import { AppbarContainer } from "../styled/Appbar";
+import { AppbarContainer } from "./style";
 
 export default function Appbar() {
   const [appsContainers, setAppsContainers] = useState<JSX.Element[]>([]);

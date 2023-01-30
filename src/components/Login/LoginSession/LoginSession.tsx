@@ -1,15 +1,15 @@
 import {
   LoginSessionGlobalContainer,
-} from "../styled/LoginSession";
-import LoginSessionSamir from "./LoginSessionSamir";
-import LoginSessionMiouss from "./LoginSessionMiouss";
+} from "./style";
+import SessionSamir from "./Sessions/SessionSamir";
+import SessionMiouss from "./Sessions/SessionMiouss";
 
 
 export default function LoginSession() {
   return (
     <LoginSessionGlobalContainer>
-        <LoginSessionSamir />
-        <LoginSessionMiouss />
+        <SessionSamir />
+        <SessionMiouss />
     </LoginSessionGlobalContainer>
   );
 }

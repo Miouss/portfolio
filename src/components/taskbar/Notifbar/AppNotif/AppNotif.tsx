@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import { AppNotifButton } from "./AppNotifStyled";
+import { AppNotifButton } from "./style";
 import {
   AppComponent,
   AppNotifIcon,
-} from "../../../apps/AppWindow/Window/Contents/list";
-import { NotifWindow } from "../NotifbarStyled";
+} from "../../../Applications/AppWindow/Window/Contents/list";
+import { NotifWindow } from "../style";
 import { useSelector } from "react-redux";
 import {
   RootState,
@@ -14,7 +14,7 @@ import {
   minimizeApp,
   useAppDispatch,
 } from "../../../../redux";
-import ContextMenu from "./ContextMenu";
+import ContextMenu from "./ContextMenu/ContextMenu";
 
 interface Props {
   appName: string;

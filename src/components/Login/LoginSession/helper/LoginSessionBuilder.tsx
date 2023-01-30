@@ -3,7 +3,7 @@ import {
   LoginSessionBadge,
   LoginSessionContainer,
   LoginSessionTitle,
-} from "../../styled/LoginSession";
+} from "./style";
 
 import { DispatchContext, StateContext } from "../../Login";
 import { LoginSessionProp } from "../../Login";

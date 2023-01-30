@@ -3,8 +3,8 @@ import {
   BackgroundLayer,
   LoginBox,
   LoginSubBox,
-} from "./styled/Login";
-import LoginBackground from "../../assets/login-background.png";
+} from "./style";
+import LoginBackground from "../../assets/backgrounds/login.png";
 import LoginForm from "./LoginForm/LoginForm";
 import LoginSession from "./LoginSession/LoginSession";
 import { createContext, useState } from "react";

@@ -1,7 +1,7 @@
 import {
   ShortcutDesktopIcon,
   getShortcutLink,
-} from "../../apps/AppWindow/Window/Contents/list";
+} from "../../Applications/AppWindow/Window/Contents/list";
 import ShortcutIcon from "@mui/icons-material/Shortcut";
 import {
   BackgroundColorLayer,
@@ -9,7 +9,7 @@ import {
   GridAppContainer,
   GridAppIcon,
   GridAppLabel,
-} from "../styled/GridApp";
+} from "./style";
 import { useState } from "react";
 
 interface Props {

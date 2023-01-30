@@ -7,13 +7,13 @@ import {
   useAppDispatch,
 } from "../../../../redux";
 
-import { AppTaskIcon } from "../../../apps/AppWindow/Window/Contents/list";
+import { AppTaskIcon } from "../../../Applications/AppWindow/Window/Contents/list";
 import ContextMenu from "./AppTaskContextMenu/ContextMenu";
 import {
   AppIconBox,
   AppUnderline,
   AppTaskContainer,
-} from "../../styled/Appbar";
+} from "./style";
 
 interface Props {
   appName: string;

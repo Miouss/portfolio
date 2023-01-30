@@ -15,36 +15,27 @@ import {
   RootState,
   useAppDispatch,
 } from "../redux";
-import AppGrid from "./desktop/DesktopGrid";
-import Taskbar from "./taskbar/Taskbar";
+import AppGrid from "./Desktop/DesktopGrid";
+import Taskbar from "./Taskbar/Taskbar";
 
-import AppWindow from "./apps/AppWindow";
-import WindowsWallpaper from "../assets/windows-wallpaper.png";
-import "../styles/Desktop.css";
+import AppWindow from "./Applications/AppWindow";
 
 import Login from "./Login/Login";
-import { LoginContainer } from "./AppStyleComp";
-import { AppComponent } from "./apps/AppWindow/Window/Contents/list";
+import { LoginContainer, SessionContainer } from "./style";
+import { AppComponent } from "./Applications/AppWindow/Window/Contents/list";
 
 export const LoginDispathContext = createContext((isLogged: boolean) => {});
 
 export default function App() {
   const [isLogged, setIsLogged] = useState(false);
   const [isValid, setIsValid] = useState(false);
-  const [alreadyLogged, setAlreadyLogged] = useState(true);
+  const [alreadyLogged, setAlreadyLogged] = useState(false);
   const apps = useSelector((state: RootState) => state.apps);
   const dispatch = useAppDispatch();
 
   const loginRef = useRef<HTMLDivElement>(null);
 
   const [runningApps, setRunningApps] = useState<ReactElement[]>([]);
-
-  const bgImageStyle = {
-    backgroundImage: `url(${WindowsWallpaper})`,
-    backgroundPosition: "76% 50%",
-    backgroundSize: "1920px 1080px",
-    backgroundRepeat: "no-repeat",
-  };
 
   useEffect(() => {
     const dispatchAddApp = (name: string) => {
@@ -102,7 +93,7 @@ export default function App() {
 
       setAlreadyLogged(true);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLogged]);
 
   if (window.location.hostname !== "localhost") {
@@ -135,20 +126,13 @@ export default function App() {
   }
   return (
     <>
-      <div
-        id="desktop"
-        style={{
-          width: "100%",
-          visibility: isLogged ? "visible" : "hidden",
-          ...bgImageStyle,
-        }}
-      >
+      <SessionContainer isLogged={isLogged}>
         {runningApps}
         <AppGrid />
         <LoginDispathContext.Provider value={setIsLogged}>
           <Taskbar />
         </LoginDispathContext.Provider>
-      </div>
+      </SessionContainer>
       <LoginContainer ref={loginRef} isLogged={isLogged}>
         <Login setIsLogged={setIsLogged} />
       </LoginContainer>

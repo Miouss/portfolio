@@ -3,17 +3,16 @@ import { ReactElement } from "react";
 import NormalApp from "./DesktopGrid/GridAppWindow";
 import ShortcutApp from "./DesktopGrid/GridAppShortcut";
 
-import "../../styles/DesktopGrid.css";
 import {
   DesktopEmptyGridItem,
   DesktopGridContainer,
-} from "./styled/DesktopGrid";
+} from "./style";
 import {
   getAllAppsName,
   getAllShortcutsName,
   getAppGridPostion,
   getShortcutGridPostion,
-} from "../apps/AppWindow/Window/Contents/list";
+} from "../Applications/AppWindow/Window/Contents/list";
 
 export interface AppStyle {
   borderStyle?: string;
