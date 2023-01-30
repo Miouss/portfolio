@@ -3,14 +3,8 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
-import { visibilitySVG } from "../../../../../../../../assets/icons/icons";
-
-import Lolmood from "../../../../../../../../assets/projets/lolmood.png";
-import Lolmood2 from "../../../../../../../../assets/projets/lolmood2.png";
-import Lolmood3 from "../../../../../../../../assets/projets/lolmood3.png";
-
 import {
-  BackgroundLayer, 
+  BackgroundLayer,
   ProjectContainer,
   Content,
   Title,
@@ -29,8 +23,6 @@ import {
   TechItemIcon,
   TechItemName,
   Options,
-  VisibilityIconButton,
-  VisibilityIconContainer,
   ChevronLeft,
   ChevronRight,
   Chevrons,
@@ -38,11 +30,19 @@ import {
   ImageOne,
   ImageTwo,
   ImageThree,
-  HideVisibilityButton,
+  HidePreviewButton,
+  PreviewLabel,
+  PreviewButton,
+  PreviewIcon,
+  PreviewButtonContainer,
 } from "./style";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../../../../redux";
 import { useState } from "react";
+import {
+  VisibilityOffIcon,
+  VisibilityOnIcon,
+} from "../../../../../../../../assets/icons/icons";
 
 interface Tech {
   name: string;
@@ -52,7 +52,7 @@ interface Tech {
 interface Props {
   name: string;
   description: string;
-  imageUrl: string;
+  imageUrl: string[];
   repo: string;
   techs: Tech[];
   link?: string;
@@ -89,9 +89,9 @@ export default function ContentBuilder({
   const [disableButtons, setDisableButtons] = useState(false);
 
   const imgSrc = [
-    <img src={Lolmood} alt="lolmood2" />,
-    <img src={Lolmood2} alt="lolmood2" />,
-    <img src={Lolmood3} alt="lolmood2" />,
+    <img src={imageUrl[0]} alt="lolmood2" />,
+    <img src={imageUrl[1]} alt="lolmood2" />,
+    <img src={imageUrl[2]} alt="lolmood2" />,
   ];
 
   const nextAnimOrder = [
@@ -139,6 +139,8 @@ export default function ContentBuilder({
     }
   };
 
+  console.log(fsresp);
+
   return (
     <ProjectContainer>
       <BackgroundLayer>
@@ -154,9 +156,9 @@ export default function ContentBuilder({
       </BackgroundLayer>
       <Content showGallery={showGallery}>
         <Chevrons showGallery={showGallery}>
-          <HideVisibilityButton onClick={() => setShowGallery(false)}>
-            {visibilitySVG}
-          </HideVisibilityButton>
+          <HidePreviewButton onClick={() => setShowGallery(false)}>
+            <VisibilityOffIcon />
+          </HidePreviewButton>
           <ChevronLeft
             disabled={disableButtons}
             onClick={() => handleAnimStart(prevAnimOrder)}
@@ -183,11 +185,14 @@ export default function ContentBuilder({
               </TechContainer>
             </Details>
             <Options>
-              <VisibilityIconContainer fsresp={fsresp}>
-                <VisibilityIconButton onClick={() => setShowGallery(true)}>
-                  {visibilitySVG}
-                </VisibilityIconButton>
-              </VisibilityIconContainer>
+              <PreviewButtonContainer fsresp={fsresp}>
+                <PreviewButton onClick={() => setShowGallery(true)}>
+                  <PreviewLabel>Voir un aperçu</PreviewLabel>
+                  <PreviewIcon>
+                    <VisibilityOnIcon />
+                  </PreviewIcon>
+                </PreviewButton>
+              </PreviewButtonContainer>
 
               <RedirectContainer fsresp={fsresp}>
                 <RedirectItem fsresp={fsresp}>

@@ -1,5 +1,7 @@
 import ProjectContentBuilder from "../helper/ProjectContentBuilder";
-import PortofolioBG from "../../../../../../../../assets/projets/portofolio.png";
+import Portofolio1 from "../../../../../../../../assets/projets/lolmood1.png";
+import Portofolio2 from "../../../../../../../../assets/projets/lolmood2.png";
+import Portofolio3 from "../../../../../../../../assets/projets/lolmood3.png";
 import {
   reactSVG,
   muiSVG,
@@ -16,12 +18,13 @@ export default function Portofolio() {
   const description = `Le portofolio étant la vitrine du développeur web autodidacte, je me devais de faire un projet 
   qui sort de la norme afin de me démarquer. J'ai donc décidé de faire un portofolio ayant 
   le comportement de Windows 10.
+
+  L'intégralité du projet a été fait from scratch, sans composants/fonctionnalités pré-fabriqués.
+  
   J'ai voulu rester le plus fidèle possible à l'interface de l'OS, en utilisant les mêmes 
-  polices, les mêmes couleurs, les mêmes icônes, etc. La complexité de gérer une telle interface notamment le
-  systeme de fenêtre m'a permis de découvrir Redux, de mieux comprendre le fonctionnement de React et
-    d'améliorer grandement mes compétences sur tous les aspects du front-end.
+  polices, les mêmes couleurs, les mêmes icônes, etc. La complexité de gérer une telle interface notamment le systeme de fenêtre m'a permis de découvrir Redux, de mieux comprendre le fonctionnement de React et d'améliorer grandement mes compétences sur tous les aspects du front-end.
   `;
-  const imageUrl = PortofolioBG;
+  const imageUrl = [Portofolio1, Portofolio2, Portofolio3];
 
   const techs: Tech[] = [
     {

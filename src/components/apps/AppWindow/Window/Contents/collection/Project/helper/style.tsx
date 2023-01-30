@@ -8,16 +8,15 @@ interface ResponsiveFontSize {
   fsresp: number;
 }
 
-
-
-export const ProjectContainer = styled("div")({
+export const ProjectContainer = styled("article")({
   position: "relative",
   alignSelf: "center",
   width: "70%",
   display: "flex",
   flexDirection: "column",
-
-  border: "1px solid rgba(0, 0, 0, 0.2)",
+  ":last-of-type": {
+    marginBottom: "20px",
+  },
 });
 
 export const BackgroundLayer = styled("div")({
@@ -40,11 +39,10 @@ export const BackgroundLayer = styled("div")({
   },
 });
 
-
 // ProjectContainer >
 export const Content = styled("article", {
   shouldForwardProp: (prop) => prop !== "showGallery",
-})(({ showGallery }: { showGallery: boolean | undefined}) => ({  
+})(({ showGallery }: { showGallery: boolean | undefined }) => ({
   "& > :last-child": {
     animation:
       showGallery !== undefined
@@ -87,24 +85,28 @@ export const ProjectContent = styled("section")({
 });
 
 // ProjectContent >
-export const Title = styled("h2", fontSizeResponsive)(({fsresp}: ResponsiveFontSize) => ({
+export const Title = styled(
+  "h2",
+  fontSizeResponsive
+)(({ fsresp }: ResponsiveFontSize) => ({
   margin: 0,
-  padding: fsresp >= 12 ? "80px 0 35px 160px" : "20px",
+  padding: fsresp >= 12 ? "20px 0 0px 80px" : "20px",
   textAlign: fsresp >= 12 ? "left" : "center",
-
   fontFamily: "'Lato'",
   fontStyle: "normal",
   fontWeight: "400",
-  fontSize: fsresp >= 12 ? "64px" : "48px",
+  fontSize: fsresp >= 12 ? "48px" : "36px",
   lineHeight: "77px",
 }));
 
 //  ProjectContent >
-export const Subcontent = styled("section", fontSizeResponsive)(({fsresp}: ResponsiveFontSize) => ({
+export const Subcontent = styled(
+  "section",
+  fontSizeResponsive
+)(({ fsresp }: ResponsiveFontSize) => ({
   display: "flex",
   flexDirection: fsresp >= 12 ? "row" : "column",
   gap: fsresp >= 12 ? "0" : "3rem",
-  marginBottom: fsresp >= 12 ? "150px" : "30px",
 }));
 
 // Subcontent >
@@ -122,10 +124,15 @@ export const Details = styled("section")({
 });
 
 //  Details >
-export const Description = styled("p", fontSizeResponsive)(({fsresp}: ResponsiveFontSize) => ({
+export const Description = styled(
+  "p",
+  fontSizeResponsive
+)(({ fsresp }: ResponsiveFontSize) => ({
   fontFamily: "'Lato'",
   fontStyle: "normal",
   fontWeight: "400",
+  whiteSpace: "pre-line",
+  textShadow: "rgb(255, 255, 255) 0px 0px 4px",
   fontSize: fsresp >= 12 ? "18px" : "16px",
   lineHeight: "22px",
 }));
@@ -134,14 +141,22 @@ export const TechContainer = styled("section")({
   display: "flex",
   flexDirection: "column",
   gap: "1rem",
+  paddingBottom: "32px",
 });
 
 //  TechContainer >
-export const TechTitle = styled("h3", fontSizeResponsive)(({ fsresp }: ResponsiveFontSize) => ({
+export const TechTitle = styled(
+  "h3",
+  fontSizeResponsive
+)(({ fsresp }: ResponsiveFontSize) => ({
   paddingLeft: fsresp >= 12 ? "24px" : "0px",
+  textShadow: "rgb(255, 255, 255) 0px 0px 4px",
 }));
 
-export const TechItemsContainer = styled("section", fontSizeResponsive)(({ fsresp }: ResponsiveFontSize) => ({
+export const TechItemsContainer = styled(
+  "section",
+  fontSizeResponsive
+)(({ fsresp }: ResponsiveFontSize) => ({
   width: fsresp >= 12 ? "70%" : "100%",
 
   display: "flex",
@@ -179,55 +194,67 @@ export const Options = styled("section")({
 });
 
 // Options >
-export const VisibilityIconContainer = styled(
+export const PreviewButtonContainer = styled(
   "section",
   fontSizeResponsive
 )(({ fsresp }: ResponsiveFontSize) => ({
-  alignSelf: "center",
-
-  display: fsresp >= 12 ? "block" : "none",
+  display: fsresp >= 12 ? "flex" : "none",
+  justifyContent: "center",
+  alignItems: "flex-end",
 }));
 
-// VisibilityIconContainer >
-export const VisibilityIconButton = styled("button")({
-  border: "none",
-  background: "none",
+// PreviewButtonContainer >
+export const PreviewButton = styled("button")({
+  backgroundColor: "rgba(242, 242, 242, 0.6)",
+
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  padding: "1rem",
+  gap: "1rem",
+  border: "1px solid black",
 
   "&:hover": {
+    backgroundColor: "rgba(242, 242, 242, 0.8)",
     cursor: "pointer",
+  },
+});
+export const PreviewLabel = styled("h4")({
+  margin: 0,
+  padding: 0,
+});
+export const PreviewIcon = styled("i")({
+  "& > *": {
+    width: "24px",
+    height: "24px",
   },
 });
 
 // Options >
-export const RedirectContainer = styled("section", fontSizeResponsive)(({ fsresp }: ResponsiveFontSize) => ({
+export const RedirectContainer = styled(
+  "section",
+  fontSizeResponsive
+)(({ fsresp }: ResponsiveFontSize) => ({
   display: "flex",
   flexDirection: fsresp >= 12 ? "column" : "row",
   gap: "1rem",
-
-  justifyContent: "space-around",
+  justifyContent: fsresp >= 12 ? "flex-end" : "space-evenly",
+  paddingBottom: "32px",
 }));
 
 // RedirectContainer >
-export const RedirectItem = styled("button", fontSizeResponsive)(({ fsresp }: ResponsiveFontSize) => ({
+export const RedirectItem = styled(
+  "button",
+  fontSizeResponsive
+)(({ fsresp }: ResponsiveFontSize) => ({
   width: fsresp >= 12 ? "70%" : "40%",
   backgroundColor: "rgba(242, 242, 242, 0.6)",
   alignSelf: "center",
-}));
-
-// RedirectItem >
-export const Link = styled("a")({
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-
-  textDecoration: "none",
-
-  "& > *": {
-    flex: 1,
-  },
+  border: "1px solid black",
 
   "&:hover": {
-    animation: "scale 1.5s ease-in-out infinite forwards"
+    animation: "scale 1.5s ease-in-out infinite forwards",
+    background: "rgba(242, 242, 242, 0.8)",
   },
 
   "@keyframes scale": {
@@ -241,7 +268,15 @@ export const Link = styled("a")({
       transform: "scale(1)",
     },
   },
+}));
 
+// RedirectItem >
+export const Link = styled("a")({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+
+  textDecoration: "none",
 });
 
 Link.defaultProps = {
@@ -252,17 +287,19 @@ Link.defaultProps = {
 // Link >
 export const LinkIcon = styled("i")({
   flex: 1,
-  
-  color: "#000000",  
+
+  color: "#000000",
 });
 
 export const LinkTitle = styled("h4")({
   flex: 3,
-  color: "#000000",  
+  textShadow: "rgb(255, 255, 255) 0px 0px 2px",
+
+  color: "#000000",
 });
 
 // ProjectContent >
-export const HideVisibilityButton = styled("button")({
+export const HidePreviewButton = styled("button")({
   position: "absolute",
   bottom: "20%",
   right: "5%",
@@ -271,6 +308,10 @@ export const HideVisibilityButton = styled("button")({
   background: "none",
 
   opacity: 0.5,
+  "& > *": {
+    width: "64px",
+    height: "64px",
+  },
 
   "&:hover": {
     cursor: "pointer",
@@ -294,56 +335,55 @@ export const Chevrons = styled("div", {
     "&:hover": {
       cursor: "pointer",
       animationPlayState: "paused",
+      color: "rgba(255, 255, 255, 0.8)",
     },
-
+    color: "rgba(255, 255, 255, 0.5)",
     zIndex: 1,
     flex: 0.05,
   },
 
   visibility: showGallery ? "visible" : "hidden",
-  animation: showGallery ? "fadeIn 2s ease-in-out" : "none",
+  animation: showGallery ? "fadeInChevrons 2s ease-in-out" : "none",
+
+  "@keyframes fadeInChevrons": {
+    "0%": {
+      opacity: 0,
+      transform: "scale(0.1)",
+    },
+    "100%": {
+      opacity: 1,
+      transform: "scale(1)",
+    },
+  },
 }));
 
-const chevronBouncingRight = {
-  "@keyframes chevronBouncingRight": {
+type OrientationProp = "left" | "right";
+
+const chevronBouncing = (orientation: OrientationProp) => ({
+  [`@keyframes chevronBouncing${orientation}`]: {
     "0%": {
       transform: "translateX(0)",
     },
     "50%": {
-      transform: "translateX(-10px)",
+      transform: `translateX(${orientation === "left" ? -10 : 10}px)`,
     },
     "100%": {
       transform: "translateX(0)",
     },
   },
-};
+});
 
-const chevronBouncingLeft = {
-  "@keyframes chevronBouncingLeft": {
-    "0%": {
-      transform: "translateX(0)",
-    },
-    "50%": {
-      transform: "translateX(10px)",
-    },
-    "100%": {
-      transform: "translateX(0)",
-    },
-  },
-};
-
-const bouncingAnimRight = `chevronBouncingRight 1.5s ease-in infinite both`;
-const bouncingAnimLeft = `chevronBouncingLeft 1.5s ease-in infinite both`;
+const bouncingAnim = (orientation: OrientationProp) =>
+  `chevronBouncing${orientation} 1.5s ease-in infinite both`;
 
 export const ChevronLeft = styled("button")({
-  animation: bouncingAnimLeft,
-  chevronBouncingLeft,
+  animation: bouncingAnim("left"),
+  ...chevronBouncing("left"),
 });
 
 export const ChevronRight = styled("button")({
-  animation: bouncingAnimRight,
-  
-  chevronBouncingRight,
+  animation: bouncingAnim("right"),
+  ...chevronBouncing("right"),
 });
 
 const forwardAnimProp = { shouldForwardProp: (prop) => prop !== "anim" };

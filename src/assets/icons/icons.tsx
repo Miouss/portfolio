@@ -35,6 +35,22 @@ import {
 
 import { ImMusic } from "react-icons/im";
 
+import { MdVisibility, MdVisibilityOff } from "react-icons/md";
+
+import {BsChevronRight, BsChevronLeft} from "react-icons/bs";
+
+export const ChevronRightIcon = (style?: React.CSSProperties) => (
+  <BsChevronRight style={style} />
+);
+export const ChevronLeftIcon = (style?: React.CSSProperties) => (
+  <BsChevronLeft style={style} />
+);
+export const VisibilityOnIcon = (style?: React.CSSProperties) => (
+  <MdVisibility style={style} />
+);
+export const VisibilityOffIcon = (style?: React.CSSProperties) => (
+  <MdVisibilityOff style={style} />
+);
 export const NowPlayingIcon = (style?: React.CSSProperties) => (
   <ImMusic style={style} />
 );
@@ -291,34 +307,5 @@ export const electronSVG = (
         <path d="M127.617 54.444c7.049 0 12.763-5.714 12.763-12.763 0-7.049-5.714-12.763-12.763-12.763-7.049 0-12.763 5.714-12.763 12.763 0 7.049 5.714 12.763 12.763 12.763zm0-5.333a7.43 7.43 0 1 1 0-14.86 7.43 7.43 0 0 1 0 14.86zm1.949 93.382c-4.985 1.077-9.896-2.091-10.975-7.076a9.236 9.236 0 0 1 7.076-10.976c4.985-1.077 9.896 2.091 10.976 7.076 1.077 4.985-2.091 9.897-7.077 10.976z" />
       </g>
     </g>
-  </svg>
-);
-
-export const visibilitySVG = (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="#D3D3D3"
-    width="80px"
-    height="80px"
-    viewBox="0 0 24 24"
-  >
-    <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
-  </svg>
-);
-
-export const chevronSVG = (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    shapeRendering="geometricPrecision"
-    textRendering="geometricPrecision"
-    imageRendering="optimizeQuality"
-    fillRule="evenodd"
-    clipRule="evenodd"
-    viewBox="0 0 298 511.93"
-  >
-    <path
-      fillRule="nonzero"
-      d="M70.77 499.85c-16.24 16.17-42.53 16.09-58.69-.15-16.17-16.25-16.09-42.54.15-58.7l185.5-185.03L12.23 70.93c-16.24-16.16-16.32-42.45-.15-58.7 16.16-16.24 42.45-16.32 58.69-.15l215.15 214.61c16.17 16.25 16.09 42.54-.15 58.7l-215 214.46z"
-    />
   </svg>
 );
