@@ -60,9 +60,9 @@ export default function ChillBeats({ appName }: { appName: string }) {
   };
 
   const trackList = [
+    "Jhove x Amess - I know, goodbye (Lofi Records)",
     "14.3 Billion Years (OST Outer Wilds)",
     "Cheel - Blue Dream",
-    "Jhove x Amess - I know, goodbye (Lofi Records)",
     "Kayou - Beyond",
   ];
 
