@@ -37,7 +37,7 @@ export default function App() {
 
   const loginRef = useRef<HTMLDivElement>(null);
 
-  const [runningApps, setRunningApps] = useState<Array<ReactElement>>([]);
+  const [runningApps, setRunningApps] = useState<ReactElement[]>([]);
 
   const bgImageStyle = {
     backgroundImage: `url(${WindowsWallpaper})`,
@@ -64,7 +64,9 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const appsRunning = apps.filter((app) => app.status.isRunning);
+    const appsRunning = apps.filter(
+      (app) => app.status.isRunning && app.status.isSpecial !== "notif"
+    );
     setRunningApps(
       appsRunning.map((appRunning) => {
         if (appRunning.status.isSpecial === true)
@@ -74,16 +76,12 @@ export default function App() {
               name={appRunning.name}
             />
           );
-        if (!appRunning.status.isSpecial) {
-          return (
-            <AppWindow
-              key={`Component ${appRunning.name}`}
-              appName={appRunning.name}
-            />
-          );
-        }
-
-        return <></>;
+        return (
+          <AppWindow
+            key={`Component ${appRunning.name}`}
+            appName={appRunning.name}
+          />
+        );
       })
     );
   }, [apps]);

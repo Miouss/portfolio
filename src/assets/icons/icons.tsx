@@ -23,10 +23,6 @@ import {
   TbPlayerStop,
   TbPlayerSkipBack,
   TbPlayerSkipForward,
-  TbVolumeOff,
-  TbVolume,
-  TbVolume2,
-  TbVolume3,
 } from "react-icons/tb";
 
 import {
@@ -37,6 +33,11 @@ import {
   IoVolumeMuteOutline,
 } from "react-icons/io5";
 
+import { ImMusic } from "react-icons/im";
+
+export const NowPlayingIcon = (style?: React.CSSProperties) => (
+  <ImMusic style={style} />
+);
 export const PlayIcon = (style?: React.CSSProperties) => (
   <TbPlayerPlay style={style} />
 );

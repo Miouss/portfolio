@@ -11,13 +11,14 @@ export const NotifWindow = styled("div", {
     position: "absolute",
     top: 0,
     height: "fit-content",
-    width: "285px",
+    width: "297px",
     transform: "translate(-59%, -100%)",
     visibility: visible ? "visible" : "hidden",
     
     display: "flex",
     border: "1px solid #3C3F43",
     borderBottom: "none",
+    borderRight: "none",
     background: "#222A2F",
     zIndex: 2,
 }));

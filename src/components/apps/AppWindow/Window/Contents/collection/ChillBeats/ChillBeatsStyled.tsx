@@ -7,12 +7,60 @@ export const ChillBeatsContainer = styled("div")({
   flexDirection: "column",
   gap: "1rem",
   padding: "1rem",
+  maxWidth: "calc(100% - 2rem)",
 
   zIndex: 4,
 
   "& > *": {
     flex: 1,
   },
+});
+
+export const NowPlayingContainer = styled("div")({
+  display: "flex",
+});
+export const NowPlayingIconContainer = styled("i")({
+  flex: 0.2,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+
+  "& > *": {
+    width: "auto",
+    height: "100%",
+    color: "white",
+  },
+});
+export const NowPlayingTrackContainer = styled("div")({
+  flex: 1,
+  overflow: "hidden !important",
+});
+
+export const NowPlayingTrack = styled("h5", {
+  shouldForwardProp: (prop) => prop !== "translatePx",
+})(({ translatePx }: { translatePx: number }) => {
+  console.log(translatePx);
+
+  return {
+    color: "white",
+    margin: 0,
+    padding: 0,
+    whiteSpace: "nowrap",
+    textAlign: "center",
+    animation: translatePx
+      ? `autoscroll${translatePx!} 4s ease-in-out infinite alternate`
+      : "none",
+
+    [`@keyframes autoscroll${translatePx!}`]:
+     {
+      "0%": {
+        transform: "translateX(0%)",
+      },
+      "100%": {
+        transform: `translateX(${translatePx!}px)`,
+      },
+    },
+  };
 });
 
 export const PlayerButtons = styled("div")({
@@ -27,7 +75,6 @@ export const PlayerButtons = styled("div")({
     flex: 1,
     paddingTop: "0.3rem",
     "&:hover": {
-      cursor: "pointer",
       background: "#334055",
     },
     "&:active": {
@@ -47,10 +94,16 @@ export const SoundControl = styled("div")({
 export const SoundButton = styled("button")({
   border: "none",
   backgroundColor: "transparent",
-  color: "white",
+  color: "#D2D5D6",
   "& > *": {
     width: "1.7rem",
     height: "1.7rem",
+  },
+  "&:hover": {
+    color: "#E8E9EA",
+  },
+  "&:active": {
+    color: "#FFFFFF",
   },
 });
 
@@ -71,15 +124,20 @@ const rangeThumbStyle = {
   height: "26px",
   border: "none",
   background: "#0078D7",
-  "&:hover": {
-    background: "white",
-  },
 };
 
-export const VolumeSlider = styled("input")({
+export const VolumeSlider = styled("input", {
+  shouldForwardProp: (prop) => prop !== "colorBreak",
+})(({ colorBreak }: { colorBreak: number }) => ({ // Colorbreak is for handling color difference in volume slider in Chrome/Safari
   flex: 1,
   height: "8px",
   alignSelf: "center",
+  "&:hover&::-moz-range-thumb": {
+    background: "#FFFFFF",
+  },
+  "&:hover&::-webkit-slider-thumb": {
+    background: "#FFFFFF",
+  },
   "&::-moz-range-thumb": {
     ...rangeThumbStyle,
   },
@@ -91,14 +149,19 @@ export const VolumeSlider = styled("input")({
   },
   "&::-webkit-slider-thumb": {
     WebkitAppearance: "none !important",
-    transform: "translateY(-30%)",
+    borderRadius: "2rem",
+    transform: "translateY(-33%)",
     ...rangeThumbStyle,
   },
-  "&::-webkit-slider-progress": {
-    ...rangeProgressStyle,
-  },
   "&::-webkit-slider-runnable-track": {
-    WebkitAppearance: "none !important",
-    ...rangeTrackStyle,
+    background: `linear-gradient(
+      to right,
+      #429CE3 0%,
+      #429CE3 ${colorBreak}%,
+      #798086 ${colorBreak}%,
+      #798086 100%
+    )`,
+    width: "100%",
+    height: "100%",
   },
-});
+}));
