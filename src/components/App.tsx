@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import {
   addApp,
   addSpecialApp,
+  addNotifApp,
   closeApp,
   openApp,
   RootState,
@@ -28,15 +29,15 @@ import { AppComponent } from "./apps/AppWindow/Window/Contents/list";
 export const LoginDispathContext = createContext((isLogged: boolean) => {});
 
 export default function App() {
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(true);
   const [isValid, setIsValid] = useState(false);
-  const [alreadyLogged, setAlreadyLogged] = useState(false);
+  const [alreadyLogged, setAlreadyLogged] = useState(true);
   const apps = useSelector((state: RootState) => state.apps);
   const dispatch = useAppDispatch();
 
   const loginRef = useRef<HTMLDivElement>(null);
 
-  const [runningApps, setRunningApps] = useState<Array<ReactElement>>([]);
+  const [runningApps, setRunningApps] = useState<ReactElement[]>([]);
 
   const bgImageStyle = {
     backgroundImage: `url(${WindowsWallpaper})`,
@@ -53,6 +54,7 @@ export default function App() {
     dispatchAddApp("Terminal");
     dispatchAddApp("Projets");
     dispatch(addSpecialApp("Mail Sender"));
+    dispatch(addNotifApp("Chill Beats"));
     dispatchAddApp("Welcome");
 
     document.onselectstart = () => {
@@ -62,17 +64,18 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const appsRunning = apps.filter((app) => app.status.isRunning);
+    const appsRunning = apps.filter(
+      (app) => app.status.isRunning && app.status.isSpecial !== "notif"
+    );
     setRunningApps(
       appsRunning.map((appRunning) => {
-        if (appRunning.status.isSpecial)
+        if (appRunning.status.isSpecial === true)
           return (
             <AppComponent
               key={`Component ${appRunning.name}`}
               name={appRunning.name}
             />
           );
-
         return (
           <AppWindow
             key={`Component ${appRunning.name}`}
@@ -100,6 +103,7 @@ export default function App() {
       setAlreadyLogged(true);
     }
   }, [isLogged]);
+  
   if (window.location.hostname !== "localhost") {
     const handleSiteEntrance = (e) => {
       e.preventDefault();
@@ -144,9 +148,9 @@ export default function App() {
           <Taskbar />
         </LoginDispathContext.Provider>
       </div>
-      <LoginContainer ref={loginRef} isLogged={isLogged}>
+      {/*       <LoginContainer ref={loginRef} isLogged={isLogged}>
         <Login setIsLogged={setIsLogged} />
-      </LoginContainer>
+      </LoginContainer> */}
     </>
   );
 }

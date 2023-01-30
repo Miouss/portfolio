@@ -9,10 +9,10 @@ import { AppbarContainer } from "../styled/Appbar";
 export default function Appbar() {
   const [appsContainers, setAppsContainers] = useState<JSX.Element[]>([]);
 
-  const apps = useSelector((state: RootState) => state.apps);
+  const apps = useSelector((store: RootState) => store.apps);
 
   useEffect(() => {
-    const appsRunning = apps.filter((app) => app.status.isRunning);
+    const appsRunning = apps.filter((app) => app.status.isRunning && app.status.isSpecial !== "notif");
 
     setAppsContainers(
       appsRunning

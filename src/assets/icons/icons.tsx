@@ -11,8 +11,67 @@ import { GoProject } from "react-icons/go";
 import { FaGlobe, FaWifi, FaPowerOff } from "react-icons/fa";
 import { BiMailSend } from "react-icons/bi";
 import { TbSend } from "react-icons/tb";
-import { HiOutlineChevronDoubleRight, HiOutlineChevronDoubleLeft } from "react-icons/hi";
+import {
+  HiOutlineChevronDoubleRight,
+  HiOutlineChevronDoubleLeft,
+} from "react-icons/hi";
+import { RiSoundcloudLine } from "react-icons/ri";
 
+import {
+  TbPlayerPlay,
+  TbPlayerPause,
+  TbPlayerStop,
+  TbPlayerSkipBack,
+  TbPlayerSkipForward,
+} from "react-icons/tb";
+
+import {
+  IoVolumeHighOutline,
+  IoVolumeMediumOutline,
+  IoVolumeLowOutline,
+  IoVolumeOffOutline,
+  IoVolumeMuteOutline,
+} from "react-icons/io5";
+
+import { ImMusic } from "react-icons/im";
+
+export const NowPlayingIcon = (style?: React.CSSProperties) => (
+  <ImMusic style={style} />
+);
+export const PlayIcon = (style?: React.CSSProperties) => (
+  <TbPlayerPlay style={style} />
+);
+export const PauseIcon = (style?: React.CSSProperties) => (
+  <TbPlayerPause style={style} />
+);
+export const StopIcon = (style?: React.CSSProperties) => (
+  <TbPlayerStop style={style} />
+);
+export const SkipBackIcon = (style?: React.CSSProperties) => (
+  <TbPlayerSkipBack style={style} />
+);
+export const SkipForwardIcon = (style?: React.CSSProperties) => (
+  <TbPlayerSkipForward style={style} />
+);
+export const VolumeMuteIcon = (style?: React.CSSProperties) => (
+  <IoVolumeMuteOutline style={style} />
+);
+export const VolumeHighIcon = (style?: React.CSSProperties) => (
+  <IoVolumeHighOutline style={style} />
+);
+export const VolumeMediumIcon = (style?: React.CSSProperties) => (
+  <IoVolumeMediumOutline style={style} />
+);
+export const VolumeLowIcon = (style?: React.CSSProperties) => (
+  <IoVolumeLowOutline style={style} />
+);
+export const VolumeZeroIcon = (style?: React.CSSProperties) => (
+  <IoVolumeOffOutline style={style} />
+);
+
+export const PlaylistIcon = (style?: React.CSSProperties) => (
+  <RiSoundcloudLine style={style} />
+);
 export const MailIcon = (style?: React.CSSProperties) => (
   <BiMailSend style={style} />
 );

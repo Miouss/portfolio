@@ -9,6 +9,8 @@ export const DesktopGridContainer = styled(Stack)({
         flexBasis: "10% !important",
     },
     marginRight: "1rem",
+
+    zIndex: 0,
 });
 
 DesktopGridContainer.defaultProps = {

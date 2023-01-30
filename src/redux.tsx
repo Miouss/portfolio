@@ -7,7 +7,7 @@ export interface AppStatus {
   isFocused: boolean;
   isMinimized: boolean;
   isFullscreen: boolean;
-  isSpecial?: boolean;
+  isSpecial?: boolean | "notif";
 }
 
 export interface RunningApp {
@@ -39,6 +39,18 @@ const apps = createSlice({
           isMinimized: false,
           isFullscreen: false,
           isSpecial: true,
+        },
+      });
+    },
+    addNotifApp: (state, { payload }: PayloadAction<string>) => {
+      state.push({
+        name: payload,
+        status: {
+          isRunning: false,
+          isFocused: false,
+          isMinimized: false,
+          isFullscreen: false,
+          isSpecial: "notif",
         },
       });
     },
@@ -101,6 +113,7 @@ const windowResponsiveFont = createSlice({
 export const {
   addApp,
   addSpecialApp,
+  addNotifApp,
   openApp,
   closeApp,
   focusApp,
