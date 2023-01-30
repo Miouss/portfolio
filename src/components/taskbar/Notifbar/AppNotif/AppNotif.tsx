@@ -5,7 +5,7 @@ import {
   AppComponent,
   AppNotifIcon,
 } from "../../../Applications/AppWindow/Window/Contents/list";
-import { NotifWindow } from "../style";
+import { NotifWindow } from "./style";
 import { useSelector } from "react-redux";
 import {
   RootState,
