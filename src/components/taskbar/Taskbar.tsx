@@ -6,7 +6,7 @@ import Notifbar from "./Notifbar/Notifbar";
 
 export default function DesktopTaskBar() {
   return (
-    <Taskbar direction={"row"}>
+    <Taskbar>
       <StartMenu />
       <Appbar />
       <Notifbar />

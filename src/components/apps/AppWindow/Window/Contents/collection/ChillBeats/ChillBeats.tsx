@@ -44,7 +44,8 @@ export default function ChillBeats({ appName }: { appName: string }) {
 
   const dispatch = useAppDispatch();
 
-  const handleAudioPlay = () => {
+  const handleAudioPlay = (e) => {
+    e.stopPropagation();
     if (audioFile.paused) {
       audioFile.play();
       setIsPlaying(true);
@@ -54,6 +55,7 @@ export default function ChillBeats({ appName }: { appName: string }) {
     }
   };
   const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation();
     setVolume(parseInt(e.target.value));
   };
 

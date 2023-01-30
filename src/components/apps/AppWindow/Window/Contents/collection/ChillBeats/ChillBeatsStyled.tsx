@@ -9,8 +9,6 @@ export const ChillBeatsContainer = styled("div")({
   padding: "1rem",
   maxWidth: "calc(100% - 2rem)",
 
-  zIndex: 4,
-
   "& > *": {
     flex: 1,
   },
@@ -38,30 +36,25 @@ export const NowPlayingTrackContainer = styled("div")({
 
 export const NowPlayingTrack = styled("h5", {
   shouldForwardProp: (prop) => prop !== "translatePx",
-})(({ translatePx }: { translatePx: number }) => {
-  console.log(translatePx);
+})(({ translatePx }: { translatePx: number }) => ({
+  color: "white",
+  margin: 0,
+  padding: 0,
+  whiteSpace: "nowrap",
+  textAlign: "center",
+  animation: translatePx
+    ? `autoscroll${translatePx!} 4s ease-in-out infinite alternate`
+    : "none",
 
-  return {
-    color: "white",
-    margin: 0,
-    padding: 0,
-    whiteSpace: "nowrap",
-    textAlign: "center",
-    animation: translatePx
-      ? `autoscroll${translatePx!} 4s ease-in-out infinite alternate`
-      : "none",
-
-    [`@keyframes autoscroll${translatePx!}`]:
-     {
-      "0%": {
-        transform: "translateX(0%)",
-      },
-      "100%": {
-        transform: `translateX(${translatePx!}px)`,
-      },
+  [`@keyframes autoscroll${translatePx!}`]: {
+    "0%": {
+      transform: "translateX(0%)",
     },
-  };
-});
+    "100%": {
+      transform: `translateX(${translatePx!}px)`,
+    },
+  },
+}));
 
 export const PlayerButtons = styled("div")({
   display: "flex",
@@ -127,8 +120,9 @@ const rangeThumbStyle = {
 };
 
 export const VolumeSlider = styled("input", {
+  // Colorbreak is to handle color difference in volume slider on Chrome/Safari
   shouldForwardProp: (prop) => prop !== "colorBreak",
-})(({ colorBreak }: { colorBreak: number }) => ({ // Colorbreak is for handling color difference in volume slider in Chrome/Safari
+})(({ colorBreak }: { colorBreak: number }) => ({
   flex: 1,
   height: "8px",
   alignSelf: "center",

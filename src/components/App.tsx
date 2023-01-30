@@ -103,6 +103,7 @@ export default function App() {
       setAlreadyLogged(true);
     }
   }, [isLogged]);
+  
   if (window.location.hostname !== "localhost") {
     const handleSiteEntrance = (e) => {
       e.preventDefault();
