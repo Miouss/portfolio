@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState, focusApp, openApp, useAppDispatch } from "../../../redux";
-import { AppDesktopIcon } from "../../apps/AppWindow/Window/Contents/list";
+import { AppDesktopIcon } from "../../Applications/AppWindow/Window/Contents/list";
 import {
   BackgroundColorLayer,
   GridAppContainer,
   GridAppIcon,
   GridAppLabel,
-} from "../styled/GridApp";
+} from "./style";
 
 interface Props {
   appName: string;

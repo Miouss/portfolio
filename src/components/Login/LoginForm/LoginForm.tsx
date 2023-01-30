@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { LoginFormContainer } from "../styled/LoginForm";
-import LoginFormSamir from "./LoginFormSamir";
-import LoginFormMiouss from "./LoginFormMiouss";
+import { LoginFormContainer } from "./style";
+import FormSamir from "./Forms/FormSamir";
+import FormMiouss from "./Forms/FormMiouss";
 
 import { StateContext } from "../Login";
 
@@ -11,9 +11,9 @@ export default function LoginForm() {
   return (
     <LoginFormContainer>
       {selectedLoginSession === "Samir" ? (
-        <LoginFormSamir />
+        <FormSamir />
       ) : (
-        <LoginFormMiouss />
+        <FormMiouss />
       )}
     </LoginFormContainer>
   );

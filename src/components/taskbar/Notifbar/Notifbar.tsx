@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NotifbarContainer } from "./NotifbarStyled";
+import { NotifbarContainer } from "./style";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux";
 import AppNotif from "./AppNotif/AppNotif";

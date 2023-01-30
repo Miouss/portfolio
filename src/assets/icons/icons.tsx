@@ -1,5 +1,5 @@
 /* eslint-disable react/style-prop-object */
-import React from "react";
+import { CSSProperties } from "react";
 
 import {
   SiWindows,
@@ -37,93 +37,83 @@ import { ImMusic } from "react-icons/im";
 
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 
-import {BsChevronRight, BsChevronLeft} from "react-icons/bs";
+import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 
-export const ChevronRightIcon = (style?: React.CSSProperties) => (
+export const ChevronRightIcon = (style?: CSSProperties) => (
   <BsChevronRight style={style} />
 );
-export const ChevronLeftIcon = (style?: React.CSSProperties) => (
+export const ChevronLeftIcon = (style?: CSSProperties) => (
   <BsChevronLeft style={style} />
 );
-export const VisibilityOnIcon = (style?: React.CSSProperties) => (
+export const VisibilityOnIcon = (style?: CSSProperties) => (
   <MdVisibility style={style} />
 );
-export const VisibilityOffIcon = (style?: React.CSSProperties) => (
+export const VisibilityOffIcon = (style?: CSSProperties) => (
   <MdVisibilityOff style={style} />
 );
-export const NowPlayingIcon = (style?: React.CSSProperties) => (
+export const NowPlayingIcon = (style?: CSSProperties) => (
   <ImMusic style={style} />
 );
-export const PlayIcon = (style?: React.CSSProperties) => (
+export const PlayIcon = (style?: CSSProperties) => (
   <TbPlayerPlay style={style} />
 );
-export const PauseIcon = (style?: React.CSSProperties) => (
+export const PauseIcon = (style?: CSSProperties) => (
   <TbPlayerPause style={style} />
 );
-export const StopIcon = (style?: React.CSSProperties) => (
+export const StopIcon = (style?: CSSProperties) => (
   <TbPlayerStop style={style} />
 );
-export const SkipBackIcon = (style?: React.CSSProperties) => (
+export const SkipBackIcon = (style?: CSSProperties) => (
   <TbPlayerSkipBack style={style} />
 );
-export const SkipForwardIcon = (style?: React.CSSProperties) => (
+export const SkipForwardIcon = (style?: CSSProperties) => (
   <TbPlayerSkipForward style={style} />
 );
-export const VolumeMuteIcon = (style?: React.CSSProperties) => (
+export const VolumeMuteIcon = (style?: CSSProperties) => (
   <IoVolumeMuteOutline style={style} />
 );
-export const VolumeHighIcon = (style?: React.CSSProperties) => (
+export const VolumeHighIcon = (style?: CSSProperties) => (
   <IoVolumeHighOutline style={style} />
 );
-export const VolumeMediumIcon = (style?: React.CSSProperties) => (
+export const VolumeMediumIcon = (style?: CSSProperties) => (
   <IoVolumeMediumOutline style={style} />
 );
-export const VolumeLowIcon = (style?: React.CSSProperties) => (
+export const VolumeLowIcon = (style?: CSSProperties) => (
   <IoVolumeLowOutline style={style} />
 );
-export const VolumeZeroIcon = (style?: React.CSSProperties) => (
+export const VolumeZeroIcon = (style?: CSSProperties) => (
   <IoVolumeOffOutline style={style} />
 );
 
-export const PlaylistIcon = (style?: React.CSSProperties) => (
+export const PlaylistIcon = (style?: CSSProperties) => (
   <RiSoundcloudLine style={style} />
 );
-export const MailIcon = (style?: React.CSSProperties) => (
-  <BiMailSend style={style} />
-);
-export const SendMailIcon = (style?: React.CSSProperties) => (
-  <TbSend style={style} />
-);
-export const MailMinimizeIcon = (style?: React.CSSProperties) => (
+export const MailIcon = (style?: CSSProperties) => <BiMailSend style={style} />;
+export const SendMailIcon = (style?: CSSProperties) => <TbSend style={style} />;
+export const MailMinimizeIcon = (style?: CSSProperties) => (
   <HiOutlineChevronDoubleRight style={style} />
 );
-export const MailRefocusIcon = (style?: React.CSSProperties) => (
+export const MailRefocusIcon = (style?: CSSProperties) => (
   <HiOutlineChevronDoubleLeft style={style} />
 );
-export const GithubIcon = (style?: React.CSSProperties) => (
-  <SiGithub style={style} />
-);
-export const LinkedinIcon = (style?: React.CSSProperties) => (
+export const GithubIcon = (style?: CSSProperties) => <SiGithub style={style} />;
+export const LinkedinIcon = (style?: CSSProperties) => (
   <SiLinkedin style={style} />
 );
-export const ProjectIcon = (style?: React.CSSProperties) => (
+export const ProjectIcon = (style?: CSSProperties) => (
   <GoProject style={style} />
 );
-export const WindowsIcon = (style?: React.CSSProperties) => (
+export const WindowsIcon = (style?: CSSProperties) => (
   <SiWindows style={style} />
 );
-export const TerminalIcon = (style?: React.CSSProperties) => (
+export const TerminalIcon = (style?: CSSProperties) => (
   <SiWindowsterminal style={style} />
 );
-export const PowerIcon = (style?: React.CSSProperties) => (
+export const PowerIcon = (style?: CSSProperties) => (
   <FaPowerOff style={style} />
 );
-export const WifiIcon = (style?: React.CSSProperties) => (
-  <FaWifi style={style} />
-);
-export const LangIcon = (style?: React.CSSProperties) => (
-  <FaGlobe style={style} />
-);
+export const WifiIcon = (style?: CSSProperties) => <FaWifi style={style} />;
+export const LangIcon = (style?: CSSProperties) => <FaGlobe style={style} />;
 
 export const muiSVG = (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">

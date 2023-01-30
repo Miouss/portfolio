@@ -1,7 +1,7 @@
-import { StartMenuBox } from "../styled/StartMenu";
+import { StartMenuBox } from "./style";
 import { WindowsIcon } from "../../../assets/icons/icons";
 import { useEffect, useState } from "react";
-import ContextMenu from "./ContextMenu";
+import ContextMenu from "./ContextMenu/ContextMenu";
 
 export default function StartMenu() {
   const [color, setColor] = useState("white");

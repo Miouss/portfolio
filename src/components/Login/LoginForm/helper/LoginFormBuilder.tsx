@@ -1,4 +1,4 @@
-import { LoginFormBadge } from "../../styled/LoginForm";
+import { LoginFormBadge } from "./style";
 
 interface Props {
     profilPicture:string;
