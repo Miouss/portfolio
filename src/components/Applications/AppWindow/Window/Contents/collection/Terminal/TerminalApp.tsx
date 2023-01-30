@@ -18,22 +18,19 @@ export default function TerminalApp({ mode }: Props) {
 
   async function simulateKeyPressed(txt: string) {
     await delay(20);
-    if(txt[0] === "£"){
-      const lastIndexFound = txt.indexOf('£', 2);
+    if (txt[0] === "£") {
+      const lastIndexFound = txt.indexOf("£", 2);
       const blockText = txt.slice(1, lastIndexFound);
-      if(lastIndexFound){
+      if (lastIndexFound) {
         txt = txt.slice(lastIndexFound);
-      }else{
+      } else {
         txt = "";
       }
       await delay(100);
       terminalAppContentRef.current!.textContent += blockText;
-    } 
-    else{
+    } else {
       terminalAppContentRef.current!.textContent += txt[0];
     }
-
-    console.log(txt);
 
     if (txt.length > 1) return simulateKeyPressed(txt.slice(1));
   }
@@ -50,7 +47,6 @@ export default function TerminalApp({ mode }: Props) {
       Bonne visite !£\n\n
       Appuyez sur une touche pour continuer...`;
       await simulateKeyPressed(welcomeMessage);
-      console.log("coucou");
       terminalAppContentRef.current!.textContent! += currentDir;
       if (!mode) setCurrentDir("C:\\>");
       terminalAppContentRef.current!.focus();
