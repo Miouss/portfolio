@@ -29,7 +29,7 @@ import { AppComponent } from "./apps/AppWindow/Window/Contents/list";
 export const LoginDispathContext = createContext((isLogged: boolean) => {});
 
 export default function App() {
-  const [isLogged, setIsLogged] = useState(true);
+  const [isLogged, setIsLogged] = useState(false);
   const [isValid, setIsValid] = useState(false);
   const [alreadyLogged, setAlreadyLogged] = useState(true);
   const apps = useSelector((state: RootState) => state.apps);
@@ -102,8 +102,9 @@ export default function App() {
 
       setAlreadyLogged(true);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLogged]);
-  
+
   if (window.location.hostname !== "localhost") {
     const handleSiteEntrance = (e) => {
       e.preventDefault();
@@ -148,9 +149,9 @@ export default function App() {
           <Taskbar />
         </LoginDispathContext.Provider>
       </div>
-      {/*       <LoginContainer ref={loginRef} isLogged={isLogged}>
+      <LoginContainer ref={loginRef} isLogged={isLogged}>
         <Login setIsLogged={setIsLogged} />
-      </LoginContainer> */}
+      </LoginContainer>
     </>
   );
 }
