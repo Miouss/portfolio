@@ -1,7 +1,7 @@
-import { styled } from "@mui/system";
+import styled from "@mui/system/styled";
 
 export const StartMenuBox = styled("div", {
-  shouldForwardProp: (prop) => prop !== "rightclick"
+  shouldForwardProp: (prop) => prop !== "rightclick",
 })(({ rightclick }: { rightclick: boolean }) => ({
   display: "flex",
   alignItems: "center",

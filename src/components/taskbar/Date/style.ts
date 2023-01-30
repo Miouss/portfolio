@@ -1,7 +1,8 @@
 import { styled } from "@mui/styles";
-import { Stack } from "@mui/material";
 
-export const DateTimeBox = styled(Stack)({
+export const DateTimeBox = styled("section")({
+    display: "flex",
+    flexDirection: "column",
     cursor: "default",
     alignItems: "center",
     justifyContent: "space-evenly",

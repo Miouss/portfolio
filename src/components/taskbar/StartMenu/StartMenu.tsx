@@ -11,14 +11,14 @@ export default function StartMenu() {
 
   const openContextMenu = (e: React.MouseEvent) => {
     e.preventDefault();
-    console.log(e);
+
     setMousePosition({ x: e.pageX, y: e.pageY });
     setDisplayContextMenu(true);
-  }
+  };
 
   useEffect(() => {
-    if(!displayContextMenu) return;
-    
+    if (!displayContextMenu) return;
+
     setColor("dodgerblue");
 
     document.addEventListener("click", () => {
@@ -30,16 +30,24 @@ export default function StartMenu() {
         setDisplayContextMenu(false);
       });
 
-      setColor("white")
+      setColor("white");
     };
   }, [displayContextMenu]);
 
   return (
-    <StartMenuBox rightclick={displayContextMenu}
+    <StartMenuBox
+      rightclick={displayContextMenu}
       onMouseEnter={() => setColor("dodgerblue")}
-      onMouseLeave={() => {!displayContextMenu && setColor("white")}}
-      onContextMenu={(e) => openContextMenu(e)}>
-        <ContextMenu displayContextMenu={displayContextMenu} setDisplayContextMenu={setDisplayContextMenu} mousePosition={mousePosition}></ContextMenu>
+      onMouseLeave={() => {
+        !displayContextMenu && setColor("white");
+      }}
+      onContextMenu={(e) => openContextMenu(e)}
+    >
+      <ContextMenu
+        displayContextMenu={displayContextMenu}
+        setDisplayContextMenu={setDisplayContextMenu}
+        mousePosition={mousePosition}
+      />
       <WindowsIcon color={color} />
     </StartMenuBox>
   );
