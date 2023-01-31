@@ -47,6 +47,7 @@ export default function App() {
     dispatch(addSpecialApp("Mail Sender"));
     dispatch(addNotifApp("Chill Beats"));
     dispatchAddApp("Welcome");
+    dispatchAddApp("About me");
 
     document.onselectstart = () => {
       return false;
