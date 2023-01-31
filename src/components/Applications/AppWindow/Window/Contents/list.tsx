@@ -3,6 +3,7 @@ import { ReactElement } from "react";
 import {
   TerminalIcon,
   ProjectIcon,
+  NotepadIcon,
   GithubIcon,
   LinkedinIcon,
   MailIcon,
@@ -15,16 +16,42 @@ import ProjectPreviewApp from "./collection/Project/ProjectPreviewApp";
 import { AppList, ShortcutList } from "./types";
 import MailSender from "./collection/MailSender/MailSender";
 import ChillBeats from "./collection/ChillBeats/ChillBeats";
+import Notepad from "./collection/Notepad/Notepad";
 
 let appList = {} as AppList[];
 let shortcutList = {} as ShortcutList[];
 
-addApp("Terminal", <TerminalApp />, <TerminalIcon  fontSize="inherit" />, 1, 1);
-addApp("Projets", <ProjectPreviewApp />, <ProjectIcon  fontSize="inherit" />, 1, 2);
-addApp("Mail Sender", <MailSender appName="Mail Sender" />, <MailIcon  fontSize="inherit" />, 2, 2);
-addApp("Chill Beats", <ChillBeats appName="Chill Beats" />, <PlaylistIcon  fontSize="inherit" />, 3, 4);
-addApp("Welcome", <TerminalApp key="welcome" mode="notepad" />, <TerminalIcon  fontSize="inherit" />, 0, 0, true);
-
+addApp("Terminal", <TerminalApp />, <TerminalIcon fontSize="inherit" />, 1, 1);
+addApp(
+  "Mail Sender",
+  <MailSender appName="Mail Sender" />,
+  <MailIcon fontSize="inherit" />,
+  3,
+  1
+);
+addApp(
+  "Chill Beats",
+  <ChillBeats appName="Chill Beats" />,
+  <PlaylistIcon fontSize="inherit" />,
+  9,
+  2
+);
+addApp(
+  "Projets",
+  <ProjectPreviewApp />,
+  <ProjectIcon fontSize="inherit" />,
+  1,
+  3
+);
+addApp("About me", <Notepad />, <NotepadIcon fontSize="inherit" />, 1, 4);
+addApp(
+  "Welcome",
+  <TerminalApp key="welcome" mode="notepad" />,
+  <TerminalIcon fontSize="inherit" />,
+  0,
+  0,
+  true
+);
 
 addShortcut(
   "GitHub",
@@ -35,7 +62,7 @@ addShortcut(
 );
 addShortcut(
   "LinkedIn",
-  <LinkedinIcon fontSize="inherit"  />,
+  <LinkedinIcon fontSize="inherit" />,
   "https://www.linkedin.com/in/samir-ghabi-aa58a2224/",
   10,
   6
@@ -71,7 +98,7 @@ export function getAppGridPostion(appName: string) {
 
 export function getAllAppsName() {
   return Object.keys(appList).reduce((acc, app) => {
-    if(!appList[app].isSecret) acc.push(appList[app].name);
+    if (!appList[app].isSecret) acc.push(appList[app].name);
     return acc;
   }, [] as string[]);
 }
@@ -100,7 +127,7 @@ function addApp(
   Icon: any,
   col?: number,
   row?: number,
-  isSecret?: boolean,
+  isSecret?: boolean
 ) {
   appList[`${appName}`] = {
     name: appName,
@@ -124,7 +151,7 @@ function addShortcut(
   Icon: any,
   link: string,
   col: number,
-  row: number,
+  row: number
 ) {
   shortcutList[`${shortcutName}`] = {
     name: shortcutName,

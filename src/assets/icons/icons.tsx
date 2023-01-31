@@ -6,6 +6,7 @@ import {
   SiWindowsterminal,
   SiGithub,
   SiLinkedin,
+  SiNotepadplusplus,
 } from "react-icons/si";
 import { GoProject } from "react-icons/go";
 import { FaGlobe, FaWifi, FaPowerOff } from "react-icons/fa";
@@ -38,6 +39,7 @@ import { ImMusic } from "react-icons/im";
 import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 
 import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
+
 
 export const ChevronRightIcon = (style?: CSSProperties) => (
   <BsChevronRight style={style} />
@@ -96,6 +98,10 @@ export const MailMinimizeIcon = (style?: CSSProperties) => (
 export const MailRefocusIcon = (style?: CSSProperties) => (
   <HiOutlineChevronDoubleLeft style={style} />
 );
+export const NotepadIcon = (style?: CSSProperties) => (
+  <SiNotepadplusplus style={style} />
+);
+
 export const GithubIcon = (style?: CSSProperties) => <SiGithub style={style} />;
 export const LinkedinIcon = (style?: CSSProperties) => (
   <SiLinkedin style={style} />
