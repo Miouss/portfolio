@@ -11,6 +11,7 @@ export default function StartMenu() {
 
   const openContextMenu = (e: React.MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation();
 
     setMousePosition({ x: e.pageX, y: e.pageY });
     setDisplayContextMenu(true);
@@ -21,14 +22,16 @@ export default function StartMenu() {
 
     setColor("dodgerblue");
 
-    document.addEventListener("click", () => {
+    const closeContextMenu = () => {
       setDisplayContextMenu(false);
-    });
+    };
+
+    document.addEventListener("click", closeContextMenu);
+    document.addEventListener("contextmenu", closeContextMenu);
 
     return () => {
-      document.removeEventListener("click", () => {
-        setDisplayContextMenu(false);
-      });
+      document.removeEventListener("click", closeContextMenu);
+      document.removeEventListener("contextmenu", closeContextMenu);
 
       setColor("white");
     };

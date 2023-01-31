@@ -6,7 +6,7 @@ import { Taskbar } from "./style";
 
 export default function DesktopTaskBar() {
   return (
-    <Taskbar>
+    <Taskbar onContextMenu={(e) => e.preventDefault()}>
       <StartMenu />
       <Appbar />
       <Notifbar />

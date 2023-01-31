@@ -21,35 +21,39 @@ import Notepad from "./collection/Notepad/Notepad";
 let appList = {} as AppList[];
 let shortcutList = {} as ShortcutList[];
 
-addApp("Terminal", <TerminalApp />, <TerminalIcon fontSize="inherit" />, 1, 1);
+addApp("Terminal", <TerminalApp />, <TerminalIcon fontSize="inherit" />, 1, 1, "Ouvrir le Terminal");
 addApp(
   "Mail Sender",
   <MailSender appName="Mail Sender" />,
   <MailIcon fontSize="inherit" />,
   3,
-  1
+  1,
+  "Envoyer un mail"
 );
 addApp(
   "Chill Beats",
   <ChillBeats appName="Chill Beats" />,
   <PlaylistIcon fontSize="inherit" />,
   9,
-  2
+  2,
+  "Ecouter de la musique"
 );
 addApp(
   "Projets",
   <ProjectPreviewApp />,
   <ProjectIcon fontSize="inherit" />,
   1,
-  3
+  3,
+  "Voir mes projets"
 );
-addApp("About me", <Notepad />, <NotepadIcon fontSize="inherit" />, 1, 4);
+addApp("About me", <Notepad />, <NotepadIcon fontSize="inherit" />, 1, 4, "A propos de moi");
 addApp(
   "Welcome",
   <TerminalApp key="welcome" mode="notepad" />,
   <TerminalIcon fontSize="inherit" />,
   0,
   0,
+  "",
   true
 );
 
@@ -58,14 +62,16 @@ addShortcut(
   <GithubIcon fontSize="inherit" />,
   "https://github.com/Miouss",
   9,
-  6
+  6,
+  "Vers mon GitHub"
 );
 addShortcut(
   "LinkedIn",
   <LinkedinIcon fontSize="inherit" />,
   "https://www.linkedin.com/in/samir-ghabi-aa58a2224/",
   10,
-  6
+  6,
+  "Vers mon profil LinkedIn"
 );
 
 interface Props {
@@ -103,6 +109,10 @@ export function getAllAppsName() {
   }, [] as string[]);
 }
 
+export function AppAction({ name }: Props) {
+  return appList[name].action;
+}
+
 export function ShortcutDesktopIcon({ name }: Props) {
   return shortcutList[name].icon;
 }
@@ -113,6 +123,10 @@ export function getShortcutGridPostion(shortcutName: string) {
 
 export function getShortcutLink(shortcutName: string) {
   return shortcutList[shortcutName].link;
+}
+
+export function ShortcutAction({ name }: Props) {
+  return shortcutList[name].action;
 }
 
 export function getAllShortcutsName() {
@@ -127,6 +141,7 @@ function addApp(
   Icon: any,
   col?: number,
   row?: number,
+  action?: string,
   isSecret?: boolean
 ) {
   appList[`${appName}`] = {
@@ -142,6 +157,7 @@ function addApp(
       col: col,
       row: row,
     },
+    action: action,
     isSecret: isSecret ?? false,
   };
 }
@@ -151,7 +167,8 @@ function addShortcut(
   Icon: any,
   link: string,
   col: number,
-  row: number
+  row: number,
+  action: string
 ) {
   shortcutList[`${shortcutName}`] = {
     name: shortcutName,
@@ -161,5 +178,6 @@ function addShortcut(
       col: col,
       row: row,
     },
+    action: action
   };
 }

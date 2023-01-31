@@ -1,18 +1,16 @@
-import { ReactElement } from "react";
+import { ReactElement, useEffect, useState } from "react";
 
 import NormalApp from "./DesktopGrid/GridAppWindow";
 import ShortcutApp from "./DesktopGrid/GridAppShortcut";
 
-import {
-  DesktopEmptyGridItem,
-  DesktopGridContainer,
-} from "./style";
+import { DesktopEmptyGridItem, DesktopGridContainer } from "./style";
 import {
   getAllAppsName,
   getAllShortcutsName,
   getAppGridPostion,
   getShortcutGridPostion,
 } from "../Applications/AppWindow/Window/Contents/list";
+import ContextMenu from "./ContextMenu/ContextMenu";
 
 export interface AppStyle {
   borderStyle?: string;
@@ -91,6 +89,43 @@ export default function DesktopGrid() {
 
   desktopAppFilled = desktopApp;
 
-  return <DesktopGridContainer>{desktopAppFilled}</DesktopGridContainer>;
+  const [openContextMenu, setOpenContextMenu] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  const handleContextMenu = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setOpenContextMenu(true);
+    setMousePosition({ x: e.pageX, y: e.pageY });
+  };
+
+  useEffect(() => {
+    if (openContextMenu) {
+      const closeContextMenu = () => {
+        console.log("close context menu");
+        setOpenContextMenu(false);
+      };
+      document.addEventListener("click", closeContextMenu);
+      document.addEventListener("contextmenu", closeContextMenu);
+      return () => {
+        document.removeEventListener("click", closeContextMenu);
+        document.removeEventListener("contextmenu", closeContextMenu);
+      };
+    }
+  }, [openContextMenu]);
+
+  return (
+    <DesktopGridContainer onContextMenu={handleContextMenu}>
+      {openContextMenu && (
+        <ContextMenu
+          mouseX={mousePosition.x}
+          mouseY={mousePosition.y}
+          appsName={appsName}
+          shortcutsName={shortcutsName}
+        ></ContextMenu>
+      )}
+      {desktopAppFilled}
+    </DesktopGridContainer>
+  );
   //return <DesktopGrid className="desktop-grid">{showDesktopApp()}</DesktopGrid>;
 }

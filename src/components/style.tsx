@@ -4,7 +4,6 @@ import WindowsWallpaper from "../assets/backgrounds/session.png";
 export const SessionContainer = styled("div", {
   shouldForwardProp: (prop) => prop !== "isLogged",
 })(({ isLogged }: { isLogged: boolean }) => ({
-  position: "absolute",
   width: "100%",
   height: "100%",
 
