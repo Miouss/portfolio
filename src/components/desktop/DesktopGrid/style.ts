@@ -24,7 +24,7 @@ export const GridAppContainer = styled(Stack, {
   cursor: cursor ?? "default",
   justifyContent: "center",
   alignItems: "center",
-  border: click ? "solid lightblue 1px" : "none",
+  border: click ? "solid lightblue 1px" : "solid transparent 1px",
 }));
 
 export const BackgroundColorLayer = styled("div")(
