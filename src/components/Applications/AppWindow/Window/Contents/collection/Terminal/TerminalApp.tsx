@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { useRef, useState, useEffect } from "react";
-import delay from "../../../../../../../utils/delay";
 import { TerminalAppContainer, TerminalAppContent } from "./style";
+import mimicTyping from "../../utils/mimicTyping";
 
 interface Props {
   mode?: "notepad";
@@ -16,27 +16,9 @@ export default function TerminalApp({ mode }: Props) {
   const [currentDir, setCurrentDir] = useState("");
   const [command, setCommand] = useState("");
 
-  async function simulateKeyPressed(txt: string) {
-    await delay(20);
-    if (txt[0] === "£") {
-      const lastIndexFound = txt.indexOf("£", 2);
-      const blockText = txt.slice(1, lastIndexFound);
-      if (lastIndexFound) {
-        txt = txt.slice(lastIndexFound);
-      } else {
-        txt = "";
-      }
-      await delay(100);
-      terminalAppContentRef.current!.textContent += blockText;
-    } else {
-      terminalAppContentRef.current!.textContent += txt[0];
-    }
-
-    if (txt.length > 1) return simulateKeyPressed(txt.slice(1));
-  }
 
   useEffect(() => {
-    const mimicUserTyping = async () => {
+    const typeWelcomeMessage = async () => {
       const welcomeMessage = !mode
         ? `£Microsoft Windows [Version 10.0.19042.867]
       (c) 2020 Microsoft Corporation. All rights reserved.£`
@@ -46,12 +28,12 @@ export default function TerminalApp({ mode }: Props) {
       Je vous laisse soin d'explorer les différentes applications disponibles.\n
       Bonne visite !£\n\n
       Appuyez sur une touche pour continuer...`;
-      await simulateKeyPressed(welcomeMessage);
+      await mimicTyping(terminalAppContentRef, welcomeMessage);
       terminalAppContentRef.current!.textContent! += currentDir;
       if (!mode) setCurrentDir("C:\\>");
       terminalAppContentRef.current!.focus();
     };
-    mimicUserTyping();
+    typeWelcomeMessage();
     setBlink(!blink);
   }, []);
 
