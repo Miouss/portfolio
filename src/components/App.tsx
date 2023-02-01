@@ -29,7 +29,7 @@ export const LoginDispathContext = createContext((isLogged: boolean) => {});
 export default function App() {
   const [isLogged, setIsLogged] = useState(false);
   const [isValid, setIsValid] = useState(false);
-  const [alreadyLogged, setAlreadyLogged] = useState(true);
+  const [alreadyLogged, setAlreadyLogged] = useState(false);
   const apps = useSelector((state: RootState) => state.apps);
   const dispatch = useAppDispatch();
 
