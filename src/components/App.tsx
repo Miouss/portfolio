@@ -29,7 +29,7 @@ export const LoginDispathContext = createContext((isLogged: boolean) => {});
 export default function App() {
   const [isLogged, setIsLogged] = useState(false);
   const [isValid, setIsValid] = useState(false);
-  const [alreadyLogged, setAlreadyLogged] = useState(false);
+  const [alreadyLogged, setAlreadyLogged] = useState(true);
   const apps = useSelector((state: RootState) => state.apps);
   const dispatch = useAppDispatch();
 
@@ -127,13 +127,15 @@ export default function App() {
   }
   return (
     <>
-      <SessionContainer isLogged={isLogged}>
-        {runningApps}
-        <AppGrid />
-        <LoginDispathContext.Provider value={setIsLogged}>
-          <Taskbar />
-        </LoginDispathContext.Provider>
-      </SessionContainer>
+      {isLogged && (
+        <SessionContainer isLogged={isLogged}>
+          {runningApps}
+          <AppGrid />
+          <LoginDispathContext.Provider value={setIsLogged}>
+            <Taskbar />
+          </LoginDispathContext.Provider>
+        </SessionContainer>
+      )}
       <LoginContainer ref={loginRef} isLogged={isLogged}>
         <Login setIsLogged={setIsLogged} />
       </LoginContainer>

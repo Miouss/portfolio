@@ -11,6 +11,7 @@ import {
   getShortcutGridPostion,
 } from "../Applications/AppWindow/Window/Contents/list";
 import ContextMenu from "./ContextMenu/ContextMenu";
+import useCloseOnClickAwayEffect from "../../hooks/useCloseOnClickAwayEffect";
 
 export interface AppStyle {
   borderStyle?: string;
@@ -99,20 +100,7 @@ export default function DesktopGrid() {
     setMousePosition({ x: e.pageX, y: e.pageY });
   };
 
-  useEffect(() => {
-    if (openContextMenu) {
-      const closeContextMenu = () => {
-        console.log("close context menu");
-        setOpenContextMenu(false);
-      };
-      document.addEventListener("click", closeContextMenu);
-      document.addEventListener("contextmenu", closeContextMenu);
-      return () => {
-        document.removeEventListener("click", closeContextMenu);
-        document.removeEventListener("contextmenu", closeContextMenu);
-      };
-    }
-  }, [openContextMenu]);
+  useCloseOnClickAwayEffect(openContextMenu, setOpenContextMenu);
 
   return (
     <DesktopGridContainer onContextMenu={handleContextMenu}>
