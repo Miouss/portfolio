@@ -5,8 +5,8 @@ import {
   LoginSessionTitle,
 } from "./style";
 
-import { DispatchContext, StateContext } from "../../Login";
-import { LoginSessionProp } from "../../Login";
+import { DispatchContext, StateContext } from "../../../Signin";
+import { LoginSessionProp } from "../../../Signin";
 
 interface Props {
     sessionName: LoginSessionProp;

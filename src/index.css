@@ -16,6 +16,8 @@ body {
   height: 100vh;
   width: 100vw;
   display: flex;
+  overflow: hidden;
+  cursor: default;
 }
 
 *:focus {
