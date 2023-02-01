@@ -5,6 +5,8 @@ export default async function mimicTyping(
   txt: string
 ) {
   await delay(20);
+  if (!ref.current) return;
+
   if (txt[0] === "£") {
     const lastIndexFound = txt.indexOf("£", 2);
     const blockText = txt.slice(1, lastIndexFound);

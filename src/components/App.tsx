@@ -20,14 +20,18 @@ import Taskbar from "./Taskbar/Taskbar";
 
 import AppWindow from "./Applications/AppWindow";
 
-import Login from "./Login/Login";
-import { LoginContainer, SessionContainer } from "./style";
+import Signin from "./Signin/Signin";
+import { SessionContainer, SigninContainer } from "./style";
 import { AppComponent } from "./Applications/AppWindow/Window/Contents/list";
 
-export const LoginDispathContext = createContext((isLogged: boolean) => {});
+import { IsLoggedProp } from "./types";
+
+export const LoginDispathContext = createContext(
+  (isLogged: IsLoggedProp) => {}
+);
 
 export default function App() {
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState<IsLoggedProp>(undefined);
   const [isValid, setIsValid] = useState(false);
   const [alreadyLogged, setAlreadyLogged] = useState(false);
   const apps = useSelector((state: RootState) => state.apps);
@@ -79,20 +83,26 @@ export default function App() {
   }, [apps]);
 
   useEffect(() => {
+    if (isLogged === "lock") return;
     const appsRunning = apps.filter((app) => app.status.isRunning);
 
-    if (!isLogged) {
+    if (isLogged === false) {
+      console.log("close all apps");
       appsRunning?.forEach((app) => {
         if (app.status.isRunning) {
           dispatch(closeApp(app.name));
         }
       });
-    } else if (isLogged && !alreadyLogged) {
+      return;
+    }
+
+    if (isLogged === true && !alreadyLogged) {
       setTimeout(() => {
         dispatch(openApp("Welcome"));
       }, 1000);
 
       setAlreadyLogged(true);
+      return;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLogged]);
@@ -125,20 +135,20 @@ export default function App() {
       );
     }
   }
+
   return (
     <>
-      {isLogged && (
-        <SessionContainer isLogged={isLogged}>
-          {runningApps}
-          <AppGrid />
-          <LoginDispathContext.Provider value={setIsLogged}>
-            <Taskbar />
-          </LoginDispathContext.Provider>
-        </SessionContainer>
-      )}
-      <LoginContainer ref={loginRef} isLogged={isLogged}>
-        <Login setIsLogged={setIsLogged} />
-      </LoginContainer>
+      <SessionContainer visible={isLogged === true}>
+        {runningApps}
+        <AppGrid />
+        <LoginDispathContext.Provider value={setIsLogged}>
+          <Taskbar />
+        </LoginDispathContext.Provider>
+      </SessionContainer>
+
+      <SigninContainer ref={loginRef} visible={isLogged !== true}>
+        <Signin isLogged={isLogged} setIsLogged={setIsLogged} />
+      </SigninContainer>
     </>
   );
 }

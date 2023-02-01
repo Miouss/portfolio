@@ -32,9 +32,11 @@ export default function PopOverMenu() {
     setDisplayAction(false);
   };
 
-  const handleClick = (e) => {
+  const handleClick = (e, lock?: "lock") => {
     e.stopPropagation();
-    return displayAction ? setLoginContext(false) : setDisplayAction(true);
+    return displayAction
+      ? setLoginContext(lock ? "lock" : false)
+      : setDisplayAction(true);
   };
 
   useEffect(() => {
@@ -68,7 +70,10 @@ export default function PopOverMenu() {
       }}
     >
       <PopOverMenuHeaderBox
-        onClick={() => setDisplayAction(!displayAction)}
+        onClick={(e) => {
+          e.stopPropagation();
+          setDisplayAction(!displayAction);
+        }}
         onMouseEnter={handleMouseEnter}
       >
         <PopOverMenuHeaderIcon>
@@ -76,7 +81,10 @@ export default function PopOverMenu() {
         </PopOverMenuHeaderIcon>
         <PopOverMenuHeaderLabel>Start</PopOverMenuHeaderLabel>
       </PopOverMenuHeaderBox>
-      <PopOverMenuItem onClick={handleClick} onMouseEnter={handleMouseEnter}>
+      <PopOverMenuItem
+        onClick={(e) => handleClick(e, "lock")}
+        onMouseEnter={handleMouseEnter}
+      >
         <PopOverMenuItemIcon>
           <LockIcon />
         </PopOverMenuItemIcon>

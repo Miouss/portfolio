@@ -1,7 +1,7 @@
 import { LoginIconContainer, IconButton } from "./style";
-import { LangIcon, PowerIcon, WifiIcon } from "../../../assets/icons/icons";
+import { LangIcon, PowerIcon, WifiIcon } from "../../../../assets/icons/icons";
 
-export default function LoginIcon() {
+export default function LoginIconGroup() {
   return (
     <LoginIconContainer>
       <IconButton>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ProfilPicture from "../../../../assets/avatars/miouss.png";
+import ProfilPicture from "../../../../../assets/avatars/miouss.png";
 import {
   InputButton,
   LoginFormError,

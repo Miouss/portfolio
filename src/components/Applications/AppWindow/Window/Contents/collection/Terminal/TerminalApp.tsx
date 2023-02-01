@@ -16,7 +16,6 @@ export default function TerminalApp({ mode }: Props) {
   const [currentDir, setCurrentDir] = useState("");
   const [command, setCommand] = useState("");
 
-
   useEffect(() => {
     const typeWelcomeMessage = async () => {
       const welcomeMessage = !mode
@@ -29,6 +28,7 @@ export default function TerminalApp({ mode }: Props) {
       Bonne visite !£\n\n
       Appuyez sur une touche pour continuer...`;
       await mimicTyping(terminalAppContentRef, welcomeMessage);
+      if (!terminalAppContentRef.current) return;
       terminalAppContentRef.current!.textContent! += currentDir;
       if (!mode) setCurrentDir("C:\\>");
       terminalAppContentRef.current!.focus();

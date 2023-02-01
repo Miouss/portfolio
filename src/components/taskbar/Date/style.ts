@@ -1,6 +1,6 @@
 import { styled } from "@mui/styles";
 
-export const DateTimeBox = styled("section")({
+export const FullDateBox = styled("section")({
     display: "flex",
     flexDirection: "column",
     cursor: "default",
@@ -12,4 +12,10 @@ export const DateTimeBox = styled("section")({
     "&:hover": {
         backgroundColor: "rgba(255, 255, 255, 0.1)",
     },
+});
+
+export const DateBox = styled("div")({
+});
+
+export const TimeBox = styled("div")({
 });

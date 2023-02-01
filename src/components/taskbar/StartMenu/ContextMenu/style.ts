@@ -12,15 +12,14 @@ export const ContextMenuPop = styled("div", {
   display: "flex",
   height: "100px",
   width: "100px",
-  backgroundColor: "rgb(70,70,70)",
+  backgroundColor: "#2B2B2B",
 
   top: mouseY,
   left: mouseX,
 
   transform: "translateY(-100%)",
-
   zIndex: 3,
-  border: "1px solid white",
+  border: "1px solid #8E8E8E",
 }));
 
 export const MenuList = styled("ul")({
@@ -44,6 +43,7 @@ export const MenuItem = styled("li")({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  textAlign: "left",
 
   fontSize: "12px !important",
 

@@ -10,6 +10,10 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLInputElement
 );
 
+document.oncontextmenu = (e) => {
+  e.preventDefault();
+};
+
 root.render(
   <Provider store={store}>
     <App />

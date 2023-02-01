@@ -15,6 +15,7 @@ export default function ContextMenu({
       <MenuList>
         <MenuItem>Desktop</MenuItem>
         <MenuItem onClick={() => LoginDispatchContext(false)}>Signout</MenuItem>
+        <MenuItem onClick={() => LoginDispatchContext("lock")}>Lock</MenuItem>
       </MenuList>
     </ContextMenuPop>
   );
