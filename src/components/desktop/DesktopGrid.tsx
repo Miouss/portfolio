@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useState } from "react";
 
 import NormalApp from "./DesktopGrid/GridAppWindow";
 import ShortcutApp from "./DesktopGrid/GridAppShortcut";

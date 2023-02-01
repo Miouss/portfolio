@@ -1,32 +1,4 @@
-import styled from "@mui/system/styled";
-
-const slideInBurgerMenu = {
-  "@keyframes slideInBurgerMenu": {
-    from: {
-      transform: "translateX(-100%)",
-    },
-    to: {
-      transform: "translateX(0)",
-    },
-  },
-};
-
-const slideOutBurgerMenu = {
-  "@keyframes slideOutBurgerMenu": {
-    from: {
-      transform: "translateX(0)",
-    },
-    to: {
-      transform: "translateX(-100%)",
-    },
-  },
-};
-
-const slideAnimation = (isDisplayed: boolean) => ({
-  animation: isDisplayed
-    ? "slideInBurgerMenu 0.5s ease-in-out forwards"
-    : "slideOutBurgerMenu 0.5s ease-in-out forwards",
-});
+import styled from "@mui/system/styled";  
 
 export const PopOverMenuContainer = styled("div", {
   shouldForwardProp: (prop) => prop !== "wrapped",
