@@ -2,12 +2,22 @@ import { StartMenuBox } from "./style";
 import { WindowsIcon } from "../../../assets/icons/icons";
 import { useEffect, useState } from "react";
 import ContextMenu from "./ContextMenu/ContextMenu";
+import PopOverMenu from "./PopOverMenu/PopOverMenu";
+import useCloseOnClickAwayEffect from "../../../hooks/useCloseOnClickAwayEffect";
 
 export default function StartMenu() {
   const [color, setColor] = useState("white");
 
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [displayContextMenu, setDisplayContextMenu] = useState(false);
+  const [displayPopOverMenu, setDisplayPopOverMenu] = useState(false);
+
+  const openPopOverMenu = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    setDisplayPopOverMenu(!displayPopOverMenu);
+  };
 
   const openContextMenu = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -19,26 +29,26 @@ export default function StartMenu() {
 
   useEffect(() => {
     if (!displayContextMenu) return;
-
+    setDisplayPopOverMenu(false);
     setColor("dodgerblue");
 
-    const closeContextMenu = () => {
-      setDisplayContextMenu(false);
-    };
-
-    document.addEventListener("click", closeContextMenu);
-    document.addEventListener("contextmenu", closeContextMenu);
-
     return () => {
-      document.removeEventListener("click", closeContextMenu);
-      document.removeEventListener("contextmenu", closeContextMenu);
-
       setColor("white");
     };
   }, [displayContextMenu]);
 
+  useEffect(() => {
+    if (!displayPopOverMenu) return;
+    setDisplayContextMenu(false);
+  }, [displayPopOverMenu]);
+
+  useCloseOnClickAwayEffect(displayContextMenu, setDisplayContextMenu);
+  useCloseOnClickAwayEffect(displayPopOverMenu, setDisplayPopOverMenu);
+
   return (
     <StartMenuBox
+      popOverMenuDisplayed={displayPopOverMenu}
+      onClick={openPopOverMenu}
       rightclick={displayContextMenu}
       onMouseEnter={() => setColor("dodgerblue")}
       onMouseLeave={() => {
@@ -46,11 +56,13 @@ export default function StartMenu() {
       }}
       onContextMenu={(e) => openContextMenu(e)}
     >
-      <ContextMenu
-        displayContextMenu={displayContextMenu}
-        setDisplayContextMenu={setDisplayContextMenu}
-        mousePosition={mousePosition}
-      />
+      {displayPopOverMenu && <PopOverMenu />}
+      {displayContextMenu && (
+        <ContextMenu
+          setDisplayContextMenu={setDisplayContextMenu}
+          mousePosition={mousePosition}
+        />
+      )}
       <WindowsIcon color={color} />
     </StartMenuBox>
   );

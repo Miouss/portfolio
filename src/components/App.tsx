@@ -127,13 +127,15 @@ export default function App() {
   }
   return (
     <>
-      <SessionContainer isLogged={isLogged}>
-        {runningApps}
-        <AppGrid />
-        <LoginDispathContext.Provider value={setIsLogged}>
-          <Taskbar />
-        </LoginDispathContext.Provider>
-      </SessionContainer>
+      {isLogged && (
+        <SessionContainer isLogged={isLogged}>
+          {runningApps}
+          <AppGrid />
+          <LoginDispathContext.Provider value={setIsLogged}>
+            <Taskbar />
+          </LoginDispathContext.Provider>
+        </SessionContainer>
+      )}
       <LoginContainer ref={loginRef} isLogged={isLogged}>
         <Login setIsLogged={setIsLogged} />
       </LoginContainer>
