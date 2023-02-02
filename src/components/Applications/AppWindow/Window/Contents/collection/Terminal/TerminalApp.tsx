@@ -1,8 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
 import { TerminalAppContainer, TerminalAppContent } from "./style";
 import mimicTyping from "../../utils/mimicTyping";
+
+import languages from "../../../../../../../assets/languages/languages.json";
+import { LanguageStateContext } from "../../../../../../App";
 
 interface Props {
   mode?: "notepad";
@@ -16,17 +19,17 @@ export default function TerminalApp({ mode }: Props) {
   const [currentDir, setCurrentDir] = useState("");
   const [command, setCommand] = useState("");
 
+  const lang = useContext(LanguageStateContext);
+
   useEffect(() => {
     const typeWelcomeMessage = async () => {
       const welcomeMessage = !mode
         ? `£Microsoft Windows [Version 10.0.19042.867]
       (c) 2020 Microsoft Corporation. All rights reserved.£`
-        : `
-      Bonjour et bienvenue sur mon portofolio !\n
-      Comme vous pouvez le constater, j'ai imité le comportement de Windows 10 pour ce projet.\n
-      Je vous laisse soin d'explorer les différentes applications disponibles.\n
-      Bonne visite !£\n\n
-      Appuyez sur une touche pour continuer...`;
+        : languages[lang].apps.terminal.welcomeMsg.reduce(
+            (prev, curr) => (prev += "\n\n" + curr)
+          );
+
       await mimicTyping(terminalAppContentRef, welcomeMessage);
       if (!terminalAppContentRef.current) return;
       terminalAppContentRef.current!.textContent! += currentDir;

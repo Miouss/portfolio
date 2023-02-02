@@ -1,3 +1,5 @@
+import { useContext } from "react";
+
 import LaunchIcon from "@mui/icons-material/Launch";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -44,6 +46,9 @@ import {
   VisibilityOnIcon,
 } from "../../../../../../../../assets/icons/icons";
 
+import languages from "../../../../../../../../assets/languages/languages.json";
+import { LanguageStateContext } from "../../../../../../../App";
+
 interface Tech {
   name: string;
   icon: JSX.Element;
@@ -87,6 +92,8 @@ export default function ContentBuilder({
   const [animImageThree, setAnimImageThree] = useState("");
 
   const [disableButtons, setDisableButtons] = useState(false);
+
+  const lang = useContext(LanguageStateContext);
 
   const imgSrc = [
     <img src={imageUrl[0]} alt="lolmood2" />,
@@ -187,7 +194,7 @@ export default function ContentBuilder({
             <Options>
               <PreviewButtonContainer fsresp={fsresp}>
                 <PreviewButton onClick={() => setShowGallery(true)}>
-                  <PreviewLabel>Voir un aperçu</PreviewLabel>
+                  <PreviewLabel>{languages[lang].actions.preview}</PreviewLabel>
                   <PreviewIcon>
                     <VisibilityOnIcon />
                   </PreviewIcon>
@@ -200,7 +207,7 @@ export default function ContentBuilder({
                     <LinkIcon>
                       <LaunchIcon />{" "}
                     </LinkIcon>
-                    <LinkTitle> Vers le site web</LinkTitle>
+                    <LinkTitle>{languages[lang].actions.redirect.website}</LinkTitle>
                   </Link>
                 </RedirectItem>
                 <RedirectItem fsresp={fsresp}>
@@ -208,7 +215,7 @@ export default function ContentBuilder({
                     <LinkIcon>
                       <GitHubIcon />{" "}
                     </LinkIcon>
-                    <LinkTitle>Repository GitHub</LinkTitle>
+                    <LinkTitle>{languages[lang].actions.redirect.github}</LinkTitle>
                   </Link>
                 </RedirectItem>
               </RedirectContainer>

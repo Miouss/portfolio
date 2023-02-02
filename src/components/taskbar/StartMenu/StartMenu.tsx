@@ -9,8 +9,8 @@ export default function StartMenu() {
   const [color, setColor] = useState("white");
 
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [displayContextMenu, setDisplayContextMenu] = useState(false);
-  const [displayPopOverMenu, setDisplayPopOverMenu] = useState(false);
+  const [displayContextMenu, setDisplayContextMenu] = useState<boolean | undefined>(false);
+  const [displayPopOverMenu, setDisplayPopOverMenu] = useState<boolean | undefined>(false);
 
   const openPopOverMenu = (e: React.MouseEvent) => {
     e.preventDefault();

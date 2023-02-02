@@ -61,7 +61,6 @@ export const LoginFormInput = styled(Input, {
 LoginFormInput.defaultProps = {
   type: "password",
   disableUnderline: true,
-  placeholder: "Password",
 };
 
 export const InputButton = styled(Button)({

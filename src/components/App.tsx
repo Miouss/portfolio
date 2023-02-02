@@ -1,5 +1,7 @@
 import {
+  Dispatch,
   ReactElement,
+  SetStateAction,
   createContext,
   useEffect,
   useRef,
@@ -24,13 +26,17 @@ import Signin from "./Signin/Signin";
 import { SessionContainer, SigninContainer } from "./style";
 import { AppComponent } from "./Applications/AppWindow/Window/Contents/list";
 
-import { IsLoggedProp } from "./types";
+import { IsLoggedProp, LanguageProp } from "./types";
 
 export const LoginDispathContext = createContext(
   (isLogged: IsLoggedProp) => {}
 );
 
+export const LanguageStateContext = createContext<LanguageProp>("fr");
+export const LanguageDispatchContext = createContext<Dispatch<SetStateAction<LanguageProp>>>((lang) => lang);
+
 export default function App() {
+  const [lang, setLang] = useState<LanguageProp>("fr");
   const [isLogged, setIsLogged] = useState<IsLoggedProp>(undefined);
   const [isValid, setIsValid] = useState(false);
   const [alreadyLogged, setAlreadyLogged] = useState(false);
@@ -51,7 +57,7 @@ export default function App() {
     dispatch(addSpecialApp("Mail Sender"));
     dispatch(addNotifApp("Chill Beats"));
     dispatchAddApp("Welcome");
-    dispatchAddApp("About me");
+    dispatchAddApp("Presentation");
 
     document.onselectstart = () => {
       return false;
@@ -138,17 +144,21 @@ export default function App() {
 
   return (
     <>
-      <SessionContainer visible={isLogged === true}>
-        {runningApps}
-        <AppGrid />
-        <LoginDispathContext.Provider value={setIsLogged}>
-          <Taskbar />
-        </LoginDispathContext.Provider>
-      </SessionContainer>
+      <LanguageStateContext.Provider value={lang}>
+        <LanguageDispatchContext.Provider value={setLang}>
+          <SessionContainer visible={isLogged === true}>
+            {runningApps}
+            <AppGrid />
+            <LoginDispathContext.Provider value={setIsLogged}>
+              <Taskbar />
+            </LoginDispathContext.Provider>
+          </SessionContainer>
 
-      <SigninContainer ref={loginRef} visible={isLogged !== true}>
-        <Signin isLogged={isLogged} setIsLogged={setIsLogged} />
-      </SigninContainer>
+          <SigninContainer ref={loginRef} visible={isLogged !== true}>
+            <Signin isLogged={isLogged} setIsLogged={setIsLogged} />
+          </SigninContainer>
+        </LanguageDispatchContext.Provider>
+      </LanguageStateContext.Provider>
     </>
   );
 }

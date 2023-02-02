@@ -1,3 +1,4 @@
+import {useContext} from "react";
 import { MenuList, MenuItem, Popper } from "@mui/material";
 import { ClickAwayListener } from "@mui/base";
 import { closeApp, minimizeApp, useAppDispatch } from "../../../../../redux";
@@ -5,7 +6,11 @@ import { closeApp, minimizeApp, useAppDispatch } from "../../../../../redux";
 import CloseIcon from "@mui/icons-material/Close";
 import MinimizeIcon from "@mui/icons-material/Minimize";
 
+import languages from "../../../../../assets/languages/languages.json";
+import { LanguageStateContext } from "../../../../App";
+
 export default function ContextMenu({ anchorEl, setAnchorEl, appName }) {
+  const lang = useContext(LanguageStateContext);
   const dispatch = useAppDispatch();
 
   const onOverBgColor = "rgba(255,255,255, 0.4)";
@@ -47,7 +52,7 @@ export default function ContextMenu({ anchorEl, setAnchorEl, appName }) {
             onPointerOut={(event) => handlePointerOver(event)}
             style={itemListStyle}
           >
-            <MinimizeIcon /> Minimiser
+            <MinimizeIcon /> {languages[lang].actions.minimize}
           </MenuItem>
           <MenuItem
             onClick={() => handleClick("close")}
@@ -55,7 +60,7 @@ export default function ContextMenu({ anchorEl, setAnchorEl, appName }) {
             onPointerOut={(event) => handlePointerOver(event)}
             style={itemListStyle}
           >
-            <CloseIcon /> Fermer
+            <CloseIcon /> {languages[lang].actions.close}
           </MenuItem>
         </MenuList>
       </ClickAwayListener>

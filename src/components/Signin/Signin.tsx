@@ -9,7 +9,7 @@ import LoginBackground from "../../assets/backgrounds/login.png";
 import LoginForm from "./LoginMenu/LoginForm/LoginForm";
 import LoginSession from "./LoginMenu/LoginSession/LoginSession";
 import { createContext, useRef, useState } from "react";
-import LoginIconGroup from "./LoginMenu/LoginIconGroup/LoginIcon";
+import LoginIconGroup from "./LoginMenu/LoginIconGroup/LoginIconGroup";
 import LockMenu from "./LockMenu/LockMenu";
 import { IsLoggedProp } from "../types";
 
@@ -35,7 +35,6 @@ export default function Signin({ isLogged, setIsLogged }: Props) {
     useState<LoginSessionProp>("Samir");
 
   if (isLogged === "lock") {
-    console.log(lockMenuRef.current);
     setTimeout(() => {
       lockMenuRef.current?.focus();
     }, 500);
@@ -54,7 +53,6 @@ export default function Signin({ isLogged, setIsLogged }: Props) {
           setIsLogged("unlock");
         }}
         onKeyDown={() => {
-          console.log("keydown");
           setIsLogged("unlock");
         }}
         tabIndex={0}

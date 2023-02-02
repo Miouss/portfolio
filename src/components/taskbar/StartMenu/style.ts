@@ -2,7 +2,7 @@ import styled from "@mui/system/styled";
 
 export const StartMenuBox = styled("div", {
   shouldForwardProp: (prop) => prop !== "rightclick" && prop !== "popOverMenuDisplayed",
-})(({ rightclick, popOverMenuDisplayed }: { rightclick: boolean, popOverMenuDisplayed:boolean }) => ({
+})(({ rightclick, popOverMenuDisplayed }: { rightclick: boolean | undefined, popOverMenuDisplayed:boolean | undefined }) => ({
   position: popOverMenuDisplayed ? "relative" : "unset",
   display: "flex",
   alignItems: "center",

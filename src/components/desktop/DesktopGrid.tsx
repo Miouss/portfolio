@@ -90,7 +90,7 @@ export default function DesktopGrid() {
 
   desktopAppFilled = desktopApp;
 
-  const [openContextMenu, setOpenContextMenu] = useState(false);
+  const [openContextMenu, setOpenContextMenu] = useState<boolean | undefined>(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   const handleContextMenu = (e: React.MouseEvent) => {

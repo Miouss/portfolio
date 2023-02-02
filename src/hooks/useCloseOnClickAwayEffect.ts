@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
 
 export default function useCloseOnClickAwayEffect(
-  state: boolean,
-  setState: Dispatch<SetStateAction<boolean>>
+  state: boolean | undefined,
+  setState: Dispatch<SetStateAction<boolean | undefined>>
 ) {
   useEffect(() => {
     if (!state) return;
