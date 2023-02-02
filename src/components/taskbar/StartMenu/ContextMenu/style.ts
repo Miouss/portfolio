@@ -11,7 +11,7 @@ export const ContextMenuPop = styled("div", {
   position: "absolute",
   display: "flex",
   height: "100px",
-  width: "100px",
+  width: "150px",
   backgroundColor: "#2B2B2B",
 
   top: mouseY,

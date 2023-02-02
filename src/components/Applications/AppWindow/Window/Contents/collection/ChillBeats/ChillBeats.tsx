@@ -14,7 +14,7 @@ import {
   NowPlayingTrack,
   NowPlayingIconContainer,
   NowPlayingTrackContainer,
-} from "./ChillBeatsStyled";
+} from "./style";
 import {
   NowPlayingIcon,
   PlayIcon,

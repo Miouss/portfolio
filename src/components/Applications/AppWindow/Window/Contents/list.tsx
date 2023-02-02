@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, useContext } from "react";
 
 import {
   TerminalIcon,
@@ -18,17 +18,29 @@ import MailSender from "./collection/MailSender/MailSender";
 import ChillBeats from "./collection/ChillBeats/ChillBeats";
 import Notepad from "./collection/Notepad/Notepad";
 
+import languages from "../../../../../assets/languages/languages.json";
+import { LanguageStateContext } from "../../../../App";
+
 let appList = {} as AppList[];
 let shortcutList = {} as ShortcutList[];
 
-addApp("Terminal", <TerminalApp />, <TerminalIcon fontSize="inherit" />, 1, 1, "Ouvrir le Terminal");
+addApp(
+  "Terminal",
+  <TerminalApp />,
+  <TerminalIcon fontSize="inherit" />,
+  1,
+  1,
+  "Ouvrir le Terminal",
+  "Open Terminal"
+);
 addApp(
   "Mail Sender",
   <MailSender appName="Mail Sender" />,
   <MailIcon fontSize="inherit" />,
   3,
   1,
-  "Envoyer un mail"
+  "Envoyer un mail",
+  "Send an email"
 );
 addApp(
   "Chill Beats",
@@ -36,7 +48,8 @@ addApp(
   <PlaylistIcon fontSize="inherit" />,
   9,
   2,
-  "Ecouter de la musique"
+  "Ecouter de la musique",
+  "Listen to music"
 );
 addApp(
   "Projets",
@@ -44,15 +57,25 @@ addApp(
   <ProjectIcon fontSize="inherit" />,
   1,
   3,
-  "Voir mes projets"
+  "Voir mes projets",
+  "See my projects"
 );
-addApp("About me", <Notepad />, <NotepadIcon fontSize="inherit" />, 1, 4, "A propos de moi");
+addApp(
+  "Presentation",
+  <Notepad />,
+  <NotepadIcon fontSize="inherit" />,
+  1,
+  4,
+  "A propos de moi",
+  "About me"
+);
 addApp(
   "Welcome",
   <TerminalApp key="welcome" mode="notepad" />,
   <TerminalIcon fontSize="inherit" />,
   0,
   0,
+  "",
   "",
   true
 );
@@ -63,7 +86,8 @@ addShortcut(
   "https://github.com/Miouss",
   9,
   6,
-  "Vers mon GitHub"
+  "Vers mon GitHub",
+  "Towards my GitHub"
 );
 addShortcut(
   "LinkedIn",
@@ -71,7 +95,8 @@ addShortcut(
   "https://www.linkedin.com/in/samir-ghabi-aa58a2224/",
   10,
   6,
-  "Vers mon profil LinkedIn"
+  "Vers mon profil LinkedIn",
+  "Towards my Linkedin profile"
 );
 
 interface Props {
@@ -110,7 +135,9 @@ export function getAllAppsName() {
 }
 
 export function AppAction({ name }: Props) {
-  return appList[name].action;
+  const lang = useContext(LanguageStateContext);
+
+  return appList[name].action[lang];
 }
 
 export function ShortcutDesktopIcon({ name }: Props) {
@@ -126,7 +153,9 @@ export function getShortcutLink(shortcutName: string) {
 }
 
 export function ShortcutAction({ name }: Props) {
-  return shortcutList[name].action;
+    const lang = useContext(LanguageStateContext);
+
+  return shortcutList[name].action[lang];
 }
 
 export function getAllShortcutsName() {
@@ -141,7 +170,8 @@ function addApp(
   Icon: any,
   col?: number,
   row?: number,
-  action?: string,
+  actionFr?: string,
+  actionEng?: string,
   isSecret?: boolean
 ) {
   appList[`${appName}`] = {
@@ -157,7 +187,11 @@ function addApp(
       col: col,
       row: row,
     },
-    action: action,
+    
+    action: {
+      fr: actionFr,
+      eng: actionEng,
+    },
     isSecret: isSecret ?? false,
   };
 }
@@ -168,7 +202,8 @@ function addShortcut(
   link: string,
   col: number,
   row: number,
-  action: string
+  actionFr: string,
+  actionEng: string
 ) {
   shortcutList[`${shortcutName}`] = {
     name: shortcutName,
@@ -178,6 +213,9 @@ function addShortcut(
       col: col,
       row: row,
     },
-    action: action
+    action: {
+      fr: actionFr,
+      eng: actionEng,
+    },
   };
 }

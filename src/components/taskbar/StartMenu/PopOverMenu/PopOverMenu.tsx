@@ -15,12 +15,15 @@ import {
 import { useContext, useEffect, useState } from "react";
 
 import { LoginDispathContext } from "../../../App";
+import languages from "../../../../assets/languages/languages.json";
+import { LanguageStateContext } from "../../../App";
 
 export default function PopOverMenu() {
   const [displayAction, setDisplayAction] = useState(false);
   const [mouseOver, setMouseOver] = useState(false);
   const [mouseOverEnough, setMouseOverEnough] = useState(false);
 
+  const lang = useContext(LanguageStateContext);
   const setLoginContext = useContext(LoginDispathContext);
 
   const handleMouseEnter = () => {
@@ -79,7 +82,7 @@ export default function PopOverMenu() {
         <PopOverMenuHeaderIcon>
           <PopOverMenuIcon />
         </PopOverMenuHeaderIcon>
-        <PopOverMenuHeaderLabel>Start</PopOverMenuHeaderLabel>
+        <PopOverMenuHeaderLabel>{languages[lang].actions.start}</PopOverMenuHeaderLabel>
       </PopOverMenuHeaderBox>
       <PopOverMenuItem
         onClick={(e) => handleClick(e, "lock")}
@@ -88,13 +91,13 @@ export default function PopOverMenu() {
         <PopOverMenuItemIcon>
           <LockIcon />
         </PopOverMenuItemIcon>
-        <PopOverMenuItemLabel>Verrouiller</PopOverMenuItemLabel>
+        <PopOverMenuItemLabel>{languages[lang].actions.lock}</PopOverMenuItemLabel>
       </PopOverMenuItem>
       <PopOverMenuItem onClick={handleClick} onMouseEnter={handleMouseEnter}>
         <PopOverMenuItemIcon>
           <SignoutIcon />
         </PopOverMenuItemIcon>
-        <PopOverMenuItemLabel>Se déconnecter</PopOverMenuItemLabel>
+        <PopOverMenuItemLabel>{languages[lang].actions.logout}</PopOverMenuItemLabel>
       </PopOverMenuItem>
     </PopOverMenuContainer>
   );

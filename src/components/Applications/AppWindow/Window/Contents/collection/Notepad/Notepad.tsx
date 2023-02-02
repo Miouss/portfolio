@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useContext } from "react";
 import {
   DropDownMenu,
   DropDownMenuButton,
@@ -15,6 +15,9 @@ import { useAppDispatch, closeApp } from "../../../../../../../redux";
 
 import { DynamicFontSize, DropDownMenuContent } from "./types";
 
+import languages from "../../../../../../../assets/languages/languages.json";
+import { LanguageStateContext } from "../../../../../../App";
+
 export default function Notepad() {
   const notepadRef = useRef<HTMLDivElement>(null);
   const textInputAreaRef = useRef<HTMLDivElement>(null);
@@ -30,26 +33,11 @@ export default function Notepad() {
 
   const [textTyping, setTextTyping] = useState(true);
 
+  const lang = useContext(LanguageStateContext);
   const dispatch = useAppDispatch();
-  const txt = `Je m'appelle Samir Ghabi, j'ai 26 ans et depuis tout petit je suis passionné par l'informatique.
-
-  J'ai commencé la programmation vers l'âge de 14 ans, avec des tutoriels sur le langage C puis C++.
-
-  Mais c'est bien plus tard, à 25 ans, où j'ai décidé de réellement m'impliquer dans la programmation.
-
-  J'ai d'abord suivi une formation en Javascript / Php / Mysql qui m'a surtout permis de me remettre dans le bain.
-
-  C'est ensuite que j'ai découvert le framework React et j'ai décidé de me spécialiser dans ce dernier.
-
-  Et c'est tout naturellement que je me suis au final orienté vers Node JS pour le backend.
-
-  Pendant mes projets j'ai retrouvé la notion de typage qui m'attiré dans les langages bas niveau avec TypeScript.
-  
-  Toutes mes réalisations sont disponibles sur mon GitHub et tous ont été conçu from scratch.
-
-  Il était important pour moi de faire des projets qui me plaisent et me donnent une vision plus long terme que simplement les concevoir "juste pour le CV", car c'est pour moi la meilleure façon d'apprendre et de s'investir pour progresser.  
-
-  Merci de m'avoir lu :)`;
+  const txt = languages[lang].apps.aboutMe.speech.reduce(
+    (previousValue, currentValue) => previousValue + "\n\n" + currentValue
+  );
 
   useEffect(() => {
     if (notepadRef.current?.offsetParent?.firstChild) {
@@ -68,7 +56,7 @@ export default function Notepad() {
     };
 
     if (textTyping) awaitMimicTyping();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [textTyping]);
 
   useTextInputEffect(textInputAreaRef, textTyping);
@@ -105,7 +93,8 @@ export default function Notepad() {
   };
 
   const clearAll = () => {
-    if (textInputAreaRef.current && !textTyping) textInputAreaRef.current.textContent = "";
+    if (textInputAreaRef.current && !textTyping)
+      textInputAreaRef.current.textContent = "";
   };
 
   const exitFct = (e) => {
@@ -113,41 +102,55 @@ export default function Notepad() {
     dispatch(closeApp("About me"));
   };
 
-  const rerun = async (e) => {
+  const rerun = (e) => {
     e.stopPropagation();
-    if(textTyping) return;
+    if (textTyping) return;
     clearAll();
     setTextTyping(true);
   };
+
+  const forceRerun = () => {
+    clearAll();
+    setTextTyping(true);
+  };
+
+  useEffect(() => {
+    forceRerun();
+  }, [lang]);
 
   const getDropDownMenuContent = () => {
     switch (dropDownMenuContent) {
       case "File":
         return (
           <>
-            <DropDownMenuButton onClick={exitFct}>Exit</DropDownMenuButton>
+            <DropDownMenuButton onClick={exitFct}>
+              {languages[lang].apps.aboutMe.toolbar.file.action}
+            </DropDownMenuButton>
           </>
         );
       case "Edit":
         return (
-          <DropDownMenuButton onClick={clearAll}>Clear all</DropDownMenuButton>
+          <DropDownMenuButton onClick={clearAll}>
+            {" "}
+            {languages[lang].apps.aboutMe.toolbar.edit.action}
+          </DropDownMenuButton>
         );
       case "Format":
         return (
           <>
             {dynamicFontSize !== "24px" && (
               <DropDownMenuButton onClick={() => setDynamicFontSize("24px")}>
-                Change font to 24px
+                {languages[lang].apps.aboutMe.toolbar.format.actions[0]}
               </DropDownMenuButton>
             )}
             {dynamicFontSize !== "16px" && (
               <DropDownMenuButton onClick={() => setDynamicFontSize("16px")}>
-                Change font to 16px
+                {languages[lang].apps.aboutMe.toolbar.format.actions[1]}
               </DropDownMenuButton>
             )}
             {dynamicFontSize !== "12px" && (
               <DropDownMenuButton onClick={() => setDynamicFontSize("12px")}>
-                Change font to 8px
+                {languages[lang].apps.aboutMe.toolbar.format.actions[2]}
               </DropDownMenuButton>
             )}
           </>
@@ -155,7 +158,7 @@ export default function Notepad() {
       case "Help":
         return (
           <DropDownMenuButton onClick={rerun}>
-            Rerun About Me
+            {languages[lang].apps.aboutMe.toolbar.help.action}
           </DropDownMenuButton>
         );
       default:
@@ -174,28 +177,28 @@ export default function Notepad() {
           onClick={(e) => changeDropDownMenuParent(e, "File")}
           onMouseEnter={(e) => switchDropDownMenuParent(e, "File")}
         >
-          File
+          {languages[lang].apps.aboutMe.toolbar.file.name}
         </ToolbarButton>
         <ToolbarButton
           active={dropDownMenuContent === "Edit"}
           onClick={(e) => changeDropDownMenuParent(e, "Edit")}
           onMouseEnter={(e) => switchDropDownMenuParent(e, "Edit")}
         >
-          Edit
+          {languages[lang].apps.aboutMe.toolbar.edit.name}
         </ToolbarButton>
         <ToolbarButton
           active={dropDownMenuContent === "Format"}
           onClick={(e) => changeDropDownMenuParent(e, "Format")}
           onMouseEnter={(e) => switchDropDownMenuParent(e, "Format")}
         >
-          Format
+          {languages[lang].apps.aboutMe.toolbar.format.name}
         </ToolbarButton>
         <ToolbarButton
           active={dropDownMenuContent === "Help"}
           onClick={(e) => changeDropDownMenuParent(e, "Help")}
           onMouseEnter={(e) => switchDropDownMenuParent(e, "Help")}
         >
-          Help
+          {languages[lang].apps.aboutMe.toolbar.help.name}
         </ToolbarButton>
       </Toolbar>
       <TextInputArea

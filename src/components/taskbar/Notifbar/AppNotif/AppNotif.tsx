@@ -15,12 +15,13 @@ import {
   useAppDispatch,
 } from "../../../../redux";
 import ContextMenu from "./ContextMenu/ContextMenu";
+import useCloseOnClickAwayEffect from "../../../../hooks/useCloseOnClickAwayEffect";
 
 interface Props {
   appName: string;
 }
 export default function AppNotif({ appName }: Props) {
-  const [openContextMenu, setOpenContextMenu] = useState(false);
+  const [openContextMenu, setOpenContextMenu] = useState<boolean | undefined>(false);
   const [isVisible, setIsVisible] = useState(false);
   const dispatch = useAppDispatch();
 
@@ -91,7 +92,7 @@ export default function AppNotif({ appName }: Props) {
         onClick={handleClick}
         onContextMenu={handleContextMenuClick}
       >
-        <ContextMenu isOpen={openContextMenu} handleCloseApp={handleCloseApp} />
+        <ContextMenu visible={openContextMenu} handleCloseApp={handleCloseApp} />
         <AppNotifIcon name={appName} />
       </AppNotifButton>
     </>

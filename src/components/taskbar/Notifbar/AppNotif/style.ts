@@ -25,7 +25,7 @@ export const NotifWindow = styled("div", {
     },
     "100%": {
       zIndex: 3,
-      transform: "translate(-59%, -100%)",
+      transform: "translate(-47%, -100%)",
     },
   },
 }));

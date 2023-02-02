@@ -1,0 +1,154 @@
+{
+    "fr": {
+        "signin": {
+            "message": {
+                "connect": "Se connecter",
+                "unlock": "Se reconnecter"
+            },
+            "loading": {
+                "connect": "Bienvenue",
+                "unlock": "Re-bienvenue"
+            },
+            "password": {
+                "placeholder": "Mot de passe",
+                "hint": "indice : Miaou! Miaou! Miaou!",
+                "error": "Mot de passe incorrect"
+            }
+        },
+        "actions": {
+            "start": "Démarrer",
+            "lock": "Verrouiller",
+            "logout": "Se déconnecter",
+            "desktop": "Montrer le bureau",
+            "close": "Fermer",
+            "minimize": "Minimiser",
+            "preview": "Aperçu",
+            "redirect": {
+                "website": "Vers le site web",
+                "github": "Dépôt GitHub"
+            },
+            "apps": {
+                "presentation" : "A propos de moi"
+            }
+        },
+        "apps": {
+            "aboutMe": {
+                "toolbar": {
+                    "file": {
+                        "name": "Fichier",
+                        "action": "Quitter"
+                    },
+                    "edit": {
+                        "name": "Editer",
+                        "action": "Tout effacer"
+                    },
+                    "format": {
+                        "name": "Formater",
+                        "actions": [
+                            "Changer la police pour 24px",
+                            "Changer la police pour 16px",
+                            "Changer la police pour 12px"
+                        ]
+                    },
+                    "help": {
+                        "name": "Aide",
+                        "action": "Relancer About Me"
+                    }
+                },
+                "speech": [
+                    "Je m'appelle Samir Ghabi, j'ai 26 ans et depuis tout petit je suis passionné par l'informatique.",
+                    "J'ai commencé la programmation vers l'âge de 14 ans, avec des tutoriels sur le langage C puis C++.",
+                    "Mais c'est bien plus tard, à 25 ans, où j'ai décidé de réellement m'impliquer dans la programmation.",
+                    "J'ai d'abord suivi une formation en Javascript / Php / Mysql qui m'a surtout permis de me remettre dans le bain.",
+                    "C'est ensuite que j'ai découvert le framework React et j'ai décidé de me spécialiser dans ce dernier.",
+                    "Et c'est tout naturellement que je me suis au final orienté vers Node JS pour le backend.",
+                    "Pendant mes projets j'ai retrouvé la notion de typage qui m'attiré dans les langages bas niveau avec TypeScript.",
+                    "Toutes mes réalisations sont disponibles sur mon GitHub et tous ont été conçu from scratch.",
+                    "Il était important pour moi de faire des projets qui me plaisent et me donnent une vision plus long terme que simplement les concevoir 'juste pour le CV', car c'est pour moi la meilleure façon d'apprendre et de s'investir pour progresser.",
+                    "Merci de m'avoir lu :)"
+                ]
+            },
+            "terminal": {
+                "welcomeMsg": [
+                    "Bonjour et bienvenue sur mon portofolio !",
+                    "Comme vous pouvez le constater, j'ai imité le comportement de Windows 10 pour ce projet.",
+                    "Je vous laisse soin d'explorer les différentes applications disponibles.",
+                    "Bonne visite !",
+                    "£",
+                    "Appuyez sur une touche pour continuer..."
+                ]
+            }
+        }
+    },
+    "eng": {
+        "signin": {
+            "message": {
+                "connect": "Sign in",
+                "unlock": "Reconnect"
+            },
+            "loading": {
+                "connect": "Welcome",
+                "unlock": "Welcome back"
+            },
+            "password": {
+                "placeholder": "Password",
+                "hint": "hint : Meow! Meow! Meow!",
+                "error": "Password incorrect"
+            }
+        },
+        "actions": {
+            "start": "Start",
+            "lock": "Lock",
+            "logout": "Logout",
+            "desktop": "Show desktop",
+            "close": "Close",
+            "minimize": "Minimize",
+            "preview": "Preview",
+            "redirect": {
+                "website": "Towards the website",
+                "github": "Repository GitHub"
+            },
+            "apps": {
+                "presentation" : "About me"
+            }
+        },
+        "apps": {
+            "aboutMe": {
+                "toolbar": {
+                    "file": {
+                        "name": "File",
+                        "action": "Exit"
+                    },
+                    "edit": {
+                        "name": "Edit",
+                        "action": "Clear all"
+                    },
+                    "format": {
+                        "name": "File",
+                        "actions": [
+                            "Change font for 24px",
+                            "Change font for 16px",
+                            "Change font for 12px"
+                        ]
+                    },
+                    "help": {
+                        "name": "Help",
+                        "action": "Rerun About Me"
+                    }
+                },
+                "speech": [
+                    "THIS IS THE TEST SPEECH FOR ENGLISH VERSION",
+                    "I WILL UPDATE IT LATER"
+                ]
+            },
+            "terminal": {
+                "welcomeMsg": [
+                    "Welcome to my website",
+                    "I will will update it later",
+                    "£",
+                    "Press any key to continue..."
+                ]
+            }
+        }
+    }
+}

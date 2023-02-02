@@ -3,6 +3,7 @@ import Appbar from "./Appbar/Appbar";
 import StartMenu from "./StartMenu/StartMenu";
 import Notifbar from "./Notifbar/Notifbar";
 import { Taskbar } from "./style";
+import LangPref from "./LangPref/LangPref";
 
 export default function DesktopTaskBar() {
   return (
@@ -10,6 +11,7 @@ export default function DesktopTaskBar() {
       <StartMenu />
       <Appbar />
       <Notifbar />
+      <LangPref />
       <DateTime />
     </Taskbar>
   );

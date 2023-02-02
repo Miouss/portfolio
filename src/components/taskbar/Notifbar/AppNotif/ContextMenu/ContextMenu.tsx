@@ -1,12 +1,12 @@
 import { ContextMenuButton, ContextMenuContainer } from "./style";
 
 interface Props {
-  isOpen: boolean;
+  visible: boolean | undefined;
   handleCloseApp: () => void;
 }
 
-export default function ContextMenu({ isOpen, handleCloseApp }: Props) {
-  if (!isOpen) return null;
+export default function ContextMenu({ visible, handleCloseApp }: Props) {
+  if (!visible) return null;
 
   return (
     <ContextMenuContainer>

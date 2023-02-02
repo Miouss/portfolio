@@ -1,3 +1,4 @@
+import {useContext} from "react";
 import useFullDate from "../../../hooks/useFullDate";
 import {
   LockMenuContainer,
@@ -9,11 +10,18 @@ import {
   IconButton,
 } from "./style";
 
-import { LangIcon } from "../../../assets/icons/icons";
+import { LanguageStateContext, LanguageDispatchContext } from "../../App";
+import { LanguageProp } from "../../types";
 
 export default function LockMenu() {
   const fullDate = useFullDate();
+  const lang = useContext(LanguageStateContext);
+  const setLang = useContext(LanguageDispatchContext);
 
+  const switchLang = (e) => {
+    e.stopPropagation();
+    setLang((lang: LanguageProp) => (lang === "fr" ? "eng" : "fr"));
+  };
   return (
     <LockMenuContainer>
       <FullDateContainer>
@@ -23,9 +31,7 @@ export default function LockMenu() {
         </FullDateBox>
       </FullDateContainer>
       <IconContainer>
-        <IconButton>
-          <LangIcon />
-        </IconButton>
+        <IconButton onClick={switchLang}>{lang.toUpperCase()}</IconButton>
       </IconContainer>
     </LockMenuContainer>
   );

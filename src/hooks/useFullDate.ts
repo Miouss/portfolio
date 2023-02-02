@@ -1,11 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import delay from "../utils/delay";
+
+import { LanguageStateContext } from "../components/App";
 
 export default function useFullDate() {
   const [date, setDate] = useState<Date>(new Date());
-  const weekDay = new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(date);
-  const month = new Intl.DateTimeFormat("en-US", { month: "long" }).format(date);
-  const day = date.toLocaleString("en-US", { day: "numeric" });
+  const lang = useContext(LanguageStateContext);
+  const localeDate = lang === "eng" ? "en-US" : "fr-FR"; 
+  const weekDay = new Intl.DateTimeFormat(localeDate, { weekday: "long" }).format(date);
+  const month = new Intl.DateTimeFormat(localeDate, { month: "long" }).format(date);
+  const day = date.toLocaleString(localeDate, { day: "numeric" });
 
   const updatedFullDate = {
     time: `${date.getHours().toString().padStart(2, "0")}:${date

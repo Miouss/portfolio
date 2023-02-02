@@ -10,10 +10,12 @@ export const LoginIconContainer = styled("section")({
 });
 
 export const IconButton = styled("button")({
+    position: "relative",
     border: "none",
     background: "none",
     padding: "0.5rem",
-
+    color: "white",
+    fontSize: "1.3rem",
     "& > *": {
         width: "1.8rem",
         height: "1.8rem",
@@ -24,3 +26,9 @@ export const IconButton = styled("button")({
         background: "rgba(255, 255, 255, 0.1)",
     },
 });
+
+export const LangSwitchBox = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  
+})

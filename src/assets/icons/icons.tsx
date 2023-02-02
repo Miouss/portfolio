@@ -40,9 +40,18 @@ import { MdVisibility, MdVisibilityOff } from "react-icons/md";
 
 import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 
-import {FaLockOpen, FaLock, FaSignOutAlt} from "react-icons/fa";
+import { FaLockOpen, FaLock, FaSignOutAlt } from "react-icons/fa";
 
-import {MdMenu} from "react-icons/md";
+import { MdMenu, MdTranslate } from "react-icons/md";
+
+import {CgArrowsExchangeAlt} from "react-icons/cg";
+
+export const LangSwitchIcon = (style?: CSSProperties) => (
+  <CgArrowsExchangeAlt style={style} />
+);
+export const LangPrefIcon = (style?: CSSProperties) => (
+  <MdTranslate style={style} />
+);
 
 export const PopOverMenuIcon = (style?: CSSProperties) => (
   <MdMenu style={style} />
@@ -50,9 +59,7 @@ export const PopOverMenuIcon = (style?: CSSProperties) => (
 export const SignoutIcon = (style?: CSSProperties) => (
   <FaSignOutAlt style={style} />
 );
-export const LockIcon = (style?: CSSProperties) => (
-  <FaLock style={style} />
-);
+export const LockIcon = (style?: CSSProperties) => <FaLock style={style} />;
 export const UnlockIcon = (style?: CSSProperties) => (
   <FaLockOpen style={style} />
 );
