@@ -3,7 +3,7 @@ import styled from "@mui/system/styled";
 export const LangPrefContainer = styled("section")({
   position: "relative",
   height: "100%",
-  width: "32px",
+  width: "40px",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
@@ -11,7 +11,10 @@ export const LangPrefContainer = styled("section")({
   color: "white",
 
   "&:hover": {
-    background: "#313E53",
+    background: "#313D53",
+  },
+  "&:active": {
+    background: "#3A455C",
   },
 
   background: "inherit",
@@ -24,7 +27,7 @@ export const LangPrefCurrentBox = styled("div")({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  
+
   background: "inherit",
   zIndex: "1",
 });
@@ -58,18 +61,22 @@ export const LangPrefPopOverMenu = styled("div", {
   "@keyframes slideInLang": {
     "0%": {
       transform: "translateY(0%)",
+      opacity: "0",
     },
     "100%": {
       transform: "translateY(-100%)",
+      opacity: "1",
     },
   },
 
   "@keyframes slideOutLang": {
     "0%": {
       transform: "translateY(-100%)",
+      opacity: "1",
     },
     "100%": {
       transform: "translateY(0%)",
+      opacity: "0",
       visibility: "hidden",
     },
   },

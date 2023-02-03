@@ -15,7 +15,7 @@ import {
   useAppDispatch,
 } from "../../../../redux";
 import ContextMenu from "./ContextMenu/ContextMenu";
-import useCloseOnClickAwayEffect from "../../../../hooks/useCloseOnClickAwayEffect";
+import useCloseOnClickAwayEffect from "../../../../hooks/useCloseOnClick";
 
 interface Props {
   appName: string;

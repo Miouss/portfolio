@@ -13,8 +13,6 @@ import {
   SignoutIcon,
 } from "../../../../assets/icons/icons";
 import {
-  Dispatch,
-  SetStateAction,
   useContext,
   useEffect,
   useState,
@@ -23,16 +21,13 @@ import {
 import { LoginDispathContext } from "../../../App";
 import languages from "../../../../assets/languages/languages.json";
 import { LanguageStateContext } from "../../../App";
-import useCloseOnClickAwayEffect from "../../../../hooks/useCloseOnClickAwayEffect";
 
 interface Props {
   displayPopOverMenu: boolean | undefined;
-  setDisplayPopOverMenu: Dispatch<SetStateAction<boolean | undefined>>;
 }
 
 export default function PopOverMenu({
   displayPopOverMenu,
-  setDisplayPopOverMenu,
 }: Props) {
   const [displayAction, setDisplayAction] = useState(false);
   const [mouseOver, setMouseOver] = useState(false);
@@ -72,8 +67,6 @@ export default function PopOverMenu({
     }
   }, [mouseOver, mouseOverEnough]);
 
-  useCloseOnClickAwayEffect(displayPopOverMenu, setDisplayPopOverMenu);
-  console.log(displayAction);
   return (
     <PopOverMenuContainer
       visible={displayPopOverMenu}

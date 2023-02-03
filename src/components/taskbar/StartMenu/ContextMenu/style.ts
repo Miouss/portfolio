@@ -7,7 +7,11 @@ interface ContextMenuProps {
 
 export const ContextMenuPop = styled("div", {
   shouldForwardProp: (prop) => prop !== "mouseX" && prop !== "mouseY",
-})(({ mouseX, mouseY }: ContextMenuProps) => ({
+})(({ mouseX, mouseY }: ContextMenuProps) => {
+  console.log(mouseY);
+  console.log(mouseX);
+  
+  return({
   position: "absolute",
   display: "flex",
   height: "100px",
@@ -18,9 +22,9 @@ export const ContextMenuPop = styled("div", {
   left: mouseX,
 
   transform: "translateY(-100%)",
-  zIndex: 3,
   border: "1px solid #8E8E8E",
-}));
+  zIndex: "20",
+})});
 
 export const MenuList = styled("ul")({
   width: "100%",

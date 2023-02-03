@@ -9,14 +9,13 @@ import { LanguageStateContext } from "../../../App";
 export default function ContextMenu({
   mousePosition,
 }: {
-  setDisplayContextMenu: (value: boolean) => void;
   mousePosition: { x: number; y: number };
 }) {
   const lang = useContext(LanguageStateContext);
   const LoginDispatchContext = useContext(LoginDispathContext);
 
   return (
-    <ContextMenuPop onClick={(e) => e.stopPropagation()} mouseX={mousePosition.x} mouseY={mousePosition.y}>
+    <ContextMenuPop mouseX={mousePosition.x} mouseY={mousePosition.y}>
       <MenuList>
         <MenuItem>{languages[lang].actions.desktop}</MenuItem>
         <MenuItem onClick={() => LoginDispatchContext(false)}>{languages[lang].actions.logout}</MenuItem>

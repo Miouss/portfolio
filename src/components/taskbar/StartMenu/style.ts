@@ -1,14 +1,18 @@
 import styled from "@mui/system/styled";
 
-export const StartMenuBox = styled("div", {
+export const StartMenuContainer = styled("div", {
   shouldForwardProp: (prop) => prop !== "rightclick" && prop !== "popOverMenuDisplayed",
 })(({ rightclick, popOverMenuDisplayed }: { rightclick: boolean | undefined, popOverMenuDisplayed:boolean | undefined }) => ({
-  position: popOverMenuDisplayed ? "relative" : "unset",
+  position: "relative",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
+
   "&:hover": {
-    backgroundColor: "#313E53",
+    background: "#313D53",
+  },
+  "&:active": {
+    background: "#3A455C",
   },
 
   backgroundColor: rightclick || popOverMenuDisplayed ? "#313E53" : "inherit",
@@ -24,4 +28,12 @@ export const WindowsIconBox = styled("i")({
   alignItems: "center",
   zIndex: "1",
   background: "inherit",
+
+  "&:hover": {
+    "& > *": {
+      color: "#429CE3",
+    },
+  },
+
+
 });
