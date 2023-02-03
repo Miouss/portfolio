@@ -1,4 +1,5 @@
 import styled from "@mui/system/styled";
+import { MailSentProps } from "./types";
 
 export const MailSenderContainer = styled("div", {
   shouldForwardProp: (prop) => prop !== "animation" && prop !== "zIndex",
@@ -79,11 +80,34 @@ export const Message = styled("textarea")({
   resize: "none",
 });
 
-export const Submit = styled("button")({
-  "&:hover": {
-    cursor: "pointer",
-    backgroundColor: "rgb(255, 255, 255, 0.05)",
-  },
+export const Submit = styled("button", {
+  shouldForwardProp: (prop) => prop !== "sendingState",
+})(({ sendingState }: { sendingState: MailSentProps }) => {
+  let bgColor;
+
+  switch (sendingState) {
+    case "sending":
+      bgColor = "rgb(255, 255, 255, 0.1)";
+      break;
+    case true:
+      bgColor = "rgb(0, 255, 0, 0.1)";
+      break;
+    case false:
+      bgColor = "rgb(255, 0, 0, 0.1)";
+      break;
+    default:
+      bgColor = "rgb(0, 0, 0, 0.4)";
+  }
+
+  return {
+    background: bgColor,
+    ...(sendingState === undefined && {
+      "&:hover": {
+        cursor: "pointer",
+        backgroundColor: "rgb(255, 255, 255, 0.05)",
+      },
+    }),
+  };
 });
 
 export const MinimizeButton = styled("button")({
