@@ -1,4 +1,4 @@
-import { ReactElement, useState } from "react";
+import { ReactElement, useRef, useState } from "react";
 
 import NormalApp from "./DesktopGrid/GridAppWindow";
 import ShortcutApp from "./DesktopGrid/GridAppShortcut";
@@ -11,7 +11,9 @@ import {
   getShortcutGridPostion,
 } from "../Applications/AppWindow/Window/Contents/list";
 import ContextMenu from "./ContextMenu/ContextMenu";
-import useCloseOnClickAwayEffect from "../../hooks/useCloseOnClickAwayEffect";
+import useCloseOnClickAway from "../../hooks/useCloseOnClickAway";
+import useOpenContextMenuOnRightClick from "../../hooks/useOpenContextMenuOnRightClick";
+import useCloseOnMouseDown from "../../hooks/useCloseOnMouseDown";
 
 export interface AppStyle {
   borderStyle?: string;
@@ -94,16 +96,16 @@ export default function DesktopGrid() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   const handleContextMenu = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setOpenContextMenu(true);
     setMousePosition({ x: e.pageX, y: e.pageY });
   };
 
-  useCloseOnClickAwayEffect(openContextMenu, setOpenContextMenu);
+  const desktopGridContainerRef = useRef<HTMLDivElement>(null);
+  useOpenContextMenuOnRightClick(desktopGridContainerRef, openContextMenu, setOpenContextMenu, setMousePosition);
+  useCloseOnMouseDown(openContextMenu, setOpenContextMenu);
+  useCloseOnClickAway(openContextMenu, setOpenContextMenu);
 
   return (
-    <DesktopGridContainer onContextMenu={handleContextMenu}>
+    <DesktopGridContainer ref={desktopGridContainerRef} onContextMenu={handleContextMenu}>
       {openContextMenu && (
         <ContextMenu
           mouseX={mousePosition.x}

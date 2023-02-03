@@ -73,7 +73,7 @@ export default function ContextMenu({
     return actionsContainer;
   };
   return (
-    <ContextMenuPop mouseX={mouseX} mouseY={mouseY}>
+    <ContextMenuPop mouseX={mouseX} mouseY={mouseY} onMouseDown={(e) => e.stopPropagation()}>
       {actions()}
     </ContextMenuPop>
   );

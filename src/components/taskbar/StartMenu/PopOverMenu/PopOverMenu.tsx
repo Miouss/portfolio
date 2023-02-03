@@ -12,13 +12,23 @@ import {
   PopOverMenuIcon,
   SignoutIcon,
 } from "../../../../assets/icons/icons";
-import { useContext, useEffect, useState } from "react";
+import {
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 import { LoginDispathContext } from "../../../App";
 import languages from "../../../../assets/languages/languages.json";
 import { LanguageStateContext } from "../../../App";
 
-export default function PopOverMenu() {
+interface Props {
+  displayPopOverMenu: boolean | undefined;
+}
+
+export default function PopOverMenu({
+  displayPopOverMenu,
+}: Props) {
   const [displayAction, setDisplayAction] = useState(false);
   const [mouseOver, setMouseOver] = useState(false);
   const [mouseOverEnough, setMouseOverEnough] = useState(false);
@@ -59,18 +69,9 @@ export default function PopOverMenu() {
 
   return (
     <PopOverMenuContainer
+      visible={displayPopOverMenu}
       wrapped={!displayAction}
       onMouseLeave={handleMouseLeave}
-      onAnimationStart={(e) => {
-        e.currentTarget.onclick = (e) => {
-          e.stopPropagation();
-        };
-      }}
-      onAnimationEnd={(e) => {
-        setTimeout(() => {
-          e.currentTarget.onclick = null;
-        }, 400);
-      }}
     >
       <PopOverMenuHeaderBox
         onClick={(e) => {
@@ -82,7 +83,9 @@ export default function PopOverMenu() {
         <PopOverMenuHeaderIcon>
           <PopOverMenuIcon />
         </PopOverMenuHeaderIcon>
-        <PopOverMenuHeaderLabel>{languages[lang].actions.start}</PopOverMenuHeaderLabel>
+        <PopOverMenuHeaderLabel>
+          {languages[lang].actions.start}
+        </PopOverMenuHeaderLabel>
       </PopOverMenuHeaderBox>
       <PopOverMenuItem
         onClick={(e) => handleClick(e, "lock")}
@@ -91,13 +94,17 @@ export default function PopOverMenu() {
         <PopOverMenuItemIcon>
           <LockIcon />
         </PopOverMenuItemIcon>
-        <PopOverMenuItemLabel>{languages[lang].actions.lock}</PopOverMenuItemLabel>
+        <PopOverMenuItemLabel>
+          {languages[lang].actions.lock}
+        </PopOverMenuItemLabel>
       </PopOverMenuItem>
       <PopOverMenuItem onClick={handleClick} onMouseEnter={handleMouseEnter}>
         <PopOverMenuItemIcon>
           <SignoutIcon />
         </PopOverMenuItemIcon>
-        <PopOverMenuItemLabel>{languages[lang].actions.logout}</PopOverMenuItemLabel>
+        <PopOverMenuItemLabel>
+          {languages[lang].actions.logout}
+        </PopOverMenuItemLabel>
       </PopOverMenuItem>
     </PopOverMenuContainer>
   );
