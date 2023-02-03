@@ -18,12 +18,6 @@ export default function LoginIconGroup() {
   return (
     <LoginIconContainer>
       <IconButton onClick={switchLang}>{lang.toUpperCase()}</IconButton>
-      <IconButton>
-        <WifiIcon />
-      </IconButton>
-      <IconButton>
-        <PowerIcon />
-      </IconButton>
     </LoginIconContainer>
   );
 }
