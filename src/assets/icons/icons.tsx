@@ -44,8 +44,21 @@ import { FaLockOpen, FaLock, FaSignOutAlt } from "react-icons/fa";
 
 import { MdMenu, MdTranslate } from "react-icons/md";
 
-import {CgArrowsExchangeAlt} from "react-icons/cg";
+import { CgArrowsExchangeAlt } from "react-icons/cg";
 
+import { VscLoading, VscError} from "react-icons/vsc";
+
+import {BsCheck2 } from "react-icons/bs";
+
+export const ErrorIcon = (style?: CSSProperties) => <VscError style={style} />;
+export const DoneIcon = (style?: CSSProperties) => <BsCheck2 style={style} />;
+
+export const LoadingIcon = (style?: CSSProperties) => (
+  <VscLoading style={{
+    animation: "spin 1s linear infinite",
+    ...style,
+  }} />
+);
 export const LangSwitchIcon = (style?: CSSProperties) => (
   <CgArrowsExchangeAlt style={style} />
 );
