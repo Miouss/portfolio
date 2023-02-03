@@ -6,4 +6,6 @@ export const AppbarContainer = styled("section")({
   display: "flex",
   width: "100%",
   alignItems: "center",
+  background: "inherit",
+  zIndex: "1",
 });

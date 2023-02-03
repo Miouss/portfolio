@@ -2,6 +2,7 @@ import styled from "@mui/system/styled";
 import { Stack } from "@mui/material";
 
 export const DesktopGridContainer = styled(Stack)({
+    position: "relative",
     height: "calc(100vh - 45px)",
     flexWrap: "wrap",
     overflow: "hidden", 
@@ -10,7 +11,7 @@ export const DesktopGridContainer = styled(Stack)({
     },
     marginRight: "1rem",
 
-    zIndex: 0,
+    zIndex: -1,
 });
 
 DesktopGridContainer.defaultProps = {

@@ -3,6 +3,7 @@ import {
   Divider,
   LangPrefContainer,
   LangPrefCurrent,
+  LangPrefCurrentBox,
   LangPrefPopOverMenu,
 } from "./style";
 import { LanguageStateContext } from "../../App";
@@ -21,10 +22,12 @@ export default function LangPref() {
   };
 
   useCloseOnClickAwayEffect(openMenu, setOpenMenu);
-  
+
   return (
     <LangPrefContainer onClick={handleClick}>
-      <LangPrefCurrent> {lang.toUpperCase()} </LangPrefCurrent>
+      <LangPrefCurrentBox>
+        <LangPrefCurrent> {lang.toUpperCase()} </LangPrefCurrent>
+      </LangPrefCurrentBox>
       <LangPrefPopOverMenu visible={openMenu}>
         <LangPrefItem
           code={<LangPrefIcon fontSize={"1.5rem"} />}
