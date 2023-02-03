@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState, focusApp, openApp, useAppDispatch } from "../../../redux";
-import { AppDesktopIcon } from "../../Applications/AppWindow/Window/Contents/list";
+import { focusApp, openApp, useAppDispatch } from "../../../redux";
+import { AppDesktopIcon } from "../../Applications/Window/Contents/list";
 import {
   BackgroundColorLayer,
   GridAppContainer,
   GridAppIcon,
   GridAppLabel,
 } from "./style";
+import useAppStatus from "../../../hooks/Store/useAppStatus";
 
 interface Props {
   appName: string;
@@ -15,11 +15,7 @@ interface Props {
 
 export default function NormalApp({ appName }: Props) {
   const dispatch = useAppDispatch();
-  const isRunning = useSelector((state: RootState) => {
-    const app = state.apps.find((app) => app.name === appName);
-
-    return app?.status.isRunning;
-  });
+  const {isRunning} = useAppStatus(appName);
 
   const [click, setClick] = useState(false);
   const [cursor, setCursor] = useState<"default" | "progress">("default");

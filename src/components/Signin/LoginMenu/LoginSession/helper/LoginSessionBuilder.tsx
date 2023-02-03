@@ -6,16 +6,19 @@ import {
 } from "./style";
 
 import { DispatchContext, StateContext } from "../../../Signin";
-import { LoginSessionProp } from "../../../Signin";
+import { LoginSessionProp } from "../../../../../types/types";
 
 interface Props {
-    sessionName: LoginSessionProp;
-    profilPicture: string;
+  sessionName: LoginSessionProp;
+  profilPicture: string;
 }
 
-export default function LoginSessionBuilder({sessionName, profilPicture }: Props) {
-    const setSelectedLoginSession = useContext(DispatchContext);
-    const selectedLoginSession = useContext(StateContext);
+export default function LoginSessionBuilder({
+  sessionName,
+  profilPicture,
+}: Props) {
+  const setSelectedLoginSession = useContext(DispatchContext);
+  const selectedLoginSession = useContext(StateContext);
 
   return (
     <LoginSessionContainer

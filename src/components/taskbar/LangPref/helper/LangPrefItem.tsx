@@ -6,7 +6,7 @@ import {
 } from "./style";
 import { LanguageDispatchContext } from "../../../App";
 import { LanguageStateContext } from "../../../App";
-import { LanguageProp } from "../../../types";
+import { LanguageProp } from "../../../../types/types";
 
 interface Props {
   code: LanguageProp | JSX.Element;

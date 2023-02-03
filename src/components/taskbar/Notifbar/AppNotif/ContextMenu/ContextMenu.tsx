@@ -1,7 +1,8 @@
+import { UndefinedBoolean } from "../../../../../types/types";
 import { ContextMenuButton, ContextMenuContainer } from "./style";
 
 interface Props {
-  visible: boolean | undefined;
+  visible: UndefinedBoolean;
   handleCloseApp: () => void;
 }
 

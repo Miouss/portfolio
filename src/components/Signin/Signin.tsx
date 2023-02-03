@@ -11,9 +11,7 @@ import LoginSession from "./LoginMenu/LoginSession/LoginSession";
 import { createContext, useRef, useState } from "react";
 import LoginIconGroup from "./LoginMenu/LoginIconGroup/LoginIconGroup";
 import LockMenu from "./LockMenu/LockMenu";
-import { IsLoggedProp } from "../types";
-
-export type LoginSessionProp = "Samir" | "Miouss";
+import { IsLoggedProp, LoginSessionProp } from "../../types/types";
 
 export const StateContext = createContext("" as LoginSessionProp);
 export const DispatchContext = createContext(

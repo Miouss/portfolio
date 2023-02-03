@@ -13,7 +13,7 @@ import { Box } from "@mui/material";
 
 import { LanguageStateContext } from "../../../../App";
 import langs from "../../../../../assets/languages/languages.json"
-import useFocusEffect from "../../../../Applications/hooks/useFocusEffect";
+import useFocusEffect from "../../../../../hooks/Applications/useFocusEffect";
 
 
 export default function FormMiouss() {

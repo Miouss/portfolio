@@ -4,36 +4,33 @@ import { AppNotifButton } from "./style";
 import {
   AppComponent,
   AppNotifIcon,
-} from "../../../Applications/AppWindow/Window/Contents/list";
+} from "../../../Applications/Window/Contents/list";
 import { NotifWindow } from "./style";
-import { useSelector } from "react-redux";
 import {
-  RootState,
   closeApp,
   focusApp,
   minimizeApp,
   useAppDispatch,
 } from "../../../../redux";
 import ContextMenu from "./ContextMenu/ContextMenu";
-import useCloseOnClickAwayEffect from "../../../../hooks/useCloseOnClick";
+import { UndefinedBoolean } from "../../../../types/types";
+import useAppStatus from "../../../../hooks/Store/useAppStatus";
 
 interface Props {
   appName: string;
 }
 export default function AppNotif({ appName }: Props) {
-  const [openContextMenu, setOpenContextMenu] = useState<boolean | undefined>(false);
+  const [openContextMenu, setOpenContextMenu] =
+    useState<UndefinedBoolean>(false);
   const [isVisible, setIsVisible] = useState(false);
   const dispatch = useAppDispatch();
 
-  const { isFocused, isMinimized } = useSelector((store: RootState) => {
-    const app = store.apps.find((app) => app.name === appName);
-    return app?.status!;
-  });
+  const { isFocused, isMinimized } = useAppStatus(appName);
 
   const handleClick = (e) => {
     e.stopPropagation();
-    if (openContextMenu)setOpenContextMenu(false);
-    if(isVisible) dispatch(minimizeApp(appName));
+    if (openContextMenu) setOpenContextMenu(false);
+    if (isVisible) dispatch(minimizeApp(appName));
     else dispatch(focusApp(appName));
   };
 
@@ -60,7 +57,7 @@ export default function AppNotif({ appName }: Props) {
 
   useEffect(() => {
     if (openContextMenu) {
-      if(isVisible) dispatch(minimizeApp(appName));
+      if (isVisible) dispatch(minimizeApp(appName));
 
       const eventCallback = () => setOpenContextMenu(false);
 
@@ -84,7 +81,7 @@ export default function AppNotif({ appName }: Props) {
 
   return (
     <>
-      <NotifWindow visible={isVisible} onClick={(e) => e.stopPropagation() }>
+      <NotifWindow visible={isVisible} onClick={(e) => e.stopPropagation()}>
         <AppComponent name={appName} />
       </NotifWindow>
 
@@ -92,7 +89,10 @@ export default function AppNotif({ appName }: Props) {
         onClick={handleClick}
         onContextMenu={handleContextMenuClick}
       >
-        <ContextMenu visible={openContextMenu} handleCloseApp={handleCloseApp} />
+        <ContextMenu
+          visible={openContextMenu}
+          handleCloseApp={handleCloseApp}
+        />
         <AppNotifIcon name={appName} />
       </AppNotifButton>
     </>
