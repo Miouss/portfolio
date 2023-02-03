@@ -1,4 +1,4 @@
-import { StartMenuBox } from "./style";
+import { StartMenuBox, WindowsIconBox } from "./style";
 import { WindowsIcon } from "../../../assets/icons/icons";
 import { useEffect, useState } from "react";
 import ContextMenu from "./ContextMenu/ContextMenu";
@@ -9,8 +9,12 @@ export default function StartMenu() {
   const [color, setColor] = useState("white");
 
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [displayContextMenu, setDisplayContextMenu] = useState<boolean | undefined>(false);
-  const [displayPopOverMenu, setDisplayPopOverMenu] = useState<boolean | undefined>(false);
+  const [displayContextMenu, setDisplayContextMenu] = useState<
+    boolean | undefined
+  >(false);
+  const [displayPopOverMenu, setDisplayPopOverMenu] = useState<
+    boolean | undefined
+  >(undefined);
 
   const openPopOverMenu = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -43,27 +47,31 @@ export default function StartMenu() {
   }, [displayPopOverMenu]);
 
   useCloseOnClickAwayEffect(displayContextMenu, setDisplayContextMenu);
-  useCloseOnClickAwayEffect(displayPopOverMenu, setDisplayPopOverMenu);
 
   return (
     <StartMenuBox
       popOverMenuDisplayed={displayPopOverMenu}
-      onClick={openPopOverMenu}
       rightclick={displayContextMenu}
+      onClick={openPopOverMenu}
       onMouseEnter={() => setColor("dodgerblue")}
       onMouseLeave={() => {
         !displayContextMenu && setColor("white");
       }}
-      onContextMenu={(e) => openContextMenu(e)}
+      onContextMenu={openContextMenu}
     >
-      {displayPopOverMenu && <PopOverMenu />}
+      <PopOverMenu
+        displayPopOverMenu={displayPopOverMenu}
+        setDisplayPopOverMenu={setDisplayPopOverMenu}
+      />
       {displayContextMenu && (
         <ContextMenu
           setDisplayContextMenu={setDisplayContextMenu}
           mousePosition={mousePosition}
         />
       )}
-      <WindowsIcon color={color} />
+      <WindowsIconBox>
+        <WindowsIcon color={color} />
+      </WindowsIconBox>
     </StartMenuBox>
   );
 }

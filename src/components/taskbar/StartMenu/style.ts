@@ -7,10 +7,21 @@ export const StartMenuBox = styled("div", {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  padding: "1rem",
   "&:hover": {
-    backgroundColor: "rgba(255, 255, 255, 0.1)",
+    backgroundColor: "#313E53",
   },
 
-  backgroundColor: rightclick || popOverMenuDisplayed ? "rgba(255, 255, 255, 0.1)" : "transparent",
+  backgroundColor: rightclick || popOverMenuDisplayed ? "#313E53" : "inherit",
 }));
+
+export const WindowsIconBox = styled("i")({
+  width: "100%",
+  height: "100%",
+  padding: "0 1rem",
+  
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  zIndex: "1",
+  background: "inherit",
+});
