@@ -1,28 +1,22 @@
 import { StartMenuContainer, WindowsIconBox } from "./style";
 import { WindowsIcon } from "../../../assets/icons/icons";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import ContextMenu from "./ContextMenu/ContextMenu";
 import PopOverMenu from "./PopOverMenu/PopOverMenu";
-import useOpenOnLeftClick from "../../../hooks/useOpenOnLeftClick";
-import useCloseOnClickAway from "../../../hooks/useCloseOnClickAway";
-import useCloseOnClick from "../../../hooks/useCloseOnClick";
-import useOpenContextMenuOnRightClick from "../../../hooks/useOpenContextMenuOnRightClick";
+import useOpenOnLeftClick from "../../../hooks/MouseEvents/useOpenOnLeftClick";
+import useCloseOnClickAway from "../../../hooks/MouseEvents/useCloseOnClickAway";
+import useCloseOnClick from "../../../hooks/MouseEvents/useCloseOnClick";
+import useOpenContextMenuOnRightClick from "../../../hooks/MouseEvents/useOpenContextMenuOnRightClick";
+import { UndefinedBoolean } from "../../../types/types";
 
 export default function StartMenu() {
   const startMenuContainerRef = useRef<HTMLDivElement>(null);
 
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [displayContextMenu, setDisplayContextMenu] = useState<
-    boolean | undefined
-  >(false);
-  const [displayPopOverMenu, setDisplayPopOverMenu] = useState<
-    boolean | undefined
-  >(undefined);
-
-  useEffect(() => {
-    if (!displayPopOverMenu) return;
-    setDisplayContextMenu(false);
-  }, [displayPopOverMenu]);
+  const [displayContextMenu, setDisplayContextMenu] =
+    useState<UndefinedBoolean>(false);
+  const [displayPopOverMenu, setDisplayPopOverMenu] =
+    useState<UndefinedBoolean>(undefined);
 
   useOpenOnLeftClick(
     startMenuContainerRef,

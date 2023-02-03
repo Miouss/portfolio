@@ -11,7 +11,7 @@ import {
 } from "./style";
 
 import { LanguageStateContext, LanguageDispatchContext } from "../../App";
-import { LanguageProp } from "../../types";
+import { LanguageProp } from "../../../types/types";
 
 export default function LockMenu() {
   const fullDate = useFullDate();

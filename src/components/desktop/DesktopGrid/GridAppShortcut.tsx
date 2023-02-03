@@ -1,7 +1,7 @@
 import {
   ShortcutDesktopIcon,
   getShortcutLink,
-} from "../../Applications/AppWindow/Window/Contents/list";
+} from "../../Applications/Window/Contents/list";
 import ShortcutIcon from "@mui/icons-material/Shortcut";
 import {
   BackgroundColorLayer,

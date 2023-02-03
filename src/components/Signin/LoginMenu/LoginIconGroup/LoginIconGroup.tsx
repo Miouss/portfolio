@@ -1,9 +1,8 @@
 import { LoginIconContainer, IconButton } from "./style";
-import { PowerIcon, WifiIcon } from "../../../../assets/icons/icons";
 
 import { useContext } from "react";
 import { LanguageDispatchContext } from "../../../App";
-import { LanguageProp } from "../../../types";
+import { LanguageProp } from "../../../../types/types";
 
 import { LanguageStateContext } from "../../../App";
 

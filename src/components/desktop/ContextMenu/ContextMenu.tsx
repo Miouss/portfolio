@@ -11,7 +11,7 @@ import {
   ShortcutAction,
   ShortcutDesktopIcon,
   getShortcutLink,
-} from "../../Applications/AppWindow/Window/Contents/list";
+} from "../../Applications/Window/Contents/list";
 
 import { useAppDispatch, openApp } from "../../../redux";
 

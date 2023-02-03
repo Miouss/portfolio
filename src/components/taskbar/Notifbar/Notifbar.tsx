@@ -1,29 +1,12 @@
-import { useEffect, useState } from "react";
 import { NotifbarContainer } from "./style";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../redux";
 import AppNotif from "./AppNotif/AppNotif";
+import useRunningAppsNotif from "../../../hooks/Store/useRunningAppsNotif";
+import useDynamicComponents from "../../../hooks/useDynamicComponents";
 
 export default function Notifbar() {
-  const [notifAppsContainers, setNotifAppsContainers] = useState<JSX.Element[]>([]);
+  const runningAppsNotif = useRunningAppsNotif();
 
-  const apps = useSelector((store: RootState) => store.apps);
+  const notifAppsContainers = useDynamicComponents(runningAppsNotif, AppNotif);
 
-  useEffect(() => {
-    const appsRunning = apps.filter((app) => app.status.isRunning && app.status.isSpecial === "notif");
-
-    setNotifAppsContainers(
-      appsRunning
-        .map((app, index) => {
-          return <AppNotif key={`AppNotif${index}`} appName={app.name} />;
-        })
-        .reverse() // Reverse the array to have the last opened app on the right
-    );
-  }, [apps]);
-
-  return (
-    <NotifbarContainer>
-      {notifAppsContainers}
-    </NotifbarContainer>
-  );
+  return <NotifbarContainer>{notifAppsContainers}</NotifbarContainer>;
 }

@@ -9,15 +9,16 @@ import {
 import { LanguageStateContext } from "../../App";
 import { LangPrefIcon } from "../../../assets/icons/icons";
 import LangPrefItem from "./helper/LangPrefItem";
-import useOpenOnLeftClick from "../../../hooks/useOpenOnLeftClick";
-import useCloseOnClick from "../../../hooks/useCloseOnClick";
-import useCloseOnClickAway from "../../../hooks/useCloseOnClickAway";
+import useOpenOnLeftClick from "../../../hooks/MouseEvents/useOpenOnLeftClick";
+import useCloseOnClick from "../../../hooks/MouseEvents/useCloseOnClick";
+import useCloseOnClickAway from "../../../hooks/MouseEvents/useCloseOnClickAway";
+import { UndefinedBoolean } from "../../../types/types";
 
 export default function LangPref() {
   const langPrefContainerRef = useRef<HTMLDivElement>(null);
   const lang = useContext(LanguageStateContext);
 
-  const [openMenu, setOpenMenu] = useState<undefined | boolean>(undefined);
+  const [openMenu, setOpenMenu] = useState<UndefinedBoolean>(undefined);
 
   useOpenOnLeftClick(langPrefContainerRef, openMenu, setOpenMenu);
   useCloseOnClick(langPrefContainerRef, openMenu, setOpenMenu);

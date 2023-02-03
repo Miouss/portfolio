@@ -1,29 +1,25 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import {
   focusApp,
   minimizeApp,
-  RootState,
   useAppDispatch,
 } from "../../../../redux";
 
-import { AppTaskIcon } from "../../../Applications/AppWindow/Window/Contents/list";
+import { AppTaskIcon } from "../../../Applications/Window/Contents/list";
 import ContextMenu from "./AppTaskContextMenu/ContextMenu";
 import {
   AppIconBox,
   AppUnderline,
   AppTaskContainer,
 } from "./style";
+import useAppStatus from "../../../../hooks/Store/useAppStatus";
 
 interface Props {
   appName: string;
 }
 
 export default function AppTask({ appName }: Props) {
-  const isFocused = useSelector((state: RootState) => {
-    const app = state.apps.find((app) => app.name === appName);
-    return app!.status.isFocused;
-  });
+  const {isFocused} = useAppStatus(appName);
 
   const dispatch = useAppDispatch();
 
