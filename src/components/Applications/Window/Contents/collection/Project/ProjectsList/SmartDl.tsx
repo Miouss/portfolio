@@ -1,7 +1,7 @@
 import ProjectContentBuilder from "../helper/ProjectContentBuilder";
-import SmartDl1 from "../../../../../../../assets/projets/lolmood1.png";
-import SmartDl2 from "../../../../../../../assets/projets/lolmood2.png";
-import SmartDl3 from "../../../../../../../assets/projets/lolmood3.png";
+import SmartDl1 from "../../../../../../../assets/projets/smartdl1.png";
+import SmartDl2 from "../../../../../../../assets/projets/smartdl2.png";
+import SmartDl3 from "../../../../../../../assets/projets/smartdl3.png";
 import {
   reactSVG,
   nodejsSVG,
