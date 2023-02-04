@@ -28,7 +28,7 @@
                 "github": "Dépôt GitHub"
             },
             "apps": {
-                "presentation" : "A propos de moi"
+                "presentation": "A propos de moi"
             }
         },
         "apps": {
@@ -52,17 +52,17 @@
                     },
                     "help": {
                         "name": "Aide",
-                        "action": "Relancer About Me"
+                        "action": "Relancer la présentation"
                     }
                 },
                 "speech": [
                     "Je m'appelle Samir Ghabi, j'ai 26 ans et depuis tout petit je suis passionné par l'informatique.",
                     "J'ai commencé la programmation vers l'âge de 14 ans, avec des tutoriels sur le langage C puis C++.",
-                    "Mais c'est bien plus tard, à 25 ans, où j'ai décidé de réellement m'impliquer dans la programmation.",
+                    "Mais c'est bien plus tard, à 25 ans, où j'ai décidé de réellement m'impliquer dans le développement web.",
                     "J'ai d'abord suivi une formation en Javascript / Php / Mysql qui m'a surtout permis de me remettre dans le bain.",
                     "C'est ensuite que j'ai découvert le framework React et j'ai décidé de me spécialiser dans ce dernier.",
-                    "Et c'est tout naturellement que je me suis au final orienté vers Node JS pour le backend.",
                     "Pendant mes projets j'ai retrouvé la notion de typage qui m'attiré dans les langages bas niveau avec TypeScript.",
+                    "Et c'est tout naturellement que je me suis au final orienté vers Node JS pour le backend.",
                     "Toutes mes réalisations sont disponibles sur mon GitHub et tous ont été conçu from scratch.",
                     "Il était important pour moi de faire des projets qui me plaisent et me donnent une vision plus long terme que simplement les concevoir 'juste pour le CV', car c'est pour moi la meilleure façon d'apprendre et de s'investir pour progresser.",
                     "Merci de m'avoir lu :)"
@@ -70,11 +70,19 @@
             },
             "terminal": {
                 "welcomeMsg": [
-                    "Bonjour et bienvenue sur mon portofolio !",
-                    "Comme vous pouvez le constater, j'ai imité le comportement de Windows 10 pour ce projet.",
-                    "Je vous laisse soin d'explorer les différentes applications disponibles.",
+                    "Bonjour et bienvenue sur mon portofolio !\n",
+                    "Comme vous pouvez le constater, j'ai imité l'interface et le comportement de Windows 10 pour ce projet.\n",
+                    "Vous trouverez sur le bureau diverses applications dont voici la liste :\n",
+                    "- Presentation : Une petite présentation de moi-même.",
+                    "- Projects : Vous trouverez ici mes 3 gros projets réalisés. Passez l'application en mode plein écran pour avoir la possibilité de voir un apperçu de chaque projet en image.",
+                    "- CV : Mon CV téléchargeable au format PDF.",
+                    "- Mail Sender : Permet de m'envoyer un mail.",
+                    "- Terminal : Je me suis amusé à recréer le terminal de Windows 10.",
+                    "- Chill Beats : Une petite application qui permet de jouer de la musique.\n",
+                    "Vous pouvez également changer de langue à tout moment en bas à droite de l'écran.",
+                    "Si vous souhaitez revenir à l'écran de connexion, le menu démarrer en bas à gauche vous permet de vous déconnecter ou de verrouiller l'écran, activez le menu via un clique gauche ou droit sur l'icône windows\n",
                     "Bonne visite !",
-                    "£",
+                    "£\n",
                     "Appuyez sur une touche pour continuer..."
                 ]
             }
@@ -109,7 +117,7 @@
                 "github": "Repository GitHub"
             },
             "apps": {
-                "presentation" : "About me"
+                "presentation": "About me"
             }
         },
         "apps": {
@@ -133,19 +141,37 @@
                     },
                     "help": {
                         "name": "Help",
-                        "action": "Rerun About Me"
+                        "action": "Rerun the presentation"
                     }
                 },
                 "speech": [
-                    "THIS IS THE TEST SPEECH FOR ENGLISH VERSION",
-                    "I WILL UPDATE IT LATER"
+                    "My name is Samir Ghabi, I am 26 years old and since I was a child, I have been passionate about computer science.",
+                    "I started programming at the age of 14, with tutorials on the C language and then C++.",
+                    "But it was much later, at 25, that I decided to really get involved in web development.",
+                    "I first took a course in Javascript / Php / Mysql which mainly allowed me to get back into it.",
+                    "It was then that I discovered the React framework and decided to specialize in it.",
+                    "During my projects, I found the notion of typing that attracted me in low-level languages with TypeScript.",
+                    "And it was naturally that I finally oriented myself towards Node JS for the backend.",
+                    "All my achievements are available on my GitHub and all of them have been designed from scratch.",
+                    "It was important for me to make projects that I enjoy and give me a long-term vision, rather than just designing them 'just for the CV', because it is for me the best way to learn and invest to progress.",
+                    "Thank you for reading me :)"
                 ]
             },
             "terminal": {
                 "welcomeMsg": [
-                    "Welcome to my website",
-                    "I will will update it later",
-                    "£",
+                    "Hello and welcome to my portfolio!\n",
+                    "As you can see, I have imitated the interface and behavior of Windows 10 for this project.\n",
+                    "On the desktop, you will find various applications, here is the list:\n",
+                    "- Presentation: A small presentation about myself.",
+                    "- Projects: Here you will find my 3 big projects. Put the application in full screen mode to have the ability to see a preview of each project in image.",
+                    "- CV: My downloadable CV in PDF format.",
+                    "- Mail Sender: Allows you to send me an email.",
+                    "- Terminal: I had fun recreating the Windows 10 terminal.",
+                    "- Chill Beats: A small application that allows you to play music.\n",
+                    "You can also change the language at any time in the bottom right of the screen.",
+                    "If you want to go back to the login screen, the start menu in the bottom left allows you to log out or lock the screen. Activate the menu with a left or right click on the windows icon.\n",
+                    "Enjoy your visit!",
+                    "£\n",
                     "Press any key to continue..."
                 ]
             }
