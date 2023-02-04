@@ -11,12 +11,9 @@ import {
   RedirectContainer,
   RedirectItem,
   Details,
-  Link,
   TechTitle,
   TechItemsContainer,
   Subcontent,
-  LinkIcon,
-  LinkTitle,
   TechItemIcon,
   TechItemName,
   Options,
@@ -28,10 +25,7 @@ import {
   ImageTwo,
   ImageThree,
   HidePreviewButton,
-  PreviewLabel,
   PreviewButton,
-  PreviewIcon,
-  PreviewButtonContainer,
 } from "./style";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../../../redux";
@@ -48,15 +42,19 @@ import {
 import languages from "../../../../../../../assets/languages/languages.json";
 import { LanguageStateContext } from "../../../../../../App";
 import { changeSliderImage } from "./changeSliderImage";
+import { UndefinedBoolean } from "../../../../../../../types/types";
 
 interface Tech {
   name: string;
   icon: JSX.Element;
 }
-
+interface ProjectDescription {
+  fr: string;
+  eng: string;
+}
 interface Props {
   name: string;
-  description: string;
+  description: ProjectDescription;
   imageUrl: string[];
   repo: string;
   techs: Tech[];
@@ -71,9 +69,7 @@ export default function ContentBuilder({
   techs,
   link,
 }: Props) {
-  const [showGallery, setShowGallery] = useState<boolean | undefined>(
-    undefined
-  );
+  const [showGallery, setShowGallery] = useState<UndefinedBoolean>(undefined);
   const fsresp = useSelector((store: RootState) => store.windowResponsiveFont);
 
   const TechItems = techs.map((tech, i) => (
@@ -135,13 +131,9 @@ export default function ContentBuilder({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fsresp]);
 
-  console.log(`Image One is sliding with animation: ${animImageOne}`);
-  console.log(`Image Two is sliding with animation: ${animImageTwo}`);
-  console.log(`Image Three is sliding with animation: ${animImageThree}`);
-
   return (
     <ProjectContainer>
-      <BackgroundLayer>
+      <BackgroundLayer visible={showGallery}>
         <ImageOne
           onAnimationStart={() => setDisableButtons(true)}
           onAnimationEnd={() => setDisableButtons(false)}
@@ -152,13 +144,12 @@ export default function ContentBuilder({
         <ImageTwo anim={animImageTwo}>{imgSrc[1]}</ImageTwo>
         <ImageThree anim={animImageThree}>{imgSrc[2]}</ImageThree>
       </BackgroundLayer>
-      <Content showGallery={showGallery} fsresp={fsresp}>
-        <Chevrons showGallery={showGallery}>
+      <Content fsresp={fsresp}>
+        <Chevrons visible={showGallery}>
           <HidePreviewButton onClick={() => setShowGallery(false)}>
-            <VisibilityOffIcon
-              color={name === "Smart Dl" ? "white" : "black"}
-            />
+            <VisibilityOnIcon />
           </HidePreviewButton>
+
           <ChevronLeft
             disabled={disableButtons}
             onClick={() => startAnim("left")}
@@ -172,11 +163,11 @@ export default function ContentBuilder({
             <ChevronRightIcon />
           </ChevronRight>
         </Chevrons>
-        <ProjectContent fsresp={fsresp}>
+        <ProjectContent hide={showGallery}>
           <Title fsresp={fsresp}>{name}</Title>
           <Subcontent fsresp={fsresp}>
             <Details>
-              <Description fsresp={fsresp}>{description}</Description>
+              <Description fsresp={fsresp}>{description[lang]}</Description>
               <TechContainer>
                 <TechTitle fsresp={fsresp}>Technologies :</TechTitle>
                 <TechItemsContainer fsresp={fsresp}>
@@ -185,35 +176,27 @@ export default function ContentBuilder({
               </TechContainer>
             </Details>
             <Options>
-              <PreviewButtonContainer fsresp={fsresp}>
-                <PreviewButton onClick={() => setShowGallery(true)}>
-                  <PreviewLabel>{languages[lang].actions.preview}</PreviewLabel>
-                  <PreviewIcon>
-                    <VisibilityOnIcon />
-                  </PreviewIcon>
-                </PreviewButton>
-              </PreviewButtonContainer>
+              <PreviewButton
+                fsresp={fsresp}
+                onClick={() => setShowGallery(true)}
+              >
+                <VisibilityOffIcon />
+              </PreviewButton>
 
               <RedirectContainer fsresp={fsresp}>
-                <RedirectItem fsresp={fsresp}>
-                  <Link href={`${link}`}>
-                    <LinkIcon>
-                      <RedirectIcon />{" "}
-                    </LinkIcon>
-                    <LinkTitle>
-                      {languages[lang].actions.redirect.website}
-                    </LinkTitle>
-                  </Link>
+                <RedirectItem
+                  fsresp={fsresp}
+                  onClick={() => window.open(repo, "_blank")}
+                  formTarget="_blank"
+                >
+                  <GithubIcon />{" "}
                 </RedirectItem>
-                <RedirectItem fsresp={fsresp}>
-                  <Link href={`${repo}`}>
-                    <LinkIcon>
-                      <GithubIcon />{" "}
-                    </LinkIcon>
-                    <LinkTitle>
-                      {languages[lang].actions.redirect.github}
-                    </LinkTitle>
-                  </Link>
+                <RedirectItem
+                  fsresp={fsresp}
+                  onClick={() => window.open(link, "_blank")}
+                  formTarget="_blank"
+                >
+                  <RedirectIcon />{" "}
                 </RedirectItem>
               </RedirectContainer>
             </Options>
