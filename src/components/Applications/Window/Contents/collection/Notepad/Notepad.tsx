@@ -116,6 +116,7 @@ export default function Notepad() {
 
   useEffect(() => {
     forceRerun();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lang]);
 
   const getDropDownMenuContent = () => {

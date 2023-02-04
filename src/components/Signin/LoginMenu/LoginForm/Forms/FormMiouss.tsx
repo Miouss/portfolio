@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import ProfilPicture from "../../../../../assets/avatars/miouss.png";
 import {
   InputButton,
@@ -12,9 +12,7 @@ import ArrowForward from "@mui/icons-material/ArrowForward";
 import { Box } from "@mui/material";
 
 import { LanguageStateContext } from "../../../../App";
-import langs from "../../../../../assets/languages/languages.json"
-import useFocusEffect from "../../../../../hooks/Applications/useFocusEffect";
-
+import langs from "../../../../../assets/languages/languages.json";
 
 export default function FormMiouss() {
   const name = "Miouss";
@@ -22,9 +20,6 @@ export default function FormMiouss() {
 
   const [cssAnim, setCssAnim] = useState(false);
   const [showPasswordHint, setShowPasswordHint] = useState(false);
-/*   const [hintMsg, setHintMsg] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
-  const [placeholder, setPlaceholder] = useState(""); */
 
   const lang = useContext(LanguageStateContext);
 

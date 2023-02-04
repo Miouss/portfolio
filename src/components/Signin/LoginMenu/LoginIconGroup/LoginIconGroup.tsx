@@ -10,9 +10,8 @@ export default function LoginIconGroup() {
   const lang = useContext(LanguageStateContext);
   const setLang = useContext(LanguageDispatchContext);
 
-  const switchLang = () => {
+  const switchLang = () =>
     setLang((lang: LanguageProp) => (lang === "fr" ? "eng" : "fr"));
-  };
 
   return (
     <LoginIconContainer>

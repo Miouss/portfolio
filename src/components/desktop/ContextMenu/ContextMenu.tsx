@@ -28,23 +28,26 @@ export default function ContextMenu({
   appsName,
   shortcutsName,
 }: Props) {
-    const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-    const handleAppActionClicked = (e, appName: string) => {
-        dispatch(openApp(appName));
-    };
+  const handleAppActionClicked = (e, appName: string) => {
+    dispatch(openApp(appName));
+  };
 
-    const handleShortcutActionClicked = (e, shortcutName: string) => {
-        const link = getShortcutLink(shortcutName);
-        window.open(link, "_blank");
-    };
+  const handleShortcutActionClicked = (e, shortcutName: string) => {
+    const link = getShortcutLink(shortcutName);
+    window.open(link, "_blank");
+  };
 
   const actions = () => {
     let actionsContainer: JSX.Element[] = [];
 
     appsName.forEach((appName) => {
       actionsContainer.push(
-        <ActionButtonContainer key={`Action ${appName}`} onClick={(e) => handleAppActionClicked(e, appName)}>
+        <ActionButtonContainer
+          key={`Action ${appName}`}
+          onClick={(e) => handleAppActionClicked(e, appName)}
+        >
           <ActionIcon>
             <AppDesktopIcon name={appName} />
           </ActionIcon>
@@ -59,7 +62,10 @@ export default function ContextMenu({
 
     shortcutsName.forEach((shortcutName) => {
       actionsContainer.push(
-        <ActionButtonContainer key={`Action ${shortcutName}`} onClick={(e) => handleShortcutActionClicked(e, shortcutName)}>
+        <ActionButtonContainer
+          key={`Action ${shortcutName}`}
+          onClick={(e) => handleShortcutActionClicked(e, shortcutName)}
+        >
           <ActionIcon>
             <ShortcutDesktopIcon name={shortcutName} />
           </ActionIcon>
@@ -73,7 +79,11 @@ export default function ContextMenu({
     return actionsContainer;
   };
   return (
-    <ContextMenuPop mouseX={mouseX} mouseY={mouseY} onMouseDown={(e) => e.stopPropagation()}>
+    <ContextMenuPop
+      mouseX={mouseX}
+      mouseY={mouseY}
+      onMouseDown={(e) => e.stopPropagation()}
+    >
       {actions()}
     </ContextMenuPop>
   );

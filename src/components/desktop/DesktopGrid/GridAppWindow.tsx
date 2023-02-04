@@ -15,20 +15,19 @@ interface Props {
 
 export default function NormalApp({ appName }: Props) {
   const dispatch = useAppDispatch();
-  const {isRunning} = useAppStatus(appName);
+  const { isRunning } = useAppStatus(appName);
 
   const [click, setClick] = useState(false);
   const [cursor, setCursor] = useState<"default" | "progress">("default");
 
   const handleDbCLick = () => {
-    if (isRunning) dispatch(focusApp(appName));
-    else {
-      setCursor("progress");
-      setTimeout(() => {
-        setCursor("default");
-        dispatch(openApp(appName));
-      }, 300);
-    }
+    if (isRunning) return dispatch(focusApp(appName));
+
+    setCursor("progress");
+    setTimeout(() => {
+      setCursor("default");
+      dispatch(openApp(appName));
+    }, 300);
   };
 
   const handleClick = () => {
@@ -49,7 +48,7 @@ export default function NormalApp({ appName }: Props) {
     >
       <BackgroundColorLayer click={click} />
       <GridAppIcon style={{ fontSize: "4rem" }}>
-        <AppDesktopIcon name={appName} /> 
+        <AppDesktopIcon name={appName} />
       </GridAppIcon>
       <GridAppLabel>{appName}</GridAppLabel>
     </GridAppContainer>

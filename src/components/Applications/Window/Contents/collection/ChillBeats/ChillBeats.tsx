@@ -1,4 +1,12 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+import {
+  playAudio,
+  skipForward,
+  skipBack,
+  changeVolume,
+  muteAudio,
+} from "./playerControls";
 
 import {
   ChillBeatsContainer,
@@ -11,9 +19,9 @@ import {
   Stop,
   VolumeSlider,
   NowPlayingContainer,
-  NowPlayingTrack,
-  NowPlayingIconContainer,
-  NowPlayingTrackContainer,
+  IconBox,
+  TrackTitle,
+  TrackTitleBox,
 } from "./style";
 import {
   NowPlayingIcon,
@@ -30,10 +38,11 @@ import {
 } from "../../../../../../assets/icons/icons";
 
 import { useAppDispatch, closeApp } from "../../../../../../redux";
+import useAudioFile from "../../../../../../hooks/Contents/useAudioFIle";
 
 export default function ChillBeats({ appName }: { appName: string }) {
   const trackTitleRef = useRef<HTMLHeadingElement>(null);
-  
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState<number | "muted">(20);
   const [volumeBeforeMute, setVolumeBeforeMute] = useState<number | undefined>(
@@ -44,21 +53,6 @@ export default function ChillBeats({ appName }: { appName: string }) {
 
   const dispatch = useAppDispatch();
 
-  const handleAudioPlay = (e) => {
-    e.stopPropagation();
-    if (audioFile.paused) {
-      audioFile.play();
-      setIsPlaying(true);
-    } else {
-      audioFile.pause();
-      setIsPlaying(false);
-    }
-  };
-  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.stopPropagation();
-    setVolume(parseInt(e.target.value));
-  };
-
   const trackList = [
     "Jhove x Amess - I know, goodbye (Lofi Records)",
     "14.3 Billion Years (OST Outer Wilds)",
@@ -66,43 +60,23 @@ export default function ChillBeats({ appName }: { appName: string }) {
     "Kayou - Beyond",
   ];
 
-  const audioFile = useMemo(
-    () =>
-      new Audio(
-        require(`../../../../../../assets/playlist/${trackList[track]}.mp3`)
-      ),
+  const audioFile = useAudioFile(trackList, track, volume);
+
+  useEffect(() => {
+    setIsPlaying(true);
+    setScrollWidth(
+      -trackTitleRef?.current?.scrollWidth! +
+        trackTitleRef?.current?.offsetWidth!
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  );
+  }, [track]);
 
   const volumeIcon = () => {
     if (volume === "muted") return <VolumeMuteIcon />;
     if (volume === 0) return <VolumeZeroIcon />;
     if (volume <= 25) return <VolumeLowIcon />;
-
     if (volume <= 75) return <VolumeMediumIcon />;
-
     return <VolumeHighIcon />;
-  };
-
-  const handleMute = () => {
-    if (volume === "muted") {
-      setVolume(volumeBeforeMute as number);
-      return;
-    }
-
-    setVolumeBeforeMute(volume as number);
-    setVolume("muted");
-  };
-
-  const handleSkipForward = () => {
-    if (track === trackList.length - 1) setTrack(0);
-    else setTrack(track + 1);
-  };
-
-  const handleSkipBack = () => {
-    if (track === 0) setTrack(trackList.length - 1);
-    else setTrack(track - 1);
   };
 
   const handleCloseApp = () => {
@@ -110,56 +84,43 @@ export default function ChillBeats({ appName }: { appName: string }) {
   };
 
   audioFile.addEventListener("ended", () => {
-    handleSkipForward();
+    skipForward(track, setTrack, trackList);
   });
-
-  useEffect(() => {
-    if (volume === "muted") audioFile.volume = 0;
-    else audioFile.volume = volume / 100;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [volume]);
-
-  useEffect(() => {
-    audioFile.src = require(`../../../../../../assets//playlist/${trackList[track]}.mp3`);
-    audioFile.play();
-    setIsPlaying(true);
-    setScrollWidth(- trackTitleRef?.current?.scrollWidth! + trackTitleRef?.current?.offsetWidth!);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [track]);
-
-  useEffect(() => {
-    return () => {
-      audioFile.pause();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <ChillBeatsContainer>
       <NowPlayingContainer>
-        <NowPlayingIconContainer>
+        <IconBox>
           <NowPlayingIcon />
-        </NowPlayingIconContainer>
-        <NowPlayingTrackContainer>
-          <NowPlayingTrack ref={trackTitleRef} translatePx={scrollWidth}>{trackList[track]}</NowPlayingTrack>
-        </NowPlayingTrackContainer>
+        </IconBox>
+        <TrackTitleBox>
+          <TrackTitle ref={trackTitleRef} translatePx={scrollWidth}>
+            {trackList[track]}
+          </TrackTitle>
+        </TrackTitleBox>
       </NowPlayingContainer>
       <PlayerButtons>
         <Stop onClick={handleCloseApp}>
           <StopIcon />
         </Stop>
-        <SkipBack onClick={handleSkipBack}>
+        <SkipBack onClick={() => skipBack(track, setTrack, trackList)}>
           <SkipBackIcon />
         </SkipBack>
-        <Play onClick={handleAudioPlay}>
+        <Play onClick={(e) => playAudio(e, audioFile, setIsPlaying)}>
           {isPlaying ? <PauseIcon /> : <PlayIcon />}
         </Play>
-        <SkipForward onClick={handleSkipForward}>
+        <SkipForward onClick={(e) => skipForward(track, setTrack, trackList)}>
           <SkipForwardIcon />
         </SkipForward>
       </PlayerButtons>
       <SoundControl>
-        <SoundButton onClick={() => handleMute()}>{volumeIcon()}</SoundButton>
+        <SoundButton
+          onClick={() =>
+            muteAudio(volume, volumeBeforeMute, setVolume, setVolumeBeforeMute)
+          }
+        >
+          {volumeIcon()}
+        </SoundButton>
         <VolumeSlider
           colorBreak={volume === "muted" ? volumeBeforeMute! : volume}
           type="range"
@@ -167,7 +128,7 @@ export default function ChillBeats({ appName }: { appName: string }) {
           min={0}
           max={100}
           step="1"
-          onChange={(e) => handleVolumeChange(e)}
+          onChange={(e) => changeVolume(e, setVolume)}
         />
       </SoundControl>
     </ChillBeatsContainer>

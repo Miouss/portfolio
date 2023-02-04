@@ -1,10 +1,10 @@
-import {useContext} from "react";
+import { useContext } from "react";
 import useFullDate from "../../../hooks/useFullDate";
 import {
   LockMenuContainer,
   FullDateBox,
-  TimeBox,
-  DateBox,
+  Time,
+  Date,
   IconContainer,
   FullDateContainer,
   IconButton,
@@ -26,8 +26,8 @@ export default function LockMenu() {
     <LockMenuContainer>
       <FullDateContainer>
         <FullDateBox>
-          <TimeBox>{fullDate.time}</TimeBox>
-          <DateBox>{fullDate.details}</DateBox>
+          <Time>{fullDate.time}</Time>
+          <Date>{fullDate.details}</Date>
         </FullDateBox>
       </FullDateContainer>
       <IconContainer>
