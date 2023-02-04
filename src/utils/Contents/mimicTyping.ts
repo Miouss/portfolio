@@ -4,7 +4,7 @@ export default async function mimicTyping(
   ref: React.MutableRefObject<HTMLDivElement | null>,
   txt: string
 ) {
-  await delay(20);
+  await delay(15);
   if (!ref.current) return;
 
   if (txt[0] === "£") {
