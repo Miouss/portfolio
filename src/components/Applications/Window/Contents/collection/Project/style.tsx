@@ -4,6 +4,6 @@ export const ProjetPreviewApp = styled("div")({
   flex: 1,
   display: "flex",
   flexDirection: "column",
-  rowGap: "5rem",
+  rowGap: "7rem",
   paddingTop: "2rem",
 });
