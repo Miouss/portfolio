@@ -41,22 +41,20 @@ export default function App() {
   if (passwordProtection) return passwordProtection;
 
   return (
-    <>
-      <LanguageStateContext.Provider value={lang}>
-        <LanguageDispatchContext.Provider value={setLang}>
-          <SessionContainer visible={isLogged === true}>
-            {runningAppsComponents}
-            <AppGrid />
-            <LoginDispathContext.Provider value={setIsLogged}>
-              <Taskbar />
-            </LoginDispathContext.Provider>
-          </SessionContainer>
+    <LanguageStateContext.Provider value={lang}>
+      <LanguageDispatchContext.Provider value={setLang}>
+        <SessionContainer visible={isLogged === true}>
+          {runningAppsComponents}
+          <AppGrid />
+          <LoginDispathContext.Provider value={setIsLogged}>
+            <Taskbar />
+          </LoginDispathContext.Provider>
+        </SessionContainer>
 
-          <SigninContainer ref={loginRef} visible={isLogged !== true}>
-            <Signin isLogged={isLogged} setIsLogged={setIsLogged} />
-          </SigninContainer>
-        </LanguageDispatchContext.Provider>
-      </LanguageStateContext.Provider>
-    </>
+        <SigninContainer ref={loginRef} visible={isLogged !== true}>
+          <Signin isLogged={isLogged} setIsLogged={setIsLogged} />
+        </SigninContainer>
+      </LanguageDispatchContext.Provider>
+    </LanguageStateContext.Provider>
   );
 }

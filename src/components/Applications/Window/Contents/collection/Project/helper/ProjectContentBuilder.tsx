@@ -1,10 +1,5 @@
 import { useContext } from "react";
 
-import LaunchIcon from "@mui/icons-material/Launch";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-
 import {
   BackgroundLayer,
   ProjectContainer,
@@ -44,6 +39,10 @@ import { useState } from "react";
 import {
   VisibilityOffIcon,
   VisibilityOnIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  GithubIcon,
+  RedirectIcon,
 } from "../../../../../../../assets/icons/icons";
 
 import languages from "../../../../../../../assets/languages/languages.json";
@@ -205,7 +204,7 @@ export default function ContentBuilder({
                 <RedirectItem fsresp={fsresp}>
                   <Link href={`${link}`}>
                     <LinkIcon>
-                      <LaunchIcon />{" "}
+                      <RedirectIcon />{" "}
                     </LinkIcon>
                     <LinkTitle>{languages[lang].actions.redirect.website}</LinkTitle>
                   </Link>
@@ -213,7 +212,7 @@ export default function ContentBuilder({
                 <RedirectItem fsresp={fsresp}>
                   <Link href={`${repo}`}>
                     <LinkIcon>
-                      <GitHubIcon />{" "}
+                      <GithubIcon />{" "}
                     </LinkIcon>
                     <LinkTitle>{languages[lang].actions.redirect.github}</LinkTitle>
                   </Link>

@@ -46,18 +46,26 @@ import { MdMenu, MdTranslate } from "react-icons/md";
 
 import { CgArrowsExchangeAlt } from "react-icons/cg";
 
-import { VscLoading, VscError} from "react-icons/vsc";
+import { VscLoading, VscError } from "react-icons/vsc";
 
-import {BsCheck2 } from "react-icons/bs";
+import { BsCheck2 } from "react-icons/bs";
+
+import { MdLaunch } from "react-icons/md";
+
+export const RedirectIcon = (style?: CSSProperties) => (
+  <MdLaunch style={style} />
+);
 
 export const ErrorIcon = (style?: CSSProperties) => <VscError style={style} />;
 export const DoneIcon = (style?: CSSProperties) => <BsCheck2 style={style} />;
 
 export const LoadingIcon = (style?: CSSProperties) => (
-  <VscLoading style={{
-    animation: "spin 1s linear infinite",
-    ...style,
-  }} />
+  <VscLoading
+    style={{
+      animation: "spin 1s linear infinite",
+      ...style,
+    }}
+  />
 );
 export const LangSwitchIcon = (style?: CSSProperties) => (
   <CgArrowsExchangeAlt style={style} />
