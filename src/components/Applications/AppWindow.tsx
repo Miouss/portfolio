@@ -65,32 +65,36 @@ export default function AppWindow({ appName, minWidth, minHeight }: Props) {
   const [dynamicStyle, setDynamicStyle] = useState<CSSProperties>({});
 
   const handlePointerMove = (event) => {
-    if (!isFullscreen) {
-      if (pointerPressed) {
-        if (cursor !== "default") {
-          const currentWidth = resizeWindow(
-            event,
-            resizableDivRef.current!,
-            pointerPosition,
-            originalWindowOffset!,
-            originalWindowSize!,
-            pointerOffsetRelative!,
-            minWidth,
-            minHeight
-          );
+    if (isFullscreen) return;
 
-          checkResponsiveness(currentWidth, dispatch, setWindowResponsiveFont);
-        }
-      } else {
-        monitoringPointerMovingUnpressed(
-          event,
-          resizableDivRef.current!,
-          setCursor,
-          cursor,
-          setPointerPosition
-        );
-      }
+    if (pointerPressed) {
+      if (cursor === "default") return;
+
+      const currentWidth = resizeWindow(
+        event,
+        resizableDivRef.current!,
+        pointerPosition,
+        originalWindowOffset!,
+        originalWindowSize!,
+        pointerOffsetRelative!,
+        minWidth,
+        minHeight
+      );
+
+      return checkResponsiveness(
+        currentWidth,
+        dispatch,
+        setWindowResponsiveFont
+      );
     }
+
+    monitoringPointerMovingUnpressed(
+      event,
+      resizableDivRef.current!,
+      setCursor,
+      cursor,
+      setPointerPosition
+    );
   };
 
   const handlePointerDown = (event) => {

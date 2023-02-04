@@ -28,7 +28,7 @@ import {
 } from "../../../../../../assets/icons/icons";
 
 import { MailSentProps, BodyMessageProps } from "./types";
-import useStatusMinimize from "../../../../../../hooks/Store/useAppStatus";
+import useAppStatus from "../../../../../../hooks/Store/useAppStatus";
 
 export default function MailSender({ appName }: { appName: string }) {
   const [mailSent, setMailSent] = useState<MailSentProps>(undefined);
@@ -36,7 +36,7 @@ export default function MailSender({ appName }: { appName: string }) {
     undefined
   );
 
-  const { isMinimized } = useStatusMinimize(appName);
+  const { isMinimized } = useAppStatus(appName);
 
   const dispatch = useAppDispatch();
 

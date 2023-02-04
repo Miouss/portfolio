@@ -30,9 +30,12 @@ export default function ShortcutApp({ shortcutName }: Props) {
   };
 
   return (
-    <GridAppContainer click={click} onDoubleClick={() => window.open(urlRedirect!)} onClick={handleClick}>
+    <GridAppContainer
+      click={click}
+      onDoubleClick={() => window.open(urlRedirect!)}
+      onClick={handleClick}
+    >
       <BackgroundColorLayer click={click} />
-
       <GridAppIcon style={{ fontSize: "4rem" }}>
         <ShortcutDesktopIcon name={shortcutName} />
       </GridAppIcon>

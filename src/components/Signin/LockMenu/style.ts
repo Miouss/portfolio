@@ -21,11 +21,11 @@ export const FullDateBox = styled("div")({
   padding: "0 0 4rem 2rem",
 });
 
-export const DateBox = styled("div")({
+export const Date = styled("div")({
   fontSize: "4.4rem",
 });
 
-export const TimeBox = styled("div")({
+export const Time = styled("div")({
   fontSize: "6.5rem",
 });
 

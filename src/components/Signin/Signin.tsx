@@ -32,11 +32,7 @@ export default function Signin({ isLogged, setIsLogged }: Props) {
   const [selectedLoginSession, setSelectedLoginSession] =
     useState<LoginSessionProp>("Samir");
 
-  if (isLogged === "lock") {
-    setTimeout(() => {
-      lockMenuRef.current?.focus();
-    }, 500);
-  }
+  if (isLogged === "lock") setTimeout(() => lockMenuRef.current?.focus(), 500);
 
   return (
     <>

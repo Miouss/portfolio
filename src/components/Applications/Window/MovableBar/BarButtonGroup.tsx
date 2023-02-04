@@ -8,10 +8,7 @@ import { Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import CropFreeIcon from "@mui/icons-material/CropFree";
 import MinimizeIcon from "@mui/icons-material/Minimize";
-import {
-  BarButtonGroupContainer,
-  CloseButtonContainer,
-} from "./style";
+import { BarButtonGroupContainer, CloseButtonContainer } from "./style";
 
 interface Props {
   appName: string;
@@ -25,16 +22,12 @@ export default function BarButtonGroup({ appName, refAppWindow }: Props) {
 
   const handlePointerEvent = (event) => {
     if (event === "pointerEnter") {
-      if (event.type === 1) {
-        setPointerWasDown(true);
-      } else {
-        setPointerWasDown(false);
-      }
-    } else {
-      if (!pointerWasDown) {
-        event.stopPropagation();
-      }
+      return event.type === 1
+        ? setPointerWasDown(true)
+        : setPointerWasDown(false);
     }
+
+    if (!pointerWasDown) return event.stopPropagation();
   };
 
   return (

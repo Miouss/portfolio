@@ -17,7 +17,7 @@ export const ChillBeatsContainer = styled("div")({
 export const NowPlayingContainer = styled("div")({
   display: "flex",
 });
-export const NowPlayingIconContainer = styled("i")({
+export const IconBox = styled("i")({
   flex: 0.2,
   display: "flex",
   justifyContent: "center",
@@ -29,12 +29,12 @@ export const NowPlayingIconContainer = styled("i")({
     color: "white",
   },
 });
-export const NowPlayingTrackContainer = styled("div")({
+export const TrackTitleBox = styled("div")({
   flex: 1,
   overflow: "hidden !important",
 });
 
-export const NowPlayingTrack = styled("h5", {
+export const TrackTitle = styled("h5", {
   shouldForwardProp: (prop) => prop !== "translatePx",
 })(({ translatePx }: { translatePx: number }) => ({
   color: "white",
