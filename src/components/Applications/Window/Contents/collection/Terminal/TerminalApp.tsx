@@ -27,7 +27,7 @@ export default function TerminalApp({ mode }: Props) {
         ? `£Microsoft Windows [Version 10.0.19042.867]
       (c) 2020 Microsoft Corporation. All rights reserved.£`
         : languages[lang].apps.terminal.welcomeMsg.reduce(
-            (prev, curr) => (prev += "\n\n" + curr)
+            (prev, curr) => (prev += "\n" + curr)
           );
 
       await mimicTyping(terminalAppContentRef, welcomeMessage);

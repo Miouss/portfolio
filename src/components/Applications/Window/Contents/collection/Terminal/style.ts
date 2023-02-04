@@ -15,6 +15,7 @@ export const TerminalAppContent = styled("div", {
   paddingTop: "10px",
   overflowWrap: "break-word",
   width: "100%",
+  paddingLeft: "10px",
   fontFamily: "Consolas !important",
   fontSize: "1rem",
   "&::after": {

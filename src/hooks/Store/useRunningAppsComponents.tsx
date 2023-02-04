@@ -23,8 +23,8 @@ export default function useRunningAppsComponents() {
         } else {
           return (
             <AppWindow
-              minHeight={600}
-              minWidth={800}
+              minHeight={400}
+              minWidth={600}
               key={`Component ${runningApp.name}`}
               appName={runningApp.name}
             />

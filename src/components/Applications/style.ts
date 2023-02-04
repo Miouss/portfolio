@@ -25,12 +25,10 @@ export const WindowContainer = styled("div", {
 
   return {
     position: "absolute",
-    width: "50%",
-    height: "50%",
+    width: "55%",
+    height: "60%",
     top: "20%",
     left: "25%",
-    zIndex: zIndex,
-    cursor: cursor,
     padding: "10px",
     boxSizing: "border-box",
     display: "flex",
@@ -42,6 +40,9 @@ export const WindowContainer = styled("div", {
       height: "100%",
       boxSizing: "border-box",
     },
+
+    zIndex: zIndex,
+    cursor: cursor,
 
     animation: correctAnimation,
 

@@ -287,8 +287,11 @@ Link.defaultProps = {
 // Link >
 export const LinkIcon = styled("i")({
   flex: 1,
-
   color: "#000000",
+  "& > *": {
+    width: "24px",
+    height: "24px",
+  },
 });
 
 export const LinkTitle = styled("h4")({
