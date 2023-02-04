@@ -30,7 +30,7 @@ export default function App() {
   const loginRef = useRef<HTMLDivElement>(null);
 
   const [lang, setLang] = useState<LanguageProp>("fr");
-  const [isLogged, setIsLogged] = useState<IsLoggedProp>(undefined);
+  const [isLogged, setIsLogged] = useState<IsLoggedProp>(false);
 
   useAddApplicationsInStore();
   useSignInWall(isLogged);

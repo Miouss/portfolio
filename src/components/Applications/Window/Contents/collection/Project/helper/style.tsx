@@ -11,7 +11,7 @@ interface ResponsiveFontSize {
 export const ProjectContainer = styled("article")({
   position: "relative",
   alignSelf: "center",
-  width: "70%",
+  width: "80%",
   display: "flex",
   flexDirection: "column",
   ":last-of-type": {
@@ -27,62 +27,72 @@ export const BackgroundLayer = styled("div")({
   justifyContent: "center",
   alignItems: "center",
   overflow: "hidden",
-
   "& > *": {
     flex: 1,
   },
-
   "& > * > img": {
     width: "100%",
     height: "100%",
-    objectFit: "scale-down",
+    objectFit: "cover",
   },
 });
 
 // ProjectContainer >
 export const Content = styled("article", {
-  shouldForwardProp: (prop) => prop !== "showGallery",
-})(({ showGallery }: { showGallery: boolean | undefined }) => ({
-  "& > :last-child": {
-    animation:
-      showGallery !== undefined
-        ? showGallery
-          ? "slideOut 1s ease-in-out alternate forwards"
-          : "slideIn 1s ease-in-out alternate forwards"
-        : "none",
-  },
+  shouldForwardProp: (prop) => prop !== "showGallery" && prop !== "fsresp",
+})(
+  ({
+    showGallery,
+    fsresp,
+  }: {
+    showGallery: boolean | undefined;
+    fsresp: number;
+  }) => ({
+    "& > :last-child": {
+      animation:
+        showGallery !== undefined
+          ? showGallery
+            ? "slideOut 1s ease-in-out alternate forwards"
+            : "slideIn 1s ease-in-out alternate forwards"
+          : "none",
+    },
 
-  "@keyframes slideOut": {
-    "0%": {
-      transform: "translateY(0%)",
-    },
-    "100%": {
-      transform: "translateY(-100%)",
-      visibility: "hidden",
-    },
-  },
 
-  "@keyframes slideIn": {
-    "0%": {
-      transform: "translateY(-100%)",
-      visibility: "visible",
+    "@keyframes slideOut": {
+      "0%": {
+        transform: "translateY(0%)",
+      },
+      "100%": {
+        transform: "translateY(-100%)",
+        visibility: "hidden",
+      },
     },
-    "100%": {
-      transform: "translateY(0%)",
-    },
-  },
 
-  overflow: "hidden",
-}));
+    "@keyframes slideIn": {
+      "0%": {
+        transform: "translateY(-100%)",
+        visibility: "visible",
+      },
+      "100%": {
+        transform: "translateY(0%)",
+      },
+    },
+  })
+);
 
 // Content >
-export const ProjectContent = styled("section")({
+export const ProjectContent = styled(
+  "section",
+  fontSizeResponsive
+)(({ fsresp }: ResponsiveFontSize) => ({
   display: "flex",
   flexDirection: "column",
-
   background: "rgba(242, 242, 242, 0.3)",
-  backdropFilter: "blur(10px)",
-});
+  backdropFilter: "blur(15px)",
+
+  width: "100%",
+  height: "100%",
+}));
 
 // ProjectContent >
 export const Title = styled(
@@ -212,7 +222,9 @@ export const PreviewButton = styled("button")({
   alignItems: "center",
   padding: "1rem",
   gap: "1rem",
-  border: "1px solid black",
+
+  background: "rgba(255, 255, 255, 0.6)",
+  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
 
   "&:hover": {
     backgroundColor: "rgba(242, 242, 242, 0.8)",
@@ -250,7 +262,9 @@ export const RedirectItem = styled(
   width: fsresp >= 12 ? "70%" : "40%",
   backgroundColor: "rgba(242, 242, 242, 0.6)",
   alignSelf: "center",
-  border: "1px solid black",
+
+  background: "rgba(255, 255, 255, 0.6)",
+  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
 
   "&:hover": {
     animation: "scale 1.5s ease-in-out infinite forwards",
@@ -305,7 +319,7 @@ export const LinkTitle = styled("h4")({
 export const HidePreviewButton = styled("button")({
   position: "absolute",
   bottom: "20%",
-  right: "5%",
+  right: "15%",
 
   border: "none",
   background: "none",
@@ -342,7 +356,6 @@ export const Chevrons = styled("div", {
     },
     color: "rgba(255, 255, 255, 0.5)",
     zIndex: 1,
-    flex: 0.05,
   },
 
   visibility: showGallery ? "visible" : "hidden",
@@ -365,13 +378,13 @@ type OrientationProp = "left" | "right";
 const chevronBouncing = (orientation: OrientationProp) => ({
   [`@keyframes chevronBouncing${orientation}`]: {
     "0%": {
-      transform: "translateX(0)",
+      transform: `translateX(${orientation === "left" ? 15 : -15}px)`,
     },
     "50%": {
-      transform: `translateX(${orientation === "left" ? -10 : 10}px)`,
+      transform: `translateX(${orientation === "left" ? 10 : -10}px)`,
     },
     "100%": {
-      transform: "translateX(0)",
+      transform: `translateX(${orientation === "left" ? 15 : -15}px)`,
     },
   },
 });
@@ -396,7 +409,7 @@ interface AnimProp {
 }
 
 const slideRightFromCenter = {
-  "@keyframes slide-right-from-center": {
+  "@keyframes center-to-right": {
     "0%": {
       transform: "translateX(0)",
     },
@@ -407,7 +420,7 @@ const slideRightFromCenter = {
 };
 
 const slideLeftFromCenter = {
-  "@keyframes slide-left-from-center": {
+  "@keyframes center-to-left": {
     "0%": {
       transform: "translateX(0)",
     },
@@ -418,7 +431,7 @@ const slideLeftFromCenter = {
 };
 
 const slideCenterFromRight = {
-  "@keyframes slide-center-from-right": {
+  "@keyframes right-to-center": {
     "0%": {
       transform: "translateX(100%)",
     },
@@ -429,7 +442,7 @@ const slideCenterFromRight = {
 };
 
 const slideCenterFromLeft = {
-  "@keyframes slide-center-from-left": {
+  "@keyframes left-to-center": {
     "0%": {
       transform: "translateX(-100%)",
     },
@@ -440,7 +453,7 @@ const slideCenterFromLeft = {
 };
 
 const swipeRightToLeft = {
-  "@keyframes swipe-right-to-left": {
+  "@keyframes right-to-left": {
     "0%": {
       transform: "translateX(-100%)",
     },
@@ -451,7 +464,7 @@ const swipeRightToLeft = {
 };
 
 const swipeLeftToRight = {
-  "@keyframes swipe-left-to-right": {
+  "@keyframes left-to-right": {
     "0%": {
       transform: "translateX(100%)",
     },
@@ -472,6 +485,8 @@ export const ImageOne = styled(
   ...slideCenterFromLeft,
   ...swipeRightToLeft,
   ...swipeLeftToRight,
+
+  transform: "translateX(0%)",
 
   position: "absolute",
   width: "100%",

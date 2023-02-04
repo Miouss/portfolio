@@ -86,10 +86,10 @@ export const UnlockIcon = (style?: CSSProperties) => (
 );
 
 export const ChevronRightIcon = (style?: CSSProperties) => (
-  <BsChevronRight style={style} />
+  <BsChevronRight style={style} color="white"/>
 );
 export const ChevronLeftIcon = (style?: CSSProperties) => (
-  <BsChevronLeft style={style} />
+  <BsChevronLeft style={style} color="white" />
 );
 export const VisibilityOnIcon = (style?: CSSProperties) => (
   <MdVisibility style={style} />
