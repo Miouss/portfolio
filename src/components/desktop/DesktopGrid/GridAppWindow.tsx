@@ -47,7 +47,7 @@ export default function NormalApp({ appName }: Props) {
       onDoubleClick={handleDbCLick}
     >
       <BackgroundColorLayer click={click} />
-      <GridAppIcon style={{ fontSize: "4rem" }}>
+      <GridAppIcon>
         <AppDesktopIcon name={appName} />
       </GridAppIcon>
       <GridAppLabel>{appName}</GridAppLabel>

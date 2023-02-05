@@ -39,17 +39,19 @@ export const BackgroundColorLayer = styled("div")(
 );
 
 export const GridAppIcon = styled("div")({
+  position: "relative",
   paddingBottom: "1rem",
+  "& > *": {
+    width: "48px",
+    height: "48px",
+    objectFit: "contain",
+  },
+  pointerEvents: "none",
 });
 
 export const GridAppLabel = styled("div")({
+  width: "100%",
+  textAlign: "center",
   color: "white",
   textShadow: "rgb(0, 0, 0) 0px 0px 3px",
-});
-
-export const GridAppBadge = styled("div")({
-  position: "absolute",
-  left: "30%",
-  backgroundColor: "white",
-  display: "flex",
 });

@@ -19,10 +19,7 @@ export const ContextMenuPop = styled("div", {
 
   // We want to make sure the context menu is not too close to the bottom of the screen (35%)
   // to avoid it being cut off
-  transform:
-    mouseY > 0.65 * window.innerHeight
-      ? "translateY(-100%)"
-      : "none",
+  transform: mouseY > 0.65 * window.innerHeight ? "translateY(-100%)" : "none",
 
   padding: "3px 1px",
 
@@ -61,5 +58,8 @@ export const ActionLabel = styled("h4")({
 });
 
 export const ActionIcon = styled("i")({
-  fontSize: "1.2rem",
+  "& > * ": {
+    width: "18px",
+    height: "18px",
+  },
 });
