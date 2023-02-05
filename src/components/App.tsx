@@ -30,7 +30,7 @@ export default function App() {
   const loginRef = useRef<HTMLDivElement>(null);
 
   const [lang, setLang] = useState<LanguageProp>("fr");
-  const [isLogged, setIsLogged] = useState<IsLoggedProp>(true);
+  const [isLogged, setIsLogged] = useState<IsLoggedProp>(false);
 
   useAddApplicationsInStore();
   useSignInWall(isLogged);
@@ -51,9 +51,9 @@ export default function App() {
           </LoginDispathContext.Provider>
         </SessionContainer>
 
-       {/*  <SigninContainer ref={loginRef} visible={isLogged !== true}>
+        <SigninContainer ref={loginRef} visible={isLogged !== true}>
           <Signin isLogged={isLogged} setIsLogged={setIsLogged} />
-        </SigninContainer> */}
+        </SigninContainer>
       </LanguageDispatchContext.Provider>
     </LanguageStateContext.Provider>
   );
