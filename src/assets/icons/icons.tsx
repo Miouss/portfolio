@@ -52,6 +52,32 @@ import { BsCheck2 } from "react-icons/bs";
 
 import { MdLaunch } from "react-icons/md";
 
+import notepadimg from "../logos/notepad.png";
+import chillbeatsimg from "../logos/chillbeats.png";
+import redirectimg from "../logos/redirect.png";
+import githubimg from "../logos/github.png";
+import linkedinimg from "../logos/linkedin.png";
+import projectimg from "../logos/project.png";
+import mailsenderimg from "../logos/mailsender.png";
+import terminalimg from "../logos/terminal.png";
+
+export const TerminalLogo = () => <img src={terminalimg} alt="Terminal Logo" />;
+export const MailSenderLogo = () => <img src={mailsenderimg} alt="MailSender Logo" />;
+export const ProjectLogo = () => <img src={projectimg} alt="Project Logo" />;
+export const LinkedinLogo = () => <img src={linkedinimg} alt="Linkedin Logo" />; 
+export const GithubLogo = () => <img src={githubimg} alt="Github Logo" />;
+export const RedirectLogo = () => <img src={redirectimg} alt="Redirect Logo" style={{
+  position: "absolute",
+  bottom: "0",
+  left: "0",
+  width: "16px",
+  height: "16px",
+  transform: "translateY(-100%)",
+}} />;
+export const ChillBeatsLogo = () => <img src={chillbeatsimg} alt="ChillBeats Logo" />;
+export const NotepadLogo = () => <img src={notepadimg} alt="Notepad Logo" />;
+
+export const MailIcon = (style?: CSSProperties) => <BiMailSend style={style} />;
 export const RedirectIcon = (style?: CSSProperties) => (
   <MdLaunch style={style} />
 );
@@ -86,7 +112,7 @@ export const UnlockIcon = (style?: CSSProperties) => (
 );
 
 export const ChevronRightIcon = (style?: CSSProperties) => (
-  <BsChevronRight style={style} color="white"/>
+  <BsChevronRight style={style} color="white" />
 );
 export const ChevronLeftIcon = (style?: CSSProperties) => (
   <BsChevronLeft style={style} color="white" />
@@ -134,7 +160,6 @@ export const VolumeZeroIcon = (style?: CSSProperties) => (
 export const PlaylistIcon = (style?: CSSProperties) => (
   <RiSoundcloudLine style={style} />
 );
-export const MailIcon = (style?: CSSProperties) => <BiMailSend style={style} />;
 export const SendMailIcon = (style?: CSSProperties) => <TbSend style={style} />;
 export const MailMinimizeIcon = (style?: CSSProperties) => (
   <HiOutlineChevronDoubleRight style={style} />
@@ -347,5 +372,139 @@ export const electronSVG = (
         <path d="M127.617 54.444c7.049 0 12.763-5.714 12.763-12.763 0-7.049-5.714-12.763-12.763-12.763-7.049 0-12.763 5.714-12.763 12.763 0 7.049 5.714 12.763 12.763 12.763zm0-5.333a7.43 7.43 0 1 1 0-14.86 7.43 7.43 0 0 1 0 14.86zm1.949 93.382c-4.985 1.077-9.896-2.091-10.975-7.076a9.236 9.236 0 0 1 7.076-10.976c4.985-1.077 9.896 2.091 10.976 7.076 1.077 4.985-2.091 9.897-7.077 10.976z" />
       </g>
     </g>
+  </svg>
+);
+
+export const MailLogo = () => (
+  <svg
+    shapeRendering="geometricPrecision"
+    textRendering="geometricPrecision"
+    imageRendering="optimizeQuality"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="7.086 7.087 1277.149 924.008"
+  >
+    <path fill="none" d="M1138.734 931.095h.283M1139.017 931.095h-.283" />
+    <path
+      d="M1179.439 7.087c57.543 0 104.627 47.083 104.627 104.626v30.331l-145.36 103.833-494.873 340.894L148.96 242.419v688.676h-37.247c-57.543 0-104.627-47.082-104.627-104.625V111.742C7.086 54.198 54.17 7.115 111.713 7.115l532.12 394.525L1179.41 7.115l.029-.028z"
+      fill="#e75a4d"
+    />
+    <linearGradient
+      id="a"
+      gradientUnits="userSpaceOnUse"
+      x1="1959.712"
+      y1="737.107"
+      x2="26066.213"
+      y2="737.107"
+      gradientTransform="matrix(.0283 0 0 -.0283 248.36 225.244)"
+    >
+      <stop offset="0" stopColor="#f8f6ef" />
+      <stop offset="1" stopColor="#e7e4d6" />
+    </linearGradient>
+    <path fill="url(#a)" d="M111.713 7.087l532.12 394.525L1179.439 7.087z" />
+    <path
+      fill="#e7e4d7"
+      d="M148.96 242.419v688.676h989.774V245.877L643.833 586.771z"
+    />
+    <path
+      fill="#b8b7ae"
+      d="M148.96 931.095l494.873-344.324-2.24-1.586L148.96 923.527z"
+    />
+    <path fill="#b7b6ad" d="M1138.734 245.877l.283 685.218-495.184-344.324z" />
+    <path
+      d="M1284.066 142.044l.17 684.51c-2.494 76.082-35.461 103.238-145.219 104.514l-.283-685.219 145.36-103.833-.028.028z"
+      fill="#b2392f"
+    />
+    <linearGradient
+      id="b"
+      gradientUnits="userSpaceOnUse"
+      x1="1959.712"
+      y1="737.107"
+      x2="26066.213"
+      y2="737.107"
+      gradientTransform="matrix(.0283 0 0 -.0283 248.36 225.244)"
+    >
+      <stop offset="0" stopColor="#f8f6ef" />
+      <stop offset="1" stopColor="#e7e4d6" />
+    </linearGradient>
+    <path fill="url(#b)" d="M111.713 7.087l532.12 394.525L1179.439 7.087z" />
+    <linearGradient
+      id="c"
+      gradientUnits="userSpaceOnUse"
+      x1="1959.712"
+      y1="737.107"
+      x2="26066.213"
+      y2="737.107"
+      gradientTransform="matrix(.0283 0 0 -.0283 248.36 225.244)"
+    >
+      <stop offset="0" stopColor="#f8f6ef" />
+      <stop offset="1" stopColor="#e7e4d6" />
+    </linearGradient>
+    <path fill="url(#c)" d="M111.713 7.087l532.12 394.525L1179.439 7.087z" />
+    <linearGradient
+      id="d"
+      gradientUnits="userSpaceOnUse"
+      x1="1959.712"
+      y1="737.107"
+      x2="26066.213"
+      y2="737.107"
+      gradientTransform="matrix(.0283 0 0 -.0283 248.36 225.244)"
+    >
+      <stop offset="0" stopColor="#f8f6ef" />
+      <stop offset="1" stopColor="#e7e4d6" />
+    </linearGradient>
+    <path fill="url(#d)" d="M111.713 7.087l532.12 394.525L1179.439 7.087z" />
+    <linearGradient
+      id="e"
+      gradientUnits="userSpaceOnUse"
+      x1="1959.712"
+      y1="737.107"
+      x2="26066.213"
+      y2="737.107"
+      gradientTransform="matrix(.0283 0 0 -.0283 248.36 225.244)"
+    >
+      <stop offset="0" stopColor="#f8f6ef" />
+      <stop offset="1" stopColor="#e7e4d6" />
+    </linearGradient>
+    <path fill="url(#e)" d="M111.713 7.087l532.12 394.525L1179.439 7.087z" />
+    <linearGradient
+      id="f"
+      gradientUnits="userSpaceOnUse"
+      x1="1959.712"
+      y1="737.107"
+      x2="26066.213"
+      y2="737.107"
+      gradientTransform="matrix(.0283 0 0 -.0283 248.36 225.244)"
+    >
+      <stop offset="0" stopColor="#f8f6ef" />
+      <stop offset="1" stopColor="#e7e4d6" />
+    </linearGradient>
+    <path fill="url(#f)" d="M111.713 7.087l532.12 394.525L1179.439 7.087z" />
+    <linearGradient
+      id="g"
+      gradientUnits="userSpaceOnUse"
+      x1="1959.712"
+      y1="737.107"
+      x2="26066.213"
+      y2="737.107"
+      gradientTransform="matrix(.0283 0 0 -.0283 248.36 225.244)"
+    >
+      <stop offset="0" stopColor="#f8f6ef" />
+      <stop offset="1" stopColor="#e7e4d6" />
+    </linearGradient>
+    <path fill="url(#g)" d="M111.713 7.087l532.12 394.525L1179.439 7.087z" />
+    <linearGradient
+      id="h"
+      gradientUnits="userSpaceOnUse"
+      x1="1959.712"
+      y1="737.107"
+      x2="26066.213"
+      y2="737.107"
+      gradientTransform="matrix(.0283 0 0 -.0283 248.36 225.244)"
+    >
+      <stop offset="0" stopColor="#f8f6ef" />
+      <stop offset="1" stopColor="#e7e4d6" />
+    </linearGradient>
+    <path fill="url(#h)" d="M111.713 7.087l532.12 394.525L1179.439 7.087z" />
+    <path fill="#f7f5ed" d="M111.713 7.087l532.12 394.525L1179.439 7.087z" />
   </svg>
 );

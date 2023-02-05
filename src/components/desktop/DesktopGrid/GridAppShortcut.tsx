@@ -2,15 +2,14 @@ import {
   ShortcutDesktopIcon,
   getShortcutLink,
 } from "../../Applications/Window/Contents/list";
-import ShortcutIcon from "@mui/icons-material/Shortcut";
 import {
   BackgroundColorLayer,
-  GridAppBadge,
   GridAppContainer,
   GridAppIcon,
   GridAppLabel,
 } from "./style";
 import { useState } from "react";
+import { RedirectLogo } from "../../../assets/icons/icons";
 
 interface Props {
   shortcutName: string;
@@ -36,12 +35,11 @@ export default function ShortcutApp({ shortcutName }: Props) {
       onClick={handleClick}
     >
       <BackgroundColorLayer click={click} />
-      <GridAppIcon style={{ fontSize: "4rem" }}>
+      <GridAppIcon>
         <ShortcutDesktopIcon name={shortcutName} />
+        <RedirectLogo />
       </GridAppIcon>
-      <GridAppBadge className="desktop-app-shortcut">
-        <ShortcutIcon fontSize="small" />
-      </GridAppBadge>
+
       <GridAppLabel>{shortcutName}</GridAppLabel>
     </GridAppContainer>
   );

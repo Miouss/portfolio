@@ -42,6 +42,10 @@ export const AppTaskContainer = styled(Stack, {
     height: "100%",
     justifyContent: "center",
     alignItems: "center",
-    fontSize: "1.5rem",
+    "& > *": {
+      width: "50%",
+      height: "50%",
+      objectFit: "contain",
+    },
   });
   

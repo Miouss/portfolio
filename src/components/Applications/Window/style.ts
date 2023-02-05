@@ -22,8 +22,9 @@ export const MovableBarIcon = styled(Stack)({
   alignItems: "center",
   "& > *": {
     color: "black !important",
-    width: "50%",
+    width: "40%",
     height: "100%",
+    objectFit: "contain",
   },
 });
 
