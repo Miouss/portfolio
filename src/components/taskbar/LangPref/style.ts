@@ -48,7 +48,7 @@ export const LangPrefPopOverMenu = styled("div", {
   borderBottom: "none",
   padding: "6px 0",
 
-  zIndex: "0",
+
   display: "flex",
   flexDirection: "column-reverse",
 
