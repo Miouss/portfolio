@@ -1,13 +1,13 @@
 import { ReactElement, useContext } from "react";
 
 import {
-  TerminalIcon,
-  ProjectIcon,
-  NotepadIcon,
-  GithubIcon,
-  LinkedinIcon,
-  MailIcon,
-  PlaylistIcon,
+  NotepadLogo,
+  ChillBeatsLogo,
+  GithubLogo,
+  LinkedinLogo,
+  ProjectLogo,
+  MailSenderLogo,
+  TerminalLogo,
 } from "../../../../assets/icons/icons";
 
 import TerminalApp from "./collection/Terminal/TerminalApp";
@@ -26,7 +26,7 @@ let shortcutList = {} as ShortcutList[];
 addApp(
   "Terminal",
   <TerminalApp />,
-  <TerminalIcon fontSize="inherit" />,
+  <TerminalLogo />,
   1,
   1,
   "Ouvrir le Terminal",
@@ -35,7 +35,7 @@ addApp(
 addApp(
   "Mail Sender",
   <MailSender appName="Mail Sender" />,
-  <MailIcon fontSize="inherit" />,
+  <MailSenderLogo />,
   3,
   1,
   "Envoyer un mail",
@@ -44,7 +44,7 @@ addApp(
 addApp(
   "Chill Beats",
   <ChillBeats appName="Chill Beats" />,
-  <PlaylistIcon fontSize="inherit" />,
+  <ChillBeatsLogo />,
   9,
   2,
   "Ecouter de la musique",
@@ -53,7 +53,7 @@ addApp(
 addApp(
   "Projets",
   <ProjectPreviewApp />,
-  <ProjectIcon fontSize="inherit" />,
+  <ProjectLogo />,
   1,
   3,
   "Voir mes projets",
@@ -62,7 +62,7 @@ addApp(
 addApp(
   "Presentation",
   <Notepad />,
-  <NotepadIcon fontSize="inherit" />,
+  <NotepadLogo />,
   1,
   4,
   "A propos de moi",
@@ -71,17 +71,17 @@ addApp(
 addApp(
   "Welcome",
   <TerminalApp key="welcome" mode="notepad" />,
-  <TerminalIcon fontSize="inherit" />,
-  0,
-  0,
-  "",
-  "",
+  undefined,
+  undefined,
+  undefined,
+  undefined,
+  undefined,
   true
 );
 
 addShortcut(
   "GitHub",
-  <GithubIcon fontSize="inherit" />,
+  <GithubLogo />,
   "https://github.com/Miouss",
   9,
   6,
@@ -90,7 +90,7 @@ addShortcut(
 );
 addShortcut(
   "LinkedIn",
-  <LinkedinIcon fontSize="inherit" />,
+  <LinkedinLogo />,
   "https://www.linkedin.com/in/samir-ghabi-aa58a2224/",
   10,
   6,
@@ -166,7 +166,7 @@ export function getAllShortcutsName() {
 function addApp(
   appName: string,
   Window: ReactElement,
-  Icon: any,
+  Logo?: ReactElement,
   col?: number,
   row?: number,
   actionFr?: string,
@@ -177,10 +177,10 @@ function addApp(
     name: appName,
     component: Window,
     icon: {
-      application: Icon,
-      desktop: Icon,
-      task: Icon,
-      notif: Icon,
+      application: Logo,
+      desktop: Logo,
+      task: Logo,
+      notif: Logo,
     },
     gridPostion: {
       col: col,
