@@ -13,7 +13,7 @@ export const WindowContainer = styled("div", {
 
   switch (animationName) {
     case "spawnWindow":
-      correctAnimation = "spawn 0.1s linear";
+      correctAnimation = "spawnWindow 0.1s linear";
       break;
     case "fadeInWindow":
       correctAnimation = "fadeInWindow 0.2s linear";
@@ -21,6 +21,8 @@ export const WindowContainer = styled("div", {
     case "fadeOutWindow":
       correctAnimation = "fadeOutWindow 0.2s linear forwards";
       break;
+
+    // despawnWindow animation is called directly in BarButtonGroup.tsx in MovableBar component
   }
 
   return {

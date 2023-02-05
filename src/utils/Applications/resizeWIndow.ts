@@ -1,25 +1,25 @@
-import { Coordinates, WindowSize, PointerOffsetRelative } from "../../types/types";
+import {
+  Coordinates,
+  WindowSize,
+  PointerOffsetRelative,
+} from "../../types/types";
 
-export default function resizeWindow(event: MouseEvent,
-    currentResizableDivRef: HTMLDivElement,
-    pointerPosition: string | null,
-    originalWindowOffset: Coordinates ,
-    originalWindowSize: WindowSize ,
-    pointerOffsetRelative: PointerOffsetRelative,
-    minWidth: number,
-    minHeight: number) {
-
+export default function resizeWindow(
+  event: MouseEvent,
+  currentResizableDivRef: HTMLDivElement,
+  pointerPosition: string | null,
+  originalWindowOffset: Coordinates,
+  originalWindowSize: WindowSize,
+  pointerOffsetRelative: PointerOffsetRelative,
+  minWidth: number,
+  minHeight: number
+) {
   const areaToResize = pointerPosition!
     .split(/(?=[A-Z])/)
     .map((value) => value.toLowerCase());
 
-  const previousWindowSize = {
-    height: parseInt(currentResizableDivRef.style.height),
-    width: parseInt(currentResizableDivRef.style.width),
-  };
+  if (event.x === undefined) return;
 
-  if(event.x === undefined) return;
-  
   const resize = {
     left: {
       offsetLeft:
@@ -62,7 +62,7 @@ export default function resizeWindow(event: MouseEvent,
         "px",
     },
   };
-    
+
   areaToResize.forEach((area) => {
     if (parseInt(resize[area!].width) < minWidth) {
       resize[area!].width = minWidth + "px";
@@ -79,24 +79,11 @@ export default function resizeWindow(event: MouseEvent,
     currentResizableDivRef.style.width = resize[area!].width;
     currentResizableDivRef.style.height = resize[area!].height;
   });
+  
   const currentWindowSize = {
     height: parseInt(currentResizableDivRef.style.height),
     width: parseInt(currentResizableDivRef.style.width),
   };
-
-  if (
-    currentWindowSize.width !== previousWindowSize.width ||
-    currentWindowSize.height !== previousWindowSize.height
-  ) {
-    currentResizableDivRef.dispatchEvent(
-      new CustomEvent("resizing", {
-        detail: {
-          width: currentWindowSize.width,
-          height: currentWindowSize.height,
-        },
-      })
-    );
-  }
 
   return currentWindowSize.width;
 }

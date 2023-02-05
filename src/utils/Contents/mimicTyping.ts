@@ -7,6 +7,7 @@ export default async function mimicTyping(
   await delay(15);
   if (!ref.current) return;
 
+  // if the character is a £, then we want to make pop the block of text until the next £ instead of mimicking keystrokes
   if (txt[0] === "£") {
     const lastIndexFound = txt.indexOf("£", 2);
     const blockText = txt.slice(1, lastIndexFound);
