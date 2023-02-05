@@ -11,7 +11,7 @@ import {
 } from "../../../../assets/icons/icons";
 
 import TerminalApp from "./collection/Terminal/TerminalApp";
-import ProjectPreviewApp from "./collection/Project/ProjectPreviewApp";
+import ProjectsViewer from "./collection/ProjectsViewer/ProjectsViewer";
 
 import { AppList, ShortcutList } from "./types";
 import MailSender from "./collection/MailSender/MailSender";
@@ -52,7 +52,7 @@ addApp(
 );
 addApp(
   "Projets",
-  <ProjectPreviewApp />,
+  <ProjectsViewer />,
   <ProjectLogo />,
   1,
   3,

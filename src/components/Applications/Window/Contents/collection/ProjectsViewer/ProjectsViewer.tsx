@@ -4,7 +4,7 @@ import LolMood from "./ProjectsList/LolMood";
 import Portofolio from "./ProjectsList/Portofolio";
 import SmartDl from "./ProjectsList/SmartDl";
 
-export default function ProjectPreviewApp() {
+export default function ProjectsViewer() {
   return (
     <ProjetPreviewApp>
       <LolMood />
