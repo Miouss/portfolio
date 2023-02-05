@@ -39,7 +39,6 @@ import {
   RedirectIcon,
 } from "../../../../../../../assets/icons/icons";
 
-import languages from "../../../../../../../assets/languages/languages.json";
 import { LanguageStateContext } from "../../../../../../App";
 import { changeSliderImage } from "./changeSliderImage";
 import { UndefinedBoolean } from "../../../../../../../types/types";
