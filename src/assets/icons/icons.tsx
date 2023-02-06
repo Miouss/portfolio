@@ -60,14 +60,23 @@ import linkedinimg from "../logos/linkedin.png";
 import projectimg from "../logos/project.png";
 import mailsenderimg from "../logos/mailsender.png";
 import terminalimg from "../logos/terminal.png";
+import cvimg from "../logos/cv.png";
 
-import {VscChromeMinimize, VscChromeMaximize, VscChromeRestore, VscChromeClose} from "react-icons/vsc";
+import {
+  VscChromeMinimize,
+  VscChromeMaximize,
+  VscChromeRestore,
+  VscChromeClose,
+} from "react-icons/vsc";
 
 export const CloseIcon = () => <VscChromeClose />;
-export const MinimizeIcon = () => <VscChromeMinimize style={{transform: "translateY(20%)"}} />;
+export const MinimizeIcon = () => (
+  <VscChromeMinimize style={{ transform: "translateY(20%)" }} />
+);
 export const FullscreenIcon = () => <VscChromeMaximize />;
 export const FullscreenExitIcon = () => <VscChromeRestore />;
 
+export const CVLogo = () => <img src={cvimg} alt="CV Logo" />;
 export const TerminalLogo = () => <img src={terminalimg} alt="Terminal Logo" />;
 export const MailSenderLogo = () => (
   <img src={mailsenderimg} alt="MailSender Logo" />

@@ -8,6 +8,7 @@ import {
   ProjectLogo,
   MailSenderLogo,
   TerminalLogo,
+  CVLogo,
 } from "../../../../assets/icons/icons";
 
 import TerminalApp from "./collection/Terminal/TerminalApp";
@@ -79,6 +80,16 @@ addApp(
   true
 );
 
+
+addShortcut(
+  "CV",
+  <CVLogo />,
+  `${process.env.PUBLIC_URL}/Samir-Ghabi_CV.pdf`,
+  1,
+  5,
+  "Télécharger mon CV",
+  "Download my CV",
+);
 addShortcut(
   "GitHub",
   <GithubLogo />,

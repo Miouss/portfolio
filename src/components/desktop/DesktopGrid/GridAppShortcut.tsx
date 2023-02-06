@@ -34,7 +34,7 @@ export default function ShortcutApp({ shortcutName }: Props) {
   return (
     <GridAppContainer
       click={click}
-      onDoubleClick={() => window.open(urlRedirect!)}
+      onDoubleClick={() => window.open(urlRedirect!, "_blank")}
       onClick={handleClick}
       style={{
         gridColumn: gridPosition.column,
