@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect, useContext } from "react";
 import { TerminalAppContainer, TerminalAppContent } from "./style";
 import mimicTyping from "../../../../../../utils/Contents/mimicTyping";
+import useAutoScrollOnOverflow from "../../../../../../hooks/Contents/useAutoScrollOnOverflow";
 
 import languages from "../../../../../../assets/languages/languages.json";
 import { LanguageStateContext } from "../../../../../App";
@@ -13,7 +14,7 @@ interface Props {
 
 export default function TerminalApp({ mode }: Props) {
   const terminalAppRef = useRef<HTMLDivElement | null>(null);
-  const terminalAppContentRef = useRef<HTMLDivElement | null>(null);
+  const terminalAppContentRef = useRef<HTMLTextAreaElement | null>(null);
   const [blink, setBlink] = useState(false);
   const [previousTextLength, setPreviousTextLength] = useState(0);
   const [currentDir, setCurrentDir] = useState("");
@@ -23,16 +24,17 @@ export default function TerminalApp({ mode }: Props) {
 
   useEffect(() => {
     const typeWelcomeMessage = async () => {
-      const welcomeMessage = !mode
-        ? `£Microsoft Windows [Version 10.0.19042.867]
-      (c) 2020 Microsoft Corporation. All rights reserved.£`
-        : languages[lang].apps.terminal.welcomeMsg.reduce(
+      const welcomeMessage = mode
+        ? languages[lang].apps.terminal.welcomeMsg.reduce(
             (prev, curr) => (prev += "\n" + curr)
-          );
+          )
+        : `£Microsoft Windows [Version 10.0.19042.867]
+        (c) 2020 Microsoft Corporation. All rights reserved.£`;
 
       await mimicTyping(terminalAppContentRef, welcomeMessage);
+
       if (!terminalAppContentRef.current) return;
-      terminalAppContentRef.current!.textContent! += currentDir;
+      terminalAppContentRef.current!.value! += currentDir;
       if (!mode) setCurrentDir("C:\\>");
       terminalAppContentRef.current!.focus();
     };
@@ -43,48 +45,41 @@ export default function TerminalApp({ mode }: Props) {
   const keyHandler = (event) => {
     event.preventDefault();
 
-    if (mode) {
-      (terminalAppRef!.current!.offsetParent as HTMLElement).style.animation =
-        "despawnWindow 0.15s ease-out forwards";
-      return;
-    }
+    if (mode)
+      return ((
+        terminalAppRef!.current!.offsetParent as HTMLElement
+      ).style.animation = "despawnWindow 0.15s ease-out forwards");
 
-    if (event.key.length !== 1) {
-      switch (event.key) {
-        case "Enter":
-          if (
-            terminalAppContentRef?.current!.textContent!.length ===
-            previousTextLength
-          ) {
-            terminalAppContentRef.current!.textContent += `\n${currentDir}`;
-            setPreviousTextLength(
-              terminalAppContentRef.current!.textContent!.length
-            );
-            return;
-          }
-          setCommand(
-            terminalAppContentRef.current!.textContent!.slice(
-              previousTextLength
-            )
+    if (event.key.length === 1)
+      return (terminalAppContentRef.current!.value += event.key);
+
+    switch (event.key) {
+      case "Enter":
+        if (
+          terminalAppContentRef?.current!.value!.length ===
+          previousTextLength
+        ) {
+          terminalAppContentRef.current!.value += `\n${currentDir}`;
+          setPreviousTextLength(
+            terminalAppContentRef.current!.value!.length
           );
           return;
-        case "Backspace":
-          if (
-            terminalAppContentRef.current!.textContent!.length ===
-            previousTextLength
-          )
-            return;
-          terminalAppContentRef.current!.textContent! =
-            terminalAppContentRef.current!.textContent!.slice(0, -1);
+        }
+        setCommand(
+          terminalAppContentRef.current!.value!.slice(previousTextLength)
+        );
+        return;
+      case "Backspace":
+        if (
+          terminalAppContentRef.current!.value!.length ===
+          previousTextLength
+        )
           return;
-        default:
-          return;
-      }
-    } else {
-      switch (event.key) {
-        default:
-          terminalAppContentRef.current!.textContent += event.key;
-      }
+        terminalAppContentRef.current!.value! =
+          terminalAppContentRef.current!.value!.slice(0, -1);
+        return;
+      default:
+        return;
     }
   };
 
@@ -108,9 +103,9 @@ export default function TerminalApp({ mode }: Props) {
           or external command, operable program 
           or batch file.\n\n${currentDir}`;
 
-          terminalAppContentRef.current!.textContent += errorMessage;
+          terminalAppContentRef.current!.value += errorMessage;
           setPreviousTextLength(
-            terminalAppContentRef.current!.textContent!.length
+            terminalAppContentRef.current!.value!.length
           );
       }
     }
@@ -131,25 +126,21 @@ export default function TerminalApp({ mode }: Props) {
   }, [keyHandler]);
 
   useEffect(() => {
-    if (terminalAppContentRef!.current!.textContent!.length === 0) return;
-    terminalAppContentRef!.current!.textContent! += `\n\n` + currentDir;
-    setPreviousTextLength(terminalAppContentRef.current!.textContent!.length);
+    if (terminalAppContentRef!.current!.value!.length === 0) return;
+    terminalAppContentRef!.current!.value! += `\n\n` + currentDir;
+    setPreviousTextLength(terminalAppContentRef.current!.value!.length);
   }, [currentDir]);
 
-  useEffect(() => {
-    if (terminalAppContentRef.current) {
-      terminalAppContentRef.current.scrollIntoView({
-        block: "end",
-      });
-    }
-  }, [previousTextLength]);
+  useAutoScrollOnOverflow(terminalAppContentRef, previousTextLength);
 
   return (
     <TerminalAppContainer ref={terminalAppRef}>
       <TerminalAppContent
         tabIndex={0}
         ref={terminalAppContentRef}
+        notepad={mode}
         blink={blink}
+        spellCheck={false}
       />
     </TerminalAppContainer>
   );

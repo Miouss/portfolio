@@ -10,6 +10,7 @@ import {
 
 import mimicTyping from "../../../../../../utils/Contents/mimicTyping";
 import useTextInputEffect from "../../../../../../hooks/Contents/useTextInputEffect";
+import clearAll from "../../../../../../utils/Contents/clearAll";
 
 import { useAppDispatch, closeApp } from "../../../../../../redux";
 
@@ -18,9 +19,9 @@ import { DynamicFontSize, DropDownMenuContent } from "./types";
 import languages from "../../../../../../assets/languages/languages.json";
 import { LanguageStateContext } from "../../../../../App";
 
-export default function Notepad() {
+export default function Notepad({ appName }: { appName: string }) {
   const notepadRef = useRef<HTMLDivElement>(null);
-  const textInputAreaRef = useRef<HTMLDivElement>(null);
+  const textInputAreaRef = useRef<HTMLTextAreaElement>(null);
   const dropDownMenuRef = useRef<HTMLDivElement>(null);
 
   const [contextMenuTarget, setContextMenuTarget] =
@@ -31,35 +32,32 @@ export default function Notepad() {
   const [dynamicFontSize, setDynamicFontSize] =
     useState<DynamicFontSize>("16px");
 
-  const [textTyping, setTextTyping] = useState(true);
-
+  const [isTxtTyping, setIsTxtTyping] = useState(false);
   const lang = useContext(LanguageStateContext);
-  const dispatch = useAppDispatch();
   const txt = languages[lang].apps.aboutMe.speech.reduce(
     (previousValue, currentValue) => previousValue + "\n\n" + currentValue
   );
 
-  useEffect(() => {
-    if (notepadRef.current?.offsetParent?.firstChild) {
-      (
-        notepadRef.current.offsetParent.firstChild as HTMLDivElement
-      ).style.borderBottom = "none";
-    }
+  const dispatch = useAppDispatch();
 
-    setTextTyping(true);
+  const awaitMimicTyping = async () => {
+    try {
+      clearAll(textInputAreaRef);
+      await mimicTyping(textInputAreaRef, txt);
+      setIsTxtTyping(false);
+    } catch (e: any) {
+      if (e.message === "stop") setIsTxtTyping(false);
+    }
+  };
+
+  useEffect(() => {
+    (
+      notepadRef.current!.offsetParent!.firstChild as HTMLElement
+    ).style.borderBottom = "none";
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    const awaitMimicTyping = async () => {
-      await mimicTyping(textInputAreaRef, txt);
-      setTextTyping(false);
-    };
-
-    if (textTyping) awaitMimicTyping();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [textTyping]);
-
-  useTextInputEffect(textInputAreaRef, textTyping);
+  useTextInputEffect(textInputAreaRef, isTxtTyping);
 
   useEffect(() => {
     if (contextMenuTarget && dropDownMenuRef.current) {
@@ -92,32 +90,33 @@ export default function Notepad() {
     }
   };
 
-  const clearAll = () => {
-    if (textInputAreaRef.current && !textTyping)
-      textInputAreaRef.current.textContent = "";
+  const exitFct = (e?) => {
+    e?.stopPropagation();
+    dispatch(closeApp(appName));
   };
 
-  const exitFct = (e) => {
-    e.stopPropagation();
-    dispatch(closeApp("About me"));
-  };
-
-  const rerun = (e) => {
-    e.stopPropagation();
-    if (textTyping) return;
-    clearAll();
-    setTextTyping(true);
-  };
-
-  const forceRerun = () => {
-    clearAll();
-    setTextTyping(true);
+  const rerun = (e?) => {
+    e?.stopPropagation();
+    if (isTxtTyping) {
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "Rerun" }));
+      awaitMimicTyping();
+      return;
+    }
+    setIsTxtTyping(true);
   };
 
   useEffect(() => {
-    forceRerun();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    rerun();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lang]);
+
+  useEffect(() => {
+    if (isTxtTyping) {
+      clearAll(textInputAreaRef);
+      awaitMimicTyping();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isTxtTyping]);
 
   const getDropDownMenuContent = () => {
     switch (dropDownMenuContent) {
@@ -131,7 +130,7 @@ export default function Notepad() {
         );
       case "Edit":
         return (
-          <DropDownMenuButton onClick={clearAll}>
+          <DropDownMenuButton onClick={() => clearAll(textInputAreaRef)}>
             {" "}
             {languages[lang].apps.aboutMe.toolbar.edit.action}
           </DropDownMenuButton>
@@ -206,6 +205,7 @@ export default function Notepad() {
         ref={textInputAreaRef}
         tabIndex={0}
         dynamicFontSize={dynamicFontSize}
+        spellCheck={false}
       ></TextInputArea>
     </NotepadContainer>
   );

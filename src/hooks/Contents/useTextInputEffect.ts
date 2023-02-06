@@ -2,14 +2,14 @@ import { useEffect } from "react";
 import simpleKeyHandler from "../../utils/Contents/simpleKeyHandler";
 
 export default function useTextInputEffect(
-  ref: React.MutableRefObject<HTMLDivElement | null>,
-  textTyping: boolean,
+  ref: React.MutableRefObject<HTMLTextAreaElement | null>,
+  isTxtTyping: boolean
 ) {
   useEffect(() => {
     let offSetParent: Element | undefined = undefined;
     const eventCallback = (event) => simpleKeyHandler(event, ref);
 
-    if (ref.current !== null && !textTyping) {
+    if (ref.current !== null && !isTxtTyping) {
       offSetParent = ref.current.offsetParent!;
       offSetParent.addEventListener("keydown", eventCallback);
     }
@@ -18,5 +18,5 @@ export default function useTextInputEffect(
       offSetParent?.removeEventListener("keydown", eventCallback);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [textTyping]);
+  }, [isTxtTyping]);
 }

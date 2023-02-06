@@ -61,7 +61,7 @@ addApp(
 );
 addApp(
   "Presentation",
-  <Notepad />,
+  <Notepad appName="Presentation" />,
   <NotepadLogo />,
   1,
   4,
@@ -71,7 +71,7 @@ addApp(
 addApp(
   "Welcome",
   <TerminalApp key="welcome" mode="notepad" />,
-  undefined,
+  <TerminalLogo />,
   undefined,
   undefined,
   undefined,
