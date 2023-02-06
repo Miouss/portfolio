@@ -111,7 +111,7 @@ export default function DesktopGrid() {
   );
   useCloseOnMouseDown(openContextMenu, setOpenContextMenu);
   useCloseOnClickAway(openContextMenu, setOpenContextMenu);
-  console.log(desktopGridContainerRef.current);
+
   return (
     <DesktopGridContainer ref={desktopGridContainerRef}>
       {openContextMenu && (
