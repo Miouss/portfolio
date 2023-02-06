@@ -1,22 +1,22 @@
 export default function simpleKeyHandler(
   event: KeyboardEvent,
-  ref: React.MutableRefObject<HTMLDivElement | null>
+  ref: React.MutableRefObject<HTMLTextAreaElement | null>
 ) {
-  event.preventDefault();
+/*   event.preventDefault();
 
   if (event.key.length !== 1) {
     switch (event.key) {
       case "Enter":
-        ref.current!.textContent! += "\n";
+        ref.current!.value! += "\n";
         return;
       case "Backspace":
-        ref.current!.textContent! = ref.current!.textContent!.slice(0, -1);
+        ref.current!.value! = ref.current!.value!.slice(0, -1);
         return;
     }
   } else {
     switch (event.key) {
       default:
-        ref.current!.textContent! += event.key;
+        ref.current!.value! += event.key;
     }
-  }
+  } */
 }

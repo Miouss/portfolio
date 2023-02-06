@@ -1,4 +1,4 @@
-import ProjectContentBuilder from "../helper/ProjectContentBuilder";
+import ProjectContentBuilder from "./helper/ProjectContent";
 import LolMood1 from "../../../../../../../assets/projets/lolmood1.png";
 import LolMood2 from "../../../../../../../assets/projets/lolmood2.png";
 import LolMood3 from "../../../../../../../assets/projets/lolmood3.png";

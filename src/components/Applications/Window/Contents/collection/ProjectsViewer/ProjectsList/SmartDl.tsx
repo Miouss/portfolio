@@ -1,4 +1,4 @@
-import ProjectContentBuilder from "../helper/ProjectContentBuilder";
+import ProjectContentBuilder from "./helper/ProjectContent";
 import SmartDl1 from "../../../../../../../assets/projets/smartdl1.png";
 import SmartDl2 from "../../../../../../../assets/projets/smartdl2.png";
 import SmartDl3 from "../../../../../../../assets/projets/smartdl3.png";

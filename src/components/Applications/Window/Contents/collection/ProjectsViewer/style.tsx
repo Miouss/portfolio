@@ -5,5 +5,5 @@ export const ProjetPreviewApp = styled("div")({
   display: "flex",
   flexDirection: "column",
   rowGap: "7rem",
-  paddingTop: "2rem",
+  paddingTop: "3rem",
 });

@@ -1,35 +1,44 @@
-import { Box } from "@mui/material";
 import styled from "@mui/system/styled";
 
-export const TerminalAppContainer = styled(Box)({
-  backgroundColor: "black !important",
+export const TerminalAppContainer = styled("div")({
+  background: "black !important",
   color: "white !important",
+  display: "flex",
 });
 
-export const TerminalAppContent = styled("div", {
-  shouldForwardProp: (prop) => prop !== "blink",
-})(({ blink }: { blink: boolean }) => ({
+export const TerminalAppContent = styled("textarea", {
+  shouldForwardProp: (prop) => prop !== "blink" && prop !== "notepad",
+})(({ blink, notepad }: { blink: boolean; notepad?: "notepad" }) => ({
+  flex: 1,
   color: "white !important",
+  background: "black !important",
   boxSizing: "border-box",
-  whiteSpace: "pre-line",
-  paddingTop: "10px",
-  overflowWrap: "break-word",
-  width: "100%",
-  paddingLeft: "10px",
+  padding: notepad ? "10px 0 0 10px" : 0,
   fontFamily: "Consolas !important",
   fontSize: "1rem",
+  resize: "none",
+  border: "none",
+  cursor: "default",
+  whiteSpace: "pre-line",
+  caretColor: "transparent",
+
+  "&::selection": {
+    background: "white",
+    color: "black",
+  },
+
   "&::after": {
-    content: blink ? '"_"' : '""',
+    content: '"_"',
     animation: "blink 1s step-end infinite",
     "@keyframes blink": {
       "0%": {
-        opacity: 1,
+        visibility: "visible",
       },
       "50%": {
-        opacity: 0,
+        visibility: "hidden",
       },
       "100%": {
-        opacity: 1,
+        visibility: "visible",
       },
     },
   },

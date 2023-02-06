@@ -60,30 +60,13 @@ export const DropDownMenuButton = styled("button")({
   },
 });
 // NotepadContainer >
-export const TextInputArea = styled("div", {
+export const TextInputArea = styled("textarea", {
   shouldForwardProp: (prop) => prop !== "dynamicFontSize",
 })(({ dynamicFontSize }: { dynamicFontSize: DynamicFontSize }) => ({
   flex: 1,
   overflow: "scroll !important",
-  cursor: "text",
-  whiteSpace: "pre-line",
+  fontFamily: "inherit",
   fontSize: dynamicFontSize,
   paddingLeft: "5px",
-
-  "&::after": {
-    content: '""',
-    borderRight: "1px solid #000000",
-    animation: "blink 1s step-end 1s infinite",
-    "@keyframes blink": {
-      "0%": {
-        visibility: "visible",
-      },
-      "50%": {
-        visibility: "hidden",
-      },
-      "100%": {
-        visibility: "visible",
-      },
-    },
-  },
+  resize: "none",
 }));

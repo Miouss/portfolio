@@ -1,5 +1,5 @@
 import styled from "@mui/system/styled";
-import { UndefinedBoolean } from "../../../../../../../types/types";
+import { UndefinedBoolean } from "../../../../../../../../types/types";
 
 const fontSizeResponsive = {
   shouldForwardProp: (prop) => prop !== "fsresp",
@@ -71,7 +71,7 @@ export const Content = styled(
 }));
 
 // Content >
-export const ProjectContent = styled("section", {
+export const Project = styled("section", {
   shouldForwardProp: (prop) => prop !== "hide",
 })(({ hide }: { hide: UndefinedBoolean }) => ({
   display: "flex",
@@ -108,7 +108,7 @@ export const ProjectContent = styled("section", {
   },
 }));
 
-// ProjectContent >
+// Project >
 export const Title = styled(
   "h2",
   fontSizeResponsive
@@ -123,15 +123,12 @@ export const Title = styled(
   lineHeight: "77px",
 }));
 
-//  ProjectContent >
-export const Subcontent = styled(
-  "section",
-  fontSizeResponsive
-)(({ fsresp }: ResponsiveFontSize) => ({
+//  Project >
+export const Subcontent = styled("section")({
   display: "flex",
   flexDirection: "column",
   gap: "3rem",
-}));
+});
 
 // Subcontent >
 export const Details = styled("section")({
@@ -264,44 +261,7 @@ export const RedirectContainer = styled(
   paddingRight: fsresp >= 12 ? "10%" : "0px",
 }));
 
-// RedirectContainer >
-export const RedirectItem = styled(
-  "button",
-  fontSizeResponsive
-)(({ fsresp }: ResponsiveFontSize) => ({
-  width: fsresp >= 12 ? "85px" : "100%",
-  height: "45px",
-  backgroundColor: "rgba(242, 242, 242, 0.6)",
-  alignSelf: "center",
-  border: "none",
-  background: "#187CF1",
-  boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-  borderRadius: "2px",
-
-  "&:hover": {
-    animation: "scaling 1.5s ease-in-out infinite forwards",
-  },
-
-  "@keyframes scaling": {
-    "0%": {
-      transform: "scale(1)",
-    },
-    "50%": {
-      transform: "scale(1.1)",
-    },
-    "100%": {
-      transform: "scale(1)",
-    },
-  },
-
-  "& > *": {
-    color: "white",
-    width: "24px",
-    height: "24px",
-  },
-}));
-
-// ProjectContent >
+// Project >
 export const HidePreviewButton = styled("button")({
   position: "absolute",
   top: "3%",
@@ -329,7 +289,7 @@ export const HidePreviewButton = styled("button")({
   },
 });
 
-export const Chevrons = styled("div", {
+export const SliderControls = styled("div", {
   shouldForwardProp: (prop) => prop !== "visible",
 })(({ visible }: { visible: UndefinedBoolean }) => ({
   position: "absolute",
@@ -354,10 +314,10 @@ export const Chevrons = styled("div", {
 
   visibility: visible === undefined ? "hidden" : "visible",
   animation: visible
-    ? "fadeInChevrons 2s ease-in-out forwards"
-    : "fadeOutChevrons 1s ease-in-out forwards",
+    ? "fadeInSliderControls 2s ease-in-out forwards"
+    : "fadeOutSliderControls 1s ease-in-out forwards",
 
-  "@keyframes fadeInChevrons": {
+  "@keyframes fadeInSliderControls": {
     "0%": {
       opacity: 0,
       transform: "scale(0.1)",
@@ -368,7 +328,7 @@ export const Chevrons = styled("div", {
     },
   },
 
-  "@keyframes fadeOutChevrons": {
+  "@keyframes fadeOutSliderControls": {
     "0%": {
       opacity: 1,
     },
@@ -377,163 +337,4 @@ export const Chevrons = styled("div", {
       visibility: "hidden",
     },
   },
-}));
-
-type OrientationProp = "left" | "right";
-
-const chevronBouncing = (orientation: OrientationProp) => ({
-  [`@keyframes chevronBouncing${orientation}`]: {
-    "0%": {
-      transform: `translateX(${orientation === "left" ? 15 : -15}px)`,
-    },
-    "50%": {
-      transform: `translateX(${orientation === "left" ? 10 : -10}px)`,
-    },
-    "100%": {
-      transform: `translateX(${orientation === "left" ? 15 : -15}px)`,
-    },
-  },
-});
-
-const bouncingAnim = (orientation: OrientationProp) =>
-  `chevronBouncing${orientation} 1.5s ease-in infinite both`;
-
-export const ChevronLeft = styled("button")({
-  animation: bouncingAnim("left"),
-  ...chevronBouncing("left"),
-});
-
-export const ChevronRight = styled("button")({
-  animation: bouncingAnim("right"),
-  ...chevronBouncing("right"),
-});
-
-const forwardAnimProp = { shouldForwardProp: (prop) => prop !== "anim" };
-
-interface AnimProp {
-  anim: string;
-}
-
-const slideRightFromCenter = {
-  "@keyframes center-to-right": {
-    "0%": {
-      transform: "translateX(0)",
-    },
-    "100%": {
-      transform: "translateX(100%)",
-    },
-  },
-};
-
-const slideLeftFromCenter = {
-  "@keyframes center-to-left": {
-    "0%": {
-      transform: "translateX(0)",
-    },
-    "100%": {
-      transform: "translateX(-100%)",
-    },
-  },
-};
-
-const slideCenterFromRight = {
-  "@keyframes right-to-center": {
-    "0%": {
-      transform: "translateX(100%)",
-    },
-    "100%": {
-      transform: "translateX(0)",
-    },
-  },
-};
-
-const slideCenterFromLeft = {
-  "@keyframes left-to-center": {
-    "0%": {
-      transform: "translateX(-100%)",
-    },
-    "100%": {
-      transform: "translateX(0)",
-    },
-  },
-};
-
-const swipeRightToLeft = {
-  "@keyframes right-to-left": {
-    "0%": {
-      transform: "translateX(-100%)",
-    },
-    "100%": {
-      transform: "translateX(-100%)",
-    },
-  },
-};
-
-const swipeLeftToRight = {
-  "@keyframes left-to-right": {
-    "0%": {
-      transform: "translateX(100%)",
-    },
-    "100%": {
-      transform: "translateX(100%)",
-    },
-  },
-};
-
-export const ImageOne = styled(
-  "div",
-  forwardAnimProp
-)(({ anim }: AnimProp) => ({
-  animation: `${anim} 1s ease-in-out forwards`,
-  ...slideRightFromCenter,
-  ...slideLeftFromCenter,
-  ...slideCenterFromRight,
-  ...slideCenterFromLeft,
-  ...swipeRightToLeft,
-  ...swipeLeftToRight,
-
-  transform: "translateX(0%)",
-
-  position: "absolute",
-  width: "100%",
-  height: "100%",
-}));
-
-export const ImageTwo = styled(
-  "div",
-  forwardAnimProp
-)(({ anim }: AnimProp) => ({
-  position: "absolute",
-  width: "100%",
-  height: "100%",
-  transform: "translateX(100%)",
-
-  animation: `${anim} 1s ease-in-out forwards`,
-
-  ...slideRightFromCenter,
-  ...slideLeftFromCenter,
-  ...slideCenterFromRight,
-  ...slideCenterFromLeft,
-  ...swipeRightToLeft,
-  ...swipeLeftToRight,
-}));
-
-export const ImageThree = styled(
-  "div",
-  forwardAnimProp
-)(({ anim }: AnimProp) => ({
-  position: "absolute",
-  width: "100%",
-  height: "100%",
-
-  transform: "translateX(-100%)",
-
-  animation: `${anim} 1s ease-in-out forwards`,
-
-  ...slideRightFromCenter,
-  ...slideLeftFromCenter,
-  ...slideCenterFromRight,
-  ...slideCenterFromLeft,
-  ...swipeRightToLeft,
-  ...swipeLeftToRight,
 }));
