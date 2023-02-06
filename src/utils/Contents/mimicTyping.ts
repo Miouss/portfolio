@@ -16,7 +16,9 @@ export default async function mimicTyping(
   document.addEventListener("keydown", handleKeydown);
 
   await delay(15);
-  if (!ref.current) return;
+
+  if (!ref.current)
+    return document.removeEventListener("keydown", handleKeydown);
 
   // if the character is a £, then we want to make pop the block of text until the next £ instead of mimicking keystrokes
   if (!stopKeyPressed && !rerunKeyPressed) {
@@ -29,7 +31,8 @@ export default async function mimicTyping(
         txt = "";
       }
       await delay(100);
-      if (stopKeyPressed || rerunKeyPressed) return;
+      if (stopKeyPressed || rerunKeyPressed)
+        return document.removeEventListener("keydown", handleKeydown);
       ref.current!.value += blockText;
     } else {
       ref.current!.value += txt[0];

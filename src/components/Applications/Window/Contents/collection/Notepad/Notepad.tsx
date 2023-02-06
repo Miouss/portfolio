@@ -9,7 +9,6 @@ import {
 } from "./style";
 
 import mimicTyping from "../../../../../../utils/Contents/mimicTyping";
-import useTextInputEffect from "../../../../../../hooks/Contents/useTextInputEffect";
 import clearAll from "../../../../../../utils/Contents/clearAll";
 
 import { useAppDispatch, closeApp } from "../../../../../../redux";
@@ -44,9 +43,7 @@ export default function Notepad({ appName }: { appName: string }) {
     try {
       clearAll(textInputAreaRef);
       await mimicTyping(textInputAreaRef, txt);
-      setIsTxtTyping(false);
     } catch (e: any) {
-      if (e.message === "stop") setIsTxtTyping(false);
     }
   };
 
@@ -56,8 +53,6 @@ export default function Notepad({ appName }: { appName: string }) {
     ).style.borderBottom = "none";
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useTextInputEffect(textInputAreaRef, isTxtTyping);
 
   useEffect(() => {
     if (contextMenuTarget && dropDownMenuRef.current) {
