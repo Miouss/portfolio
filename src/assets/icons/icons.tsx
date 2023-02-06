@@ -61,20 +61,37 @@ import projectimg from "../logos/project.png";
 import mailsenderimg from "../logos/mailsender.png";
 import terminalimg from "../logos/terminal.png";
 
+import {VscChromeMinimize, VscChromeMaximize, VscChromeRestore, VscChromeClose} from "react-icons/vsc";
+
+export const CloseIcon = () => <VscChromeClose />;
+export const MinimizeIcon = () => <VscChromeMinimize style={{transform: "translateY(20%)"}} />;
+export const FullscreenIcon = () => <VscChromeMaximize />;
+export const FullscreenExitIcon = () => <VscChromeRestore />;
+
 export const TerminalLogo = () => <img src={terminalimg} alt="Terminal Logo" />;
-export const MailSenderLogo = () => <img src={mailsenderimg} alt="MailSender Logo" />;
+export const MailSenderLogo = () => (
+  <img src={mailsenderimg} alt="MailSender Logo" />
+);
 export const ProjectLogo = () => <img src={projectimg} alt="Project Logo" />;
-export const LinkedinLogo = () => <img src={linkedinimg} alt="Linkedin Logo" />; 
+export const LinkedinLogo = () => <img src={linkedinimg} alt="Linkedin Logo" />;
 export const GithubLogo = () => <img src={githubimg} alt="Github Logo" />;
-export const RedirectLogo = () => <img src={redirectimg} alt="Redirect Logo" style={{
-  position: "absolute",
-  bottom: "0",
-  left: "0",
-  width: "16px",
-  height: "16px",
-  transform: "translateY(-100%)",
-}} />;
-export const ChillBeatsLogo = () => <img src={chillbeatsimg} alt="ChillBeats Logo" />;
+export const RedirectLogo = () => (
+  <img
+    src={redirectimg}
+    alt="Redirect Logo"
+    style={{
+      position: "absolute",
+      bottom: "0",
+      left: "0",
+      width: "16px",
+      height: "16px",
+      transform: "translateY(-100%)",
+    }}
+  />
+);
+export const ChillBeatsLogo = () => (
+  <img src={chillbeatsimg} alt="ChillBeats Logo" />
+);
 export const NotepadLogo = () => <img src={notepadimg} alt="Notepad Logo" />;
 
 export const MailIcon = (style?: CSSProperties) => <BiMailSend style={style} />;

@@ -4,11 +4,15 @@ import {
   toggleFullscreenApp,
   useAppDispatch,
 } from "../../../../redux";
-import { Button } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import CropFreeIcon from "@mui/icons-material/CropFree";
-import MinimizeIcon from "@mui/icons-material/Minimize";
-import { BarButtonGroupContainer, CloseButtonContainer } from "./style";
+import { BarButtonGroupContainer, Button, CloseButtonContainer } from "./style";
+import useAppStatus from "../../../../hooks/Store/useAppStatus";
+
+import {
+  MinimizeIcon,
+  CloseIcon,
+  FullscreenIcon,
+  FullscreenExitIcon,
+} from "../../../../assets/icons/icons";
 
 interface Props {
   appName: string;
@@ -17,6 +21,7 @@ interface Props {
 
 export default function BarButtonGroup({ appName, refAppWindow }: Props) {
   const [pointerWasDown, setPointerWasDown] = useState<boolean>(false);
+  const { isFullscreen } = useAppStatus(appName);
 
   const dispatch = useAppDispatch();
 
@@ -32,7 +37,6 @@ export default function BarButtonGroup({ appName, refAppWindow }: Props) {
 
   return (
     <BarButtonGroupContainer
-      variant="outlined"
       color="inherit"
       onPointerEnter={(event) => handlePointerEvent(event)}
       onPointerDown={(event) => handlePointerEvent(event)}
@@ -42,7 +46,7 @@ export default function BarButtonGroup({ appName, refAppWindow }: Props) {
         <MinimizeIcon />
       </Button>
       <Button onClick={() => dispatch(toggleFullscreenApp(appName))}>
-        <CropFreeIcon />
+        {isFullscreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
       </Button>
       <CloseButtonContainer
         onClick={() => {
