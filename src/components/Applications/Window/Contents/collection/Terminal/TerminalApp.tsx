@@ -7,6 +7,7 @@ import useAutoScrollOnOverflow from "../../../../../../hooks/Contents/useAutoScr
 
 import languages from "../../../../../../assets/languages/languages.json";
 import { LanguageStateContext } from "../../../../../App";
+import getFormattedText from "../../../../../../utils/Contents/getFormattedText";
 
 interface Props {
   mode?: "notepad";
@@ -28,8 +29,7 @@ export default function TerminalApp({ mode }: Props) {
         ? languages[lang].apps.terminal.welcomeMsg.reduce(
             (prev, curr) => (prev += "\n" + curr)
           )
-        : `£Microsoft Windows [Version 10.0.19042.867]
-        (c) 2020 Microsoft Corporation. All rights reserved.£`;
+        : `£Microsoft Windows [Version 10.0.19042.867]\n(c) 2020 Microsoft Corporation. All rights reserved.£`;
 
       await mimicTyping(terminalAppContentRef, welcomeMessage);
 
@@ -56,13 +56,10 @@ export default function TerminalApp({ mode }: Props) {
     switch (event.key) {
       case "Enter":
         if (
-          terminalAppContentRef?.current!.value!.length ===
-          previousTextLength
+          terminalAppContentRef?.current!.value!.length === previousTextLength
         ) {
           terminalAppContentRef.current!.value += `\n${currentDir}`;
-          setPreviousTextLength(
-            terminalAppContentRef.current!.value!.length
-          );
+          setPreviousTextLength(terminalAppContentRef.current!.value!.length);
           return;
         }
         setCommand(
@@ -70,10 +67,7 @@ export default function TerminalApp({ mode }: Props) {
         );
         return;
       case "Backspace":
-        if (
-          terminalAppContentRef.current!.value!.length ===
-          previousTextLength
-        )
+        if (terminalAppContentRef.current!.value!.length === previousTextLength)
           return;
         terminalAppContentRef.current!.value! =
           terminalAppContentRef.current!.value!.slice(0, -1);
@@ -99,14 +93,15 @@ export default function TerminalApp({ mode }: Props) {
           setCurrentDir("C:\\>");
           return;
         default:
-          const errorMessage = `\n'${command}' is not recognized as an internal 
-          or external command, operable program 
-          or batch file.\n\n${currentDir}`;
+          const errorMessage = [
+            `\n'${command}' is not recognized as an internal`,
+            "or external command, operable program",
+            `or batch file.\n\n${currentDir}`,
+          ];
 
-          terminalAppContentRef.current!.value += errorMessage;
-          setPreviousTextLength(
-            terminalAppContentRef.current!.value!.length
-          );
+          terminalAppContentRef.current!.value += getFormattedText(errorMessage);
+
+          setPreviousTextLength(terminalAppContentRef.current!.value!.length);
       }
     }
   }, [command]);

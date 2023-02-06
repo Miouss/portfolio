@@ -17,6 +17,7 @@ import { DynamicFontSize, DropDownMenuContent } from "./types";
 
 import languages from "../../../../../../assets/languages/languages.json";
 import { LanguageStateContext } from "../../../../../App";
+import getFormattedText from "../../../../../../utils/Contents/getFormattedText";
 
 export default function Notepad({ appName }: { appName: string }) {
   const notepadRef = useRef<HTMLDivElement>(null);
@@ -33,9 +34,7 @@ export default function Notepad({ appName }: { appName: string }) {
 
   const [isTxtTyping, setIsTxtTyping] = useState(false);
   const lang = useContext(LanguageStateContext);
-  const txt = languages[lang].apps.aboutMe.speech.reduce(
-    (previousValue, currentValue) => previousValue + "\n\n" + currentValue
-  );
+  const txt = getFormattedText(languages[lang].apps.aboutMe.speech, '\n');
 
   const dispatch = useAppDispatch();
 
