@@ -84,7 +84,7 @@ addShortcut(
   <GithubLogo />,
   "https://github.com/Miouss",
   9,
-  6,
+  5,
   "Vers mon GitHub",
   "Towards my GitHub"
 );
@@ -93,7 +93,7 @@ addShortcut(
   <LinkedinLogo />,
   "https://www.linkedin.com/in/samir-ghabi-aa58a2224/",
   10,
-  6,
+  5,
   "Vers mon profil LinkedIn",
   "Towards my Linkedin profile"
 );

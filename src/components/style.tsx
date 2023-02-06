@@ -9,8 +9,8 @@ export const SessionContainer = styled("div", {
 
   backgroundImage: `url(${WindowsWallpaper})`,
   backgroundPosition: "76% 50%",
-  backgroundSize: "1920px 1080px",
-  backgroundRepeat: "repeat",
+  backgroundRepeat: "norepeat",
+  backgroundSize: "cover",
   visibility: visible ? "visible" : "hidden",
   transition: "visibility 1s",
   

@@ -61,6 +61,7 @@ export default function DesktopGrid() {
   ) => {
     const gridPostion = getGridPostion(appName);
 
+    // While the current cell is not the same as the cell of the app, add empty cell
     while (
       gridPostion.col !== currentGridPosition.col ||
       gridPostion.row !== currentGridPosition.row
@@ -68,9 +69,14 @@ export default function DesktopGrid() {
       desktopApp.push(
         <DesktopEmptyGridItem
           key={`${appName} ${currentGridPosition.col} ${currentGridPosition.row}`}
+          style={{
+            gridColumn: currentGridPosition.col,
+            gridRow: currentGridPosition.row,
+          }}
         />
       );
 
+      // Remember to go to the next row if we are at the end of the column
       if (currentGridPosition.col >= 10) {
         currentGridPosition.row++;
         currentGridPosition.col = 1;
@@ -79,12 +85,11 @@ export default function DesktopGrid() {
       }
     }
 
-    // Add position of the NOT EMPTY CELL that will be added after
-    if (currentGridPosition.col < 10) {
-      currentGridPosition.col++;
-    } else {
-      currentGridPosition.row++;
-    }
+    // Increment the current grid position to the next NOT EMPTY CELL that will be added at the end of this function
+    // Avoid overlaping at the next iteration
+    currentGridPosition.col < 10
+      ? currentGridPosition.col++
+      : currentGridPosition.row++;
   };
 
   fillNormalApp(desktopApp);
@@ -92,14 +97,21 @@ export default function DesktopGrid() {
 
   desktopAppFilled = desktopApp;
 
-  const [openContextMenu, setOpenContextMenu] = useState<boolean | undefined>(false);
+  const [openContextMenu, setOpenContextMenu] = useState<boolean | undefined>(
+    false
+  );
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   const desktopGridContainerRef = useRef<HTMLDivElement>(null);
-  useOpenContextMenuOnRightClick(desktopGridContainerRef, openContextMenu, setOpenContextMenu, setMousePosition);
+  useOpenContextMenuOnRightClick(
+    desktopGridContainerRef,
+    openContextMenu,
+    setOpenContextMenu,
+    setMousePosition
+  );
   useCloseOnMouseDown(openContextMenu, setOpenContextMenu);
   useCloseOnClickAway(openContextMenu, setOpenContextMenu);
-
+  console.log(desktopGridContainerRef.current);
   return (
     <DesktopGridContainer ref={desktopGridContainerRef}>
       {openContextMenu && (
@@ -114,4 +126,3 @@ export default function DesktopGrid() {
     </DesktopGridContainer>
   );
 }
-

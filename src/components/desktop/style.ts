@@ -1,23 +1,16 @@
 import styled from "@mui/system/styled";
-import { Stack } from "@mui/material";
 
-export const DesktopGridContainer = styled(Stack)({
-    position: "relative",
-    height: "calc(100vh - 45px)",
-    flexWrap: "wrap",
-    overflow: "hidden", 
-    "& > *":   {
-        flexBasis: "10% !important",
-    },
-    marginRight: "1rem",
+export const DesktopGridContainer = styled("div")({
+  position: "relative",
+  height: "calc(100vh - 45px)",
+  display: "grid",
+  gridTemplateColumns: "repeat(10, 1fr)",
+  gridTemplateRows: "repeat(5, 1fr)",
+  marginRight: "1rem",
 
-    zIndex: -1,
+  zIndex: -1,
 });
 
-DesktopGridContainer.defaultProps = {
-    direction: "row",
-};
-
-export const DesktopEmptyGridItem = styled(Stack)({
-    backgroundColor: "transparent",
+export const DesktopEmptyGridItem = styled("div")({
+  backgroundColor: "transparent",
 });
