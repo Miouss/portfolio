@@ -30,7 +30,7 @@ export const WindowContainer = styled("div", {
     width: "55%",
     height: "60%",
     top: "20%",
-    left: "25%",
+    left: "22.5%",
     padding: "10px",
     boxSizing: "border-box",
     display: "flex",
