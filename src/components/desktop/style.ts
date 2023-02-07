@@ -10,7 +10,3 @@ export const DesktopGridContainer = styled("div")({
 
   zIndex: -1,
 });
-
-export const DesktopEmptyGridItem = styled("div")({
-  backgroundColor: "transparent",
-});

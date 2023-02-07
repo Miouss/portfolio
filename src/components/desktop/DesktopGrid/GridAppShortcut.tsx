@@ -13,11 +13,11 @@ import { useState } from "react";
 import { RedirectLogo } from "../../../assets/icons/icons";
 
 interface Props {
-  shortcutName: string;
+  appName: string;
 }
 
-export default function ShortcutApp({ shortcutName }: Props) {
-  const urlRedirect = getShortcutLink(shortcutName);
+export default function ShortcutApp({ appName }: Props) {
+  const urlRedirect = getShortcutLink(appName);
   const [click, setClick] = useState(false);
 
   const handleClick = () => {
@@ -29,7 +29,7 @@ export default function ShortcutApp({ shortcutName }: Props) {
     };
   };
 
-  const gridPosition = getShortcutGridPostion(shortcutName);
+  const gridPosition = getShortcutGridPostion(appName);
 
   return (
     <GridAppContainer
@@ -43,11 +43,11 @@ export default function ShortcutApp({ shortcutName }: Props) {
     >
       <BackgroundColorLayer click={click} />
       <GridAppIcon>
-        <ShortcutDesktopIcon name={shortcutName} />
+        <ShortcutDesktopIcon name={appName} />
         <RedirectLogo />
       </GridAppIcon>
 
-      <GridAppLabel>{shortcutName}</GridAppLabel>
+      <GridAppLabel>{appName}</GridAppLabel>
     </GridAppContainer>
   );
 }
