@@ -8,6 +8,7 @@ import useCloseOnClickAway from "../../../hooks/MouseEvents/useCloseOnClickAway"
 import useCloseOnClick from "../../../hooks/MouseEvents/useCloseOnClick";
 import useOpenContextMenuOnRightClick from "../../../hooks/MouseEvents/useOpenContextMenuOnRightClick";
 import { UndefinedBoolean } from "../../../types/types";
+import useCloseOnMouseDown from "../../../hooks/MouseEvents/useCloseOnMouseDown";
 
 export default function StartMenu() {
   const startMenuContainerRef = useRef<HTMLDivElement>(null);
@@ -36,6 +37,9 @@ export default function StartMenu() {
     setDisplayContextMenu,
     setMousePosition
   );
+
+  useCloseOnMouseDown(displayContextMenu, setDisplayContextMenu);
+
   useCloseOnClick(
     startMenuContainerRef,
     displayContextMenu,

@@ -12,7 +12,7 @@ export const ContextMenuPop = styled("div", {
   console.log(mouseX);
   
   return({
-  position: "absolute",
+  position: "fixed",
   display: "flex",
   height: "100px",
   width: "150px",
