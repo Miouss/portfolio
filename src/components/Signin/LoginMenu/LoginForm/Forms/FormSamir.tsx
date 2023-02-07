@@ -14,7 +14,7 @@ import ProfilPicture from "../../../../../assets/avatars/samir.png";
 export default function FormSamir() {
   const name = "Samir Ghabi";
   const profilPicture = ProfilPicture;
-  const setIsLogged = useContext(LoginDispatchContext);
+  const setIsLoggedContext = useContext(LoginDispatchContext);
   const isUnlocking = useContext(IsUnlockingContext);
   const [loadDesktop, setLoadDesktop] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState("Bienvenue");
@@ -26,7 +26,7 @@ export default function FormSamir() {
     if (!loadDesktop) return;
 
     setTimeout(() => {
-      setIsLogged(true);
+      setIsLoggedContext(true);
     }, 1500);
     setTimeout(() => {
       setLoadDesktop(false);
@@ -34,7 +34,7 @@ export default function FormSamir() {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadDesktop]);
-  
+
   useEffect(() => {
     if (loadDesktop) return;
 
@@ -49,23 +49,23 @@ export default function FormSamir() {
 
   return (
     <LoginFormBuilder sessionName={name} profilPicture={profilPicture}>
-      {loadDesktop ? (
-        <LoginFormLoadingContainer>
-          <CircularProgress style={{ color: "rgba(255,255,255,0.5)" }} />
-          <Box>{loadingMessage}</Box>
-        </LoginFormLoadingContainer>
-      ) : (
-        <>
-          <LoginFormTitle>{name}</LoginFormTitle>
+      <>
+        <LoginFormTitle>{name}</LoginFormTitle>
 
+        {loadDesktop ? (
+          <LoginFormLoadingContainer>
+            <CircularProgress style={{ color: "rgba(255,255,255,0.5)" }} />
+            <Box>{loadingMessage}</Box>
+          </LoginFormLoadingContainer>
+        ) : (
           <LoginFormButton
             variant="contained"
             onClick={() => setLoadDesktop(true)}
           >
             {promptMessage}
           </LoginFormButton>
-        </>
-      )}
+        )}
+      </>
     </LoginFormBuilder>
   );
 }

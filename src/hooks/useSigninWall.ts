@@ -1,15 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { IsLoggedProp } from "../types/types";
 import { closeApp, openApp, useAppDispatch } from "../redux";
 import useRunningApps from "./Store/useRunningApps";
 
-export default function useSignInWall(isLogged: IsLoggedProp) {
+export default function useSignInWall(
+  isLogged: IsLoggedProp,
+  setShowSignIn: Dispatch<SetStateAction<boolean>>
+) {
   const [alreadyLogged, setAlreadyLogged] = useState(false);
   const runningApps = useRunningApps();
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    if (isLogged !== true) setShowSignIn(true);
+
     if (isLogged === "lock") return;
 
     if (isLogged === false) {
@@ -29,6 +34,7 @@ export default function useSignInWall(isLogged: IsLoggedProp) {
       setAlreadyLogged(true);
       return;
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLogged]);
 }

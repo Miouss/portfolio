@@ -15,7 +15,7 @@ export default function ContextMenu({
   const LoginDispatchContext = useContext(LoginDispathContext);
 
   return (
-    <ContextMenuPop mouseX={mousePosition.x} mouseY={mousePosition.y}>
+    <ContextMenuPop mouseX={mousePosition.x} mouseY={mousePosition.y} onMouseDown={(e) => e.stopPropagation()}>
       <MenuList>
         <MenuItem>{languages[lang].actions.desktop}</MenuItem>
         <MenuItem onClick={() => LoginDispatchContext(false)}>{languages[lang].actions.logout}</MenuItem>

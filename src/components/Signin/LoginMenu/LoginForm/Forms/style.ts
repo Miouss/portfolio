@@ -77,7 +77,6 @@ export const InputButton = styled(Button)({
 });
 
 export const LoginFormLoadingContainer = styled(Stack)({
-  marginTop: "60px",
   width: "100%",
   justifyContent: "center",
   alignItems: "center",

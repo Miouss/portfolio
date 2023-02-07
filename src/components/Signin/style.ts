@@ -1,10 +1,50 @@
 import styled from "@mui/system/styled";
 import LoginBackground from "../../assets/backgrounds/login.png";
-import { Stack } from "@mui/material";
 
-export const LoginContainer = styled(Stack, {
+export const SigninContainer = styled("div", {
   shouldForwardProp: (prop) => prop !== "visible",
 })(({ visible }: { visible: boolean }) => ({
+  position: "absolute",
+  width: "100%",
+  height: "100%",
+
+  animation : visible ? "fadeInSignIn 1s forwards" : "fadeOutSignIn 1s forwards",
+  zIndex: 1,
+
+  "@keyframes fadeInSignIn": {
+    "0%": {
+      opacity: "0",
+      visibility: "visible",
+    },
+    "99.999%": {
+      opacity: "1",
+    },
+    "100%": {
+      opacity: "1",
+      visibility: "visible",
+    },
+  },
+
+  "@keyframes fadeOutSignIn": {
+    "0%": {
+      opacity: "1",
+      visibility: "visible",
+    },
+    "99.999%": {
+      opacity: "0",
+    },
+    "100%": {
+      opacity: "0",
+      visibility: "hidden",
+    },
+  },
+}));
+
+
+export const LoginContainer = styled("div", {
+  shouldForwardProp: (prop) => prop !== "visible",
+})(({ visible }: { visible: boolean }) => ({
+  display: "flex",
   alignItems: "center",
   width: "100%",
   height: "100%",
@@ -38,7 +78,7 @@ export const BackgroundLayer = styled("div", {
   zIndex: -1,
 }));
 
-export const LoginBox = styled(Stack)({
+export const LoginBox = styled("div")({
   width: "100%",
   height: "100%",
   display: "flex",

@@ -2,14 +2,14 @@ import {
   Dispatch,
   SetStateAction,
   createContext,
-  useRef,
+  useEffect,
   useState,
 } from "react";
 import AppGrid from "./Desktop/DesktopGrid";
 import Taskbar from "./Taskbar/Taskbar";
 
 import Signin from "./Signin/Signin";
-import { SessionContainer, SigninContainer } from "./style";
+import { SessionContainer } from "./style";
 
 import { IsLoggedProp, LanguageProp } from "../types/types";
 import useAddApplicationsInStore from "../hooks/Store/useAddApplicationsInStore";
@@ -27,13 +27,13 @@ export const LanguageDispatchContext = createContext<
 >((lang) => lang);
 
 export default function App() {
-  const loginRef = useRef<HTMLDivElement>(null);
-
-  const [lang, setLang] = useState<LanguageProp>("fr");
   const [isLogged, setIsLogged] = useState<IsLoggedProp>(false);
+  const [showSignInWall, setShowSignInWall] = useState(true);
+  const [showDesktop, setShowDesktop] = useState(false);
+  const [lang, setLang] = useState<LanguageProp>("fr");
 
   useAddApplicationsInStore();
-  useSignInWall(isLogged);
+  useSignInWall(isLogged, setShowSignInWall);
 
   const runningAppsComponents = useRunningAppsComponents();
   const passwordProtection = usePasswordProtection();
@@ -43,17 +43,24 @@ export default function App() {
   return (
     <LanguageStateContext.Provider value={lang}>
       <LanguageDispatchContext.Provider value={setLang}>
-        <SessionContainer visible={isLogged === true}>
-          {runningAppsComponents}
-          <AppGrid />
-          <LoginDispathContext.Provider value={setIsLogged}>
-            <Taskbar />
-          </LoginDispathContext.Provider>
-        </SessionContainer>
+        {showDesktop && (
+          <SessionContainer visible={isLogged === true}>
+            {runningAppsComponents}
+            <AppGrid />
+            <LoginDispathContext.Provider value={setIsLogged}>
+              <Taskbar />
+            </LoginDispathContext.Provider>
+          </SessionContainer>
+        )}
 
-        <SigninContainer ref={loginRef} visible={isLogged !== true}>
-          <Signin isLogged={isLogged} setIsLogged={setIsLogged} />
-        </SigninContainer>
+        {showSignInWall && (
+          <Signin
+            isLogged={isLogged}
+            setIsLogged={setIsLogged}
+            setShowSignInWall={setShowSignInWall}
+            setShowDesktop={setShowDesktop}
+          />
+        )}
       </LanguageDispatchContext.Provider>
     </LanguageStateContext.Provider>
   );

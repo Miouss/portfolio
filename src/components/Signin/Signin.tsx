@@ -4,6 +4,7 @@ import {
   LoginBox,
   LoginSubBox,
   LockContainer,
+  SigninContainer,
 } from "./style";
 import LoginBackground from "../../assets/backgrounds/login.png";
 import LoginForm from "./LoginMenu/LoginForm/LoginForm";
@@ -23,19 +24,41 @@ export const LoginDispatchContext = createContext((loginState: boolean) => {});
 interface Props {
   isLogged: IsLoggedProp;
   setIsLogged: (loginState: IsLoggedProp) => void;
+  setShowSignInWall: (showSignIn: boolean) => void;
+  setShowDesktop: (showDesktop: boolean) => void;
 }
 
 export const IsUnlockingContext = createContext(false);
 
-export default function Signin({ isLogged, setIsLogged }: Props) {
+export default function Signin({
+  isLogged,
+  setIsLogged,
+  setShowSignInWall,
+  setShowDesktop,
+}: Props) {
+  const loginRef = useRef<HTMLDivElement>(null);
   const lockMenuRef = useRef<HTMLDivElement>(null);
   const [selectedLoginSession, setSelectedLoginSession] =
     useState<LoginSessionProp>("Samir");
 
   if (isLogged === "lock") setTimeout(() => lockMenuRef.current?.focus(), 500);
 
+  const handleAnimationStart = (e: React.AnimationEvent<HTMLDivElement>) => {
+    if (e.animationName === "fadeOutSignIn") return setShowDesktop(true);
+  };
+
+  const handleAnimationEnd = (e: React.AnimationEvent<HTMLDivElement>) => {
+    if (e.animationName === "fadeOutSignIn") return setShowSignInWall(false);
+    if (e.animationName === "fadeInSignIn" && isLogged !== "lock") return setShowDesktop(false);
+  };
+
   return (
-    <>
+    <SigninContainer
+      ref={loginRef}
+      visible={isLogged !== true}
+      onAnimationStart={handleAnimationStart}
+      onAnimationEnd={handleAnimationEnd}
+    >
       <BackgroundLayer blurred={isLogged !== "lock"}>
         <img src={`${LoginBackground}`} alt={"login background"}></img>
       </BackgroundLayer>
@@ -72,6 +95,6 @@ export default function Signin({ isLogged, setIsLogged }: Props) {
           </LoginSubBox>
         </LoginBox>
       </LoginContainer>
-    </>
+    </SigninContainer>
   );
 }

@@ -13,45 +13,6 @@ export const SessionContainer = styled("div", {
   backgroundSize: "cover",
   visibility: visible ? "visible" : "hidden",
   transition: "visibility 1s",
-  
+
   zIndex: 0,
-}));
-
-export const SigninContainer = styled("div", {
-  shouldForwardProp: (prop) => prop !== "visible",
-})(({ visible }: { visible: boolean }) => ({
-  position: "absolute",
-  width: "100%",
-  height: "100%",
-
-  animation : visible ? "fadeInSignIn 1s forwards" : "fadeOutSignIn 1s forwards",
-  zIndex: 1,
-
-  "@keyframes fadeInSignIn": {
-    "0%": {
-      opacity: "0",
-      visibility: "visible",
-    },
-    "99.999%": {
-      opacity: "1",
-    },
-    "100%": {
-      opacity: "1",
-      visibility: "visible",
-    },
-  },
-
-  "@keyframes fadeOutSignIn": {
-    "0%": {
-      opacity: "1",
-      visibility: "visible",
-    },
-    "99.999%": {
-      opacity: "0",
-    },
-    "100%": {
-      opacity: "0",
-      visibility: "hidden",
-    },
-  },
 }));
