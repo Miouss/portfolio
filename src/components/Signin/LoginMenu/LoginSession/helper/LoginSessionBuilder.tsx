@@ -1,12 +1,11 @@
-import { useContext } from "react";
 import {
   LoginSessionBadge,
   LoginSessionContainer,
   LoginSessionTitle,
 } from "./style";
 
-import { DispatchContext, StateContext } from "../../../Signin";
 import { LoginSessionProp } from "../../../../../types/types";
+import useLoginSessionSelectedContext from "../../../../../hooks/useLoginSessionSelectedContext";
 
 interface Props {
   sessionName: LoginSessionProp;
@@ -17,13 +16,13 @@ export default function LoginSessionBuilder({
   sessionName,
   profilPicture,
 }: Props) {
-  const setSelectedLoginSession = useContext(DispatchContext);
-  const selectedLoginSession = useContext(StateContext);
+  const { loginSessionSelected, setLoginSessionSelected } =
+    useLoginSessionSelectedContext();
 
-  return (
+    return (
     <LoginSessionContainer
-      selected={selectedLoginSession === `${sessionName}` ? true : false}
-      onClick={() => setSelectedLoginSession(`${sessionName}`)}
+      selected={loginSessionSelected === `${sessionName}` ? true : false}
+      onClick={() => setLoginSessionSelected(`${sessionName}`)}
     >
       <LoginSessionBadge>
         <img src={`${profilPicture}`} alt={`Profil of ${sessionName}`}></img>

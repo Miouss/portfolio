@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 
 import {
   BackgroundLayer,
@@ -33,12 +33,12 @@ import {
   RedirectIcon,
 } from "../../../../../../../../assets/icons/icons";
 
-import { LanguageStateContext } from "../../../../../../../App";
 import { UndefinedBoolean } from "../../../../../../../../types/types";
 import SliderImage from "./SliderImage/SliderImage";
 import ChevronOriented from "./ChevronOriented/ChevronOriented";
 import RedirectItem from "./RedirectItem/RedirectItem";
 import { UndefinedDirection } from "./types";
+import useLangContext from "../../../../../../../../hooks/useLangContext";
 
 interface Tech {
   name: string;
@@ -68,7 +68,8 @@ export default function ContentBuilder({
 }: Props) {
   const [showGallery, setShowGallery] = useState<UndefinedBoolean>(undefined);
   const fsresp = useSelector((store: RootState) => store.windowResponsiveFont);
-  const [triggerAnimDirection, setTriggerAnimDirection] = useState<UndefinedDirection>(undefined);
+  const [triggerAnimDirection, setTriggerAnimDirection] =
+    useState<UndefinedDirection>(undefined);
 
   const TechItems = techs.map((tech, i) => (
     <TechItem key={`${tech}${i}`}>
@@ -79,7 +80,7 @@ export default function ContentBuilder({
 
   const [disableButtons, setDisableButtons] = useState(false);
 
-  const lang = useContext(LanguageStateContext);
+  const { lang } = useLangContext();
 
   useEffect(() => {
     if (fsresp < 12 && showGallery) setShowGallery(false);

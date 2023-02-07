@@ -16,8 +16,8 @@ import { useAppDispatch, closeApp } from "../../../../../../redux";
 import { DynamicFontSize, DropDownMenuContent } from "./types";
 
 import languages from "../../../../../../assets/languages/languages.json";
-import { LanguageStateContext } from "../../../../../App";
 import getFormattedText from "../../../../../../utils/Contents/getFormattedText";
+import useLangContext from "../../../../../../hooks/useLangContext";
 
 export default function Notepad({ appName }: { appName: string }) {
   const notepadRef = useRef<HTMLDivElement>(null);
@@ -33,8 +33,8 @@ export default function Notepad({ appName }: { appName: string }) {
     useState<DynamicFontSize>("16px");
 
   const [isTxtTyping, setIsTxtTyping] = useState(false);
-  const lang = useContext(LanguageStateContext);
-  const txt = getFormattedText(languages[lang].apps.aboutMe.speech, '\n');
+  const { lang } = useLangContext();
+  const txt = getFormattedText(languages[lang].apps.aboutMe.speech, "\n");
 
   const dispatch = useAppDispatch();
 
@@ -42,8 +42,7 @@ export default function Notepad({ appName }: { appName: string }) {
     try {
       clearAll(textInputAreaRef);
       await mimicTyping(textInputAreaRef, txt);
-    } catch (e: any) {
-    }
+    } catch (e: any) {}
   };
 
   useEffect(() => {

@@ -1,20 +1,14 @@
-import { useContext } from "react";
 import { LoginFormContainer } from "./style";
 import FormSamir from "./Forms/FormSamir";
 import FormMiouss from "./Forms/FormMiouss";
-
-import { StateContext } from "../../Signin";
+import useLoginSessionSelectedContext from "../../../../hooks/useLoginSessionSelectedContext";
 
 export default function LoginForm() {
-  const selectedLoginSession = useContext(StateContext);
-
+  const { loginSessionSelected } = useLoginSessionSelectedContext();
+  console.log('Login form', loginSessionSelected);
   return (
     <LoginFormContainer>
-      {selectedLoginSession === "Samir" ? (
-        <FormSamir />
-      ) : (
-        <FormMiouss />
-      )}
+      {loginSessionSelected === "Samir" ? <FormSamir /> : <FormMiouss />}
     </LoginFormContainer>
   );
 }

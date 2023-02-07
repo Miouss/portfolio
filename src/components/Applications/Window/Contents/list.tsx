@@ -18,8 +18,7 @@ import { AppList, ShortcutList } from "./types";
 import MailSender from "./collection/MailSender/MailSender";
 import ChillBeats from "./collection/ChillBeats/ChillBeats";
 import Notepad from "./collection/Notepad/Notepad";
-
-import { LanguageStateContext } from "../../../App";
+import useLangContext from "../../../../hooks/useLangContext";
 
 let appList = {} as AppList[];
 let shortcutList = {} as ShortcutList[];
@@ -80,7 +79,6 @@ addApp(
   true
 );
 
-
 addShortcut(
   "CV",
   <CVLogo />,
@@ -88,7 +86,7 @@ addShortcut(
   1,
   5,
   "Télécharger mon CV",
-  "Download my CV",
+  "Download my CV"
 );
 addShortcut(
   "GitHub",
@@ -145,7 +143,7 @@ export function getAllAppsName() {
 }
 
 export function AppAction({ name }: Props) {
-  const lang = useContext(LanguageStateContext);
+  const { lang } = useLangContext();
 
   return appList[name].action[lang];
 }
@@ -163,7 +161,7 @@ export function getShortcutLink(shortcutName: string) {
 }
 
 export function ShortcutAction({ name }: Props) {
-    const lang = useContext(LanguageStateContext);
+  const { lang } = useLangContext();
 
   return shortcutList[name].action[lang];
 }
@@ -197,7 +195,7 @@ function addApp(
       col: col,
       row: row,
     },
-    
+
     action: {
       fr: actionFr,
       eng: actionEng,

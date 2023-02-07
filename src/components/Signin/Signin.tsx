@@ -9,26 +9,19 @@ import {
 import LoginBackground from "../../assets/backgrounds/login.png";
 import LoginForm from "./LoginMenu/LoginForm/LoginForm";
 import LoginSession from "./LoginMenu/LoginSession/LoginSession";
-import { createContext, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useRef } from "react";
 import LoginIconGroup from "./LoginMenu/LoginIconGroup/LoginIconGroup";
 import LockMenu from "./LockMenu/LockMenu";
-import { IsLoggedProp, LoginSessionProp } from "../../types/types";
-
-export const StateContext = createContext("" as LoginSessionProp);
-export const DispatchContext = createContext(
-  (prevState: LoginSessionProp) => {}
-);
-
-export const LoginDispatchContext = createContext((loginState: boolean) => {});
+import { IsLoggedProp } from "../../types/types";
+import { IsLoggedProvider } from "../../hooks/useIsLoggedContext";
+import { LoginSessionSelectedProvider } from "../../hooks/useLoginSessionSelectedContext";
 
 interface Props {
   isLogged: IsLoggedProp;
-  setIsLogged: (loginState: IsLoggedProp) => void;
-  setShowSignInWall: (showSignIn: boolean) => void;
-  setShowDesktop: (showDesktop: boolean) => void;
+  setIsLogged: Dispatch<SetStateAction<IsLoggedProp>>;
+  setShowSignInWall: Dispatch<SetStateAction<boolean>>;
+  setShowDesktop: Dispatch<SetStateAction<boolean>>;
 }
-
-export const IsUnlockingContext = createContext(false);
 
 export default function Signin({
   isLogged,
@@ -38,8 +31,6 @@ export default function Signin({
 }: Props) {
   const loginRef = useRef<HTMLDivElement>(null);
   const lockMenuRef = useRef<HTMLDivElement>(null);
-  const [selectedLoginSession, setSelectedLoginSession] =
-    useState<LoginSessionProp>("Samir");
 
   if (isLogged === "lock") setTimeout(() => lockMenuRef.current?.focus(), 500);
 
@@ -49,7 +40,8 @@ export default function Signin({
 
   const handleAnimationEnd = (e: React.AnimationEvent<HTMLDivElement>) => {
     if (e.animationName === "fadeOutSignIn") return setShowSignInWall(false);
-    if (e.animationName === "fadeInSignIn" && isLogged !== "lock") return setShowDesktop(false);
+    if (e.animationName === "fadeInSignIn" && isLogged !== "lock")
+      return setShowDesktop(false);
   };
 
   return (
@@ -78,21 +70,17 @@ export default function Signin({
       </LockContainer>
       <LoginContainer visible={isLogged !== "lock"}>
         <LoginBox>
-          <StateContext.Provider value={selectedLoginSession}>
-            <LoginDispatchContext.Provider value={setIsLogged}>
-              <IsUnlockingContext.Provider value={isLogged === "unlock"}>
+          <LoginSessionSelectedProvider>
+            <>
+              <IsLoggedProvider state={isLogged} dispatch={setIsLogged}>
                 <LoginForm />
-              </IsUnlockingContext.Provider>
-            </LoginDispatchContext.Provider>
-          </StateContext.Provider>
-          <LoginSubBox>
-            <StateContext.Provider value={selectedLoginSession}>
-              <DispatchContext.Provider value={setSelectedLoginSession}>
+              </IsLoggedProvider>
+              <LoginSubBox>
                 <LoginSession />
-              </DispatchContext.Provider>
-            </StateContext.Provider>
-            <LoginIconGroup />
-          </LoginSubBox>
+                <LoginIconGroup />
+              </LoginSubBox>
+            </>
+          </LoginSessionSelectedProvider>
         </LoginBox>
       </LoginContainer>
     </SigninContainer>

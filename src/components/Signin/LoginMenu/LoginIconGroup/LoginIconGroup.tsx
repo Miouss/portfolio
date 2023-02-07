@@ -1,14 +1,10 @@
 import { LoginIconContainer, IconButton } from "./style";
 
-import { useContext } from "react";
-import { LanguageDispatchContext } from "../../../App";
 import { LanguageProp } from "../../../../types/types";
-
-import { LanguageStateContext } from "../../../App";
+import useLangContext from "../../../../hooks/useLangContext";
 
 export default function LoginIconGroup() {
-  const lang = useContext(LanguageStateContext);
-  const setLang = useContext(LanguageDispatchContext);
+  const { lang, setLang } = useLangContext();
 
   const switchLang = () =>
     setLang((lang: LanguageProp) => (lang === "fr" ? "eng" : "fr"));

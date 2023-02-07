@@ -1,11 +1,9 @@
-import { useContext } from "react";
-import { LanguageStateContext, LanguageDispatchContext } from "../../../App";
 import { LanguageProp } from "../../../../types/types";
 import { IconButton, IconContainer } from "./style";
+import useLangContext from "../../../../hooks/useLangContext";
 
 export default function SwitchLangButton() {
-  const lang = useContext(LanguageStateContext);
-  const setLang = useContext(LanguageDispatchContext);
+  const {lang, setLang} = useLangContext();
 
   const switchLang = (e) => {
     e.stopPropagation();

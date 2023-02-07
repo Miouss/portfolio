@@ -6,30 +6,33 @@ import {
   LangPrefCurrentBox,
   LangPrefPopOverMenu,
 } from "./style";
-import { LanguageStateContext } from "../../App";
 import { LangPrefIcon } from "../../../assets/icons/icons";
 import LangPrefItem from "./helper/LangPrefItem";
 import useOpenOnLeftClick from "../../../hooks/MouseEvents/useOpenOnLeftClick";
 import useCloseOnClick from "../../../hooks/MouseEvents/useCloseOnClick";
 import useCloseOnClickAway from "../../../hooks/MouseEvents/useCloseOnClickAway";
 import { UndefinedBoolean } from "../../../types/types";
+import useLangContext from "../../../hooks/useLangContext";
 
 export default function LangPref() {
   const langPrefContainerRef = useRef<HTMLDivElement>(null);
-  const lang = useContext(LanguageStateContext);
+  const { lang } = useLangContext();
 
   const [openMenu, setOpenMenu] = useState<UndefinedBoolean>(undefined);
 
   useOpenOnLeftClick(langPrefContainerRef, openMenu, setOpenMenu);
   useCloseOnClick(langPrefContainerRef, openMenu, setOpenMenu);
-  useCloseOnClickAway(openMenu, setOpenMenu)
+  useCloseOnClickAway(openMenu, setOpenMenu);
 
   return (
     <LangPrefContainer>
-      <LangPrefCurrentBox  ref={langPrefContainerRef}>
+      <LangPrefCurrentBox ref={langPrefContainerRef}>
         <LangPrefCurrent> {lang.toUpperCase()} </LangPrefCurrent>
       </LangPrefCurrentBox>
-      <LangPrefPopOverMenu visible={openMenu} onClick={(e) => e.stopPropagation()}>
+      <LangPrefPopOverMenu
+        visible={openMenu}
+        onClick={(e) => e.stopPropagation()}
+      >
         <LangPrefItem
           code={<LangPrefIcon fontSize={"1.5rem"} />}
           label={

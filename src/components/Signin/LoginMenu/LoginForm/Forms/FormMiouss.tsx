@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import ProfilPicture from "../../../../../assets/avatars/miouss.png";
 import {
   InputButton,
@@ -11,8 +11,8 @@ import LoginFormBuilder from "../helper/LoginFormBuilder";
 import ArrowForward from "@mui/icons-material/ArrowForward";
 import { Box } from "@mui/material";
 
-import { LanguageStateContext } from "../../../../App";
 import langs from "../../../../../assets/languages/languages.json";
+import useLangContext from "../../../../../hooks/useLangContext";
 
 export default function FormMiouss() {
   const name = "Miouss";
@@ -21,7 +21,7 @@ export default function FormMiouss() {
   const [cssAnim, setCssAnim] = useState(false);
   const [showPasswordHint, setShowPasswordHint] = useState(false);
 
-  const lang = useContext(LanguageStateContext);
+  const { lang } = useLangContext();
 
   const handleSubmit = (event) => {
     event.preventDefault();

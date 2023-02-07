@@ -4,9 +4,8 @@ import {
   LangPrefPopOverMenuItemCode,
   LangPrefPopOverMenuItemLabel,
 } from "./style";
-import { LanguageDispatchContext } from "../../../App";
-import { LanguageStateContext } from "../../../App";
 import { LanguageProp } from "../../../../types/types";
+import useLangContext from "../../../../hooks/useLangContext";
 
 interface Props {
   code: LanguageProp | JSX.Element;
@@ -14,10 +13,9 @@ interface Props {
 }
 
 export default function LangPrefItem({ code, label }: Props) {
-  const lang = useContext(LanguageStateContext);
-  const setLangContext = useContext(LanguageDispatchContext);
+  const {lang, setLang} = useLangContext();
   const handleClick = () => {
-    typeof code === "string" && setLangContext(code);
+    typeof code === "string" && setLang(code);
   };
 
   return (

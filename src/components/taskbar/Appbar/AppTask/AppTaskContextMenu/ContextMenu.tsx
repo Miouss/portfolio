@@ -1,4 +1,3 @@
-import {useContext} from "react";
 import { MenuList, MenuItem, Popper } from "@mui/material";
 import { ClickAwayListener } from "@mui/base";
 import { closeApp, minimizeApp, useAppDispatch } from "../../../../../redux";
@@ -7,10 +6,10 @@ import CloseIcon from "@mui/icons-material/Close";
 import MinimizeIcon from "@mui/icons-material/Minimize";
 
 import languages from "../../../../../assets/languages/languages.json";
-import { LanguageStateContext } from "../../../../App";
+import useLangContext from "../../../../../hooks/useLangContext";
 
 export default function ContextMenu({ anchorEl, setAnchorEl, appName }) {
-  const lang = useContext(LanguageStateContext);
+  const { lang } = useLangContext();
   const dispatch = useAppDispatch();
 
   const onOverBgColor = "rgba(255,255,255, 0.4)";
@@ -30,7 +29,7 @@ export default function ContextMenu({ anchorEl, setAnchorEl, appName }) {
     display: "flex",
     width: "140px",
     gap: "10px",
-  }
+  };
 
   return (
     <Popper

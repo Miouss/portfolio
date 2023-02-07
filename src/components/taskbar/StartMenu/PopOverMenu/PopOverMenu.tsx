@@ -12,29 +12,24 @@ import {
   PopOverMenuIcon,
   SignoutIcon,
 } from "../../../../assets/icons/icons";
-import {
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { useEffect, useState } from "react";
 
-import { LoginDispathContext } from "../../../App";
 import languages from "../../../../assets/languages/languages.json";
-import { LanguageStateContext } from "../../../App";
+import useLangContext from "../../../../hooks/useLangContext";
+import useIsLoggedContext from "../../../../hooks/useIsLoggedContext";
 
 interface Props {
   displayPopOverMenu: boolean | undefined;
 }
 
-export default function PopOverMenu({
-  displayPopOverMenu,
-}: Props) {
+export default function PopOverMenu({ displayPopOverMenu }: Props) {
   const [displayAction, setDisplayAction] = useState(false);
   const [mouseOver, setMouseOver] = useState(false);
   const [mouseOverEnough, setMouseOverEnough] = useState(false);
 
-  const lang = useContext(LanguageStateContext);
-  const setLoginContext = useContext(LoginDispathContext);
+  const { lang } = useLangContext();
+
+  const { setIsLogged } = useIsLoggedContext();
 
   const handleMouseEnter = () => {
     setMouseOver(true);
@@ -47,9 +42,7 @@ export default function PopOverMenu({
 
   const handleClick = (e, lock?: "lock") => {
     e.stopPropagation();
-    return displayAction
-      ? setLoginContext(lock ? "lock" : false)
-      : setDisplayAction(true);
+    return displayAction ? setIsLogged(lock ?? false) : setDisplayAction(true);
   };
 
   useEffect(() => {

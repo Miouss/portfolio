@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, CircularProgress } from "@mui/material";
 import LoginFormBuilder from "../helper/LoginFormBuilder";
 import {
@@ -6,27 +6,26 @@ import {
   LoginFormLoadingContainer,
   LoginFormTitle,
 } from "./style";
-import { LoginDispatchContext, IsUnlockingContext } from "../../../Signin";
-import { LanguageStateContext } from "../../../../App";
 import langs from "../../../../../assets/languages/languages.json";
 import ProfilPicture from "../../../../../assets/avatars/samir.png";
+import useLangContext from "../../../../../hooks/useLangContext";
+import useIsLoggedContext from "../../../../../hooks/useIsLoggedContext";
 
 export default function FormSamir() {
   const name = "Samir Ghabi";
   const profilPicture = ProfilPicture;
-  const setIsLoggedContext = useContext(LoginDispatchContext);
-  const isUnlocking = useContext(IsUnlockingContext);
   const [loadDesktop, setLoadDesktop] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState("Bienvenue");
   const [promptMessage, setPromptMessage] = useState("Se connecter");
 
-  const lang = useContext(LanguageStateContext);
+  const { lang } = useLangContext();
+  const { isUnlocking, setIsLogged } = useIsLoggedContext();
 
   useEffect(() => {
     if (!loadDesktop) return;
 
     setTimeout(() => {
-      setIsLoggedContext(true);
+      setIsLogged(true);
     }, 1500);
     setTimeout(() => {
       setLoadDesktop(false);

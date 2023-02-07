@@ -6,8 +6,8 @@ import mimicTyping from "../../../../../../utils/Contents/mimicTyping";
 import useAutoScrollOnOverflow from "../../../../../../hooks/Contents/useAutoScrollOnOverflow";
 
 import languages from "../../../../../../assets/languages/languages.json";
-import { LanguageStateContext } from "../../../../../App";
 import getFormattedText from "../../../../../../utils/Contents/getFormattedText";
+import useLangContext from "../../../../../../hooks/useLangContext";
 
 interface Props {
   mode?: "notepad";
@@ -21,7 +21,7 @@ export default function TerminalApp({ mode }: Props) {
   const [currentDir, setCurrentDir] = useState("");
   const [command, setCommand] = useState("");
 
-  const lang = useContext(LanguageStateContext);
+  const { lang } = useLangContext();
 
   useEffect(() => {
     const typeWelcomeMessage = async () => {
@@ -99,7 +99,8 @@ export default function TerminalApp({ mode }: Props) {
             `or batch file.\n\n${currentDir}`,
           ];
 
-          terminalAppContentRef.current!.value += getFormattedText(errorMessage);
+          terminalAppContentRef.current!.value +=
+            getFormattedText(errorMessage);
 
           setPreviousTextLength(terminalAppContentRef.current!.value!.length);
       }
