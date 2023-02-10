@@ -132,7 +132,7 @@
                         "action": "Clear all"
                     },
                     "format": {
-                        "name": "File",
+                        "name": "Format",
                         "actions": [
                             "Change font for 24px",
                             "Change font for 16px",
@@ -162,17 +162,17 @@
                     "Hello and welcome to my portfolio!\n",
                     "As you can see, I have imitated the interface and behavior of Windows 10 for this project.\n",
                     "On the desktop, you will find various applications, here is the list:\n",
-                    "- Presentation: A small presentation about myself.",
-                    "- Projects: Here you will find my 3 big projects. Put the application in full screen mode to have the ability to see a preview of each project in image.",
-                    "- CV: My downloadable CV in PDF format.",
-                    "- Mail Sender: Allows you to send me an email.",
-                    "- Terminal: I had fun recreating the Windows 10 terminal.",
-                    "- Chill Beats: A small application that allows you to play music.\n",
+                    "$Presentation$ A small presentation about myself.",
+                    "$Projects$ Here you will find my 3 big projects. Put the application in full screen mode to have the ability to see a preview of each project in image.",
+                    "$CV$ My downloadable CV in PDF format.",
+                    "$Mail Sender$ Allows you to send me an email.",
+                    "$Terminal$ I had fun recreating the Windows 10 terminal.",
+                    "$Chill Beats$ A small application that allows you to play music.\n\n",
                     "You can also change the language at any time in the bottom right of the screen.",
                     "If you want to go back to the login screen, the start menu in the bottom left allows you to log out or lock the screen. Activate the menu with a left or right click on the windows icon.\n",
                     "Enjoy your visit!",
-                    "£\n",
-                    "Press any key to continue..."
+                    "\n\n",
+                    "£Press any key to continue..."
                 ]
             }
         }

@@ -15,9 +15,9 @@ import { LangProvider } from "../hooks/useLangContext";
 import { IsLoggedDispatchProvider } from "../hooks/useIsLoggedContext";
 
 export default function App() {
-  const [isLogged, setIsLogged] = useState<IsLoggedProp>(false);
-  const [showSignInWall, setShowSignInWall] = useState(true);
-  const [showDesktop, setShowDesktop] = useState(false);
+  const [isLogged, setIsLogged] = useState<IsLoggedProp>(true);
+  const [showSignInWall, setShowSignInWall] = useState(false);
+  const [showDesktop, setShowDesktop] = useState(true);
 
   useAddApplicationsInStore();
   useSignInWall(isLogged, setShowSignInWall);

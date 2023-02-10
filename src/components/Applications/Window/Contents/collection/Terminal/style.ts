@@ -6,7 +6,7 @@ export const TerminalAppContainer = styled("div")({
   display: "flex",
 });
 
-export const TerminalAppContent = styled("textarea", {
+export const TerminalAppContent = styled("div", {
   shouldForwardProp: (prop) => prop !== "blink" && prop !== "notepad",
 })(({ blink, notepad }: { blink: boolean; notepad?: "notepad" }) => ({
   flex: 1,
@@ -20,7 +20,6 @@ export const TerminalAppContent = styled("textarea", {
   border: "none",
   cursor: "default",
   whiteSpace: "pre-line",
-  caretColor: "transparent",
 
   "&::selection": {
     background: "white",

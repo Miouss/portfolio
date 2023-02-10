@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useContext } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   DropDownMenu,
   DropDownMenuButton,
@@ -41,7 +41,7 @@ export default function Notepad({ appName }: { appName: string }) {
   const awaitMimicTyping = async () => {
     try {
       clearAll(textInputAreaRef);
-      await mimicTyping(textInputAreaRef, txt);
+      await mimicTyping(textInputAreaRef, txt, "value");
     } catch (e: any) {}
   };
 
