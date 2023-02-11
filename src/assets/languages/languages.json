@@ -168,10 +168,9 @@
                     "$Mail Sender$ Allows you to send me an email.",
                     "$Terminal$ I had fun recreating the Windows 10 terminal.",
                     "$Chill Beats$ A small application that allows you to play music.\n\n",
-                    "You can also change the language at any time in the bottom right of the screen.",
+                    "You can also change the language at any time in the bottom right of the screen.\n",
                     "If you want to go back to the login screen, the start menu in the bottom left allows you to log out or lock the screen. Activate the menu with a left or right click on the windows icon.\n",
-                    "Enjoy your visit!",
-                    "\n\n",
+                    "Enjoy your visit!\n\n",
                     "£Press any key to continue..."
                 ]
             }

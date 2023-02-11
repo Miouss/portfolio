@@ -20,7 +20,7 @@ export default function App() {
   const [showDesktop, setShowDesktop] = useState(true);
 
   useAddApplicationsInStore();
-  useSignInWall(isLogged, setShowSignInWall);
+  //useSignInWall(isLogged, setShowSignInWall);
 
   const runningAppsComponents = useRunningAppsComponents();
   const passwordProtection = usePasswordProtection();

@@ -8,6 +8,8 @@ import useAutoScrollOnOverflow from "../../../../../../hooks/Contents/useAutoScr
 import languages from "../../../../../../assets/languages/languages.json";
 import getFormattedText from "../../../../../../utils/Contents/getFormattedText";
 import useLangContext from "../../../../../../hooks/useLangContext";
+import useSpecialKeyHandler from "../../../../../../hooks/Contents/useSpecialKeyHandler";
+import useTerminalCommands from "../../../../../../hooks/Contents/useTerminalCommands";
 
 interface Props {
   mode?: "notepad";
@@ -29,10 +31,10 @@ export default function TerminalApp({ mode }: Props) {
         ? languages[lang].apps.terminal.welcomeMsg
         : `£Microsoft Windows [Version 10.0.19042.867]\n(c) 2020 Microsoft Corporation. All rights reserved.£`;
 
-      await mimicTyping(terminalAppContentRef, welcomeMessage, "textContent");
+      await mimicTyping(terminalAppContentRef, welcomeMessage, mode ? undefined : "textContent");
 
       if (!terminalAppContentRef.current) return;
-      //terminalAppContentRef.current!.textContent! += currentDir;
+      terminalAppContentRef.current!.textContent! += currentDir;
       if (!mode) setCurrentDir("C:\\>");
       terminalAppContentRef.current!.focus();
     };
@@ -40,7 +42,7 @@ export default function TerminalApp({ mode }: Props) {
     setBlink(!blink);
   }, []);
 
- /*  const keyHandler = (event) => {
+  const keyHandler = (event) => {
     event.preventDefault();
 
     if (mode)
@@ -54,10 +56,13 @@ export default function TerminalApp({ mode }: Props) {
     switch (event.key) {
       case "Enter":
         if (
-          terminalAppContentRef?.current!.textContent!.length === previousTextLength
+          terminalAppContentRef?.current!.textContent!.length ===
+          previousTextLength
         ) {
           terminalAppContentRef.current!.textContent += `\n${currentDir}`;
-          setPreviousTextLength(terminalAppContentRef.current!.textContent!.length);
+          setPreviousTextLength(
+            terminalAppContentRef.current!.textContent!.length
+          );
           return;
         }
         setCommand(
@@ -65,7 +70,10 @@ export default function TerminalApp({ mode }: Props) {
         );
         return;
       case "Backspace":
-        if (terminalAppContentRef.current!.textContent!.length === previousTextLength)
+        if (
+          terminalAppContentRef.current!.textContent!.length ===
+          previousTextLength
+        )
           return;
         terminalAppContentRef.current!.textContent! =
           terminalAppContentRef.current!.textContent!.slice(0, -1);
@@ -74,58 +82,10 @@ export default function TerminalApp({ mode }: Props) {
         return;
     }
   };
-
-  useEffect(() => {
-    if (command) {
-      switch (command) {
-        case "cd User":
-          setCurrentDir((prevState) => prevState.slice(0, -1) + "User>");
-          return;
-        case "cd ..":
-          setCurrentDir(
-            (prevState) =>
-              prevState.substring(0, prevState.lastIndexOf("\\")) + "\\>"
-          );
-          return;
-        case "cd":
-          setCurrentDir("C:\\>");
-          return;
-        default:
-          const errorMessage = [
-            `\n'${command}' is not recognized as an internal`,
-            "or external command, operable program",
-            `or batch file.\n\n${currentDir}`,
-          ];
-
-          terminalAppContentRef.current!.textContent +=
-            getFormattedText(errorMessage);
-
-          setPreviousTextLength(terminalAppContentRef.current!.textContent!.length);
-      }
-    }
-  }, [command]);
-
-  useEffect(() => {
-    let offSetParent: Element | undefined = undefined;
-    const eventCallback = (event) => keyHandler(event);
-
-    if (terminalAppContentRef.current !== null) {
-      offSetParent = terminalAppContentRef.current.offsetParent!;
-      offSetParent.addEventListener("keydown", eventCallback);
-    }
-
-    return () => {
-      offSetParent?.removeEventListener("keydown", eventCallback);
-    };
-  }, [keyHandler]);
-
-  useEffect(() => {
-    if (terminalAppContentRef!.current!.textContent!.length === 0) return;
-    terminalAppContentRef!.current!.textContent! += `\n\n` + currentDir;
-    setPreviousTextLength(terminalAppContentRef.current!.textContent!.length);
-  }, [currentDir]);
-
-  useAutoScrollOnOverflow(terminalAppRef, previousTextLength); */
+  
+  useTerminalCommands(terminalAppContentRef, command, currentDir, setCurrentDir, setPreviousTextLength)
+  useSpecialKeyHandler(terminalAppContentRef, keyHandler);
+  useAutoScrollOnOverflow(terminalAppRef, previousTextLength);
 
   return (
     <TerminalAppContainer ref={terminalAppRef}>
