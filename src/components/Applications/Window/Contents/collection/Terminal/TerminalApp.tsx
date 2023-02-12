@@ -6,10 +6,10 @@ import mimicTyping from "../../../../../../utils/Contents/mimicTyping";
 import useAutoScrollOnOverflow from "../../../../../../hooks/Contents/useAutoScrollOnOverflow";
 
 import languages from "../../../../../../assets/languages/languages.json";
-import getFormattedText from "../../../../../../utils/Contents/getFormattedText";
 import useLangContext from "../../../../../../hooks/useLangContext";
 import useSpecialKeyHandler from "../../../../../../hooks/Contents/useSpecialKeyHandler";
 import useTerminalCommands from "../../../../../../hooks/Contents/useTerminalCommands";
+import mimicWindowsTerminal from "../../../../../../utils/Contents/mimicWIndowsTerminal";
 
 interface Props {
   mode?: "notepad";
@@ -19,9 +19,8 @@ export default function TerminalApp({ mode }: Props) {
   const terminalAppRef = useRef<HTMLDivElement | null>(null);
   const terminalAppContentRef = useRef<HTMLDivElement | null>(null);
   const [blink, setBlink] = useState(false);
-  const [previousTextLength, setPreviousTextLength] = useState(0);
-  const [currentDir, setCurrentDir] = useState("");
-  const [command, setCommand] = useState("");
+  const [currentDir, setCurrentDir] = useState<string[]>(mode ? [""] : ["C:"]);
+  const [commandHistory, setCommandHistory] = useState<string[]>([]);
 
   const { lang } = useLangContext();
 
@@ -29,13 +28,13 @@ export default function TerminalApp({ mode }: Props) {
     const typeWelcomeMessage = async () => {
       const welcomeMessage = mode
         ? languages[lang].apps.terminal.welcomeMsg
-        : `£Microsoft Windows [Version 10.0.19042.867]\n(c) 2020 Microsoft Corporation. All rights reserved.£`;
+        : `Microsoft Windows [Version 10.0.19042.867]\n(c) 2020 Microsoft Corporation. All rights reserved.`;
 
-      await mimicTyping(terminalAppContentRef, welcomeMessage, mode ? undefined : "textContent");
+      mode
+        ? await mimicTyping(terminalAppContentRef, welcomeMessage)
+        : mimicWindowsTerminal(terminalAppContentRef, welcomeMessage);
 
       if (!terminalAppContentRef.current) return;
-      terminalAppContentRef.current!.textContent! += currentDir;
-      if (!mode) setCurrentDir("C:\\>");
       terminalAppContentRef.current!.focus();
     };
     typeWelcomeMessage();
@@ -50,42 +49,38 @@ export default function TerminalApp({ mode }: Props) {
         terminalAppRef!.current!.offsetParent as HTMLElement
       ).style.animation = "despawnWindow 0.15s ease-out forwards");
 
+    let textContentRef = terminalAppContentRef.current!.lastChild!.textContent;
+
     if (event.key.length === 1)
-      return (terminalAppContentRef.current!.textContent += event.key);
+      return (terminalAppContentRef.current!.lastChild!.textContent +=
+        event.key);
 
     switch (event.key) {
       case "Enter":
-        if (
-          terminalAppContentRef?.current!.textContent!.length ===
-          previousTextLength
-        ) {
-          terminalAppContentRef.current!.textContent += `\n${currentDir}`;
-          setPreviousTextLength(
-            terminalAppContentRef.current!.textContent!.length
-          );
-          return;
-        }
-        setCommand(
-          terminalAppContentRef.current!.textContent!.slice(previousTextLength)
-        );
+        setCommandHistory((prev: string[]) => [
+          ...prev,
+          textContentRef as string,
+        ]);
         return;
       case "Backspace":
-        if (
-          terminalAppContentRef.current!.textContent!.length ===
-          previousTextLength
-        )
-          return;
-        terminalAppContentRef.current!.textContent! =
-          terminalAppContentRef.current!.textContent!.slice(0, -1);
+        if (!textContentRef) return;
+
+        terminalAppContentRef.current!.lastChild!.textContent =
+          textContentRef.slice(0, textContentRef.length - 1);
         return;
       default:
         return;
     }
   };
-  
-  useTerminalCommands(terminalAppContentRef, command, currentDir, setCurrentDir, setPreviousTextLength)
+
+  useTerminalCommands(
+    terminalAppContentRef,
+    commandHistory,
+    currentDir,
+    setCurrentDir
+  );
   useSpecialKeyHandler(terminalAppContentRef, keyHandler);
-  useAutoScrollOnOverflow(terminalAppRef, previousTextLength);
+  useAutoScrollOnOverflow(terminalAppContentRef, commandHistory);
 
   return (
     <TerminalAppContainer ref={terminalAppRef}>

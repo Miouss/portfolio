@@ -8,7 +8,7 @@ import {
   ToolbarButton,
 } from "./style";
 
-import mimicTyping from "../../../../../../utils/Contents/mimicTyping";
+import mimicKeystrokes from "../../../../../../utils/Contents/mimicKeystrokes";
 import clearAll from "../../../../../../utils/Contents/clearAll";
 
 import { useAppDispatch, closeApp } from "../../../../../../redux";
@@ -21,7 +21,7 @@ import useLangContext from "../../../../../../hooks/useLangContext";
 
 export default function Notepad({ appName }: { appName: string }) {
   const notepadRef = useRef<HTMLDivElement>(null);
-  const textInputAreaRef = useRef<HTMLTextAreaElement>(null);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const dropDownMenuRef = useRef<HTMLDivElement>(null);
 
   const [contextMenuTarget, setContextMenuTarget] =
@@ -40,8 +40,8 @@ export default function Notepad({ appName }: { appName: string }) {
 
   const awaitMimicTyping = async () => {
     try {
-      clearAll(textInputAreaRef);
-      await mimicTyping(textInputAreaRef, txt, "value");
+      clearAll(textAreaRef);
+      await mimicKeystrokes(txt, textAreaRef.current!, "value");
     } catch (e: any) {}
   };
 
@@ -105,7 +105,7 @@ export default function Notepad({ appName }: { appName: string }) {
 
   useEffect(() => {
     if (isTxtTyping) {
-      clearAll(textInputAreaRef);
+      clearAll(textAreaRef);
       awaitMimicTyping();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -123,7 +123,7 @@ export default function Notepad({ appName }: { appName: string }) {
         );
       case "Edit":
         return (
-          <DropDownMenuButton onClick={() => clearAll(textInputAreaRef)}>
+          <DropDownMenuButton onClick={() => clearAll(textAreaRef)}>
             {" "}
             {languages[lang].apps.aboutMe.toolbar.edit.action}
           </DropDownMenuButton>
@@ -195,7 +195,7 @@ export default function Notepad({ appName }: { appName: string }) {
         </ToolbarButton>
       </Toolbar>
       <TextInputArea
-        ref={textInputAreaRef}
+        ref={textAreaRef}
         tabIndex={0}
         dynamicFontSize={dynamicFontSize}
         spellCheck={false}
