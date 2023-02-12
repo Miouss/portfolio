@@ -13,7 +13,7 @@ export const LangDispatchContext = createContext<
 >((lang) => lang);
 
 export function LangProvider({ children }) {
-  const [lang, setLang] = useState<LanguageProp>("eng");
+  const [lang, setLang] = useState<LanguageProp>("fr");
 
   return (
     <LangStateContext.Provider value={lang}>

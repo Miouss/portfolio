@@ -90,6 +90,8 @@ export default function useTerminalCommands(
   }, [commandHistory]);
 
   useEffect(() => {
+    if(currentDir[0] === "") return;
+
     if (currentDir.length === 1) {
       mimicWindowsTerminal(ref, "\n\n" + currentDir[0] + "\\>");
     } else {

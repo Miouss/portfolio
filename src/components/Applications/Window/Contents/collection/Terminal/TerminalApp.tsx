@@ -77,7 +77,7 @@ export default function TerminalApp({ mode }: Props) {
     terminalAppContentRef,
     commandHistory,
     currentDir,
-    setCurrentDir
+    setCurrentDir,
   );
   useSpecialKeyHandler(terminalAppContentRef, keyHandler);
   useAutoScrollOnOverflow(terminalAppContentRef, commandHistory);

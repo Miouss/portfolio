@@ -73,17 +73,16 @@
                     "Bonjour et bienvenue sur mon portofolio !\n",
                     "Comme vous pouvez le constater, j'ai imité l'interface et le comportement de Windows 10 pour ce projet.\n",
                     "Vous trouverez sur le bureau diverses applications dont voici la liste :\n",
-                    "- Presentation : Une petite présentation de moi-même.",
-                    "- Projects : Vous trouverez ici mes 3 gros projets réalisés. Passez l'application en mode plein écran pour avoir la possibilité de voir un apperçu de chaque projet en image.",
-                    "- CV : Mon CV téléchargeable au format PDF.",
-                    "- Mail Sender : Permet de m'envoyer un mail.",
-                    "- Terminal : Je me suis amusé à recréer le terminal de Windows 10.",
-                    "- Chill Beats : Une petite application qui permet de jouer de la musique.\n",
-                    "Vous pouvez également changer de langue à tout moment en bas à droite de l'écran.",
+                    "$Presentation$ Une petite présentation de moi-même.",
+                    "$Projects$ Vous trouverez ici mes 3 gros projets réalisés. Passez l'application en mode plein écran pour avoir la possibilité de voir un apperçu de chaque projet en image.",
+                    "$CV$ Mon CV téléchargeable au format PDF.",
+                    "$Mail Sender$ Permet de m'envoyer un mail.",
+                    "$Terminal$ Je me suis amusé à recréer le terminal de Windows 10.",
+                    "$Chill Beats$ Une petite application qui permet de jouer de la musique.\n\n",
+                    "Vous pouvez également changer de langue à tout moment en bas à droite de l'écran.\n",
                     "Si vous souhaitez revenir à l'écran de connexion, le menu démarrer en bas à gauche vous permet de vous déconnecter ou de verrouiller l'écran, activez le menu via un clique gauche ou droit sur l'icône windows\n",
-                    "Bonne visite !",
-                    "£\n",
-                    "Appuyez sur une touche pour continuer..."
+                    "Bonne visite !\n\n",
+                    "£Appuyez sur une touche pour continuer..."
                 ]
             }
         }
