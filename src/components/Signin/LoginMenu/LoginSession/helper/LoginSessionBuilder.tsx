@@ -24,7 +24,7 @@ export default function LoginSessionBuilder({
       selected={loginSessionSelected === `${sessionName}` ? true : false}
       onClick={() => setLoginSessionSelected(`${sessionName}`)}
     >
-      <LoginSessionBadge>
+      <LoginSessionBadge sessionName={sessionName}>
         <img src={`${profilPicture}`} alt={`Profil of ${sessionName}`}></img>
       </LoginSessionBadge>
       <LoginSessionTitle>{sessionName}</LoginSessionTitle>

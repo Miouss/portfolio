@@ -17,21 +17,25 @@ export const LoginSessionContainer = styled(Stack)(
     direction: "row",
   };
   
-  export const LoginSessionBadge = styled(Stack)({
-    backgroundColor: "transparent",
+  export const LoginSessionBadge = styled(Stack, {
+    shouldForwardProp: (prop) => prop !== "sessionName",
+  })(({ sessionName }: { sessionName: "Samir" | "Miouss" }) => ({
     borderRadius: "50%",
-    height: "75px",
-    width: "75px",
+    width: "70px",
+    height: "70px",
+    background: "transparent",
     "& > *": {
+      height: "100%",
+      width: "100%",
       borderRadius: "50%",
-      height: "inherit",
-      width: "inherit",
+      objectFit: sessionName === "Samir" && "cover",
+      objectPosition:  sessionName === "Samir" && "50% 25%",
     },
-  });
+  }));
+  
   
   export const LoginSessionTitle = styled(Stack)({
     color: "white",
-    width: "70%",
     fontSize: "1.2rem",
     paddingTop: "20px",
     paddingRight: "70px",
