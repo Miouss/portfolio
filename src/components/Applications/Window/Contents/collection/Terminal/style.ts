@@ -14,7 +14,7 @@ export const TerminalAppContent = styled("div", {
   background: "black !important",
   boxSizing: "border-box",
   padding: notepad ? "10px 0 0 10px" : 0,
-  fontFamily: "Consolas !important",
+  fontFamily: "Consolas, Monaco, Monospace !important",
   fontSize: "1rem",
   resize: "none",
   border: "none",
