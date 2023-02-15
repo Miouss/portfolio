@@ -74,6 +74,7 @@ export default function TerminalApp({ mode }: Props) {
   };
 
   useEffect(() => {
+    terminalAppContentRef.current!.focus();
     setBlink(!blink);
   }, []);
 
