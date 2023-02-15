@@ -55,7 +55,7 @@ export default function LolMood() {
 
   const repo = "https://github.com/Miouss/lol-mood-website";
 
-  const link = "https://lolmood.net";
+  const link = "https://www.lolmood.net";
 
   return (
     <ProjectContentBuilder

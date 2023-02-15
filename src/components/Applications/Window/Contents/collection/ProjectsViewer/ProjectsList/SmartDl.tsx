@@ -59,7 +59,7 @@ export default function SmartDl() {
 
   const repo = "https://github.com/Miouss/wwe-dl";
 
-  const link = "https://lolmood.net";
+  const link = "https://github.com/Miouss/wwe-dl/releases/tag/v0.1.0";
 
   return (
     <ProjectContentBuilder
