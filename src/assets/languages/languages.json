@@ -70,7 +70,7 @@
             },
             "terminal": {
                 "welcomeMsg": [
-                    "Bonjour et bienvenue sur mon portofolio !\n",
+                    "Bonjour et bienvenue sur mon portfolio !\n",
                     "Comme vous pouvez le constater, j'ai imité l'interface et le comportement de Windows 10 pour ce projet.\n",
                     "Vous trouverez sur le bureau diverses applications dont voici la liste :\n",
                     "$Presentation$ Une petite présentation de moi-même.",
@@ -83,7 +83,40 @@
                     "Si vous souhaitez revenir à l'écran de connexion, le menu démarrer en bas à gauche vous permet de vous déconnecter ou de verrouiller l'écran, activez le menu via un clique gauche ou droit sur l'icône windows\n",
                     "Bonne visite !\n\n",
                     "£Appuyez sur une touche pour continuer..."
-                ]
+                ],
+                "start": [
+                    "Tapez 'help' pour voir la liste des commandes disponibles."
+                ],
+                "error": {
+                    "cd": {
+                        "path": [
+                            "\nLe système n'a pas pu retrouvé le chemin spécifié."
+                        ],
+                        "root": [
+                            "\nImpossible de revenir en arrière car vous êtes déjà dans le dossier racine\n"
+                        ]
+                    },
+                    "command": [
+                        "La commande n'est pas reconnue comme une commande interne",
+                        "ou externe, un programme utilisable",
+                        "ou un fichier de commandes.\n"
+                    ],
+                    "dir": {
+                        "empty": [
+                            "\nLe dossier est vide.\n"
+                        ]
+                    }
+                },
+                "commands": {
+                    "help": [
+                        "\n",
+                        "cd [path] - Change le dossier courant",
+                        "dir - Liste les fichiers et dossiers du dossier courant",
+                        "help - Affiche la liste des commandes disponibles",
+                        "clear - Efface l'écran",
+                        "exit - Quitte le terminal\n"
+                    ]
+                }
             }
         }
     },
@@ -171,7 +204,40 @@
                     "If you want to go back to the login screen, the start menu in the bottom left allows you to log out or lock the screen. Activate the menu with a left or right click on the windows icon.\n",
                     "Enjoy your visit!\n\n",
                     "£Press any key to continue..."
-                ]
+                ],
+                "start": [
+                    "Type 'help' to see the list of available commands."
+                ],
+                "error": {
+                    "cd": {
+                        "path": [
+                            "\nThe system cannot find the path specified."
+                        ],
+                        "root": [
+                            "\nCannot go back because you are already in the root directory\n"
+                        ]
+                    },
+                    "command": [
+                        "is not recognized as an internal",
+                        "or external command, operable program",
+                        "or batch file.\n"
+                    ],
+                    "dir": {
+                        "empty": [
+                            "\nThe folder is empty.\n"
+                        ]
+                    }
+                },
+                "commands": {
+                    "help": [
+                        "\n",
+                        "cd [path] - Change the current directory",
+                        "dir - List the folders/files of the current directory",
+                        "help - Display the list of available commands",
+                        "clear - Clear the screen",
+                        "exit - Quit the terminal\n"
+                    ]
+                }
             }
         }
     }
