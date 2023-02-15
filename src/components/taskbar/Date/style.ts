@@ -9,9 +9,6 @@ export const FullDateBox = styled("section")({
   gap: "0.3rem",
   padding: "1rem",
   fontSize: "0.8rem",
-  "&:hover": {
-    background: "#313E53",
-  },
 
   background: "inherit",
   zIndex: "1",

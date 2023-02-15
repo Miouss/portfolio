@@ -39,13 +39,15 @@ export const MenuList = styled("ul")({
   boxSizing: "border-box",
   padding: "5px 0px 5px 0px",
   margin: "0",
+  overflow: "hidden",
+
 });
 
 export const MenuItem = styled("li")({
   flex: "1",
   width: "100%",
   display: "flex",
-  justifyContent: "center",
+  paddingLeft: "50px",
   alignItems: "center",
   textAlign: "left",
 
