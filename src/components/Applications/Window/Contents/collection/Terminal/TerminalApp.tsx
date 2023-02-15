@@ -19,7 +19,9 @@ export default function TerminalApp({ mode }: Props) {
   const terminalAppRef = useRef<HTMLDivElement | null>(null);
   const terminalAppContentRef = useRef<HTMLDivElement | null>(null);
   const [blink, setBlink] = useState(false);
-  const [currentDir, setCurrentDir] = useState<string[]>(mode ? [""] : ["C:"]);
+  const [currentDir, setCurrentDir] = useState<string[]>(
+    mode ? [""] : ["C:\\"]
+  );
   const [commandHistory, setCommandHistory] = useState<string[]>([]);
 
   const { lang } = useLangContext();
@@ -28,11 +30,19 @@ export default function TerminalApp({ mode }: Props) {
     const typeWelcomeMessage = async () => {
       const welcomeMessage = mode
         ? languages[lang].apps.terminal.welcomeMsg
-        : `Microsoft Windows [Version 10.0.19042.867]\n(c) 2020 Microsoft Corporation. All rights reserved.`;
+        : [
+            "Microsoft Windows [Version 10.0.19042.867]\n(c) 2020 Microsoft Corporation. All rights reserved.\n",
+            `${languages[lang].apps.terminal.start}\n`,
+          ];
 
       mode
         ? await mimicTyping(terminalAppContentRef, welcomeMessage)
-        : mimicWindowsTerminal(terminalAppContentRef, welcomeMessage);
+        : mimicWindowsTerminal(
+            terminalAppContentRef,
+            welcomeMessage,
+            undefined,
+            true
+          );
 
       if (!terminalAppContentRef.current) return;
       terminalAppContentRef.current!.focus();
@@ -73,14 +83,18 @@ export default function TerminalApp({ mode }: Props) {
     }
   };
 
-  useTerminalCommands(
+  const isExiting = useTerminalCommands(
     terminalAppContentRef,
     commandHistory,
     currentDir,
-    setCurrentDir,
+    setCurrentDir
   );
   useSpecialKeyHandler(terminalAppContentRef, keyHandler);
   useAutoScrollOnOverflow(terminalAppContentRef, commandHistory);
+
+  if (isExiting)
+    (terminalAppRef!.current!.offsetParent as HTMLElement).style.animation =
+      "despawnWindow 0.15s ease-out forwards";
 
   return (
     <TerminalAppContainer ref={terminalAppRef}>

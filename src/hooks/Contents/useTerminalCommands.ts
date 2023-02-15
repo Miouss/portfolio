@@ -1,7 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, Dispatch, SetStateAction } from "react";
+import { useEffect, Dispatch, SetStateAction, useState } from "react";
 import getFormattedText from "../../utils/Contents/getFormattedText";
 import mimicWindowsTerminal from "../../utils/Contents/mimicWIndowsTerminal";
+import useLangContext from "../useLangContext";
+import languages from "../../assets/languages/languages.json";
 
 export default function useTerminalCommands(
   ref: React.MutableRefObject<HTMLElement | null>,
@@ -9,12 +11,14 @@ export default function useTerminalCommands(
   currentDir: string[],
   setCurrentDir: Dispatch<SetStateAction<string[]>>
 ) {
+  const [isExiting, setIsExiting] = useState(false);
   const currentDirTree = getCurrentDirTree(currentDir);
+
+  const { lang } = useLangContext();
 
   useEffect(() => {
     const command = commandHistory[commandHistory.length - 1];
-
-    if ((command === " " || !command) && commandHistory.length > 1) {
+    if ((command === " " || !command) && command !== undefined) {
       return createFeedbackCommandContainer(ref, ["\n"], currentDir, false);
     }
 
@@ -24,63 +28,67 @@ export default function useTerminalCommands(
 
         switch (path) {
           case undefined:
-            let directory = "";
-
-            if (currentDir.length === 1)
-              directory = "\n" + currentDir[0] + "\\>";
-            else directory = `\n${currentDir.join("\\")}`;
-
-            return createFeedbackCommandContainer(ref, [directory], currentDir);
+            return createFeedbackCommandContainer(
+              ref,
+              [`\n${currentDir[0]}${currentDir.slice(1).join("\\")}`],
+              currentDir,
+              true
+            );
           case "..":
-            if (currentDir.length === 1)
-              return createFeedbackCommandContainer(
-                ref,
-                [
-                  "\nCannot go back because you are already in the root directory",
-                  "Try 'dir' command to see the content of the current directory.\n\n",
-                ],
-                currentDir
-              );
-            return setCurrentDir((prevState) => prevState.slice(0, -1));
+            return currentDir.length === 1
+              ? createFeedbackCommandContainer(
+                  ref,
+                  languages[lang].apps.terminal.error.cd.root,
+                  currentDir,
+                  true
+                )
+              : setCurrentDir((prevState) => prevState.slice(0, -1));
           default:
             if (currentDirTree[path]) {
               return setCurrentDir((prevState) => [...prevState, path]);
             }
 
-            const errorMessage = [
-              `\nCannot find path '${currentDir.join(
-                "\\"
-              )}\\${path}' because it does not exist.\n\n`,
-            ];
-
-            createFeedbackCommandContainer(ref, errorMessage, currentDir);
+            createFeedbackCommandContainer(ref, languages[lang].apps.terminal.error.cd.path, currentDir);
         }
       } else {
         switch (command) {
+          case "help":
+            return createFeedbackCommandContainer(
+              ref,
+              languages[lang].apps.terminal.commands.help,
+              currentDir
+            );
+          case "clear":
+            ref.current!.innerHTML = "";
+            return createFeedbackCommandContainer(
+              ref,
+              ["\n"],
+              currentDir,
+              false
+            );
           case "dir":
             const dirContent = Object.keys(currentDirTree);
             if (dirContent.length === 0) {
               return createFeedbackCommandContainer(
                 ref,
-                [
-                  "\nThe directory is empty.",
-                  "Try 'cd ..' to go back to the parent directory.",
-                ],
+                languages[lang].apps.terminal.error.dir.empty,
                 currentDir
               );
             }
-            console.log(dirContent);
+
             return createFeedbackCommandContainer(
               ref,
               ["\n", dirContent.map((dir) => `'${dir}'`).join("  "), "\n\n"],
               currentDir,
               false
             );
+          case "exit":
+            return setIsExiting(true);
           default:
             const errorMessage = [
               `\n'${command}' is not recognized as an internal`,
               "or external command, operable program",
-              `or batch file.\n\n`,
+              `or batch file.\n`,
             ];
 
             createFeedbackCommandContainer(ref, errorMessage, currentDir);
@@ -90,19 +98,21 @@ export default function useTerminalCommands(
   }, [commandHistory]);
 
   useEffect(() => {
-    if(currentDir[0] === "") return;
+    if (currentDir[0] === "") return;
 
     if (currentDir.length === 1) {
-      mimicWindowsTerminal(ref, "\n\n" + currentDir[0] + "\\>");
+      mimicWindowsTerminal(ref, [currentDir[0]]);
     } else {
       mimicWindowsTerminal(ref, currentDir);
     }
   }, [currentDir]);
+
+  return isExiting;
 }
 
 function getDirTree() {
   return {
-    "C:": {
+    "C:\\": {
       Users: {
         Samir: {
           Desktop: {
@@ -148,20 +158,14 @@ function getCurrentDirTree(currentDir: string[]) {
 }
 
 function createFeedbackCommandContainer(
-  ref,
-  text,
-  currentDir,
+  ref: React.MutableRefObject<HTMLElement | null>,
+  text: string[],
+  currentDir: string[],
   withLineBreak = true
 ) {
   const textContainer = document.createElement("span");
   if (text) textContainer.textContent = getFormattedText(text);
   ref.current!.appendChild(textContainer);
-
-  if (currentDir.length === 1)
-    return mimicWindowsTerminal(
-      ref, currentDir[0] + "\\>",
-      withLineBreak
-    );
 
   mimicWindowsTerminal(ref, currentDir, withLineBreak);
 }
