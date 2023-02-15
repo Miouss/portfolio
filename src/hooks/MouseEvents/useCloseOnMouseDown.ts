@@ -9,7 +9,6 @@ export default function useCloseOnMouseDown(
 
     const close = (e) => {
       e.stopImmediatePropagation();
-      console.log("hook close on mousedown event");
       setState(false);
     };
 

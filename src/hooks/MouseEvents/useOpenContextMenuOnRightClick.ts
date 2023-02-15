@@ -13,7 +13,6 @@ export default function useOpenContextMenuOnRightClick(
       e.stopPropagation();
       e.preventDefault();
       document.dispatchEvent(new Event("click")); // trigger others menu's click away hook
-      console.log("hook open on context menu event");
       setState(true);
       setMousePosition({ x: e.clientX, y: e.clientY });
     };

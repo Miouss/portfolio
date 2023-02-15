@@ -5,7 +5,7 @@ import useLoginSessionSelectedContext from "../../../../hooks/useLoginSessionSel
 
 export default function LoginForm() {
   const { loginSessionSelected } = useLoginSessionSelectedContext();
-  console.log('Login form', loginSessionSelected);
+  
   return (
     <LoginFormContainer>
       {loginSessionSelected === "Samir" ? <FormSamir /> : <FormMiouss />}

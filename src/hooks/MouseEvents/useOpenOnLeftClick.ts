@@ -11,7 +11,6 @@ export default function useOpenOnLeftClick(
     const open = (e) => {
       e.stopImmediatePropagation();
       document.dispatchEvent(new Event("click")); // trigger others menu's click away hook
-      console.log("hook open on left click event");
       setState(true);
     };
 

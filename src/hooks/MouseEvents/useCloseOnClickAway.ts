@@ -8,7 +8,6 @@ export default function useCloseOnClickAway(
     if (!state) return;
 
     const close = (e) => {
-      console.log("hook close on click away event");
       setState(false);
     };
 

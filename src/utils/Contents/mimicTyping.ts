@@ -24,14 +24,14 @@ export default async function mimicTyping(
       container.appendChild(titleContainer);
       container.appendChild(textContainer);
 
-      ref.current!.appendChild(container);
+      ref.current && ref.current!.appendChild(container);
 
       await mimicKeystrokes(`- ${title} :`, titleContainer, "textContent");
       await mimicKeystrokes(text, textContainer, "textContent");
-      ref.current!.appendChild(document.createElement("br"));
+      ref.current && ref.current.appendChild(document.createElement("br"));
     } else {
       const newLineContainer = document.createElement("span");
-      ref.current!.appendChild(newLineContainer);
+      ref.current && ref.current!.appendChild(newLineContainer);
       await mimicKeystrokes(line + "\n", newLineContainer, "textContent");
     }
   }
