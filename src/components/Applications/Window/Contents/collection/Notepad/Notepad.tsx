@@ -88,8 +88,7 @@ export default function Notepad({ appName }: { appName: string }) {
     dispatch(closeApp(appName));
   };
 
-  const rerun = (e?) => {
-    e?.stopPropagation();
+  const rerun = () => {
     if (isTxtTyping) {
       document.dispatchEvent(new KeyboardEvent("keydown", { key: "Rerun" }));
       awaitMimicTyping();

@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Divider,
   LangPrefContainer,
@@ -23,6 +23,13 @@ export default function LangPref() {
   useOpenOnLeftClick(langPrefContainerRef, openMenu, setOpenMenu);
   useCloseOnClick(langPrefContainerRef, openMenu, setOpenMenu);
   useCloseOnClickAway(openMenu, setOpenMenu);
+
+  useEffect(() => {
+    if(openMenu === undefined) return;
+    
+    setOpenMenu(!openMenu);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lang]);
 
   return (
     <LangPrefContainer>

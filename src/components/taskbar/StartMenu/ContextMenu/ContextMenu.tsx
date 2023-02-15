@@ -19,7 +19,6 @@ export default function ContextMenu({
       onMouseDown={(e) => e.stopPropagation()}
     >
       <MenuList>
-        <MenuItem>{languages[lang].actions.desktop}</MenuItem>
         <MenuItem onClick={() => setIsLogged(false)}>
           {languages[lang].actions.logout}
         </MenuItem>

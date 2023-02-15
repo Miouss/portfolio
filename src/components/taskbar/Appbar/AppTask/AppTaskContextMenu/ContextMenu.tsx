@@ -41,6 +41,7 @@ export default function ContextMenu({ anchorEl, setAnchorEl, appName }) {
       style={{
         backgroundColor: "rgba(0,0,0,0.5)",
         color: "white",
+        width: "150px",
       }}
     >
       <ClickAwayListener onClickAway={() => setAnchorEl(null)}>
