@@ -23,9 +23,9 @@ export default function App() {
   useSignInWall(isLogged, setShowSignInWall);
 
   const runningAppsComponents = useRunningAppsComponents();
-  const passwordProtection = usePasswordProtection();
+/*   const passwordProtection = usePasswordProtection();
 
-  if (passwordProtection) return passwordProtection;
+  if (passwordProtection) return passwordProtection; */
 
   return (
     <LangProvider>
