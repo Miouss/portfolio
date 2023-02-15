@@ -148,7 +148,6 @@ export default function ContentBuilder({
             </Details>
             <Options>
               <PreviewButton
-                fsresp={fsresp}
                 onClick={() => setShowGallery(true)}
               >
                 <VisibilityOffIcon />

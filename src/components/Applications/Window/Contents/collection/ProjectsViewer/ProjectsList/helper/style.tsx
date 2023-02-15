@@ -30,6 +30,7 @@ export const BackgroundLayer = styled("div", {
   "& > * > img": {
     width: "100%",
     height: "100%",
+    objectFit: "contain",
   },
 
   visibility: visible === undefined ? "hidden" : "visible",
@@ -59,12 +60,9 @@ export const BackgroundLayer = styled("div", {
 }));
 
 // ProjectContainer >
-export const Content = styled(
-  "article",
-  {
-    shouldForwardProp: (prop) => prop !== "aspectratio",
-  }
-)(({ aspectratio }: {aspectratio: "16/9" | "unset"}) => ({
+export const Content = styled("article", {
+  shouldForwardProp: (prop) => prop !== "aspectratio",
+})(({ aspectratio }: { aspectratio: "16/9" | "unset" }) => ({
   aspectRatio: aspectratio,
   overflow: "hidden",
 }));
@@ -77,7 +75,7 @@ export const Project = styled("section", {
   flexDirection: "column",
 
   width: "100%",
-  height: "100%",
+  height: "fit-content",
 
   animation:
     hide === undefined
@@ -187,7 +185,12 @@ export const TechItemsContainer = styled(
 }));
 
 // TechItemsContainer >
-export const TechItem = styled("i")({});
+export const TechItem = styled("i")({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+});
 
 // TechItem >
 export const TechItemIcon = styled("svg")({
@@ -215,9 +218,7 @@ export const Options = styled("section")({
 
 // Options >
 
-export const PreviewButton = styled("button", {
-  shouldForwardProp: (prop) => prop !== "fsresp",
-})(({ fsresp }: ResponsiveFontSize) => ({
+export const PreviewButton = styled("button")({
   position: "absolute",
   top: "3%",
   right: "3%",
@@ -242,7 +243,7 @@ export const PreviewButton = styled("button", {
     width: "24px",
     height: "24px",
   },
-}));
+});
 
 // Options >
 export const RedirectContainer = styled(
@@ -272,13 +273,11 @@ export const HidePreviewButton = styled("button")({
   justifyContent: "center",
   alignItems: "center",
 
-  border: "1px solid #FFFFFF",
   borderRadius: "50%",
   background: "transparent",
 
-  opacity: 0.5,
   "& > *": {
-    color: "#FFFFFF",
+    color: "rgb(211, 211, 211, 0.8)",
     width: "24px",
     height: "24px",
   },

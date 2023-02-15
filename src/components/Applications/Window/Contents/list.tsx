@@ -51,7 +51,7 @@ addApp(
   "Listen to music"
 );
 addApp(
-  "Projets",
+  "Projects",
   <ProjectsViewer />,
   <ProjectLogo />,
   1,

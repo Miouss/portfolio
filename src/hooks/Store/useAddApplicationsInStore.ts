@@ -10,7 +10,7 @@ export default function useAddApplicationsInStore() {
     };
 
     dispatchAddApp("Terminal");
-    dispatchAddApp("Projets");
+    dispatchAddApp("Projects");
     dispatch(addSpecialApp("Mail Sender"));
     dispatch(addNotifApp("Chill Beats"));
     dispatchAddApp("Welcome");

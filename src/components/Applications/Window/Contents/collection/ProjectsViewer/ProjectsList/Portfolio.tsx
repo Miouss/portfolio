@@ -4,7 +4,7 @@ import Portfolio2 from "../../../../../../../assets/projets/portfolio2.png";
 import Portfolio3 from "../../../../../../../assets/projets/portfolio3.png";
 import {
   reactSVG,
-  muiSVG,
+  cssSVG,
   reduxSVG,
 } from "../../../../../../../assets/icons/icons";
 
@@ -43,8 +43,8 @@ export default function Portfolio() {
       icon: reactSVG,
     },
     {
-      name: "MUI",
-      icon: muiSVG,
+      name: "CSS3",
+      icon: cssSVG,
     },
     {
       name: "Redux",
