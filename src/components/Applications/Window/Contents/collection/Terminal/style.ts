@@ -4,6 +4,7 @@ export const TerminalAppContainer = styled("div")({
   background: "black !important",
   color: "white !important",
   display: "flex",
+  overflow: "hidden",
 });
 
 export const TerminalAppContent = styled("div", {

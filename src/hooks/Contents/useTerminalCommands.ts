@@ -48,7 +48,11 @@ export default function useTerminalCommands(
               return setCurrentDir((prevState) => [...prevState, path]);
             }
 
-            createFeedbackCommandContainer(ref, languages[lang].apps.terminal.error.cd.path, currentDir);
+            createFeedbackCommandContainer(
+              ref,
+              languages[lang].apps.terminal.error.cd.path,
+              currentDir
+            );
         }
       } else {
         switch (command) {

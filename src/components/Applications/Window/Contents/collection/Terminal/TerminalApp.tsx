@@ -116,12 +116,12 @@ export default function TerminalApp({ mode }: Props) {
     setCurrentDir
   );
   useSpecialKeyHandler(terminalAppContentRef, keyHandler);
-  useAutoScrollOnOverflow(terminalAppContentRef, commandHistory);
+  useAutoScrollOnOverflow(terminalAppRef, commandHistory, currentDir);
 
   if (isExiting)
     (terminalAppRef!.current!.offsetParent as HTMLElement).style.animation =
-      "despawnWindow 0.15s ease-out forwards";
-
+      "despawnWindow 0.15s ease-out forwards"; 
+  
   return (
     <TerminalAppContainer ref={terminalAppRef}>
       <TerminalAppContent

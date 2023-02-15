@@ -93,7 +93,7 @@
                             "\nLe système n'a pas pu retrouvé le chemin spécifié."
                         ],
                         "root": [
-                            "\nImpossible de revenir en arrière car vous êtes déjà dans le dossier racine\n"
+                            "\n\nImpossible de revenir en arrière car vous êtes déjà dans le dossier racine\n"
                         ]
                     },
                     "command": [
@@ -214,7 +214,7 @@
                             "\nThe system cannot find the path specified."
                         ],
                         "root": [
-                            "\nCannot go back because you are already in the root directory\n"
+                            "\n\nCannot go back because you are already in the root directory\n"
                         ]
                     },
                     "command": [
