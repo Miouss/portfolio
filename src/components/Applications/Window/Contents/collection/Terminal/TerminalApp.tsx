@@ -10,12 +10,14 @@ import useLangContext from "../../../../../../hooks/useLangContext";
 import useSpecialKeyHandler from "../../../../../../hooks/Contents/useSpecialKeyHandler";
 import useTerminalCommands from "../../../../../../hooks/Contents/useTerminalCommands";
 import mimicWindowsTerminal from "../../../../../../utils/Contents/mimicWIndowsTerminal";
+import clearAll from "../../../../../../utils/Contents/clearAll";
 
 interface Props {
   mode?: "notepad";
 }
 
 export default function TerminalApp({ mode }: Props) {
+  const firstRender = useRef(true);
   const terminalAppRef = useRef<HTMLDivElement | null>(null);
   const terminalAppContentRef = useRef<HTMLDivElement | null>(null);
   const [blink, setBlink] = useState(false);
@@ -26,28 +28,52 @@ export default function TerminalApp({ mode }: Props) {
 
   const { lang } = useLangContext();
 
+  const welcomeMessage = mode
+    ? languages[lang].apps.terminal.welcomeMsg
+    : [
+        "Microsoft Windows [Version 10.0.19042.867]\n(c) 2020 Microsoft Corporation. All rights reserved.\n",
+        `${languages[lang].apps.terminal.start}\n`,
+      ];
+
+  const awaitMimicTyping = async () => {
+    try {
+      clearAll(terminalAppContentRef);
+      await mimicTyping(terminalAppContentRef, welcomeMessage);
+    } catch (e: any) {}
+  };
+
   useEffect(() => {
-    const typeWelcomeMessage = async () => {
-      const welcomeMessage = mode
-        ? languages[lang].apps.terminal.welcomeMsg
-        : [
-            "Microsoft Windows [Version 10.0.19042.867]\n(c) 2020 Microsoft Corporation. All rights reserved.\n",
-            `${languages[lang].apps.terminal.start}\n`,
-          ];
+    if (!mode) {
+      clearAll(terminalAppContentRef);
+      typeWelcomeMessage();
+      if (firstRender.current) {
+        firstRender.current = false;
+        return;
+      }
+      setCurrentDir(["C:\\"]);
+      return;
+    }
 
-      mode
-        ? await mimicTyping(terminalAppContentRef, welcomeMessage)
-        : mimicWindowsTerminal(
-            terminalAppContentRef,
-            welcomeMessage,
-            undefined,
-            true
-          );
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Rerun" }));
+    awaitMimicTyping();
+    return;
+  }, [lang]);
 
-      if (!terminalAppContentRef.current) return;
-      terminalAppContentRef.current!.focus();
-    };
-    typeWelcomeMessage();
+  const typeWelcomeMessage = () => {
+    if (!mode) {
+      mimicWindowsTerminal(
+        terminalAppContentRef,
+        welcomeMessage,
+        undefined,
+        true
+      );
+    }
+
+    if (!terminalAppContentRef.current) return;
+    terminalAppContentRef.current!.focus();
+  };
+
+  useEffect(() => {
     setBlink(!blink);
   }, []);
 
