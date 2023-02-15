@@ -1,7 +1,7 @@
 import ProjectContentBuilder from "./helper/ProjectContent";
-import Portofolio1 from "../../../../../../../assets/projets/lolmood1.png";
-import Portofolio2 from "../../../../../../../assets/projets/lolmood2.png";
-import Portofolio3 from "../../../../../../../assets/projets/lolmood3.png";
+import Portfolio1 from "../../../../../../../assets/projets/portfolio1.png";
+import Portfolio2 from "../../../../../../../assets/projets/portfolio2.png";
+import Portfolio3 from "../../../../../../../assets/projets/portfolio3.png";
 import {
   reactSVG,
   muiSVG,
@@ -13,8 +13,8 @@ interface Tech {
   icon: JSX.Element;
 }
 
-export default function Portofolio() {
-  const name = "Portofolio Windows 10";
+export default function Portfolio() {
+  const name = "Portfolio Windows 10";
   const description = {
     eng: `As a self-taught web developer, the portfolio is the showcase, I had to make a project that stands out from the norm to set myself apart. So I decided to make a portfolio with the behavior of Windows 10.
 
@@ -23,8 +23,8 @@ export default function Portofolio() {
     I wanted to stay as close as possible to the OS interface, using the same 
     fonts, colors, icons, etc. The complexity of managing such an interface, particularly the window system, allowed me to discover Redux, 
     to better understand the functioning of React, and greatly improve my skills in all aspects of the front-end.`,
-    fr: `Le portofolio étant la vitrine du développeur web autodidacte, je me devais de faire un projet 
-    qui sort de la norme afin de me démarquer. J'ai donc décidé de faire un portofolio ayant 
+    fr: `Le portfolio étant la vitrine du développeur web autodidacte, je me devais de faire un projet 
+    qui sort de la norme afin de me démarquer. J'ai donc décidé de faire un portfolio ayant 
     le comportement de Windows 10.
   
     L'intégralité du projet a été fait from scratch, sans composants/fonctionnalités pré-fabriqués.
@@ -35,7 +35,7 @@ export default function Portofolio() {
     et d'améliorer grandement mes compétences sur tous les aspects du front-end.
     `,
   };
-  const imageUrl = [Portofolio1, Portofolio2, Portofolio3];
+  const imageUrl = [Portfolio1, Portfolio2, Portfolio3];
 
   const techs: Tech[] = [
     {
@@ -52,9 +52,9 @@ export default function Portofolio() {
     },
   ];
 
-  const repo = "https://github.com/Miouss/lol-mood-website";
+  const repo = "https://github.com/Miouss/portfolio";
 
-  const link = "https://lolmood.net";
+  const link = "https://samir-ghabi.com";
 
   return (
     <ProjectContentBuilder
