@@ -7,8 +7,8 @@ export const LoginFormBadge = styled(Stack, {
 })(({ sessionName }: { sessionName: "Samir Ghabi" | "Miouss" }) => ({
   backgroundColor: "white",
   borderRadius: "50%",
-  maxWidth: "170px",
-  maxHeight: "170px",
+  width: "170px",
+  height: "170px",
   alignSelf: "center",
   justifyContent: "center",
   alignItems: "center",
@@ -17,7 +17,7 @@ export const LoginFormBadge = styled(Stack, {
     height: "100%",
     width: "100%",
     borderRadius: "50%",
-    objectFit: sessionName === "Samir Ghabi" && "cover",
+    objectFit: "cover",
     objectPosition:  sessionName === "Samir Ghabi" && "50% 25%",
   },
 }));

@@ -28,7 +28,7 @@ export const LoginSessionContainer = styled(Stack)(
       height: "100%",
       width: "100%",
       borderRadius: "50%",
-      objectFit: sessionName === "Samir" && "cover",
+      objectFit: "cover",
       objectPosition:  sessionName === "Samir" && "50% 25%",
     },
   }));
