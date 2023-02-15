@@ -23,12 +23,9 @@ export const BackgroundLayer = styled("div", {
   position: "absolute",
   height: "100%",
   width: "100%",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
   overflow: "hidden",
   "& > *": {
-    flex: 1,
+    height: "fit-content",
   },
   "& > * > img": {
     width: "100%",
@@ -64,9 +61,11 @@ export const BackgroundLayer = styled("div", {
 // ProjectContainer >
 export const Content = styled(
   "article",
-  fontSizeResponsive
-)(({ fsresp }: ResponsiveFontSize) => ({
-  aspectRatio: fsresp >= 12 ? "16/9" : "unset",
+  {
+    shouldForwardProp: (prop) => prop !== "aspectratio",
+  }
+)(({ aspectratio }: {aspectratio: "16/9" | "unset"}) => ({
+  aspectRatio: aspectratio,
   overflow: "hidden",
 }));
 
@@ -233,7 +232,7 @@ export const PreviewButton = styled("button", {
   borderRadius: "50%",
   background: "#187CF1",
 
-  visibility: fsresp >= 12 ? "visible" : "hidden",
+  //visibility: fsresp >= 12 ? "visible" : "hidden",
 
   "&:hover": {
     cursor: "pointer",

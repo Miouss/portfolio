@@ -116,7 +116,7 @@ export default function ContentBuilder({
           setDisableButtons={setDisableButtons}
         />
       </BackgroundLayer>
-      <Content fsresp={fsresp}>
+      <Content aspectratio={showGallery ? "16/9" : "unset"}>
         <SliderControls visible={showGallery}>
           <HidePreviewButton onClick={() => setShowGallery(false)}>
             <VisibilityOnIcon />
