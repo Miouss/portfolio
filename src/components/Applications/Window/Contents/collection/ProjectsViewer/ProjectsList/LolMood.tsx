@@ -53,7 +53,7 @@ export default function LolMood() {
     },
   ];
 
-  const repo = "https://github.com/Miouss/lol-mood-website";
+  const repo = "https://github.com/Miouss/lolmood";
 
   const link = "https://www.lolmood.net";
 
