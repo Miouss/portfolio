@@ -8,7 +8,6 @@ import { SessionContainer } from "./style";
 import { IsLoggedProp } from "../types/types";
 import useAddApplicationsInStore from "../hooks/Store/useAddApplicationsInStore";
 import useRunningAppsComponents from "../hooks/Store/useRunningAppsComponents";
-import usePasswordProtection from "../hooks/usePasswordProtection";
 import useSignInWall from "../hooks/useSigninWall";
 
 import { LangProvider } from "../hooks/useLangContext";
@@ -23,9 +22,6 @@ export default function App() {
   useSignInWall(isLogged, setShowSignInWall);
 
   const runningAppsComponents = useRunningAppsComponents();
-/*   const passwordProtection = usePasswordProtection();
-
-  if (passwordProtection) return passwordProtection; */
 
   return (
     <LangProvider>
