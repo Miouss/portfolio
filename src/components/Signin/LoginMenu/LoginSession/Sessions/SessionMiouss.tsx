@@ -1,10 +1,10 @@
-import ProfilPicture from "../../../../../assets/avatars/miouss.png";
-import LoginSessionBuilder from "../helper/LoginSessionBuilder";
+import { Miouss } from "../../../../../assets";
+import LoginSessionHelper from "../helper/LoginSessionHelper";
 
-export default function SessionSamir(){
-    const name = "Miouss";
-    const profilPicture = ProfilPicture;
-    return (
-        <LoginSessionBuilder sessionName={name} profilPicture={profilPicture} />
-    );
+export default function SessionSamir() {
+  const name = "Miouss";
+  const profilPicture = Miouss;
+  return (
+    <LoginSessionHelper sessionName={name} profilPicture={profilPicture} />
+  );
 }

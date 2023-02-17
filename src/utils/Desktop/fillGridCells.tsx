@@ -3,8 +3,8 @@ import {
   getAppGridPostion,
   getShortcutGridPostion,
 } from "../../components/Applications/Window/Contents/list";
-import NormalApp from "../../components/Desktop/DesktopGrid/GridAppWindow";
-import ShortcutApp from "../../components/Desktop/DesktopGrid/GridAppShortcut";
+import NormalApp from "../../components/Desktop/GridApp/GridAppWindow";
+import ShortcutApp from "../../components/Desktop/GridApp/GridAppShortcut";
 import styled from "@mui/system/styled";
 
 interface GridPosition {

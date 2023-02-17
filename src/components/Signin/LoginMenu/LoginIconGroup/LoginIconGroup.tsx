@@ -1,7 +1,7 @@
-import { LoginIconContainer, IconButton } from "./style";
+import { LoginIconContainer, IconButton } from "../../../../styles";
 
-import { LanguageProp } from "../../../../types/types";
-import useLangContext from "../../../../hooks/useLangContext";
+import { LanguageProp } from "../../../../types";
+import { useLangContext } from "../../../../hooks";
 
 export default function LoginIconGroup() {
   const { lang, setLang } = useLangContext();

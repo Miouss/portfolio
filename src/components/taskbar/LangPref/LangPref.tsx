@@ -1,18 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import {
-  Divider,
+  LangPrefDivider,
   LangPrefContainer,
   LangPrefCurrent,
   LangPrefCurrentBox,
   LangPrefPopOverMenu,
-} from "./style";
-import { LangPrefIcon } from "../../../assets/icons/icons";
+} from "../../../styles";
+import { LangPrefIcon } from "../../../assets";
 import LangPrefItem from "./helper/LangPrefItem";
-import useOpenOnLeftClick from "../../../hooks/MouseEvents/useOpenOnLeftClick";
-import useCloseOnClick from "../../../hooks/MouseEvents/useCloseOnClick";
-import useCloseOnClickAway from "../../../hooks/MouseEvents/useCloseOnClickAway";
-import { UndefinedBoolean } from "../../../types/types";
-import useLangContext from "../../../hooks/useLangContext";
+import {
+  useOpenOnLeftClick,
+  useCloseOnClick,
+  useCloseOnClickAway,
+  useLangContext,
+} from "../../../hooks";
+import { UndefinedBoolean } from "../../../types";
 
 export default function LangPref() {
   const langPrefContainerRef = useRef<HTMLDivElement>(null);
@@ -25,10 +27,10 @@ export default function LangPref() {
   useCloseOnClickAway(openMenu, setOpenMenu);
 
   useEffect(() => {
-    if(openMenu === undefined) return;
-    
+    if (openMenu === undefined) return;
+
     setOpenMenu(!openMenu);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lang]);
 
   return (
@@ -46,7 +48,7 @@ export default function LangPref() {
             lang === "fr" ? "Préférences de langue" : "Language preferences"
           }
         />
-        <Divider />
+        <LangPrefDivider />
         <LangPrefItem code="eng" label="English (United States)" />
         <LangPrefItem code="fr" label="Français (France)" />
       </LangPrefPopOverMenu>

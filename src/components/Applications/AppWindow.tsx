@@ -6,29 +6,30 @@ import {
   useAppDispatch,
 } from "../../redux";
 
-import resizeWindow from "../../utils/Applications/resizeWIndow";
-import rememberWindowPosition from "../../utils/Applications/rememberWindowPosition";
-import monitoringPointerMovingUnpressed from "../../utils/Applications/monitoringPointerMovingUnpressed";
-import checkResponsiveness from "../../utils/Applications/checkResponsiveness";
-
-import useFullscreenEffect from "../../hooks/Applications/useFullscreenEffect";
-import useFocusEffect from "../../hooks/Applications/useFocusEffect";
-import useWindowResizingPointersEvents from "../../hooks/Applications/useWindowResizingPointersEvents";
-import useMinimizedEffect from "../../hooks/Applications/useMinimizedEffect";
-
+import {
+  resizeWindow,
+  rememberWindowPosition,
+  monitoringPointerMovingUnpressed,
+  checkResponsiveness,
+} from "../../utils";
+import {
+  useFullscreenEffect,
+  useFocusEffect,
+  useWindowResizingPointersEvents,
+  useMinimizedEffect,
+  useAppStatus,
+} from "../../hooks";
 import {
   Coordinates,
   PointerCursor,
   PointerOffsetRelative,
   PointerPosition,
   WindowSize,
-} from "../../types/types";
-import { WindowContainer } from "./style";
-import MovableBar from "./Window/MovableBar";
-import Content from "./Window/Content";
-
-import { Animation } from "../../types/types";
-import useAppStatus from "../../hooks/Store/useAppStatus";
+  Animation,
+} from "../../types";
+import { WindowContainer } from "../../styles";
+import MovableBar from "./Window/MovableBar/MovableBar";
+import Content from "./Window/Contents/Content";
 
 interface Props {
   appName: string;

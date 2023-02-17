@@ -9,16 +9,18 @@ import {
   MailSenderLogo,
   TerminalLogo,
   CVLogo,
-} from "../../../../assets/icons/icons";
+} from "../../../../assets";
 
-import TerminalApp from "./collection/Terminal/TerminalApp";
-import ProjectsViewer from "./collection/ProjectsViewer/ProjectsViewer";
+import {
+  TerminalApp,
+  ProjectsViewer,
+  MailSender,
+  ChillBeats,
+  Notepad,
+} from "../../../../apps";
 
 import { AppList, ShortcutList } from "./types";
-import MailSender from "./collection/MailSender/MailSender";
-import ChillBeats from "./collection/ChillBeats/ChillBeats";
-import Notepad from "./collection/Notepad/Notepad";
-import useLangContext from "../../../../hooks/useLangContext";
+import { useLangContext } from "../../../../hooks";
 
 let appList = {} as AppList[];
 let shortcutList = {} as ShortcutList[];

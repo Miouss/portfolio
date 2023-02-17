@@ -1,6 +1,6 @@
 import {
   LoginSessionGlobalContainer,
-} from "./style";
+} from "../../../../styles";
 import SessionSamir from "./Sessions/SessionSamir";
 import SessionMiouss from "./Sessions/SessionMiouss";
 

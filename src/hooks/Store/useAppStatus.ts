@@ -1,8 +1,7 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux";
-import { RunningApp } from "../../redux";
+import { RootState, RunningApp } from "../../redux";
 
-export default function useStatus(appName: string) {
+export default function useAppStatus(appName: string) {
   const emptyStatus: RunningApp["status"] = {
     isRunning: false,
     isMinimized: false,

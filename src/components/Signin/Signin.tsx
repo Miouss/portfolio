@@ -5,16 +5,15 @@ import {
   LoginSubBox,
   LockContainer,
   SigninContainer,
-} from "./style";
-import LoginBackground from "../../assets/backgrounds/login.png";
+} from "../../styles";
+import { LoginBackground } from "../../assets";
 import LoginForm from "./LoginMenu/LoginForm/LoginForm";
 import LoginSession from "./LoginMenu/LoginSession/LoginSession";
 import { Dispatch, SetStateAction, useRef } from "react";
 import LoginIconGroup from "./LoginMenu/LoginIconGroup/LoginIconGroup";
 import LockMenu from "./LockMenu/LockMenu";
-import { IsLoggedProp } from "../../types/types";
-import { IsLoggedProvider } from "../../hooks/useIsLoggedContext";
-import { LoginSessionSelectedProvider } from "../../hooks/useLoginSessionSelectedContext";
+import { IsLoggedProp } from "../../types";
+import { IsLoggedProvider, LoginSessionSelectedProvider } from "../../hooks";
 
 interface Props {
   isLogged: IsLoggedProp;

@@ -1,6 +1,6 @@
-import { ContextMenuPop } from "./style";
+import { DesktopContextMenuPop } from "../../../styles";
 
-import useContextMenuActions from "../../../hooks/Desktop/useContextMenuActions";
+import { useContextMenuActions } from "../../../hooks";
 
 interface Props {
   mouseX: number;
@@ -11,12 +11,12 @@ export default function ContextMenu({ mouseX, mouseY }: Props) {
   const actionsContainersFilled = useContextMenuActions();
 
   return (
-    <ContextMenuPop
+    <DesktopContextMenuPop
       mouseX={mouseX}
       mouseY={mouseY}
       onMouseDown={(e) => e.stopPropagation()}
     >
       {actionsContainersFilled}
-    </ContextMenuPop>
+    </DesktopContextMenuPop>
   );
 }

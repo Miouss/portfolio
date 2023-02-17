@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import verifyWindowPosition from "../../utils/Applications/verifyWindowPosition";
+import { verifyWindowPosition } from "../../utils";
 
 interface Offset {
   left: string;

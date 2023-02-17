@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useState } from "react";
-import useRunningAppsNonNotif from "./useRunningAppsNonNotif";
+import { useRunningAppsNonNotif } from "../";
 import { AppComponent } from "../../components/Applications/Window/Contents/list";
 import AppWindow from "../../components/Applications/AppWindow";
 

@@ -1,5 +1,8 @@
-import { UndefinedBoolean } from "../../../../../types/types";
-import { ContextMenuButton, ContextMenuContainer } from "./style";
+import { UndefinedBoolean } from "../../../../../types";
+import {
+  ContextMenuButton,
+  ContextMenuContainer,
+} from "../../../../../styles";
 
 interface Props {
   visible: UndefinedBoolean;
@@ -11,7 +14,9 @@ export default function ContextMenu({ visible, handleCloseApp }: Props) {
 
   return (
     <ContextMenuContainer>
-      <ContextMenuButton onClick={handleCloseApp}>Quit application</ContextMenuButton>
+      <ContextMenuButton onClick={handleCloseApp}>
+        Quit application
+      </ContextMenuButton>
     </ContextMenuContainer>
   );
 }

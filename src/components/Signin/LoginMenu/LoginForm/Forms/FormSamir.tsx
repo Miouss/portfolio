@@ -1,19 +1,17 @@
 import { useEffect, useState } from "react";
 import { Box, CircularProgress } from "@mui/material";
-import LoginFormBuilder from "../helper/LoginFormBuilder";
+import LoginFormHelper from "../helper/LoginFormHelper";
 import {
   LoginFormButton,
   LoginFormLoadingContainer,
   LoginFormTitle,
-} from "./style";
-import langs from "../../../../../assets/languages/languages.json";
-import ProfilPicture from "../../../../../assets/avatars/samir.png";
-import useLangContext from "../../../../../hooks/useLangContext";
-import useIsLoggedContext from "../../../../../hooks/useIsLoggedContext";
+} from "../../../../../styles";
+import { langs, Samir } from "../../../../../assets";
+import { useLangContext, useIsLoggedContext } from "../../../../../hooks";
 
 export default function FormSamir() {
   const name = "Samir Ghabi";
-  const profilPicture = ProfilPicture;
+  const profilPicture = Samir;
   const [loadDesktop, setLoadDesktop] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState("Bienvenue");
   const [promptMessage, setPromptMessage] = useState("Se connecter");
@@ -47,7 +45,7 @@ export default function FormSamir() {
   }, [isUnlocking, lang, loadDesktop]);
 
   return (
-    <LoginFormBuilder sessionName={name} profilPicture={profilPicture}>
+    <LoginFormHelper sessionName={name} profilPicture={profilPicture}>
       <>
         <LoginFormTitle>{name}</LoginFormTitle>
 
@@ -65,6 +63,6 @@ export default function FormSamir() {
           </LoginFormButton>
         )}
       </>
-    </LoginFormBuilder>
+    </LoginFormHelper>
   );
 }

@@ -1,14 +1,16 @@
-import { StartMenuContainer, WindowsIconBox } from "./style";
-import { WindowsIcon } from "../../../assets/icons/icons";
+import { StartMenuContainer, WindowsIconBox } from "../../../styles";
+import { WindowsIcon } from "../../../assets";
 import { useRef, useState } from "react";
 import ContextMenu from "./ContextMenu/ContextMenu";
 import PopOverMenu from "./PopOverMenu/PopOverMenu";
-import useOpenOnLeftClick from "../../../hooks/MouseEvents/useOpenOnLeftClick";
-import useCloseOnClickAway from "../../../hooks/MouseEvents/useCloseOnClickAway";
-import useCloseOnClick from "../../../hooks/MouseEvents/useCloseOnClick";
-import useOpenContextMenuOnRightClick from "../../../hooks/MouseEvents/useOpenContextMenuOnRightClick";
-import { UndefinedBoolean } from "../../../types/types";
-import useCloseOnMouseDown from "../../../hooks/MouseEvents/useCloseOnMouseDown";
+import {
+  useOpenOnLeftClick,
+  useCloseOnClickAway,
+  useCloseOnClick,
+  useOpenContextMenuOnRightClick,
+  useCloseOnMouseDown,
+} from "../../../hooks";
+import { UndefinedBoolean } from "../../../types";
 
 export default function StartMenu() {
   const startMenuContainerRef = useRef<HTMLDivElement>(null);

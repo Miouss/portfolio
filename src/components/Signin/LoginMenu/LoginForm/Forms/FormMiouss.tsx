@@ -1,22 +1,21 @@
 import { useState } from "react";
-import ProfilPicture from "../../../../../assets/avatars/miouss.png";
+import {Miouss, langs} from "../../../../../assets";
 import {
   InputButton,
   LoginFormError,
   LoginFormInput,
   LoginFormTitle,
-} from "./style";
-import LoginFormBuilder from "../helper/LoginFormBuilder";
+} from "../../../../../styles";
+import LoginFormHelper from "../helper/LoginFormHelper";
 
 import ArrowForward from "@mui/icons-material/ArrowForward";
 import { Box } from "@mui/material";
 
-import langs from "../../../../../assets/languages/languages.json";
-import useLangContext from "../../../../../hooks/useLangContext";
+import { useLangContext } from "../../../../../hooks";
 
 export default function FormMiouss() {
   const name = "Miouss";
-  const profilPicture = ProfilPicture;
+  const profilPicture = Miouss;
 
   const [cssAnim, setCssAnim] = useState(false);
   const [showPasswordHint, setShowPasswordHint] = useState(false);
@@ -39,7 +38,7 @@ export default function FormMiouss() {
   };
 
   return (
-    <LoginFormBuilder sessionName={name} profilPicture={profilPicture}>
+    <LoginFormHelper sessionName={name} profilPicture={profilPicture}>
       <form onSubmit={handleSubmit} autoComplete="off">
         <LoginFormTitle>{name}</LoginFormTitle>
         <LoginFormInput
@@ -61,6 +60,6 @@ export default function FormMiouss() {
           </LoginFormError>
         )}
       </form>
-    </LoginFormBuilder>
+    </LoginFormHelper>
   );
 }

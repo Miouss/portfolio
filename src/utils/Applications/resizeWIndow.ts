@@ -2,7 +2,7 @@ import {
   Coordinates,
   WindowSize,
   PointerOffsetRelative,
-} from "../../types/types";
+} from "../../types";
 
 export default function resizeWindow(
   event: MouseEvent,

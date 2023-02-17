@@ -1,8 +1,11 @@
-import { ContextMenuPop, MenuList, MenuItem } from "./style";
+import {
+  TaskbarContextMenuPop,
+  MenuList,
+  MenuItem,
+} from "../../../../styles";
 
-import languages from "../../../../assets/languages/languages.json";
-import useLangContext from "../../../../hooks/useLangContext";
-import useIsLoggedContext from "../../../../hooks/useIsLoggedContext";
+import { langs } from "../../../../assets";
+import { useLangContext, useIsLoggedContext } from "../../../../hooks";
 
 export default function ContextMenu({
   mousePosition,
@@ -13,19 +16,19 @@ export default function ContextMenu({
   const { setIsLogged } = useIsLoggedContext();
 
   return (
-    <ContextMenuPop
+    <TaskbarContextMenuPop
       mouseX={mousePosition.x}
       mouseY={mousePosition.y}
       onMouseDown={(e) => e.stopPropagation()}
     >
       <MenuList>
         <MenuItem onClick={() => setIsLogged(false)}>
-          {languages[lang].actions.logout}
+          {langs[lang].actions.logout}
         </MenuItem>
         <MenuItem onClick={() => setIsLogged("lock")}>
-          {languages[lang].actions.lock}
+          {langs[lang].actions.lock}
         </MenuItem>
       </MenuList>
-    </ContextMenuPop>
+    </TaskbarContextMenuPop>
   );
 }

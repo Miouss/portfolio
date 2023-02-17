@@ -1,7 +1,6 @@
-import { NotifbarContainer } from "./style";
+import { NotifbarContainer } from "../../../styles";
 import AppNotif from "./AppNotif/AppNotif";
-import useRunningAppsNotif from "../../../hooks/Store/useRunningAppsNotif";
-import useDynamicComponents from "../../../hooks/useDynamicComponents";
+import { useDynamicComponents, useRunningAppsNotif } from "../../../hooks";
 
 export default function Notifbar() {
   const runningAppsNotif = useRunningAppsNotif();

@@ -1,14 +1,13 @@
-import AppTask from "./AppTask/AppTask";
+import AppbarItem from "./AppbarItem/AppbarItem";
 
-import { AppbarContainer } from "./style";
-import useRunningAppsNonNotif from "../../../hooks/Store/useRunningAppsNonNotif";
-import useDynamicComponents from "../../../hooks/useDynamicComponents";
+import { AppbarContainer } from "../../../styles";
+import { useRunningAppsNonNotif, useDynamicComponents } from "../../../hooks";
 
 export default function Appbar() {
   const runningAppsNonNotif = useRunningAppsNonNotif();
   const runningAppsNonNotifContainers = useDynamicComponents(
     runningAppsNonNotif,
-    AppTask
+    AppbarItem
   );
 
   return <AppbarContainer>{runningAppsNonNotifContainers}</AppbarContainer>;

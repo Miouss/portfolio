@@ -1,9 +1,9 @@
-import { LanguageProp } from "../../../../types/types";
-import { IconButton, IconContainer } from "./style";
-import useLangContext from "../../../../hooks/useLangContext";
+import { LanguageProp } from "../../../../types";
+import { SwitchIconButton, SwitchIconContainer } from "../../../../styles";
+import { useLangContext } from "../../../../hooks";
 
 export default function SwitchLangButton() {
-  const {lang, setLang} = useLangContext();
+  const { lang, setLang } = useLangContext();
 
   const switchLang = (e) => {
     e.stopPropagation();
@@ -11,8 +11,8 @@ export default function SwitchLangButton() {
   };
 
   return (
-    <IconContainer>
-      <IconButton onClick={switchLang}>{lang.toUpperCase()}</IconButton>
-    </IconContainer>
+    <SwitchIconContainer>
+      <SwitchIconButton onClick={switchLang}>{lang.toUpperCase()}</SwitchIconButton>
+    </SwitchIconContainer>
   );
 }

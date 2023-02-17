@@ -1,10 +1,10 @@
-import ProfilPicture from "../../../../../assets/avatars/samir.png";
-import LoginSessionBuilder from "../helper/LoginSessionBuilder";
+import { Samir } from "../../../../../assets";
+import LoginSessionHelper from "../helper/LoginSessionHelper";
 
-export default function SessionSamir(){
-    const name = "Samir";
-    const profilPicture = ProfilPicture;
-    return (
-        <LoginSessionBuilder sessionName={name} profilPicture={profilPicture} />
-    );
+export default function SessionSamir() {
+  const name = "Samir";
+  const profilPicture = Samir;
+  return (
+    <LoginSessionHelper sessionName={name} profilPicture={profilPicture} />
+  );
 }

@@ -6,17 +6,16 @@ import {
   PopOverMenuItem,
   PopOverMenuItemIcon,
   PopOverMenuItemLabel,
-} from "./style";
+} from "../../../../styles";
 import {
   LockIcon,
   PopOverMenuIcon,
   SignoutIcon,
-} from "../../../../assets/icons/icons";
+  langs
+} from "../../../../assets";
 import { useEffect, useState } from "react";
 
-import languages from "../../../../assets/languages/languages.json";
-import useLangContext from "../../../../hooks/useLangContext";
-import useIsLoggedContext from "../../../../hooks/useIsLoggedContext";
+import {useLangContext, useIsLoggedContext} from "../../../../hooks";
 
 interface Props {
   displayPopOverMenu: boolean | undefined;
@@ -77,7 +76,7 @@ export default function PopOverMenu({ displayPopOverMenu }: Props) {
           <PopOverMenuIcon />
         </PopOverMenuHeaderIcon>
         <PopOverMenuHeaderLabel>
-          {languages[lang].actions.start}
+          {langs[lang].actions.start}
         </PopOverMenuHeaderLabel>
       </PopOverMenuHeaderBox>
       <PopOverMenuItem
@@ -88,7 +87,7 @@ export default function PopOverMenu({ displayPopOverMenu }: Props) {
           <LockIcon />
         </PopOverMenuItemIcon>
         <PopOverMenuItemLabel>
-          {languages[lang].actions.lock}
+          {langs[lang].actions.lock}
         </PopOverMenuItemLabel>
       </PopOverMenuItem>
       <PopOverMenuItem onClick={handleClick} onMouseEnter={handleMouseEnter}>
@@ -96,7 +95,7 @@ export default function PopOverMenu({ displayPopOverMenu }: Props) {
           <SignoutIcon />
         </PopOverMenuItemIcon>
         <PopOverMenuItemLabel>
-          {languages[lang].actions.logout}
+          {langs[lang].actions.logout}
         </PopOverMenuItemLabel>
       </PopOverMenuItem>
     </PopOverMenuContainer>

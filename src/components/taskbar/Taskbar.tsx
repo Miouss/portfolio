@@ -1,9 +1,9 @@
-import DateTime from "./Date/DateTime";
+import { Taskbar } from "../../styles";
+import DateTime from "./DateTime/DateTime";
 import Appbar from "./Appbar/Appbar";
-import StartMenu from "./StartMenu/StartMenu";
-import Notifbar from "./Notifbar/Notifbar";
-import { Taskbar } from "./style";
 import LangPref from "./LangPref/LangPref";
+import Notifbar from "./Notifbar/Notifbar";
+import StartMenu from "./StartMenu/StartMenu";
 
 export default function DesktopTaskBar() {
   return (

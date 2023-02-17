@@ -5,9 +5,9 @@ import {
   getAppGridPostion,
   getShortcutGridPostion,
 } from "../../components/Applications/Window/Contents/list";
-import ShortcutApp from "../../components/Desktop/DesktopGrid/GridAppShortcut";
-import NormalApp from "../../components/Desktop/DesktopGrid/GridAppWindow";
-import { fillAppCells } from "../../utils/Desktop/fillGridCells";
+import ShortcutApp from "../../components/Desktop/GridApp/GridAppShortcut";
+import NormalApp from "../../components/Desktop/GridApp/GridAppWindow";
+import { fillAppCells } from "../../utils";
 
 export default function useGridCells() {
   const [filledCells, setFilledCells] = useState<ReactElement[]>([]);

@@ -1,11 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import { AppNotifButton } from "./style";
 import {
   AppComponent,
   AppNotifIcon,
 } from "../../../Applications/Window/Contents/list";
-import { NotifWindow } from "./style";
+import { NotifWindow, AppNotifButton } from "../../../../styles";
 import {
   closeApp,
   focusApp,
@@ -13,8 +12,8 @@ import {
   useAppDispatch,
 } from "../../../../redux";
 import ContextMenu from "./ContextMenu/ContextMenu";
-import { UndefinedBoolean } from "../../../../types/types";
-import useAppStatus from "../../../../hooks/Store/useAppStatus";
+import { UndefinedBoolean } from "../../../../types";
+import { useAppStatus } from "../../../../hooks";
 
 interface Props {
   appName: string;

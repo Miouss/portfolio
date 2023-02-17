@@ -1,9 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, Dispatch, SetStateAction, useState } from "react";
-import getFormattedText from "../../utils/Contents/getFormattedText";
-import mimicWindowsTerminal from "../../utils/Contents/mimicWIndowsTerminal";
-import useLangContext from "../useLangContext";
-import languages from "../../assets/languages/languages.json";
+import { getFormattedText, mimicWindowsTerminal } from "../../utils";
+import { useLangContext } from "../";
+import { langs } from "../../assets";
 
 export default function useTerminalCommands(
   ref: React.MutableRefObject<HTMLElement | null>,
@@ -38,7 +37,7 @@ export default function useTerminalCommands(
             return currentDir.length === 1
               ? createFeedbackCommandContainer(
                   ref,
-                  languages[lang].apps.terminal.error.cd.root,
+                  langs[lang].apps.terminal.error.cd.root,
                   currentDir,
                   true
                 )
@@ -50,7 +49,7 @@ export default function useTerminalCommands(
 
             createFeedbackCommandContainer(
               ref,
-              languages[lang].apps.terminal.error.cd.path,
+              langs[lang].apps.terminal.error.cd.path,
               currentDir
             );
         }
@@ -59,7 +58,7 @@ export default function useTerminalCommands(
           case "help":
             return createFeedbackCommandContainer(
               ref,
-              languages[lang].apps.terminal.commands.help,
+              langs[lang].apps.terminal.commands.help,
               currentDir
             );
           case "clear":
@@ -75,7 +74,7 @@ export default function useTerminalCommands(
             if (dirContent.length === 0) {
               return createFeedbackCommandContainer(
                 ref,
-                languages[lang].apps.terminal.error.dir.empty,
+                langs[lang].apps.terminal.error.dir.empty,
                 currentDir
               );
             }

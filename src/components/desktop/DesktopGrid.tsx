@@ -1,11 +1,13 @@
 import { useRef, useState } from "react";
-import { DesktopGridContainer } from "./style";
+import { DesktopGridContainer } from "../../styles";
 
 import ContextMenu from "./ContextMenu/ContextMenu";
-import useCloseOnClickAway from "../../hooks/MouseEvents/useCloseOnClickAway";
-import useOpenContextMenuOnRightClick from "../../hooks/MouseEvents/useOpenContextMenuOnRightClick";
-import useCloseOnMouseDown from "../../hooks/MouseEvents/useCloseOnMouseDown";
-import useGridCells from "../../hooks/Desktop/useGridCells";
+import {
+  useCloseOnClickAway,
+  useOpenContextMenuOnRightClick,
+  useCloseOnMouseDown,
+  useGridCells,
+} from "../../hooks";
 
 export interface AppStyle {
   borderStyle?: string;
