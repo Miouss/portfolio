@@ -1,4 +1,4 @@
-import { getFormattedText } from "../";
+import { getFormattedText } from "..";
 
 export default function mimicWindowsTerminal(
   ref: React.MutableRefObject<HTMLElement | null>,

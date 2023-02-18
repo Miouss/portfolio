@@ -1,4 +1,4 @@
-import { mimicKeystrokes } from "../";
+import { mimicKeystrokes } from "..";
 
 export default async function mimicTyping(
   ref: React.MutableRefObject<HTMLTextAreaElement | HTMLDivElement | null>,

@@ -1,4 +1,4 @@
-import { delay } from "../";
+import { delay } from "..";
 
 export default async function mimicKeystrokes(
   txt: string,

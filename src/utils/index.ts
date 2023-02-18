@@ -7,12 +7,12 @@ export { default as switchCloseButtonColor} from "./Applications/switchCloseButt
 export { default as switchCursor} from "./Applications/switchCursor";
 export { default as verifyWindowPosition} from "./Applications/verifyWindowPosition";
 
-// Contents
-export { default as clearAll} from "./Contents/clearAll";
-export { default as getFormattedText} from "./Contents/getFormattedText";
-export { default as mimicKeystrokes} from "./Contents/mimicKeystrokes";
-export { default as mimicTyping} from "./Contents/mimicTyping";
-export { default as mimicWindowsTerminal} from "./Contents/mimicWindowsTerminal";
+// Apps
+export { default as clearAll} from "./Apps/clearAll";
+export { default as getFormattedText} from "./Apps/getFormattedText";
+export { default as mimicKeystrokes} from "./Apps/mimicKeystrokes";
+export { default as mimicTyping} from "./Apps/mimicTyping";
+export { default as mimicWindowsTerminal} from "./Apps/mimicWindowsTerminal";
 
 // Desktop
 export * from "./Desktop/fillGridCells";
