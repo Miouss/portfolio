@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Item } from "./style";
+import { Item } from "../../../../../styles";
 
 interface Props {
   redirect: string;

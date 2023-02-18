@@ -1,5 +1,5 @@
 import styled from "@mui/system/styled";
-import { UndefinedBoolean } from "../../../../types";
+import { UndefinedBoolean } from "../../types";
 
 const fontSizeResponsive = {
   shouldForwardProp: (prop) => prop !== "fsresp",
@@ -17,7 +17,7 @@ export const ProjectContainer = styled("article")({
   flexDirection: "column",
 });
 
-export const BackgroundLayer = styled("div", {
+export const ProjectBackground = styled("div", {
   shouldForwardProp: (prop) => prop !== "visible",
 })(({ visible }: { visible: UndefinedBoolean }) => ({
   position: "absolute",

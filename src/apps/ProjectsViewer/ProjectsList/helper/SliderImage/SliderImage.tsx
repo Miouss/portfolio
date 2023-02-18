@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { Image } from "./style";
+import { Image } from "../../../../../styles";
 import { changeSliderImage } from "./changeSliderImage";
 import { UndefinedDirection } from "../types";
 

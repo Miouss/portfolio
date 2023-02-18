@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 import {
-  BackgroundLayer,
+  ProjectBackground,
   ProjectContainer,
   Content,
   Title,
@@ -20,7 +20,7 @@ import {
   PreviewButton,
   Project,
   SliderControls,
-} from "./style";
+} from "../../../../styles";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../redux";
 import { useState } from "react";
@@ -93,7 +93,7 @@ export default function ContentBuilder({
 
   return (
     <ProjectContainer>
-      <BackgroundLayer visible={showGallery}>
+      <ProjectBackground visible={showGallery}>
         <SliderImage
           triggerAnimDirection={triggerAnimDirection}
           imageUrl={imageUrl[0]}
@@ -115,7 +115,7 @@ export default function ContentBuilder({
           translationOffset={-100}
           setDisableButtons={setDisableButtons}
         />
-      </BackgroundLayer>
+      </ProjectBackground>
       <Content aspectratio={showGallery ? "16/9" : "unset"}>
         <SliderControls visible={showGallery}>
           <HidePreviewButton onClick={() => setShowGallery(false)}>

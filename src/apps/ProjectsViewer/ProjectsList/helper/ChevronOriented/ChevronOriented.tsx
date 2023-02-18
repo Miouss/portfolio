@@ -1,5 +1,5 @@
 import { Dispatch, ReactNode } from "react";
-import { Chevron } from "./style";
+import { Chevron } from "../../../../../styles";
 import { Direction, UndefinedDirection } from "../types";
 
 interface Props {

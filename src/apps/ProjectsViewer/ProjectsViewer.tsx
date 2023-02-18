@@ -1,4 +1,4 @@
-import { ProjetPreviewApp } from "./style";
+import { ProjetPreviewApp } from "../../styles";
 
 import LolMood from "./ProjectsList/LolMood";
 import Portfolio from "./ProjectsList/Portfolio";
