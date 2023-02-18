@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, Dispatch, SetStateAction, useState } from "react";
 import { getFormattedText, mimicWindowsTerminal } from "../../utils";
-import { useLangContext } from "../";
+import { useLangContext } from "..";
 import { langs } from "../../assets";
 
 export default function useTerminalCommands(

@@ -5,11 +5,11 @@ export { default as useMinimizedEffect } from "./Applications/useMinimizedEffect
 export { default as useWindowMovingEffect } from "./Applications/useWindowMovingEffect";
 export { default as useWindowResizingPointersEvents } from "./Applications/useWindowResizingPointersEvents";
 
-// Contents
-export { default as useAudioFile } from "./Contents/useAudioFile";
-export { default as useAutoScrollOnOverflow } from "./Contents/useAutoScrollOnOverflow";
-export { default as useSpecialKeyHandler } from "./Contents/useSpecialKeyHandler";
-export { default as useTerminalCommands } from "./Contents/useTerminalCommands";
+// Apps
+export { default as useAudioFile } from "./Apps/useAudioFile";
+export { default as useAutoScrollOnOverflow } from "./Apps/useAutoScrollOnOverflow";
+export { default as useSpecialKeyHandler } from "./Apps/useSpecialKeyHandler";
+export { default as useTerminalCommands } from "./Apps/useTerminalCommands";
 
 // Desktop
 export { default as useContextMenuActions } from "./Desktop/useContextMenuActions";
