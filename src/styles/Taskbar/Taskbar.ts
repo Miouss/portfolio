@@ -1,7 +1,8 @@
 import styled from "@mui/system/styled";
 
 export const Taskbar = styled("section")({
-  position: "relative",
+  position: "absolute",
+  bottom: "0px",
   display: "flex",
   color: "white",
   width: "100%",
