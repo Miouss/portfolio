@@ -1,4 +1,4 @@
-import { styled } from "@mui/material";
+import styled from "@mui/system/styled";
 
 export const Taskbar = styled("section")({
   position: "relative",
