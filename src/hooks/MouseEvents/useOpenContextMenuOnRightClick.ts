@@ -9,7 +9,7 @@ export default function useOpenContextMenuOnRightClick(
   useEffect(() => {
     if (state || !refContainer.current) return;
 
-    const open = (e) => {
+    const open = (e: MouseEvent) => {
       e.stopPropagation();
       e.preventDefault();
       document.dispatchEvent(new Event("click")); // trigger others menu's click away hook

@@ -1,4 +1,4 @@
-import { styled } from "@mui/styles";
+import styled from "@mui/system/styled";
 
 export const DateBox = styled("section")({
   display: "flex",

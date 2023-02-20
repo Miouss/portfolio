@@ -1,6 +1,6 @@
 import {
   ShortcutDesktopIcon,
-  getShortcutGridPostion,
+  getShortcutGridPosition,
   getShortcutLink,
 } from "../../Applications/Window/Contents/list";
 import {
@@ -29,7 +29,7 @@ export default function ShortcutApp({ appName }: Props) {
     };
   };
 
-  const gridPosition = getShortcutGridPostion(appName);
+  const gridPosition = getShortcutGridPosition(appName);
 
   return (
     <GridAppContainer
@@ -37,7 +37,7 @@ export default function ShortcutApp({ appName }: Props) {
       onDoubleClick={() => window.open(urlRedirect!, "_blank")}
       onClick={handleClick}
       style={{
-        gridColumn: gridPosition.column,
+        gridColumn: gridPosition.col,
         gridRow: gridPosition.row,
       }}
     >

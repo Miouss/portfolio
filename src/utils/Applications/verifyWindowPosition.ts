@@ -1,4 +1,4 @@
-export default function verifyWindowPosition(newWindowPos) {
+export default function verifyWindowPosition(newWindowPos: DOMRect) {
   const defaultPadding = 8;
   const coeff = 0.5; // set the % of the window that can be outside the screen
 

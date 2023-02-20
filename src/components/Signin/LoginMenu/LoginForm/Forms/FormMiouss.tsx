@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {Miouss, langs} from "../../../../../assets";
+import {Miouss, langs, ArrowForwardIcon} from "../../../../../assets";
 import {
   InputButton,
   LoginFormError,
@@ -8,7 +8,6 @@ import {
 } from "../../../../../styles";
 import LoginFormHelper from "../helper/LoginFormHelper";
 
-import ArrowForward from "@mui/icons-material/ArrowForward";
 import { Box } from "@mui/material";
 
 import { useLangContext } from "../../../../../hooks";
@@ -22,19 +21,19 @@ export default function FormMiouss() {
 
   const { lang } = useLangContext();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setCssAnim(true);
     setShowPasswordHint(true);
   };
 
-  const handleKeyPressed = (event) => {
-    event.preventDefault();
+  const handleKeyPressed = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
 
-    event.target.value = event.target.value.slice(0, -1);
+    e.currentTarget.value = e.currentTarget.value.slice(0, -1);
 
-    if (event.nativeEvent.inputType === "deleteContentBackward") return;
-    event.target.value += "●";
+    if ((e.nativeEvent as unknown as InputEvent).inputType === "deleteContentBackward") return;
+    e.currentTarget.value += "●";
   };
 
   return (
@@ -49,7 +48,7 @@ export default function FormMiouss() {
           onAnimationEnd={() => setCssAnim(false)}
           endAdornment={
             <InputButton type="submit">
-              <ArrowForward />
+              <ArrowForwardIcon />
             </InputButton>
           }
         ></LoginFormInput>

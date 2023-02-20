@@ -2,13 +2,19 @@ import { MenuList, MenuItem, Popper } from "@mui/material";
 import { ClickAwayListener } from "@mui/base";
 import { closeApp, minimizeApp, useAppDispatch } from "../../../../../redux";
 
-import CloseIcon from "@mui/icons-material/Close";
-import MinimizeIcon from "@mui/icons-material/Minimize";
+import { CloseIcon, MinimizeIcon } from "../../../../../assets";
 
 import { langs } from "../../../../../assets";
 import { useLangContext } from "../../../../../hooks";
+import { Dispatch, SetStateAction } from "react";
 
-export default function ContextMenu({ anchorEl, setAnchorEl, appName }) {
+interface Props {
+  anchorEl: HTMLElement | null;
+  setAnchorEl: Dispatch<SetStateAction<HTMLElement | null>>;
+  appName: string;
+}
+
+export default function ContextMenu({ anchorEl, setAnchorEl, appName }: Props) {
   const { lang } = useLangContext();
   const dispatch = useAppDispatch();
 
@@ -20,9 +26,9 @@ export default function ContextMenu({ anchorEl, setAnchorEl, appName }) {
     setAnchorEl(null);
   };
 
-  const handlePointerOver = (event) => {
-    event.target.style.backgroundColor =
-      event.type === "pointerover" ? onOverBgColor : defaultBgColor;
+  const handlePointerOver = (e: React.PointerEvent<HTMLLIElement>) => {
+    (e.target as HTMLLIElement).style.backgroundColor =
+      e.type === "pointerover" ? onOverBgColor : defaultBgColor;
   };
 
   const itemListStyle = {

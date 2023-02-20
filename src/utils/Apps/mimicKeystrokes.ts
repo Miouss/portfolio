@@ -4,11 +4,11 @@ export default async function mimicKeystrokes(
   txt: string,
   currentRef: HTMLElement,
   textRefKey: "value" | "textContent"
-) {
+): Promise<void> {
   let stopKeyPressed = false;
   let rerunKeyPressed = false;
 
-  const handleKeydown = (e) => {
+  const handleKeydown = (e: KeyboardEvent) => {
     e.preventDefault();
     if (e.key === "Escape") stopKeyPressed = true;
     if (e.key === "Rerun") rerunKeyPressed = true;
@@ -28,9 +28,9 @@ export default async function mimicKeystrokes(
         txt = "";
       }
 
-      currentRef[textRefKey] += blockText;
+      (currentRef as any)[textRefKey] += blockText;
     } else {
-      currentRef[textRefKey] += txt[0];
+      (currentRef as any)[textRefKey] += txt[0];
     }
   }
 

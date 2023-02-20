@@ -12,7 +12,7 @@ export const LangDispatchContext = createContext<
   Dispatch<SetStateAction<LanguageProp>>
 >((lang) => lang);
 
-export function LangProvider({ children }) {
+export function LangProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLang] = useState<LanguageProp>("fr");
 
   return (

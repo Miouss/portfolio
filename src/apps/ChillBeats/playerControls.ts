@@ -47,7 +47,7 @@ export const skipBack = (
   else setTrack(track - 1);
 };
 
-export const skipForward = (track, setTrack, trackList) => {
+export const skipForward = (track: number, setTrack: Dispatch<SetStateAction<number>>, trackList: string[]) => {
   if (track === trackList.length - 1) setTrack(0);
   else setTrack(track + 1);
 };

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { focusApp, openApp, useAppDispatch } from "../../../redux";
 import {
   AppDesktopIcon,
-  getAppGridPostion,
+  getAppGridPosition,
 } from "../../Applications/Window/Contents/list";
 import {
   BackgroundColorLayer,
@@ -42,7 +42,7 @@ export default function NormalApp({ appName }: Props) {
     };
   };
 
-  const gridPosition = getAppGridPostion(appName);
+  const gridPosition = getAppGridPosition(appName);
 
   return (
     <GridAppContainer
@@ -51,7 +51,7 @@ export default function NormalApp({ appName }: Props) {
       onClick={handleClick}
       onDoubleClick={handleDbCLick}
       style={{
-        gridColumn: gridPosition.column,
+        gridColumn: gridPosition.col,
         gridRow: gridPosition.row,
       }}
     >

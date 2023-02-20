@@ -82,8 +82,8 @@ export default function TerminalApp({ mode }: Props) {
     setBlink(!blink);
   }, []);
 
-  const keyHandler = (event) => {
-    event.preventDefault();
+  const keyHandler = (e: KeyboardEvent) => {
+    e.preventDefault();
 
     if (mode)
       return ((
@@ -92,11 +92,11 @@ export default function TerminalApp({ mode }: Props) {
 
     let textContentRef = terminalAppContentRef.current!.lastChild!.textContent;
 
-    if (event.key.length === 1)
+    if (e.key.length === 1)
       return (terminalAppContentRef.current!.lastChild!.textContent +=
-        event.key);
+        e.key);
 
-    switch (event.key) {
+    switch (e.key) {
       case "Enter":
         setCommandHistory((prev: string[]) => [
           ...prev,

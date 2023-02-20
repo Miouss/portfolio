@@ -3,11 +3,7 @@ import { focusApp, minimizeApp, useAppDispatch } from "../../../../redux";
 
 import { AppTaskIcon } from "../../../Applications/Window/Contents/list";
 import ContextMenu from "./ContextMenu/ContextMenu";
-import {
-  AppIconBox,
-  AppUnderline,
-  AppTaskContainer,
-} from "../../../../styles";
+import { AppIconBox, AppUnderline, AppTaskContainer } from "../../../../styles";
 import { useAppStatus } from "../../../../hooks";
 
 interface Props {
@@ -26,8 +22,8 @@ export default function AppbarItem({ appName }: Props) {
     isFocused ? dispatch(minimizeApp(appName)) : dispatch(focusApp(appName));
   };
 
-  const handleDocumentContextMenu = (event) => {
-    event.preventDefault();
+  const handleDocumentContextMenu = (e: MouseEvent) => {
+    e.preventDefault();
     setAnchorEl(null);
   };
 
@@ -35,16 +31,10 @@ export default function AppbarItem({ appName }: Props) {
     if (!!anchorEl) {
       setContextmenu(true);
 
-      document.addEventListener(
-        "contextmenu",
-        (event) => handleDocumentContextMenu(event),
-        true
-      );
+      document.addEventListener("contextmenu", handleDocumentContextMenu, true);
       return () => {
         setContextmenu(false);
-        document.removeEventListener("contextmenu", (event) =>
-          handleDocumentContextMenu(event)
-        );
+        document.removeEventListener("contextmenu", handleDocumentContextMenu);
       };
     }
   }, [anchorEl]);

@@ -8,7 +8,7 @@ export default function useCloseOnClick(
   useEffect(() => {
     if (!state || !refContainer.current) return;
 
-    const close = (e) => {
+    const close = () => {
       setState(false);
     };
 

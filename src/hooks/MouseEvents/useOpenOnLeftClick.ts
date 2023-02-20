@@ -8,7 +8,7 @@ export default function useOpenOnLeftClick(
   useEffect(() => {
     if (state || !refContainer.current) return;
 
-    const open = (e) => {
+    const open = (e: MouseEvent) => {
       e.stopImmediatePropagation();
       document.dispatchEvent(new Event("click")); // trigger others menu's click away hook
       setState(true);

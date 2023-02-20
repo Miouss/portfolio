@@ -39,7 +39,7 @@ export default function PopOverMenu({ displayPopOverMenu }: Props) {
     setDisplayAction(false);
   };
 
-  const handleClick = (e, lock?: "lock") => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, lock?: "lock") => {
     e.stopPropagation();
     return displayAction ? setIsLogged(lock ?? false) : setDisplayAction(true);
   };
@@ -66,7 +66,7 @@ export default function PopOverMenu({ displayPopOverMenu }: Props) {
       onMouseLeave={handleMouseLeave}
     >
       <PopOverMenuHeaderBox
-        onClick={(e) => {
+        onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
           e.stopPropagation();
           setDisplayAction(!displayAction);
         }}
@@ -80,7 +80,7 @@ export default function PopOverMenu({ displayPopOverMenu }: Props) {
         </PopOverMenuHeaderLabel>
       </PopOverMenuHeaderBox>
       <PopOverMenuItem
-        onClick={(e) => handleClick(e, "lock")}
+        onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleClick(e, "lock")}
         onMouseEnter={handleMouseEnter}
       >
         <PopOverMenuItemIcon>

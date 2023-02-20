@@ -63,20 +63,21 @@ LoginFormInput.defaultProps = {
   disableUnderline: true,
 };
 
-export const InputButton = styled(Button)({
+export const InputButton = styled(Button)({  
   "& > *": {
     color: "white",
+    fontSize: "1.50rem",
   },
   "&:hover": {
     cursor: "default",
   },
 
   background: "rgba(211,211,211, 0.3) !important",
-  borderLeft: "1px solid black",
   borderRadius: "0",
 });
 
-export const LoginFormLoadingContainer = styled(Stack)({
+export const LoginFormLoadingContainer = styled("div")({
+  display: "flex",
   width: "100%",
   justifyContent: "center",
   alignItems: "center",
@@ -86,11 +87,9 @@ export const LoginFormLoadingContainer = styled(Stack)({
   cursor: "default",
 });
 
-LoginFormLoadingContainer.defaultProps = {
-  direction: "row",
-};
-
-export const LoginFormError = styled(Stack)({
+export const LoginFormError = styled("div")({
+  display: "flex",
+  flexDirection: "column",
   paddingTop: "10px",
   color: "white",
   gap: "7px",

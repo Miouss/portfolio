@@ -29,22 +29,16 @@ export default function BarButtonGroup({ appName, refAppWindow }: Props) {
 
   const dispatch = useAppDispatch();
 
-  const handlePointerEvent = (event) => {
-    if (event === "pointerEnter") {
-      return event.type === 1
-        ? setPointerWasDown(true)
-        : setPointerWasDown(false);
-    }
-
-    if (!pointerWasDown) return event.stopPropagation();
+  const handlePointerEvent = (e: React.PointerEvent<HTMLDivElement>) => {
+    e.stopPropagation();
   };
 
   return (
     <BarButtonGroupContainer
       color="inherit"
-      onPointerEnter={(event) => handlePointerEvent(event)}
-      onPointerDown={(event) => handlePointerEvent(event)}
-      onDoubleClick={(event) => event.stopPropagation()}
+      onPointerEnter={handlePointerEvent}
+      onPointerDown={handlePointerEvent}
+      onDoubleClick={handlePointerEvent}
     >
       <Button onClick={() => dispatch(minimizeApp(appName))}>
         <MinimizeIcon />

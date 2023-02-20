@@ -19,7 +19,7 @@ export default function ContextMenu({
     <TaskbarContextMenuPop
       mouseX={mousePosition.x}
       mouseY={mousePosition.y}
-      onMouseDown={(e) => e.stopPropagation()}
+      onMouseDown={(e: React.MouseEvent) => e.stopPropagation()}
     >
       <MenuList>
         <MenuItem onClick={() => setIsLogged(false)}>

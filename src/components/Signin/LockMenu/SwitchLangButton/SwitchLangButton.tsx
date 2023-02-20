@@ -5,7 +5,7 @@ import { useLangContext } from "../../../../hooks";
 export default function SwitchLangButton() {
   const { lang, setLang } = useLangContext();
 
-  const switchLang = (e) => {
+  const switchLang = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
     setLang((lang: LanguageProp) => (lang === "fr" ? "eng" : "fr"));
   };

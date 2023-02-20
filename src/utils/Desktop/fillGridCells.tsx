@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 import {
-  getAppGridPostion,
-  getShortcutGridPostion,
+  getAppGridPosition,
+  getShortcutGridPosition,
 } from "../../components/Applications/Window/Contents/list";
 import NormalApp from "../../components/Desktop/GridApp/GridAppWindow";
 import ShortcutApp from "../../components/Desktop/GridApp/GridAppShortcut";
@@ -20,7 +20,7 @@ export const fillAppCells = (
   appsName: string[],
   desktopApp: Array<ReactElement>,
   currentGridPosition: GridPosition,
-  getGridPostion: typeof getAppGridPostion | typeof getShortcutGridPostion,
+  getGridPosition: typeof getAppGridPosition | typeof getShortcutGridPosition,
   AppContainer: typeof NormalApp | typeof ShortcutApp
 ) => {
   appsName.forEach((appName, index) => {
@@ -28,7 +28,7 @@ export const fillAppCells = (
       desktopApp,
       appName,
       currentGridPosition,
-      getGridPostion(appName)
+      getGridPosition(appName)
     );
 
     desktopApp.push(
@@ -41,12 +41,12 @@ export const fillEmptyCell = (
   desktopApp: Array<ReactElement>,
   appName: string,
   currentGridPosition: GridPosition,
-  gridPostion: GridPosition
+  gridPosition: GridPosition
 ) => {
   // While the current cell is not the same as the cell of the app, add empty cell
   while (
-    gridPostion.col !== currentGridPosition.col ||
-    gridPostion.row !== currentGridPosition.row
+    gridPosition.col !== currentGridPosition.col ||
+    gridPosition.row !== currentGridPosition.row
   ) {
     desktopApp.push(
       <DesktopEmptyGridItem

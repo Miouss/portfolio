@@ -7,7 +7,7 @@ export default function useCloseOnClickAway(
   useEffect(() => {
     if (!state) return;
 
-    const close = (e) => {
+    const close = () => {
       setState(false);
     };
 

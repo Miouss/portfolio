@@ -22,8 +22,8 @@ import {
 import { AppList, ShortcutList } from "./types";
 import { useLangContext } from "../../../../hooks";
 
-let appList = {} as AppList[];
-let shortcutList = {} as ShortcutList[];
+let appList: AppList = {};
+let shortcutList: ShortcutList = {};
 
 addApp(
   "Terminal",
@@ -84,7 +84,7 @@ addApp(
 addShortcut(
   "CV",
   <CVLogo />,
-  `${process.env.PUBLIC_URL}/Samir-Ghabi_CV.pdf`,
+  `./Samir-Ghabi_CV.pdf`,
   1,
   5,
   "Télécharger mon CV",
@@ -118,23 +118,23 @@ export function AppComponent({ name }: Props) {
 }
 
 export function AppDesktopIcon({ name }: Props) {
-  return appList[name].icon.desktop;
+  return appList[name].icon.desktop!;
 }
 
 export function AppWindowIcon({ name }: Props) {
-  return appList[name].icon.application;
+  return appList[name].icon.application!;
 }
 
 export function AppTaskIcon({ name }: Props) {
-  return appList[name].icon.task;
+  return appList[name].icon.task!;
 }
 
 export function AppNotifIcon({ name }: Props) {
-  return appList[name].icon.notif;
+  return appList[name].icon.notif!;
 }
 
-export function getAppGridPostion(appName: string) {
-  return appList[`${appName}`].gridPostion;
+export function getAppGridPosition(appName: string) {
+  return appList[`${appName}`].gridPosition;
 }
 
 export function getAllAppsName() {
@@ -147,15 +147,15 @@ export function getAllAppsName() {
 export function AppAction({ name }: Props) {
   const { lang } = useLangContext();
 
-  return appList[name].action[lang];
+  return <span>{appList[name].action[lang]!}</span>;
 }
 
 export function ShortcutDesktopIcon({ name }: Props) {
   return shortcutList[name].icon;
 }
 
-export function getShortcutGridPostion(shortcutName: string) {
-  return shortcutList[`${shortcutName}`].gridPostion;
+export function getShortcutGridPosition(shortcutName: string) {
+  return shortcutList[`${shortcutName}`].gridPosition;
 }
 
 export function getShortcutLink(shortcutName: string) {
@@ -165,7 +165,7 @@ export function getShortcutLink(shortcutName: string) {
 export function ShortcutAction({ name }: Props) {
   const { lang } = useLangContext();
 
-  return shortcutList[name].action[lang];
+  return <span>{shortcutList[name].action[lang]}</span>;
 }
 
 export function getAllShortcutsName() {
@@ -193,11 +193,10 @@ function addApp(
       task: Logo,
       notif: Logo,
     },
-    gridPostion: {
-      col: col,
-      row: row,
+    gridPosition: {
+      col: col ?? 0,
+      row: row ?? 0,
     },
-
     action: {
       fr: actionFr,
       eng: actionEng,
@@ -219,7 +218,7 @@ function addShortcut(
     name: shortcutName,
     link: link,
     icon: Icon,
-    gridPostion: {
+    gridPosition: {
       col: col,
       row: row,
     },

@@ -3,7 +3,7 @@ import { Coordinates, PointerOffsetRelative, WindowSize } from "../../types";
 
 
 export default function rememberWindowPosition(
-  event: MouseEvent,
+  event: React.PointerEvent<HTMLDivElement>,
   currentResizableDivRef: HTMLDivElement,
   setOriginalWindowOffset: Dispatch<SetStateAction<Coordinates | null>>,
   setPointerOffsetRelative: Dispatch<

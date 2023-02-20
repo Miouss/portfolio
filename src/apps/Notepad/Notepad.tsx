@@ -56,7 +56,7 @@ export default function Notepad({ appName }: { appName: string }) {
 
   useEffect(() => {
     if (contextMenuTarget && dropDownMenuRef.current) {
-      const eventCallback = (e) => {
+      const eventCallback = () => {
         setContextMenuTarget(null);
         setDropDownMenuContent(null);
       };
@@ -78,14 +78,14 @@ export default function Notepad({ appName }: { appName: string }) {
     setDropDownMenuContent(content);
   };
 
-  const switchDropDownMenuParent = (e, content: DropDownMenuContent) => {
+  const switchDropDownMenuParent = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, content: DropDownMenuContent) => {
     if (contextMenuTarget && contextMenuTarget !== e.currentTarget) {
       setContextMenuTarget(e.currentTarget);
       setDropDownMenuContent(content);
     }
   };
 
-  const exitFct = (e?) => {
+  const exitFct = (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e?.stopPropagation();
     dispatch(closeApp(appName));
   };

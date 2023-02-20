@@ -65,14 +65,14 @@ export default function AppWindow({ appName, minWidth, minHeight }: Props) {
 
   const [dynamicStyle, setDynamicStyle] = useState<CSSProperties>({});
 
-  const handlePointerMove = (event) => {
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     if (isFullscreen) return;
 
     if (pointerPressed) {
       if (cursor === "default") return;
 
       const currentWidth = resizeWindow(
-        event,
+        e,
         resizableDivRef.current!,
         pointerPosition,
         originalWindowOffset!,
@@ -90,7 +90,7 @@ export default function AppWindow({ appName, minWidth, minHeight }: Props) {
     }
 
     monitoringPointerMovingUnpressed(
-      event,
+      e,
       resizableDivRef.current!,
       setCursor,
       cursor,
@@ -98,11 +98,11 @@ export default function AppWindow({ appName, minWidth, minHeight }: Props) {
     );
   };
 
-  const handlePointerDown = (event) => {
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     dispatch(focusApp(appName));
 
     rememberWindowPosition(
-      event,
+      e,
       resizableDivRef.current!,
       setOriginalWindowOffset,
       setPointerOffsetRelative,
@@ -158,10 +158,8 @@ export default function AppWindow({ appName, minWidth, minHeight }: Props) {
       style={{
         ...dynamicStyle,
       }}
-      onPointerMove={(event) => {
-        handlePointerMove(event);
-      }}
-      onPointerDown={(event) => handlePointerDown(event)}
+      onPointerMove={handlePointerMove}
+      onPointerDown={handlePointerDown}
       onPointerUp={() => setPointerPressed(false)}
     >
       <MovableBar appName={appName} />

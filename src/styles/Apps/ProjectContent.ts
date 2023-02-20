@@ -2,7 +2,7 @@ import styled from "@mui/system/styled";
 import { UndefinedBoolean } from "../../types";
 
 const fontSizeResponsive = {
-  shouldForwardProp: (prop) => prop !== "fsresp",
+  shouldForwardProp: (prop: unknown) => prop !== "fsresp",
 };
 
 interface ResponsiveFontSize {

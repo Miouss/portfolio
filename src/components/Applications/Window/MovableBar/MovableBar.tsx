@@ -24,8 +24,8 @@ export default function MovableBar({ appName }: Props) {
 
   const { isFullscreen } = useAppStatus(appName);
 
-  const handlePointerDown = (event) => {
-    event.stopPropagation();
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    e.stopPropagation();
     dispatch(focusApp(appName));
     setMouseIsPressed(true);
   };
@@ -41,9 +41,9 @@ export default function MovableBar({ appName }: Props) {
     <MovableBarContainer
       ref={windowBarRef}
       style={{ cursor: "default" }}
-      onPointerDown={(event) => handlePointerDown(event)}
-      onDoubleClick={(event) => {
-        event.stopPropagation();
+      onPointerDown={handlePointerDown}
+      onDoubleClick={(e) => {
+        e.stopPropagation();
         dispatch(toggleFullscreenApp(appName));
         setMouseIsPressed(false);
       }}

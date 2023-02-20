@@ -7,7 +7,7 @@ export default function useCloseOnMouseDown(
   useEffect(() => {
     if (!state) return;
 
-    const close = (e) => {
+    const close = (e: MouseEvent) => {
       e.stopImmediatePropagation();
       setState(false);
     };

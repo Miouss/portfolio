@@ -2,8 +2,8 @@ import { ReactElement, useEffect, useState } from "react";
 import {
   getAllAppsName,
   getAllShortcutsName,
-  getAppGridPostion,
-  getShortcutGridPostion,
+  getAppGridPosition,
+  getShortcutGridPosition,
 } from "../../components/Applications/Window/Contents/list";
 import ShortcutApp from "../../components/Desktop/GridApp/GridAppShortcut";
 import NormalApp from "../../components/Desktop/GridApp/GridAppWindow";
@@ -27,7 +27,7 @@ export default function useGridCells() {
       appsName,
       cells,
       currentGridPosition,
-      getAppGridPostion,
+      getAppGridPosition,
       NormalApp
     );
 
@@ -35,7 +35,7 @@ export default function useGridCells() {
       shortcutsName,
       cells,
       currentGridPosition,
-      getShortcutGridPostion,
+      getShortcutGridPosition,
       ShortcutApp
     );
 

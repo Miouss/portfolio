@@ -8,11 +8,11 @@ export default function useWindowResizingPointersEvents(
   originalWindowSize: WindowSize | null,
   pointerPressed: boolean,
   setPointerPressed: Dispatch<SetStateAction<boolean>>,
-  handlePointerMove: (event: PointerEvent) => void
+  handlePointerMove: (event: React.PointerEvent<HTMLDivElement>) => void
 ) {
   useEffect(() => {
     if (pointerPressed) {
-      document.onpointermove = (event) => handlePointerMove(event);
+      document.onpointermove = (e) => handlePointerMove(e as unknown as React.PointerEvent<HTMLDivElement>);
       document.onpointerup = () => setPointerPressed(false);
 
       return () => {

@@ -21,19 +21,19 @@ export default function useWindowMovingEffect(
     const refOffsetParent = currentWindowBarRef.offsetParent;
     const refStyle = refOffsetParent.style;
 
-    const handleMouseMovement = (event): void => {
-      event.preventDefault();
+    const handleMouseMovement = (e:PointerEvent) => {
+      e.preventDefault();
       if (mouseIsPressed) {
-        refStyle.left = refOffsetParent.offsetLeft + event.movementX + "px";
-        refStyle.top = refOffsetParent.offsetTop + event.movementY + "px";
+        refStyle.left = refOffsetParent.offsetLeft + e.movementX + "px";
+        refStyle.top = refOffsetParent.offsetTop + e.movementY + "px";
       }
     };
 
     if (mouseIsPressed && !isFullscreen) {
       document.onpointerup = () => setMouseIsPressed(false);
-      document.onpointermove = (event) => {
-        event.stopPropagation();
-        handleMouseMovement(event);
+      document.onpointermove = (e) => {
+        e.stopPropagation();
+        handleMouseMovement(e);
       };
 
       return () => {
@@ -48,12 +48,12 @@ export default function useWindowMovingEffect(
             top: refOffsetParent.offsetTop + "px",
           });
         }
-        document.onpointerup = (event) => {
-          event.preventDefault();
+        document.onpointerup = (e) => {
+          e.preventDefault();
         };
 
-        document.onpointermove = (event) => {
-          event.preventDefault();
+        document.onpointermove = (e) => {
+          e.preventDefault();
         };
       };
     }

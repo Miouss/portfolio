@@ -26,14 +26,14 @@ export default function AppNotif({ appName }: Props) {
 
   const { isFocused, isMinimized } = useAppStatus(appName);
 
-  const handleClick = (e) => {
+  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
     if (openContextMenu) setOpenContextMenu(false);
     if (isVisible) dispatch(minimizeApp(appName));
     else dispatch(focusApp(appName));
   };
 
-  const handleContextMenuClick = (e) => {
+  const handleContextMenuClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.preventDefault();
     setOpenContextMenu(!openContextMenu);
   };
@@ -80,7 +80,7 @@ export default function AppNotif({ appName }: Props) {
 
   return (
     <>
-      <NotifWindow visible={isVisible} onClick={(e) => e.stopPropagation()}>
+      <NotifWindow visible={isVisible} onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => e.stopPropagation()}>
         <AppComponent name={appName} />
       </NotifWindow>
 

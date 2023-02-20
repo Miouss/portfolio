@@ -1,7 +1,10 @@
+import { ThunkDispatch, AnyAction, Dispatch, ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { RunningApp } from "../../redux";
+
 export default function checkResponsiveness(
-  currentWidth,
-  dispatch,
-  setWindowResponsiveFont
+  currentWidth: number | undefined,
+  dispatch: ThunkDispatch<{ apps: RunningApp[]; windowResponsiveFont: number; }, undefined, AnyAction> & Dispatch<AnyAction>,
+  setWindowResponsiveFont: ActionCreatorWithPayload<number, "windowResponsiveFont/setWindowResponsiveFont">
 ) {
   if(currentWidth === undefined) return;
   

@@ -6,15 +6,15 @@ export default function useSpecialKeyHandler(
 ) {
   useEffect(() => {
     let offSetParent: Element | undefined = undefined;
-    const eventCallback = (event) => keyHandler(event);
+    const eventCallback = (e: KeyboardEvent) => keyHandler(e);
 
     if (ref.current !== null) {
       offSetParent = ref.current.offsetParent!;
-      offSetParent.addEventListener("keydown", eventCallback);
+      offSetParent.addEventListener("keydown", eventCallback as EventListener);
     }
 
     return () => {
-      offSetParent?.removeEventListener("keydown", eventCallback);
+      offSetParent?.removeEventListener("keydown", eventCallback as EventListener);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyHandler]);

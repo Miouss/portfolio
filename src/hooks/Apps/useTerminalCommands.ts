@@ -4,6 +4,10 @@ import { getFormattedText, mimicWindowsTerminal } from "../../utils";
 import { useLangContext } from "..";
 import { langs } from "../../assets";
 
+type Directory = {
+  [key: string]: Directory;
+};
+
 export default function useTerminalCommands(
   ref: React.MutableRefObject<HTMLElement | null>,
   commandHistory: string[],
@@ -11,7 +15,7 @@ export default function useTerminalCommands(
   setCurrentDir: Dispatch<SetStateAction<string[]>>
 ) {
   const [isExiting, setIsExiting] = useState(false);
-  const currentDirTree = getCurrentDirTree(currentDir);
+  const currentDirTree: Directory = getCurrentDirTree(currentDir);
 
   const { lang } = useLangContext();
 
@@ -113,7 +117,7 @@ export default function useTerminalCommands(
   return isExiting;
 }
 
-function getDirTree() {
+function getDirTree(): Directory {
   return {
     "C:\\": {
       Users: {

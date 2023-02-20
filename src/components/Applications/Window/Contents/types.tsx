@@ -1,24 +1,39 @@
-interface GridPostion {
+interface GridPosition {
   col: number;
   row: number;
 }
 
 interface Icon {
-  desktop: React.ReactElement;
-  window: React.ReactElement;
-  task: React.ReactElement;
+  application?: React.ReactElement;
+  desktop?: React.ReactElement;
+  window?: React.ReactElement;
+  task?: React.ReactElement;
+  notif?: React.ReactElement;
 }
-
-export interface AppList {
+interface Action {
+  fr?: string;
+  eng?: string;
+}
+interface App {
   name: string;
   component: React.ReactElement;
   icon: Icon;
-  gridPostion: GridPostion;
+  gridPosition: GridPosition;
+  action: Action;
+  isSecret?: boolean;
+}
+export interface AppList {
+  [key: string]: App;
 }
 
-export interface ShortcutList {
+interface Shortcut {
   name: string;
   link: string;
   icon: React.ReactElement;
-  gridPostion: GridPostion;
+  gridPosition: GridPosition;
+  action: Action;
+}
+
+export interface ShortcutList {
+  [key: string]: Shortcut;
 }

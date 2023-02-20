@@ -36,7 +36,7 @@ import {
 
 import { ImMusic } from "react-icons/im";
 
-import { MdVisibility, MdVisibilityOff } from "react-icons/md";
+import { MdVisibility, MdVisibilityOff, MdArrowForward } from "react-icons/md";
 
 import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
 
@@ -45,8 +45,6 @@ import { FaLockOpen, FaLock, FaSignOutAlt } from "react-icons/fa";
 import { MdMenu, MdTranslate } from "react-icons/md";
 
 import { CgArrowsExchangeAlt } from "react-icons/cg";
-
-import { VscLoading, VscError } from "react-icons/vsc";
 
 import { BsCheck2 } from "react-icons/bs";
 
@@ -67,8 +65,11 @@ import {
   VscChromeMaximize,
   VscChromeRestore,
   VscChromeClose,
+  VscLoading,
+  VscError,
 } from "react-icons/vsc";
 
+export const ArrowForwardIcon = (style?: CSSProperties) => <MdArrowForward color="white" style={style} />;
 export const CloseIcon = () => <VscChromeClose />;
 export const MinimizeIcon = () => (
   <VscChromeMinimize style={{ transform: "translateY(20%)" }} />
@@ -319,10 +320,7 @@ export const reduxSVG = (
 );
 
 export const cssSVG = (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 48 48"
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
     <path fill="#0277BD" d="M41,5H7l3,34l14,4l14-4L41,5L41,5z" />
     <polygon fill="#039BE5" points="24,8 24,39.9 35.2,36.7 37.7,8 " />
     <polygon

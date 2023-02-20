@@ -7,7 +7,7 @@ import StartMenu from "./StartMenu/StartMenu";
 
 export default function DesktopTaskBar() {
   return (
-    <Taskbar onContextMenu={(e) => e.preventDefault()}>
+    <Taskbar onContextMenu={(e: React.MouseEvent) => e.preventDefault()}>
       <StartMenu />
       <Appbar />
       <Notifbar />

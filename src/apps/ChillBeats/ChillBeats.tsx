@@ -45,9 +45,8 @@ export default function ChillBeats({ appName }: { appName: string }) {
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState<number | "muted">(20);
-  const [volumeBeforeMute, setVolumeBeforeMute] = useState<number | undefined>(
-    undefined
-  );
+  const [volumeBeforeMute, setVolumeBeforeMute] =
+    useState<number | undefined>(undefined);
   const [track, setTrack] = useState(0);
   const [scrollWidth, setScrollWidth] = useState<number>(0);
 

@@ -3,7 +3,7 @@ import { switchCursor } from "../";
 import { PointerCursor, PointerPosition } from "../../types";
 
 export default function monitoringPointerMovingUnpressed(
-  event: PointerEvent,
+  event: React.PointerEvent<HTMLDivElement>,
   currentResizableDivRef: HTMLDivElement,
   setCursor: Dispatch<SetStateAction<PointerCursor>>,
   cursor: PointerCursor,
