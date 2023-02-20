@@ -33,11 +33,10 @@ import {
   RedirectIcon,
 } from "../../assets";
 
-import { UndefinedBoolean } from "../../types";
+import { UndefinedBoolean, UndefinedDirection } from "../../types";
 import SliderImage from "./ProjectsContentSliderImage";
 import ChevronOriented from "./ProjectsContentChevronOriented";
 import RedirectItem from "./ProjectsContentRedirectItem";
-import { UndefinedDirection } from "./utils";
 import { useLangContext } from "../../hooks";
 
 interface Tech {

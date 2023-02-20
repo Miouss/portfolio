@@ -1,6 +1,6 @@
 import { RunningApp } from "../../redux";
-import AppbarItem from "../../components/Taskbar/Appbar/AppbarItem/AppbarItem";
-import AppNotif from "../../components/Taskbar/Notifbar/AppNotif/AppNotif";
+import AppbarItem from "../../components/Taskbar/TaskbarAppbarItem";
+import AppNotif from "../../components/Taskbar/TaskbarNotifbarAppNotif";
 import { useState, useEffect } from "react";
 
 export default function useDynamicComponents(
