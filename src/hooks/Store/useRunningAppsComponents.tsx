@@ -1,7 +1,7 @@
 import { ReactElement, useEffect, useState } from "react";
 import { useRunningAppsNonNotif } from "../";
-import { AppComponent } from "../../components/Applications/Window/Contents/list";
-import AppWindow from "../../components/Applications/AppWindow";
+import { AppComponent } from "../../apps";
+import { AppWindow } from "../../components";
 
 export default function useRunningAppsComponents() {
   const [runningAppComponents, setRunningAppComponents] = useState<

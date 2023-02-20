@@ -4,9 +4,9 @@ import {
   getAllShortcutsName,
   getAppGridPosition,
   getShortcutGridPosition,
-} from "../../components/Applications/Window/Contents/list";
-import ShortcutApp from "../../components/Desktop/GridApp/GridAppShortcut";
-import NormalApp from "../../components/Desktop/GridApp/GridAppWindow";
+} from "../../apps";
+import ShortcutApp from "../../components/Desktop/DesktopGridAppShortcut";
+import NormalApp from "../../components/Desktop/DesktopGridAppWindow";
 import { fillAppCells } from "../../utils";
 
 export default function useGridCells() {

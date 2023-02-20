@@ -40,3 +40,19 @@ export type PointerCursor =
 
 export type Animation = "spawnWindow" | "fadeInWindow" | "fadeOutWindow";
 export type UndefinedBoolean = boolean | undefined;
+
+export type DynamicFontSize = "24px" | "16px" | "12px";
+
+export type DropDownMenuContent = "File" | "Edit" | "Format" | "Help" | null;
+
+export type MailSentProps = boolean | undefined | "sending";
+
+export interface BodyMessageProps {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
+export type UndefinedDirection = "left" | "right" | undefined;
+export type Direction = "left" | "right";

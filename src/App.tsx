@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AppGrid, Taskbar, Signin } from "./components";
+import { DesktopGrid, Taskbar, Signin } from "./components";
 import { IsLoggedProp } from "./types";
 import {
   useSignInWall,
@@ -27,7 +27,7 @@ export default function App() {
       {showDesktop && (
         <SessionContainer visible={isLogged === true}>
           {runningAppsComponents}
-          <AppGrid />
+          <DesktopGrid />
           <IsLoggedDispatchProvider dispatch={setIsLogged}>
             <Taskbar />
           </IsLoggedDispatchProvider>

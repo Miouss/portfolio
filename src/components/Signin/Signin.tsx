@@ -7,11 +7,11 @@ import {
   SigninContainer,
 } from "../../styles";
 import { LoginBackground } from "../../assets";
-import LoginForm from "./LoginMenu/LoginForm/LoginForm";
-import LoginSession from "./LoginMenu/LoginSession/LoginSession";
+import LoginForm from "./SigninLoginForm";
+import LoginSession from "./SigninLoginSession";
 import { Dispatch, SetStateAction, useRef } from "react";
-import LoginIconGroup from "./LoginMenu/LoginIconGroup/LoginIconGroup";
-import LockMenu from "./LockMenu/LockMenu";
+import LoginIconGroup from "./SigninLoginIconGroup";
+import LockMenu from "./SigninLockMenu";
 import { IsLoggedProp } from "../../types";
 import { IsLoggedProvider, LoginSessionSelectedProvider } from "../../hooks";
 

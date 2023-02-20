@@ -7,7 +7,7 @@ import {
   getAllAppsName,
   getAllShortcutsName,
   getShortcutLink,
-} from "../../components/Applications/Window/Contents/list";
+} from "../../apps";
 import { openApp, useAppDispatch } from "../../redux";
 import { useEffect, useState } from "react";
 

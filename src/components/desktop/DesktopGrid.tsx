@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { DesktopGridContainer } from "../../styles";
 
-import ContextMenu from "./ContextMenu/ContextMenu";
+import ContextMenu from "./DesktopGridContextMenu";
 import {
   useCloseOnClickAway,
   useOpenContextMenuOnRightClick,

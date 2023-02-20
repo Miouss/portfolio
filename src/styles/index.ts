@@ -1,47 +1,50 @@
 // Applications
-export * from "./Applications/AppWindow";
-export * from "./Applications/MovableBar";
-export * from "./Applications/BarButtonGroup";
+export * from "./Applications/Window";
+export * from "./Applications/WindowMovableBar";
+export * from "./Applications/WindowMovableBarButtonGroup";
 
 // Desktop
 export * from "./Desktop/DesktopGrid";
-export * from "./Desktop/GridApp";
-export * from "./Desktop/ContextMenu";
+export * from "./Desktop/DesktopGridApp";
+export * from "./Desktop/DesktopGridContextMenu";
 
 // Taskbar
 export * from "./Taskbar/Taskbar";
-export * from "./Taskbar/StartMenu";
-export * from "./Taskbar/PopOverMenu";
-export * from "./Taskbar/ContextMenuStartMenu";
-export * from "./Taskbar/Notifbar";
-export * from "./Taskbar/AppNotif";
-export * from "./Taskbar/ContextMenuAppNotif";
-export * from "./Taskbar/LangPref";
-export * from "./Taskbar/LangPrefItem";
-export * from "./Taskbar/DateTime";
-export * from "./Taskbar/Appbar";
-export * from "./Taskbar/AppbarItem";
+export * from "./Taskbar/TaskbarStartMenu";
+export * from "./Taskbar/TaskbarStartMenuPopOverMenu";
+export * from "./Taskbar/TaskbarStartMenuContextMenu";
+export * from "./Taskbar/TaskbarNotifbar";
+export * from "./Taskbar/TaskbarNotifbarAppNotif";
+export * from "./Taskbar/TaskbarNotifbarAppNotifContextMenu";
+export * from "./Taskbar/TaskbarLangPref";
+export * from "./Taskbar/TaskbarLangPrefItem";
+export * from "./Taskbar/TaskbarDateTime";
+export * from "./Taskbar/TaskbarAppbar";
+export * from "./Taskbar/TaskbarAppbarItem";
 
 // Signin
 export * from "./Signin/Signin";
 
 // Signin > LoginMenu
-export * from "./Signin/LoginMenu/LoginSession";
-export * from "./Signin/LoginMenu/LoginSessionHelper";
-export * from "./Signin/LoginMenu/LoginForm";
-export * from "./Signin/LoginMenu/LoginFormHelper";
-export * from "./Signin/LoginMenu/LoginIconGroup";
-export * from "./Signin/LoginMenu/LoginFormForms";
+export * from "./Signin/SigninLoginSession";
+export * from "./Signin/SigninLoginSessionHelper";
+export * from "./Signin/SigninLoginForm";
+export * from "./Signin/SigninLoginFormHelper";
+export * from "./Signin/SigninLoginIconGroup";
+export * from "./Signin/SigninLoginFormSamirMiouss";
 
 // Signin > LockMenu
-export * from "./Signin/LockMenu/FullDateDisplay";
-export * from "./Signin/LockMenu/LockMenu";
-export * from "./Signin/LockMenu/SwitchLangButton";
+export * from "./Signin/SigninLockMenuFullDateDisplay";
+export * from "./Signin/SigninLockMenu";
+export * from "./Signin/SigninLockMenuSwitchLangButton";
 
 // Apps
-export * from "./Apps/ChevronOriented";
-export * from "./Apps/ProjectContent";
-export * from "./Apps/ProjectsViewer";
-export * from "./Apps/RedirectItem";
-export * from "./Apps/SliderImage";
+export * from "./Apps/Projects";
+export * from "./Apps/ProjectsContent";
+export * from "./Apps/ProjectsContentChevronOriented";
+export * from "./Apps/ProjectsContentRedirectItem";
+export * from "./Apps/ProjectsContentSliderImage";
 export * from "./Apps/TerminalApp";
+export * from "./Apps/ChillBeats";
+export * from "./Apps/Notepad";
+export * from "./Apps/MailSender";

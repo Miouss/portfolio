@@ -13,6 +13,8 @@ export { default as getFormattedText} from "./Apps/getFormattedText";
 export { default as mimicKeystrokes} from "./Apps/mimicKeystrokes";
 export { default as mimicTyping} from "./Apps/mimicTyping";
 export { default as mimicWindowsTerminal} from "./Apps/mimicWindowsTerminal";
+export { default as changeSliderImage} from "./Apps/changeSliderImage";
+export * from "./Apps/playerControls";
 
 // Desktop
 export * from "./Desktop/fillGridCells";

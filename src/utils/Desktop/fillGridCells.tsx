@@ -2,9 +2,9 @@ import { ReactElement } from "react";
 import {
   getAppGridPosition,
   getShortcutGridPosition,
-} from "../../components/Applications/Window/Contents/list";
-import NormalApp from "../../components/Desktop/GridApp/GridAppWindow";
-import ShortcutApp from "../../components/Desktop/GridApp/GridAppShortcut";
+} from "../../apps";
+import NormalApp from "../../components/Desktop/DesktopGridAppWindow";
+import ShortcutApp from "../../components/Desktop/DesktopGridAppShortcut";
 import styled from "@mui/system/styled";
 
 interface GridPosition {
