@@ -16,7 +16,7 @@ export const LoginSessionSelectedDispatchContext = createContext<
 
 interface LoginSessionSelectedProviderProps {
   stateOnly?: boolean;
-  children: JSX.Element;
+  children: React.ReactNode;
 }
 export function LoginSessionSelectedProvider({
   stateOnly,

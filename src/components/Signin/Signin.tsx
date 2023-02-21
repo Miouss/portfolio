@@ -70,7 +70,6 @@ export default function Signin({
       <LoginContainer visible={isLogged !== "lock"}>
         <LoginBox>
           <LoginSessionSelectedProvider>
-            <>
               <IsLoggedProvider state={isLogged} dispatch={setIsLogged}>
                 <LoginForm />
               </IsLoggedProvider>
@@ -78,7 +77,6 @@ export default function Signin({
                 <LoginSession />
                 <LoginIconGroup />
               </LoginSubBox>
-            </>
           </LoginSessionSelectedProvider>
         </LoginBox>
       </LoginContainer>
