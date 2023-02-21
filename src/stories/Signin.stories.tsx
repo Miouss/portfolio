@@ -1,6 +1,8 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import { Signin } from "../components";
+import { useState } from "react";
+import { IsLoggedProp } from "../types";
 
 export default {
   title: "Signin",
@@ -11,9 +13,26 @@ const Template: ComponentStory<typeof Signin> = (args) => <Signin {...args} />;
 
 export const LoginMenu = Template.bind({});
 
-LoginMenu.args = {
-    isLogged: false,
-    setIsLogged: () => {},
-    setShowSignInWall: () => {},
-    setShowDesktop: () => {},
+LoginMenu.argTypes = {
+  isLogged: {
+    control: {
+      type: "radio",
+      options: ["lock", false, true],
+    },
+  },
+  setIsLogged: {
+    table: {
+      disable: true,
+    },
+  },
+  setShowSignInWall: {
+    table: {
+      disable: true,
+    },
+  },
+  setShowDesktop: {
+    table: {
+      disable: true,
+    },
+  },
 };
