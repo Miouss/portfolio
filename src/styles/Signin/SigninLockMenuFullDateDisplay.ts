@@ -14,9 +14,9 @@ export const FullDateBox = styled("div")({
 });
 
 export const FullDate = styled("div")({
-  fontSize: "4.4rem",
+  fontSize: "min(4.5vw, 4.5rem)",
 });
 
 export const FullTime = styled("div")({
-  fontSize: "6.5rem",
+  fontSize: "min(5.5vw, 5.5rem)",
 });
