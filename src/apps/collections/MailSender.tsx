@@ -123,6 +123,7 @@ export default function MailSender({ appName }: { appName: string }) {
           return;
         }
       }}
+      onKeyDown={(e) => {e.stopPropagation()}}
     >
       <MinimizeButton onClick={handleMinimize}>
         <MailMinimizeIcon />
