@@ -10,7 +10,6 @@ import {
 } from "./hooks";
 
 import styled from "@mui/system/styled";
-import { WindowsDesktopBackground } from "./assets";
 
 export default function App() {
   const [isLogged, setIsLogged] = useState<IsLoggedProp>(false);
@@ -48,14 +47,7 @@ export default function App() {
 
 const SessionContainer = styled("div", {
   shouldForwardProp: (prop) => prop !== "visible",
-})(({ visible }: { visible: boolean}) => ({
-  width: "100%",
-  height: "100%",
-
-  backgroundImage: `url(${WindowsDesktopBackground})`,
-  backgroundPosition: "76% 50%",
-  backgroundRepeat: "norepeat",
-  backgroundSize: "cover",
+})(({ visible }: { visible: boolean }) => ({
   visibility: visible ? "visible" : "hidden",
   transition: "visibility 1s",
 
