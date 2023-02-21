@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import Taskbar from "./Taskbar";
+import { Taskbar } from "../components";
 
 export default {
   title: "Taskbar",
