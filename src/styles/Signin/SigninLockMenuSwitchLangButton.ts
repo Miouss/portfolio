@@ -12,13 +12,11 @@ export const SwitchIconButton = styled("button")({
   border: "none",
   color: "white",
 
-  margin: "0 2rem 2rem 0",
+  margin: "0 min(5%, 2rem) min(5%, 2rem) 0",
   padding: "1rem",
+  fontSize: "min(3vw, 1.5rem)",
 
   "&:hover": {
     background: "rgba(255, 255, 255, 0.1)",
-  },
-  "& > *": {
-    fontSize: "2rem",
   },
 });

@@ -10,13 +10,13 @@ export const FullDateContainer = styled("div")({
 });
 
 export const FullDateBox = styled("div")({
-  padding: "0 0 4rem 2rem",
+  padding: "0 0 min(10%, 4rem) min(10%, 4rem)",
 });
 
 export const FullDate = styled("div")({
-  fontSize: "4.4rem",
+  fontSize: "min(4.5vw, 4.5rem)",
 });
 
 export const FullTime = styled("div")({
-  fontSize: "6.5rem",
+  fontSize: "min(5.5vw, 5.5rem)",
 });

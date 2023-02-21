@@ -1,5 +1,4 @@
 import styled from "@mui/system/styled";
-import { LoginBackground } from "../../assets";
 
 export const SigninContainer = styled("div", {
   shouldForwardProp: (prop) => prop !== "visible",
@@ -56,19 +55,19 @@ export const BackgroundLayer = styled("div", {
   shouldForwardProp: (prop) => prop !== "blurred",
 })(({ blurred }: { blurred: boolean }) => ({
   position: "absolute",
-  width: "100%",
-  height: "100%",
-  backgroundImage: `url(${LoginBackground})`,
+  width: "100vw",
+  height: "100vh",
   "& > *": {
+    height: "100%",
     width: "100%",
-    height: "auto",
+    objectFit: "cover",
   },
 
   ":before": {
     content: "''",
     position: "absolute",
-    width: "100%",
-    height: "100%",
+    width: "100vw",
+    height: "100vh",
     pointerEvents: "none",
     backdropFilter: blurred ? "blur(10px)" : "blur(0px)",
     transition: "backdrop-filter 0.5s",
