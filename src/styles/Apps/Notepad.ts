@@ -1,6 +1,7 @@
 import styled from "@mui/system/styled";
 
 import { DynamicFontSize } from "../../types";
+import { propsFilter } from "../propsFilter";
 
 export const NotepadContainer = styled("div")({
   display: "flex",
@@ -22,9 +23,10 @@ export const Toolbar = styled("section")({
 });
 
 //Toolbar >
-export const ToolbarButton = styled("button", {
-  shouldForwardProp: (prop) => prop !== "active",
-})(({ active }: { active: boolean }) => ({
+export const ToolbarButton = styled(
+  "button",
+  propsFilter("active")
+)(({ active }: { active: boolean }) => ({
   background: active ? "#CCE8FF" : "inherit",
   "&:hover": {
     background: !active && "#E5F3FF",
@@ -32,9 +34,10 @@ export const ToolbarButton = styled("button", {
 }));
 
 // XxxxxButton >
-export const DropDownMenu = styled("div", {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ open }: { open: boolean }) => ({
+export const DropDownMenu = styled(
+  "div",
+  propsFilter("open")
+)(({ open }: { open: boolean }) => ({
   position: "absolute",
   top: "100%",
   left: 0,
@@ -60,9 +63,10 @@ export const DropDownMenuButton = styled("button")({
   },
 });
 // NotepadContainer >
-export const TextInputArea = styled("textarea", {
-  shouldForwardProp: (prop) => prop !== "dynamicFontSize",
-})(({ dynamicFontSize }: { dynamicFontSize: DynamicFontSize }) => ({
+export const TextInputArea = styled(
+  "textarea",
+  propsFilter("dynamicFontSize")
+)(({ dynamicFontSize }: { dynamicFontSize: DynamicFontSize }) => ({
   flex: 1,
   overflow: "scroll !important",
   fontFamily: "inherit",

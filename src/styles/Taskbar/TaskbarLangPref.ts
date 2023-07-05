@@ -1,4 +1,5 @@
 import styled from "@mui/system/styled";
+import { propsFilter } from "../propsFilter";
 
 export const LangPrefContainer = styled("section")({
   position: "relative",
@@ -36,9 +37,10 @@ export const LangPrefCurrent = styled("h5")({
   margin: "0",
 });
 
-export const LangPrefPopOverMenu = styled("div", {
-  shouldForwardProp: (prop) => prop !== "visible",
-})(({ visible }: { visible: undefined | boolean }) => ({
+export const LangPrefPopOverMenu = styled(
+  "div",
+  propsFilter("visible")
+)(({ visible }: { visible: undefined | boolean }) => ({
   position: "absolute",
   top: 0,
   transform: "translateY(-100%)",
@@ -47,7 +49,6 @@ export const LangPrefPopOverMenu = styled("div", {
   border: "1px solid #3C3F43",
   borderBottom: "none",
   padding: "6px 0",
-
 
   display: "flex",
   flexDirection: "column-reverse",

@@ -1,4 +1,5 @@
 import styled from "@mui/system/styled";
+import { propsFilter } from "../propsFilter";
 
 export const TerminalAppContainer = styled("div")({
   background: "black !important",
@@ -7,9 +8,10 @@ export const TerminalAppContainer = styled("div")({
   overflow: "hidden",
 });
 
-export const TerminalAppContent = styled("div", {
-  shouldForwardProp: (prop) => prop !== "blink" && prop !== "notepad",
-})(({ blink, notepad }: { blink: boolean; notepad?: "notepad" }) => ({
+export const TerminalAppContent = styled(
+  "div",
+  propsFilter("blink", "notepad")
+)(({ blink, notepad }: { blink: boolean; notepad?: "notepad" }) => ({
   flex: 1,
   color: "white !important",
   background: "black !important",

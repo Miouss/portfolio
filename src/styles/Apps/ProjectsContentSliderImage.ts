@@ -1,4 +1,5 @@
 import styled from "@mui/system/styled";
+import { propsFilter } from "../propsFilter";
 
 const slideRightFromCenter = {
   "@keyframes center-to-right": {
@@ -66,9 +67,10 @@ const swipeLeftToRight = {
   },
 };
 
-export const Image = styled("div", {
-  shouldForwardProp: (prop) => prop !== "anim" && prop !== "translationOffset",
-})(
+export const Image = styled(
+  "div",
+  propsFilter("anim", "translationOffset")
+)(
   ({
     anim,
     translationOffset,

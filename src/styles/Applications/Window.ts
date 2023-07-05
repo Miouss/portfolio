@@ -1,14 +1,15 @@
 import styled from "@mui/system/styled";
+import { propsFilter } from "../propsFilter";
 
 interface Props {
   animationName: "spawnWindow" | "fadeInWindow" | "fadeOutWindow";
   zIndex: "1" | "2";
   cursor: string;
 }
-export const WindowContainer = styled("div", {
-  shouldForwardProp: (prop) =>
-    prop !== "animationName" && prop !== "zIndex" && prop !== "cursor",
-})(({ animationName, zIndex, cursor }: Props) => {
+export const WindowContainer = styled(
+  "div",
+  propsFilter("animationName", "zIndex", "cursor")
+)(({ animationName, zIndex, cursor }: Props) => {
   let correctAnimation: string;
 
   switch (animationName) {

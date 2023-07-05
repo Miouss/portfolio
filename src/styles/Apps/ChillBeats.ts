@@ -1,4 +1,5 @@
 import styled from "@mui/system/styled";
+import { propsFilter } from "../propsFilter";
 
 export const ChillBeatsContainer = styled("div")({
   position: "relative",
@@ -34,9 +35,10 @@ export const TrackTitleBox = styled("div")({
   overflow: "hidden !important",
 });
 
-export const TrackTitle = styled("h5", {
-  shouldForwardProp: (prop) => prop !== "translatePx",
-})(({ translatePx }: { translatePx: number }) => ({
+export const TrackTitle = styled(
+  "h5",
+  propsFilter("translatePx")
+)(({ translatePx }: { translatePx: number }) => ({
   color: "white",
   margin: 0,
   padding: 0,
@@ -119,10 +121,10 @@ const rangeThumbStyle = {
   background: "#0078D7",
 };
 
-export const VolumeSlider = styled("input", {
-  // Colorbreak is to handle color difference in volume slider on Chrome/Safari
-  shouldForwardProp: (prop) => prop !== "colorBreak",
-})(({ colorBreak }: { colorBreak: number }) => ({
+export const VolumeSlider = styled(
+  "input",
+  propsFilter("colorBreak")
+)(({ colorBreak }: { colorBreak: number }) => ({
   flex: 1,
   height: "8px",
   alignSelf: "center",

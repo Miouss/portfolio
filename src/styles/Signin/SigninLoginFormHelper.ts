@@ -1,10 +1,12 @@
 import styled from "@mui/system/styled";
 
 import { Stack } from "@mui/material";
+import { propsFilter } from "../propsFilter";
 
-export const LoginFormBadge = styled(Stack, {
-  shouldForwardProp: (prop) => prop !== "sessionName",
-})(({ sessionName }: { sessionName: "Samir Ghabi" | "Miouss" }) => ({
+export const LoginFormBadge = styled(
+  Stack,
+  propsFilter("sessionName")
+)(({ sessionName }: { sessionName: "Samir Ghabi" | "Miouss" }) => ({
   backgroundColor: "white",
   borderRadius: "50%",
   width: "170px",
@@ -18,6 +20,6 @@ export const LoginFormBadge = styled(Stack, {
     width: "100%",
     borderRadius: "50%",
     objectFit: "cover",
-    objectPosition:  sessionName === "Samir Ghabi" && "50% 25%",
+    objectPosition: sessionName === "Samir Ghabi" && "50% 25%",
   },
 }));

@@ -1,9 +1,6 @@
 import styled from "@mui/system/styled";
 import { UndefinedBoolean } from "../../types";
-
-const fontSizeResponsive = {
-  shouldForwardProp: (prop: unknown) => prop !== "fsresp",
-};
+import { propsFilter, fontSizeResponsive } from "../propsFilter";
 
 interface ResponsiveFontSize {
   fsresp: number;
@@ -17,9 +14,10 @@ export const ProjectContainer = styled("article")({
   flexDirection: "column",
 });
 
-export const ProjectBackground = styled("div", {
-  shouldForwardProp: (prop) => prop !== "visible",
-})(({ visible }: { visible: UndefinedBoolean }) => ({
+export const ProjectBackground = styled(
+  "div",
+  propsFilter("visible")
+)(({ visible }: { visible: UndefinedBoolean }) => ({
   position: "absolute",
   height: "100%",
   width: "100%",
@@ -60,17 +58,19 @@ export const ProjectBackground = styled("div", {
 }));
 
 // ProjectContainer >
-export const Content = styled("article", {
-  shouldForwardProp: (prop) => prop !== "aspectratio",
-})(({ aspectratio }: { aspectratio: "16/9" | "unset" }) => ({
+export const Content = styled(
+  "article",
+  propsFilter("aspectratio")
+)(({ aspectratio }: { aspectratio: "16/9" | "unset" }) => ({
   aspectRatio: aspectratio,
   overflow: "hidden",
 }));
 
 // Content >
-export const Project = styled("section", {
-  shouldForwardProp: (prop) => prop !== "hide",
-})(({ hide }: { hide: UndefinedBoolean }) => ({
+export const Project = styled(
+  "section",
+  propsFilter("hide")
+)(({ hide }: { hide: UndefinedBoolean }) => ({
   display: "flex",
   flexDirection: "column",
 
@@ -287,9 +287,10 @@ export const HidePreviewButton = styled("button")({
   },
 });
 
-export const SliderControls = styled("div", {
-  shouldForwardProp: (prop) => prop !== "visible",
-})(({ visible }: { visible: UndefinedBoolean }) => ({
+export const SliderControls = styled(
+  "div",
+  propsFilter("visible")
+)(({ visible }: { visible: UndefinedBoolean }) => ({
   position: "absolute",
   height: "100%",
   width: "100%",

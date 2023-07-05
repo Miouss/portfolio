@@ -1,8 +1,10 @@
 import styled from "@mui/system/styled";
+import { propsFilter } from "../propsFilter";
 
-export const PopOverMenuContainer = styled("div", {
-  shouldForwardProp: (prop) => prop !== "wrapped" && prop !== "visible",
-})(
+export const PopOverMenuContainer = styled(
+  "div",
+  propsFilter("wrapped", "visible")
+)(
   ({
     wrapped,
     visible,

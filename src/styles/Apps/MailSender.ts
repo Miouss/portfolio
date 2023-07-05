@@ -1,9 +1,11 @@
 import styled from "@mui/system/styled";
 import { MailSentProps } from "../../types";
+import { propsFilter } from "../propsFilter";
 
-export const MailSenderContainer = styled("div", {
-  shouldForwardProp: (prop) => prop !== "animation" && prop !== "zIndex",
-})(({ zIndex, animation }: { zIndex: string; animation?: string }) => ({
+export const MailSenderContainer = styled(
+  "div",
+  propsFilter("animation", "zIndex")
+)(({ zIndex, animation }: { zIndex: string; animation?: string }) => ({
   position: "absolute",
   width: "30%",
   height: "calc(100% - 45px)",
@@ -80,9 +82,10 @@ export const Message = styled("textarea")({
   resize: "none",
 });
 
-export const Submit = styled("button", {
-  shouldForwardProp: (prop) => prop !== "sendingState",
-})(({ sendingState }: { sendingState: MailSentProps }) => {
+export const Submit = styled(
+  "button",
+  propsFilter("sendingState")
+)(({ sendingState }: { sendingState: MailSentProps }) => {
   let bgColor;
 
   switch (sendingState) {

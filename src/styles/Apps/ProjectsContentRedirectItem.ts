@@ -1,8 +1,10 @@
 import styled from "@mui/system/styled";
+import { fontSizeResponsive } from "../propsFilter";
 
-export const Item = styled("button", {
-  shouldForwardProp: (prop) => prop !== "fsresp",
-})(({ fsresp }: { fsresp: number }) => ({
+export const Item = styled(
+  "button",
+  fontSizeResponsive
+)(({ fsresp }: { fsresp: number }) => ({
   width: fsresp >= 12 ? "85px" : "100%",
   height: "45px",
   backgroundColor: "rgba(242, 242, 242, 0.6)",

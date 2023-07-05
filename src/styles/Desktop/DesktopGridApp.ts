@@ -1,5 +1,6 @@
 import styled from "@mui/system/styled";
 import { Stack } from "@mui/material";
+import { propsFilter } from "../propsFilter";
 
 const pointerNotDownStyle = {
   opacity: "0",
@@ -16,9 +17,10 @@ const pointerDownStyle = {
   },
 };
 
-export const GridAppContainer = styled(Stack, {
-  shouldForwardProp: (prop) => prop !== "cursor" && prop !== "click",
-})(
+export const GridAppContainer = styled(
+  Stack,
+  propsFilter("cursor", "click")
+)(
   ({
     cursor,
     click,

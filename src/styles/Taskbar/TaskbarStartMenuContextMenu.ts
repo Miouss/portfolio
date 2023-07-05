@@ -1,13 +1,15 @@
 import styled from "@mui/system/styled";
+import { propsFilter } from "../propsFilter";
 
 interface ContextMenuProps {
   mouseX: number;
   mouseY: number;
 }
 
-export const TaskbarContextMenuPop = styled("div", {
-  shouldForwardProp: (prop) => prop !== "mouseX" && prop !== "mouseY",
-})(({ mouseX, mouseY }: ContextMenuProps) => {
+export const TaskbarContextMenuPop = styled(
+  "div",
+  propsFilter("mouseX", "mouseY")
+)(({ mouseX, mouseY }: ContextMenuProps) => {
   return {
     position: "fixed",
     display: "flex",

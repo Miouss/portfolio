@@ -1,8 +1,10 @@
 import styled from "@mui/system/styled";
+import { propsFilter } from "../propsFilter";
 
-export const SigninContainer = styled("div", {
-  shouldForwardProp: (prop) => prop !== "visible",
-})(({ visible }: { visible: boolean }) => ({
+export const SigninContainer = styled(
+  "div",
+  propsFilter("visible")
+)(({ visible }: { visible: boolean }) => ({
   position: "absolute",
   width: "100%",
   height: "100%",
@@ -39,9 +41,10 @@ export const SigninContainer = styled("div", {
   },
 }));
 
-export const LoginContainer = styled("div", {
-  shouldForwardProp: (prop) => prop !== "visible",
-})(({ visible }: { visible: boolean }) => ({
+export const LoginContainer = styled(
+  "div",
+  propsFilter("visible")
+)(({ visible }: { visible: boolean }) => ({
   display: "flex",
   alignItems: "center",
   width: "100%",
@@ -51,9 +54,10 @@ export const LoginContainer = styled("div", {
   transition: "opacity 1s",
 }));
 
-export const BackgroundLayer = styled("div", {
-  shouldForwardProp: (prop) => prop !== "blurred",
-})(({ blurred }: { blurred: boolean }) => ({
+export const BackgroundLayer = styled(
+  "div",
+  propsFilter("blurred")
+)(({ blurred }: { blurred: boolean }) => ({
   position: "absolute",
   width: "100vw",
   height: "100vh",
@@ -96,9 +100,10 @@ export const LoginSubBox = styled("section")({
   paddingBottom: "2rem",
 });
 
-export const LockContainer = styled("div", {
-  shouldForwardProp: (prop) => prop !== "visible",
-})(({ visible }: { visible: boolean }) => ({
+export const LockContainer = styled(
+  "div",
+  propsFilter("visible")
+)(({ visible }: { visible: boolean }) => ({
   position: "relative",
   width: "100%",
   height: "100%",

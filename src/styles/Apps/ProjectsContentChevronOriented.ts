@@ -1,4 +1,5 @@
 import styled from "@mui/system/styled";
+import { propsFilter } from "../propsFilter";
 
 type OrientationProp = "left" | "right";
 
@@ -19,9 +20,10 @@ const chevronBouncing = (orientation: OrientationProp) => ({
 const bouncingAnim = (orientation: OrientationProp) =>
   `chevronBouncing${orientation} 1.5s ease-in infinite both`;
 
-export const Chevron = styled("button", {
-  shouldForwardProp: (prop) => prop !== "direction",
-})(({direction}: { direction: OrientationProp }) => ({
+export const Chevron = styled(
+  "button",
+  propsFilter("direction")
+)(({ direction }: { direction: OrientationProp }) => ({
   animation: bouncingAnim(direction),
   ...chevronBouncing(direction),
 }));

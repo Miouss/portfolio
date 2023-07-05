@@ -1,6 +1,7 @@
 import styled from "@mui/system/styled";
 
 import { Stack, Button, Input } from "@mui/material";
+import { propsFilter } from "../propsFilter";
 
 export const LoginFormTitle = styled("h2")({
   color: "white",
@@ -14,7 +15,6 @@ export const LoginFormButton = styled(Button)({
     background: "rgba(255, 255, 255, 0.4)",
     cursor: "default",
     animationPlayState: "paused",
-
   },
   borderRadius: "10px",
 
@@ -44,9 +44,10 @@ const wrongPassWordAnim = {
   },
 };
 
-export const LoginFormInput = styled(Input, {
-  shouldForwardProp: (prop) => prop !== "anim",
-})(({ anim }: { anim: boolean }) => ({
+export const LoginFormInput = styled(
+  Input,
+  propsFilter("anim")
+)(({ anim }: { anim: boolean }) => ({
   border: "5px solid 	rgba(211,211,211, 0.3)",
   "& > :first-of-type": {
     backgroundColor: "white",
@@ -63,7 +64,7 @@ LoginFormInput.defaultProps = {
   disableUnderline: true,
 };
 
-export const InputButton = styled(Button)({  
+export const InputButton = styled(Button)({
   "& > *": {
     color: "white",
     fontSize: "1.50rem",

@@ -1,8 +1,10 @@
 import styled from "@mui/system/styled";
+import { propsFilter } from "../propsFilter";
 
-export const NotifWindow = styled("div", {
-  shouldForwardProp: (prop) => prop !== "visible",
-})(({ visible }: { visible: boolean }) => ({
+export const NotifWindow = styled(
+  "div",
+  propsFilter("visible")
+)(({ visible }: { visible: boolean }) => ({
   position: "absolute",
   top: 0,
   height: "fit-content",

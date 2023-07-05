@@ -10,6 +10,7 @@ import {
 } from "./hooks";
 
 import styled from "@mui/system/styled";
+import { propsFilter } from "./styles/propsFilter";
 
 export default function App() {
   const [isLogged, setIsLogged] = useState<IsLoggedProp>(false);
@@ -45,9 +46,10 @@ export default function App() {
   );
 }
 
-const SessionContainer = styled("div", {
-  shouldForwardProp: (prop) => prop !== "visible",
-})(({ visible }: { visible: boolean }) => ({
+const SessionContainer = styled(
+  "div",
+  propsFilter("visible")
+)(({ visible }: { visible: boolean }) => ({
   visibility: visible ? "visible" : "hidden",
   transition: "visibility 1s",
 
