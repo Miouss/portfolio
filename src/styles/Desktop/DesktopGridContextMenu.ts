@@ -1,13 +1,15 @@
 import styled from "@mui/system/styled";
+import { propsFilter } from "../propsFilter";
 
 interface ContextMenuProps {
   mouseX: number;
   mouseY: number;
 }
 
-export const DesktopContextMenuPop = styled("div", {
-  shouldForwardProp: (prop) => prop !== "mouseX" && prop !== "mouseY",
-})(({ mouseX, mouseY }: ContextMenuProps) => ({
+export const DesktopContextMenuPop = styled(
+  "div",
+  propsFilter("mouseX", "mouseY")
+)(({ mouseX, mouseY }: ContextMenuProps) => ({
   position: "absolute",
   display: "flex",
   flexDirection: "column",
