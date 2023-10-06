@@ -88,7 +88,7 @@ export default function ContentBuilder({
   }, [fsresp]);
 
   return (
-    <ProjectContainer>
+    <ProjectContainer showVideo={showVideo}>
       <ProjectBackground
         visible={showPreview}
         onAnimationStart={handleShowVideo}

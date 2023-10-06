@@ -6,18 +6,22 @@ interface ResponsiveFontSize {
   fsresp: number;
 }
 
-export const ProjectContainer = styled("article")({
-  position: "relative",
-  alignSelf: "center",
-  width: "70%",
-  aspectRatio: "16/9",
-  height: "fit-content",
-  display: "flex",
-  flexDirection: "column",
-  boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.75)",
-  border: "1px solid black",
-  borderRadius: "10px",
-});
+export const ProjectContainer = styled("article")(
+  ({ showVideo }: { showVideo: boolean }) => ({
+    position: "relative",
+    alignSelf: "center",
+    width: "70%",
+    aspectRatio: showVideo ? "16/9" : "unset",
+    height: "fit-content",
+    display: "flex",
+    flexDirection: "column",
+    boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.75)",
+    border: "1px solid black",
+    borderRadius: "10px",
+
+    background: "rgba(242, 242, 242, 0.6)",
+  })
+);
 
 export const ProjectBackground = styled(
   "div",
@@ -136,7 +140,6 @@ export const Details = styled("section")({
 
   padding: "32px 48px 0px 48px",
 
-  background: "rgba(242, 242, 242, 0.6)",
   backdropFilter: "blur(15px)",
 });
 
