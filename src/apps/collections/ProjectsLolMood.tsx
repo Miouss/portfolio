@@ -1,14 +1,5 @@
 import ProjectContentBuilder from "./ProjectsContent";
-import {
-  lolmood1,
-  lolmood2,
-  lolmood3,
-  reactSVG,
-  nodejsSVG,
-  mysqlSVG,
-  muiSVG,
-  dockerSVG,
-} from "../../assets";
+import { reactSVG, nodejsSVG, mysqlSVG, muiSVG, dockerSVG } from "../../assets";
 
 interface Tech {
   name: string;
@@ -41,7 +32,6 @@ export default function Lolmood() {
       
       J'ai décidé de faire ce type de site car étant moi-même joueur de League of Legends et utilisant des sites populaires qui font la même chose, j'ai toujours été intrigué de la façon dont ces sites fonctionnaient et j'ai donc décidé de me lancer ce qui m'a permis de balayer une bonne partie de mes connaissances.`,
   };
-  const imageUrl = [lolmood1, lolmood2, lolmood3];
 
   const techs: Tech[] = [
     {
@@ -74,7 +64,7 @@ export default function Lolmood() {
     <ProjectContentBuilder
       name={name}
       description={description}
-      imageUrl={imageUrl}
+      url="https://www.youtube.com/embed/mWt7DmbZ8_o"
       techs={techs}
       repo={repo}
       link={link}

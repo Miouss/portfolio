@@ -1,8 +1,5 @@
 import ProjectContentBuilder from "./ProjectsContent";
 import {
-  smartdl1,
-  smartdl2,
-  smartdl3,
   reactSVG,
   nodejsSVG,
   muiSVG,
@@ -32,7 +29,6 @@ export default function SmartDl() {
     Ces services ne mettant pas à disposition d'API, j'ai dû étudier la façon dont fonctionne leur API privé puis j'ai développé un système de scraping pour récupérer les liens de téléchargement des fragments.
     De plus, grâce à la puissance de leur API, j'ai pu récupérer les métadonnées des vidéos et les proposer en téléchargement dans l'application.`,
   };
-  const imageUrl = [smartdl1, smartdl2, smartdl3];
 
   const techs: Tech[] = [
     {
@@ -65,7 +61,7 @@ export default function SmartDl() {
     <ProjectContentBuilder
       name={name}
       description={description}
-      imageUrl={imageUrl}
+      url="https://www.youtube.com/embed/5hqUIFGVgns"
       techs={techs}
       repo={repo}
       link={link}

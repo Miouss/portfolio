@@ -1,95 +1,33 @@
 import styled from "@mui/system/styled";
 import { propsFilter } from "../propsFilter";
+import { UndefinedDirection } from "../../types";
 
-const slideRightFromCenter = {
-  "@keyframes center-to-right": {
+const slideAnim = (name: string, tX0: number, tX100: number) => ({
+  [`@keyframes ${name}`]: {
     "0%": {
-      transform: "translateX(0)",
+      x: `${tX0}%`,
     },
     "100%": {
-      transform: "translateX(100%)",
+      transform: `translateX(${tX100}%)`,
     },
   },
-};
+});
 
-const slideLeftFromCenter = {
-  "@keyframes center-to-left": {
-    "0%": {
-      transform: "translateX(0)",
-    },
-    "100%": {
-      transform: "translateX(-100%)",
-    },
-  },
-};
-
-const slideCenterFromRight = {
-  "@keyframes right-to-center": {
-    "0%": {
-      transform: "translateX(100%)",
-    },
-    "100%": {
-      transform: "translateX(0)",
-    },
-  },
-};
-
-const slideCenterFromLeft = {
-  "@keyframes left-to-center": {
-    "0%": {
-      transform: "translateX(-100%)",
-    },
-    "100%": {
-      transform: "translateX(0)",
-    },
-  },
-};
-
-const swipeRightToLeft = {
-  "@keyframes right-to-left": {
-    "0%": {
-      transform: "translateX(-100%)",
-    },
-    "100%": {
-      transform: "translateX(-100%)",
-    },
-  },
-};
-
-const swipeLeftToRight = {
-  "@keyframes left-to-right": {
-    "0%": {
-      transform: "translateX(100%)",
-    },
-    "100%": {
-      transform: "translateX(100%)",
-    },
-  },
-};
+interface ImageProps {
+  animName: string;
+  startTx: number;
+}
 
 export const Image = styled(
   "div",
-  propsFilter("anim", "translationOffset")
-)(
-  ({
-    anim,
-    translationOffset,
-  }: {
-    anim: string;
-    translationOffset: number;
-  }) => ({
-    animation: `${anim} 1s ease-in-out forwards`,
-    ...slideRightFromCenter,
-    ...slideLeftFromCenter,
-    ...slideCenterFromRight,
-    ...slideCenterFromLeft,
-    ...swipeRightToLeft,
-    ...swipeLeftToRight,
-
-    transform: `translateX(${translationOffset}%)`,
-
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-  })
-);
+  propsFilter("animName", "startTx")
+)(({ animName, startTx }: ImageProps) => ({
+  //animation: `${animName} 1s ease-in-out forwards`,
+  x: "300%",
+  /*   ...slideAnim("left", startTx * 100, 100),
+  ...slideAnim("right", startTx * 100, -100), */
+  //...slideAnim("swap", -100, 100),
+  position: "absolute",
+  width: "100%",
+  height: "100%",
+}));

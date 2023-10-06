@@ -19,7 +19,6 @@ import {
   HidePreviewButton,
   PreviewButton,
   Project,
-  SliderControls,
 } from "../../styles";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux";
@@ -27,15 +26,11 @@ import { useState } from "react";
 import {
   VisibilityOffIcon,
   VisibilityOnIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
   GithubIcon,
   RedirectIcon,
 } from "../../assets";
 
-import { UndefinedBoolean, UndefinedDirection } from "../../types";
-import SliderImage from "./ProjectsContentSliderImage";
-import ChevronOriented from "./ProjectsContentChevronOriented";
+import { UndefinedBoolean } from "../../types";
 import RedirectItem from "./ProjectsContentRedirectItem";
 import { useLangContext } from "../../hooks";
 
@@ -51,7 +46,7 @@ interface ProjectDescription {
 interface Props {
   name: string;
   description: ProjectDescription;
-  imageUrl: string[];
+  url: string;
   repo: string;
   techs: Tech[];
   link?: string;
@@ -60,15 +55,15 @@ interface Props {
 export default function ContentBuilder({
   name,
   description,
-  imageUrl,
+  url,
   repo,
   techs,
   link,
 }: Props) {
-  const [showGallery, setShowGallery] = useState<UndefinedBoolean>(undefined);
+  const [showPreview, setShowPreview] = useState<UndefinedBoolean>(undefined);
+  const [showVideo, setShowVideo] = useState(false);
+
   const fsresp = useSelector((store: RootState) => store.windowResponsiveFont);
-  const [triggerAnimDirection, setTriggerAnimDirection] =
-    useState<UndefinedDirection>(undefined);
 
   const TechItems = techs.map((tech, i) => (
     <TechItem key={`${tech}${i}`}>
@@ -77,63 +72,38 @@ export default function ContentBuilder({
     </TechItem>
   ));
 
-  const [disableButtons, setDisableButtons] = useState(false);
-
   const { lang } = useLangContext();
 
+  const handleShowVideo = (e: React.AnimationEvent<HTMLDivElement>) => {
+    if (e.animationName === "fadeInGallery") setShowVideo(true);
+  };
+
+  const handleRemoveVideo = (e: React.AnimationEvent<HTMLDivElement>) => {
+    if (e.animationName === "fadeOutGallery") setShowVideo(false);
+  };
+
   useEffect(() => {
-    if (fsresp < 12 && showGallery) setShowGallery(false);
+    if (fsresp < 12 && showPreview) setShowPreview(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fsresp]);
 
-  useEffect(() => {
-    if (!disableButtons) setTriggerAnimDirection(undefined);
-  }, [disableButtons]);
-
   return (
     <ProjectContainer>
-      <ProjectBackground visible={showGallery}>
-        <SliderImage
-          triggerAnimDirection={triggerAnimDirection}
-          imageUrl={imageUrl[0]}
-          nthImage={0}
-          translationOffset={0}
-          setDisableButtons={setDisableButtons}
-        />
-        <SliderImage
-          triggerAnimDirection={triggerAnimDirection}
-          imageUrl={imageUrl[1]}
-          nthImage={1}
-          translationOffset={100}
-          setDisableButtons={setDisableButtons}
-        />
-        <SliderImage
-          triggerAnimDirection={triggerAnimDirection}
-          imageUrl={imageUrl[2]}
-          nthImage={2}
-          translationOffset={-100}
-          setDisableButtons={setDisableButtons}
-        />
+      <ProjectBackground
+        visible={showPreview}
+        onAnimationStart={handleShowVideo}
+        onAnimationEnd={handleRemoveVideo}
+      >
+        <HidePreviewButton
+          visible={showPreview}
+          onClick={() => setShowPreview(false)}
+        >
+          <VisibilityOnIcon color="red" />
+        </HidePreviewButton>
+        <ProjectVideo url={url} showVideo={showVideo} />
       </ProjectBackground>
-      <Content aspectratio={showGallery ? "16/9" : "unset"}>
-        <SliderControls visible={showGallery}>
-          <HidePreviewButton onClick={() => setShowGallery(false)}>
-            <VisibilityOnIcon />
-          </HidePreviewButton>
-          <ChevronOriented
-            setTriggerAnimDirection={setTriggerAnimDirection}
-            disableButtons={disableButtons}
-            direction="left"
-            icon={<ChevronLeftIcon />}
-          />
-          <ChevronOriented
-            setTriggerAnimDirection={setTriggerAnimDirection}
-            disableButtons={disableButtons}
-            direction="right"
-            icon={<ChevronRightIcon />}
-          />
-        </SliderControls>
-        <Project hide={showGallery}>
+      <Content aspectratio={showPreview ? "16/9" : "unset"}>
+        <Project hide={showPreview}>
           <Title fsresp={fsresp}>{name}</Title>
           <Subcontent>
             <Details>
@@ -146,7 +116,7 @@ export default function ContentBuilder({
               </TechContainer>
             </Details>
             <Options>
-              <PreviewButton onClick={() => setShowGallery(true)}>
+              <PreviewButton onClick={() => setShowPreview(true)}>
                 <VisibilityOffIcon />
               </PreviewButton>
 
@@ -168,4 +138,16 @@ export default function ContentBuilder({
       </Content>
     </ProjectContainer>
   );
+}
+
+function ProjectVideo({
+  url,
+  showVideo,
+}: {
+  url: string;
+  showVideo: UndefinedBoolean;
+}) {
+  if (!showVideo) return null;
+
+  return <iframe width="100%" height="100%" src={url} allowFullScreen />;
 }

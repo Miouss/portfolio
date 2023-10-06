@@ -41,7 +41,6 @@ export * from "./Signin/SigninLockMenuSwitchLangButton";
 // Apps
 export * from "./Apps/Projects";
 export * from "./Apps/ProjectsContent";
-export * from "./Apps/ProjectsContentChevronOriented";
 export * from "./Apps/ProjectsContentRedirectItem";
 export * from "./Apps/ProjectsContentSliderImage";
 export * from "./Apps/TerminalApp";

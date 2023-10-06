@@ -1,12 +1,5 @@
 import ProjectContentBuilder from "./ProjectsContent";
-import {
-  portfolio1,
-  portfolio2,
-  portfolio3,
-  reactSVG,
-  cssSVG,
-  reduxSVG,
-} from "../../assets";
+import { reactSVG, cssSVG, reduxSVG } from "../../assets";
 
 interface Tech {
   name: string;
@@ -35,7 +28,6 @@ export default function Portfolio() {
     et d'améliorer grandement mes compétences sur tous les aspects du front-end.
     `,
   };
-  const imageUrl = [portfolio1, portfolio2, portfolio3];
 
   const techs: Tech[] = [
     {
@@ -60,7 +52,7 @@ export default function Portfolio() {
     <ProjectContentBuilder
       name={name}
       description={description}
-      imageUrl={imageUrl}
+      url="https://www.youtube.com/embed/iRhd7lF-z70"
       techs={techs}
       repo={repo}
       link={link}

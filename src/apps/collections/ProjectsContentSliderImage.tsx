@@ -1,50 +1,49 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Image } from "../../styles";
 import { UndefinedDirection } from "../../types";
-import { changeSliderImage } from "../../utils";
 
 interface Props {
   triggerAnimDirection: UndefinedDirection;
-  translationOffset: number;
   imageUrl: string;
   nthImage: number;
-  setDisableButtons: Dispatch<SetStateAction<boolean>>;
+  setIsSlideButtonsDisabled: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function SliderImage({
   triggerAnimDirection,
-  translationOffset,
   imageUrl,
   nthImage,
-  setDisableButtons,
+  setIsSlideButtonsDisabled,
 }: Props) {
-  const [slideAnimKey, setSlideAnimKey] = useState(nthImage);
-  const [anim, setAnim] = useState("");
-
-  const slideAnims = {
-    right: ["center-to-left", "right-to-center", "left-to-right"],
-    left: ["center-to-right", "right-to-left", "left-to-center"],
-  };
+  const [currIndex, setCurrIndex] = useState(nthImage);
+  const [animName, setAnimName] = useState("");
 
   useEffect(() => {
-    if (triggerAnimDirection) {
-      changeSliderImage(
-        triggerAnimDirection,
-        slideAnims[triggerAnimDirection],
-        slideAnimKey,
-        setAnim,
-        setSlideAnimKey
-      );
+    if (!triggerAnimDirection) return;
+
+    const lastIndex = 2;
+    let newAnimName = "",
+      newIndex = 0;
+
+    if (triggerAnimDirection === "left") {
+      newAnimName = currIndex === lastIndex ? "swap" : "left";
+      newIndex = currIndex === lastIndex ? 0 : currIndex + 1;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (triggerAnimDirection === "right") {
+      newAnimName = currIndex === 0 ? "swap" : "right";
+      newIndex = currIndex === 0 ? lastIndex : currIndex - 1;
+    }
+
+    setCurrIndex(newIndex);
+    setAnimName(newAnimName);
   }, [triggerAnimDirection]);
 
   return (
     <Image
-      anim={anim}
-      translationOffset={translationOffset}
-      onAnimationStart={() => setDisableButtons(true)}
-      onAnimationEnd={() => setDisableButtons(false)}
+      animName={animName}
+      startTx={currIndex}
+      onAnimationStart={() => setIsSlideButtonsDisabled(true)}
+      onAnimationEnd={() => setIsSlideButtonsDisabled(false)}
     >
       <img src={imageUrl} alt="image1" />
     </Image>

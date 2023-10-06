@@ -9,7 +9,13 @@ import {
   SiNotepadplusplus,
 } from "react-icons/si";
 import { GoProject } from "react-icons/go";
-import { FaGlobe, FaWifi, FaPowerOff } from "react-icons/fa";
+import {
+  FaGlobe,
+  FaWifi,
+  FaPowerOff,
+  FaVideo,
+  FaVideoSlash,
+} from "react-icons/fa";
 import { BiMailSend } from "react-icons/bi";
 import { TbSend } from "react-icons/tb";
 import {
@@ -36,9 +42,7 @@ import {
 
 import { ImMusic } from "react-icons/im";
 
-import { MdVisibility, MdVisibilityOff, MdArrowForward } from "react-icons/md";
-
-import { BsChevronRight, BsChevronLeft } from "react-icons/bs";
+import { MdArrowForward } from "react-icons/md";
 
 import { FaLockOpen, FaLock, FaSignOutAlt } from "react-icons/fa";
 
@@ -140,17 +144,11 @@ export const UnlockIcon = (style?: CSSProperties) => (
   <FaLockOpen style={style} />
 );
 
-export const ChevronRightIcon = (style?: CSSProperties) => (
-  <BsChevronRight style={style} color="white" />
-);
-export const ChevronLeftIcon = (style?: CSSProperties) => (
-  <BsChevronLeft style={style} color="white" />
-);
 export const VisibilityOnIcon = (style?: CSSProperties) => (
-  <MdVisibility style={style} />
+  <FaVideoSlash style={style} />
 );
 export const VisibilityOffIcon = (style?: CSSProperties) => (
-  <MdVisibilityOff style={style} />
+  <FaVideo style={style} />
 );
 export const NowPlayingIcon = (style?: CSSProperties) => (
   <ImMusic style={style} />
@@ -290,7 +288,7 @@ export const dockerSVG = (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
     <path
       stroke="#066da5"
-      stroke-width="38"
+      strokeWidth="38"
       d="M296 226h42m-92 0h42m-91 0h42m-91 0h41m-91 0h42m8-46h41m8 0h42m7 0h42m-42-46h42"
     />
     <path

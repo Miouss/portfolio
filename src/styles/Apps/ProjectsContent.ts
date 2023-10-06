@@ -10,8 +10,13 @@ export const ProjectContainer = styled("article")({
   position: "relative",
   alignSelf: "center",
   width: "70%",
+  aspectRatio: "16/9",
+  height: "fit-content",
   display: "flex",
   flexDirection: "column",
+  boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.75)",
+  border: "1px solid black",
+  borderRadius: "10px",
 });
 
 export const ProjectBackground = styled(
@@ -21,17 +26,9 @@ export const ProjectBackground = styled(
   position: "absolute",
   height: "100%",
   width: "100%",
-  overflow: "hidden",
-  "& > *": {
-    height: "fit-content",
-  },
-  "& > * > img": {
-    width: "100%",
-    height: "100%",
-    objectFit: "contain",
-  },
-
+  borderRadius: "10px",
   visibility: visible === undefined ? "hidden" : "visible",
+  overflow: "hidden",
 
   animation: visible
     ? "fadeInGallery 1s ease-in-out forwards"
@@ -64,6 +61,8 @@ export const Content = styled(
 )(({ aspectratio }: { aspectratio: "16/9" | "unset" }) => ({
   aspectRatio: aspectratio,
   overflow: "hidden",
+
+  borderRadius: "10px",
 }));
 
 // Content >
@@ -262,78 +261,58 @@ export const RedirectContainer = styled(
 }));
 
 // Project >
-export const HidePreviewButton = styled("button")({
-  position: "absolute",
-  top: "3%",
-  right: "3%",
-  width: "40px",
-  height: "40px",
+export const HidePreviewButton = styled("button")(
+  ({ visible }: { visible: UndefinedBoolean }) => {
+    const anim = visible ? "fadeInPreviewButton" : "fadeOutPreviewButton";
+    return {
+      position: "absolute",
+      right: "3%",
+      bottom: "50%",
+      width: "40px",
+      height: "40px",
 
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
 
-  borderRadius: "50%",
-  background: "transparent",
+      borderRadius: "50%",
+      background: "transparent",
 
-  "& > *": {
-    color: "rgb(211, 211, 211, 0.8)",
-    width: "24px",
-    height: "24px",
-  },
+      border: "none",
 
-  "&:hover": {
-    cursor: "pointer",
-  },
-});
+      "& > *": {
+        color: "rgb(211, 211, 211, 0.8)",
+        width: "24px",
+        height: "24px",
+      },
 
-export const SliderControls = styled(
-  "div",
-  propsFilter("visible")
-)(({ visible }: { visible: UndefinedBoolean }) => ({
-  position: "absolute",
-  height: "100%",
-  width: "100%",
+      "&:hover": {
+        cursor: "pointer",
+      },
 
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
+      animation: `${anim} 2s ease-in-out forwards`,
 
-  "& > *": {
-    border: "none",
-    background: "none",
-    "&:hover": {
-      cursor: "pointer",
-      animationPlayState: "paused",
-      color: "rgba(255, 255, 255, 0.8)",
-    },
-    color: "rgba(255, 255, 255, 0.5)",
-    zIndex: 1,
-  },
+      "@keyframes fadeInPreviewButton": {
+        "0%": {
+          opacity: 0,
+          transform: "scale(0.1)",
+        },
+        "100%": {
+          opacity: 1,
+          transform: "scale(1)",
+        },
+      },
 
-  visibility: visible === undefined ? "hidden" : "visible",
-  animation: visible
-    ? "fadeInSliderControls 2s ease-in-out forwards"
-    : "fadeOutSliderControls 1s ease-in-out forwards",
-
-  "@keyframes fadeInSliderControls": {
-    "0%": {
-      opacity: 0,
-      transform: "scale(0.1)",
-    },
-    "100%": {
-      opacity: 1,
-      transform: "scale(1)",
-    },
-  },
-
-  "@keyframes fadeOutSliderControls": {
-    "0%": {
-      opacity: 1,
-    },
-    "100%": {
-      opacity: 0,
-      visibility: "hidden",
-    },
-  },
-}));
+      "@keyframes fadeOutPreviewButton": {
+        "0%": {
+          opacity: 0,
+          transform: "scale(1)",
+        },
+        "100%": {
+          opacity: 1,
+          transform: "scale(0.1)",
+        },
+      },
+    };
+  }
+);
