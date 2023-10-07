@@ -1,59 +1,47 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
 import { verifyWindowPosition } from "../../utils";
-import { Coordinates, WindowSize } from "../../types";
 
 export default function useWindowResizingPointersEvents(
   currentResizableDivRef: HTMLDivElement,
-  originalWindowOffset: Coordinates | null,
-  originalWindowSize: WindowSize | null,
   pointerPressed: boolean,
   setPointerPressed: Dispatch<SetStateAction<boolean>>,
-  handlePointerMove: (event: React.PointerEvent<HTMLDivElement>) => void
+  handlePointerMove: (event: React.PointerEvent<HTMLDivElement>) => void,
+  prevWindowPos: DOMRect
 ) {
   useEffect(() => {
-    if (pointerPressed) {
-      document.onpointermove = (e) => handlePointerMove(e as unknown as React.PointerEvent<HTMLDivElement>);
-      document.onpointerup = () => setPointerPressed(false);
+    if (!pointerPressed) return;
 
-      return () => {
-        // Reposition window if it's outside of the screen
+    document.onpointermove = (e) =>
+      handlePointerMove(e as unknown as React.PointerEvent<HTMLDivElement>);
+    document.onpointerup = () => setPointerPressed(false);
 
-        const windowPos = currentResizableDivRef.getBoundingClientRect();
-        const refStyle = currentResizableDivRef.style;
+    return () => {
+      // Reposition window if it's outside of the screen
 
-        const windowIsOutsideOfScreen = verifyWindowPosition(windowPos);
+      const windowPos = currentResizableDivRef.getBoundingClientRect();
 
-        if (windowIsOutsideOfScreen) {
-          resetWindowPosition(
-            refStyle,
-            originalWindowOffset!,
-            originalWindowSize!
-          );
-        }
+      const isWindowOutsideOfScreen = verifyWindowPosition(windowPos);
 
-        cleanUpPointerEvents();
-      };
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+      if (isWindowOutsideOfScreen) {
+        resetWindowPosition(currentResizableDivRef.style, prevWindowPos);
+      }
+
+      cleanUpPointerEvents();
+    };
   }, [pointerPressed]);
 }
 
 function resetWindowPosition(
-  refStyle: CSSStyleDeclaration,
-  originalWindowOffset: Coordinates,
-  originalWindowSize: WindowSize
+  style: CSSStyleDeclaration,
+  prevWindowPos: DOMRect
 ) {
-  refStyle.left = originalWindowOffset!.x + "px";
-  refStyle.top = originalWindowOffset!.y + "px";
-  refStyle.width = originalWindowSize!.width + "px";
-  refStyle.height = originalWindowSize!.height + "px";
+  style.left = prevWindowPos.x + "px";
+  style.top = prevWindowPos.y + "px";
+  style.width = prevWindowPos.width + "px";
+  style.height = prevWindowPos.height + "px";
 }
 
 function cleanUpPointerEvents() {
-  document.onpointermove = () => {
-    return false;
-  };
-  document.onpointerup = () => {
-    return false;
-  };
+  document.onpointermove = () => false;
+  document.onpointerup = () => false;
 }

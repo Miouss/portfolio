@@ -1,10 +1,9 @@
 // Applications
 export { default as checkResponsiveness } from "./Applications/checkResponsiveness";
-export { default as monitoringPointerMovingUnpressed } from "./Applications/monitoringPointerMovingUnpressed";
+export { changeCursorByPosition } from "./Applications/changeCursorByPosition";
 export { default as rememberWindowPosition } from "./Applications/rememberWindowPosition";
 export { default as resizeWindow } from "./Applications/resizeWindow";
 export { default as switchCloseButtonColor } from "./Applications/switchCloseButtonColor";
-export { default as switchCursor } from "./Applications/switchCursor";
 export { default as verifyWindowPosition } from "./Applications/verifyWindowPosition";
 
 // Apps

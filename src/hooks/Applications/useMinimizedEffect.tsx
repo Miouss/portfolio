@@ -4,24 +4,22 @@ import { Animation } from "../../types";
 import { useAppStatus } from "../";
 
 export default function useMinimizedEffect(appName: string) {
-  const [animation, setAnimation] = useState<Animation>("spawnWindow");
   const [isFirstRender, setIsFirstRender] = useState(true);
-
+  const [animation, setAnimation] = useState<Animation>("spawnWindow");
   const { isMinimized } = useAppStatus(appName);
 
-  useEffect(
-    () => {
-      if (isFirstRender) {
-        setAnimation("spawnWindow");
-        setIsFirstRender(false);
-        return;
-      }
+  useEffect(() => {
+    let newAnimation: Animation;
 
-      setAnimation(isMinimized ? "fadeOutWindow" : "fadeInWindow");
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [isMinimized]
-  );
+    if (isFirstRender) {
+      newAnimation = "spawnWindow";
+      setIsFirstRender(false);
+    } else {
+      newAnimation = isMinimized ? "fadeOutWindow" : "fadeInWindow";
+    }
+
+    setAnimation(newAnimation);
+  }, [isMinimized]);
 
   return animation;
 }

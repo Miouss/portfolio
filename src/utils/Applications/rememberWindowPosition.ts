@@ -1,33 +1,26 @@
 import { Dispatch, SetStateAction } from "react";
-import { Coordinates, PointerOffsetRelative, WindowSize } from "../../types";
-
+import { PointerOffsetRelative } from "../../types";
 
 export default function rememberWindowPosition(
-  event: React.PointerEvent<HTMLDivElement>,
+  { pageY, pageX }: React.PointerEvent<HTMLDivElement>,
   currentResizableDivRef: HTMLDivElement,
-  setOriginalWindowOffset: Dispatch<SetStateAction<Coordinates | null>>,
   setPointerOffsetRelative: Dispatch<
     SetStateAction<PointerOffsetRelative | null>
   >,
-  setOriginalWindowSize: Dispatch<SetStateAction<WindowSize | null>>,
   setPointerPressed: Dispatch<SetStateAction<boolean>>,
+  setPrevWindowPos: Dispatch<SetStateAction<DOMRect | null>>
 ) {
   const windowBoundingClientRect =
     currentResizableDivRef.getBoundingClientRect();
 
-  setOriginalWindowOffset({
-    x: currentResizableDivRef.offsetLeft,
-    y: currentResizableDivRef.offsetTop,
-  });
+  setPrevWindowPos(windowBoundingClientRect);
+
   setPointerOffsetRelative({
-    top: event.pageY - windowBoundingClientRect.top,
-    right: event.pageX - windowBoundingClientRect.right,
-    bottom: event.pageY - windowBoundingClientRect.bottom,
-    left: event.pageX - windowBoundingClientRect.left,
+    top: pageY - windowBoundingClientRect.top,
+    right: pageX - windowBoundingClientRect.right,
+    bottom: pageY - windowBoundingClientRect.bottom,
+    left: pageX - windowBoundingClientRect.left,
   });
-  setOriginalWindowSize({
-    width: windowBoundingClientRect.width,
-    height: windowBoundingClientRect.height,
-  });
+
   setPointerPressed(true);
 }

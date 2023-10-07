@@ -1,105 +1,104 @@
-import {
-  Coordinates,
-  WindowSize,
-  PointerOffsetRelative,
-  PointerPosition,
-} from "../../types";
+import { PointerOffsetRelative, PointerPosition } from "../../types";
 
 type ResizeArea = "left" | "right" | "top" | "bottom";
 
+const MIN_HEIGHT = 400;
+const MIN_WIDTH = 600;
+
 export default function resizeWindow(
-  event: React.PointerEvent<HTMLDivElement>,
-  ref: HTMLDivElement,
-  pointerPosition: PointerPosition | null,
-  originalWindowOffset: Coordinates,
-  originalWindowSize: WindowSize,
+  { clientX, clientY }: React.PointerEvent<HTMLDivElement>,
+  { style }: HTMLDivElement,
+  pointerPosition: PointerPosition,
   pointerOffsetRelative: PointerOffsetRelative,
-  minWidth: number,
-  minHeight: number
+  prevWindowPos: DOMRect
 ) {
-  const areaToResize: ResizeArea[] = pointerPosition!
-    .split(/(?=[A-Z])/)
+  if (!clientX) return;
+
+  const areaToResize: ResizeArea[] = pointerPosition
+    .split(/(?=[A-Z])/) // split area like bottomLeft in [bottom, left]
     .map((area) => area.toLowerCase() as ResizeArea);
 
-  if (event.clientX === undefined) return;
+  const prevOffsetTop = prevWindowPos.top + "px";
+  const prevOffsetLeft = prevWindowPos.left + "px";
+  const prevHeight = prevWindowPos.height + "px";
+  const prevWidth = prevWindowPos.width + "px";
+
+  const offsetFromInitialPos = {
+    y: clientY - prevWindowPos.top,
+    x: clientX - prevWindowPos.left,
+  };
 
   const resize = {
     left: {
       offsetLeft:
-        originalWindowOffset.x +
-        (event.clientX - originalWindowOffset.x) -
+        prevWindowPos.left +
+        offsetFromInitialPos.x -
         pointerOffsetRelative.left +
         "px",
       width:
-        originalWindowSize.width -
-        (event.clientX -
-          originalWindowOffset.x -
-          pointerOffsetRelative.left) +
+        prevWindowPos.width -
+        (offsetFromInitialPos.x - pointerOffsetRelative.left) +
         "px",
-      height: originalWindowSize.height + "px",
-      offsetTop: originalWindowOffset.y + "px",
+      height: prevHeight,
+      offsetTop: prevOffsetTop,
     },
     right: {
       width:
-        originalWindowSize.width +
-        (event.clientX -
-          originalWindowSize.width -
-          pointerOffsetRelative.right -
-          originalWindowOffset.x) +
+        prevWindowPos.width +
+        (offsetFromInitialPos.x -
+          prevWindowPos.width -
+          pointerOffsetRelative.right) +
         "px",
-      height: originalWindowSize.height + "px",
-      offsetTop: originalWindowOffset.y + "px",
-      offsetLeft: originalWindowOffset.x + "px",
+      height: prevHeight,
+      offsetTop: prevOffsetTop,
+      offsetLeft: prevOffsetLeft,
     },
     top: {
       offsetTop:
-        originalWindowOffset.y +
-        (event.clientY - originalWindowOffset.y) -
+        prevWindowPos.top +
+        offsetFromInitialPos.y -
         pointerOffsetRelative.top +
         "px",
       height:
-        originalWindowSize.height -
-        (event.clientY - originalWindowOffset.y - pointerOffsetRelative.top) +
+        prevWindowPos.height -
+        (offsetFromInitialPos.y - pointerOffsetRelative.top) +
         "px",
-      width: originalWindowSize.width + "px",
-      offsetLeft: originalWindowOffset.x + "px",
+      width: prevWidth,
+      offsetLeft: prevOffsetLeft,
     },
     bottom: {
       height:
-        originalWindowSize.height +
-        (event.clientY -
-          originalWindowSize.height -
-          pointerOffsetRelative.bottom -
-          originalWindowOffset.y) +
+        prevWindowPos.height +
+        (offsetFromInitialPos.y -
+          prevWindowPos.height -
+          pointerOffsetRelative.bottom) +
         "px",
-      width: originalWindowSize.width + "px",
-      offsetTop: originalWindowOffset.y + "px",
-      offsetLeft: originalWindowOffset.x + "px",
+      width: prevWidth,
+      offsetTop: prevOffsetTop,
+      offsetLeft: prevOffsetLeft,
     },
   };
 
   areaToResize.forEach((area: ResizeArea) => {
-    if (area === "left" || area === "right") {
-      const isOvershrinked = parseInt(resize[area].width) < minWidth;
-      if (isOvershrinked) return;
-      ref.style.width = resize[area].width;
-      ref.style.left = resize[area].offsetLeft;
+    const resizeDim = area === "left" || area === "right" ? "width" : "height";
+    const MIN_DIM = resizeDim === "width" ? MIN_WIDTH : MIN_HEIGHT;
+
+    const isOvershrinked = parseInt(resize[area][resizeDim]) < MIN_DIM;
+    if (isOvershrinked) return;
+
+    if (resizeDim === "width") {
+      style.width = resize[area].width;
+      style.left = resize[area].offsetLeft;
     } else {
-      const isOvershrinked = parseInt(resize[area].height) < minHeight;
-      if (isOvershrinked) return;
-      ref.style.height =
-        parseInt(resize[area].height) < minHeight
-          ? minHeight + "px"
+      style.height =
+        parseInt(resize[area].height) < MIN_HEIGHT
+          ? MIN_HEIGHT + "px"
           : resize[area].height;
-      ref.style.top = resize[area].offsetTop;
+      style.top = resize[area].offsetTop;
     }
   });
 
-  const currentWindowSize = {
-    height: parseInt(ref.style.height),
-    width: parseInt(ref.style.width),
-  };
+  const currentWindowSizeWidth = parseInt(style.width);
 
-  return currentWindowSize.width;
+  return currentWindowSizeWidth;
 }
-

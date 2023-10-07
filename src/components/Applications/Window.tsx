@@ -1,4 +1,11 @@
-import { useState, useRef, CSSProperties, useEffect } from "react";
+import {
+  useState,
+  useRef,
+  CSSProperties,
+  useEffect,
+  useReducer,
+  PointerEvent,
+} from "react";
 import {
   closeApp,
   focusApp,
@@ -9,7 +16,7 @@ import {
 import {
   resizeWindow,
   rememberWindowPosition,
-  monitoringPointerMovingUnpressed,
+  changeCursorByPosition,
   checkResponsiveness,
 } from "../../utils";
 import {
@@ -33,11 +40,39 @@ import Content from "./WindowContent";
 
 interface Props {
   appName: string;
-  minWidth: number;
-  minHeight: number;
 }
 
-export default function Window({ appName, minWidth, minHeight }: Props) {
+function dynamicStyleReducer(
+  _: CSSProperties | null,
+  action: {
+    type: "FULLSCREEN" | "DYNAMIC_STYLE";
+    currentDimensions?: CSSProperties;
+  }
+) {
+  switch (action.type) {
+    case "FULLSCREEN":
+      return {
+        width: "calc(100% + 20px)",
+        height: "calc(100% - 25px)",
+        top: "-10px",
+        left: "-10px",
+        transform: "none",
+      };
+    case "DYNAMIC_STYLE":
+      const { currentDimensions } = action;
+
+      return {
+        width: currentDimensions!.width + "px",
+        height: currentDimensions!.height + "px",
+        top: currentDimensions!.top + "px",
+        left: currentDimensions!.left + "px",
+      };
+    default:
+      return {};
+  }
+}
+
+export default function Window({ appName }: Props) {
   const dispatch = useAppDispatch();
 
   const { isFullscreen } = useAppStatus(appName);
@@ -47,77 +82,79 @@ export default function Window({ appName, minWidth, minHeight }: Props) {
 
   useEffect(() => {
     dispatch(focusApp(appName));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [originalWindowOffset, setOriginalWindowOffset] =
-    useState<Coordinates | null>(null);
   const [pointerOffsetRelative, setPointerOffsetRelative] =
     useState<PointerOffsetRelative | null>(null);
-
-  const [originalWindowSize, setOriginalWindowSize] =
-    useState<WindowSize | null>(null);
 
   const [cursor, setCursor] = useState<PointerCursor>("default");
 
   const [pointerPosition, setPointerPosition] =
     useState<PointerPosition | null>(null);
 
-  const [dynamicStyle, setDynamicStyle] = useState<CSSProperties>({});
+  const [dynamicStyle, setDynamicStyle] = useReducer(dynamicStyleReducer, {});
 
-  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+  const handlePointerMove = (e: PointerEvent<HTMLDivElement>) => {
     if (isFullscreen) return;
 
-    if (pointerPressed) {
-      if (cursor === "default") return;
-
-      const currentWidth = resizeWindow(
+    if (!pointerPressed) {
+      changeCursorByPosition(
         e,
         resizableDivRef.current!,
-        pointerPosition,
-        originalWindowOffset!,
-        originalWindowSize!,
-        pointerOffsetRelative!,
-        minWidth,
-        minHeight
+        setCursor,
+        setPointerPosition
       );
-
-      return checkResponsiveness(
-        currentWidth,
-        dispatch,
-        setWindowResponsiveFont
-      );
+      return;
     }
 
-    monitoringPointerMovingUnpressed(
+    if (!pointerPosition) return;
+
+    const currentWidth = resizeWindow(
       e,
       resizableDivRef.current!,
-      setCursor,
-      cursor,
-      setPointerPosition
+      pointerPosition,
+      pointerOffsetRelative!,
+      prevWindowPos!
     );
+
+    checkResponsiveness(currentWidth, dispatch, setWindowResponsiveFont);
   };
 
-  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+  const [prevWindowPos, setPrevWindowPos] = useState<DOMRect | null>(null);
+
+  const handlePointerDown = (e: PointerEvent<HTMLDivElement>) => {
     dispatch(focusApp(appName));
 
     rememberWindowPosition(
       e,
       resizableDivRef.current!,
-      setOriginalWindowOffset,
       setPointerOffsetRelative,
-      setOriginalWindowSize,
-      setPointerPressed
+      setPointerPressed,
+      setPrevWindowPos
     );
+  };
+
+  const handleAnimationEnd = ({
+    animationName,
+  }: React.AnimationEvent<HTMLDivElement>) => {
+    if (animationName === "despawnWindow") {
+      dispatch(closeApp(appName));
+      return;
+    }
+
+    if (animationName !== "spawnWindow") return;
+
+    const currentDimensions = resizableDivRef!.current!.getBoundingClientRect();
+
+    setDynamicStyle({ type: "DYNAMIC_STYLE", currentDimensions });
   };
 
   useWindowResizingPointersEvents(
     resizableDivRef.current!,
-    originalWindowOffset,
-    originalWindowSize,
     pointerPressed,
     setPointerPressed,
-    handlePointerMove
+    handlePointerMove,
+    prevWindowPos!
   );
 
   useFullscreenEffect(resizableDivRef.current!, setDynamicStyle, isFullscreen);
@@ -127,37 +164,13 @@ export default function Window({ appName, minWidth, minHeight }: Props) {
 
   return (
     <WindowContainer
-      onAnimationEnd={(e) => {
-        // We set the style of the window after the first animation is finished
-        // To avoid the style to be unset for moving/resizing the window
-        if (e.animationName === "spawnWindow") {
-          const currentDimensions =
-            resizableDivRef!.current!.getBoundingClientRect();
-
-          setDynamicStyle({
-            width: currentDimensions.width + "px",
-            height: currentDimensions.height + "px",
-            top: currentDimensions.top + "px",
-            left: currentDimensions.left + "px",
-          });
-
-          return;
-        }
-
-        if (e.animationName === "despawnWindow") {
-          dispatch(closeApp(appName));
-
-          return;
-        }
-      }}
+      onAnimationEnd={handleAnimationEnd}
       animationName={animation}
       zIndex={zIndex}
       cursor={cursor}
       ref={resizableDivRef}
       tabIndex={-1}
-      style={{
-        ...dynamicStyle,
-      }}
+      style={dynamicStyle}
       onPointerMove={handlePointerMove}
       onPointerDown={handlePointerDown}
       onPointerUp={() => setPointerPressed(false)}

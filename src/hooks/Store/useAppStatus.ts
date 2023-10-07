@@ -11,6 +11,6 @@ export default function useAppStatus(appName: string) {
 
   return useSelector((store: RootState) => {
     const app = store.apps.find((app) => app.name === appName);
-    return app ? app.status : emptyStatus;
+    return app?.status ?? emptyStatus;
   });
 }
