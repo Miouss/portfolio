@@ -16,6 +16,7 @@ MovableBarContainer.defaultProps = {
   direction: "row",
 };
 export const MovableBarIcon = styled(Stack)({
+  pointerEvents: "none",
   width: "48px",
   height: "100%",
   justifyContent: "center",

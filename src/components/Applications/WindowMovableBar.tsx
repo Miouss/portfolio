@@ -1,9 +1,5 @@
 import { useRef, useState } from "react";
-import {
-  focusApp,
-  toggleFullscreenApp,
-  useAppDispatch,
-} from "../../redux";
+import { focusApp, toggleFullscreenApp, useAppDispatch } from "../../redux";
 import { useWindowMovingEffect, useAppStatus } from "../../hooks";
 import {
   MovableBarContainer,
