@@ -1,4 +1,4 @@
-import { useAppStatus } from "../";
+import { useAppStatus } from "..";
 
 export default function useFocusEffect(appName: string) {
   const { isFocused } = useAppStatus(appName);

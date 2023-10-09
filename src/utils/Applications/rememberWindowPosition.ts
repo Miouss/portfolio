@@ -1,17 +1,15 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch } from "react";
 import { PointerOffsetRelative } from "../../types";
 
 export default function rememberWindowPosition(
   { pageY, pageX }: React.PointerEvent<HTMLDivElement>,
-  currentResizableDivRef: HTMLDivElement,
-  setPointerOffsetRelative: Dispatch<
-    SetStateAction<PointerOffsetRelative | null>
-  >,
-  setPointerPressed: Dispatch<SetStateAction<boolean>>,
-  setPrevWindowPos: Dispatch<SetStateAction<DOMRect | null>>
+  resizableDivRef: React.RefObject<HTMLDivElement>,
+  setPointerOffsetRelative: Dispatch<PointerOffsetRelative | null>,
+  setPointerPressed: Dispatch<boolean>,
+  setPrevWindowPos: Dispatch<DOMRect | null>
 ) {
   const windowBoundingClientRect =
-    currentResizableDivRef.getBoundingClientRect();
+    resizableDivRef.current!.getBoundingClientRect();
 
   setPrevWindowPos(windowBoundingClientRect);
 

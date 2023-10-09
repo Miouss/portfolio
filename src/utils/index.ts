@@ -1,5 +1,4 @@
 // Applications
-export { default as checkResponsiveness } from "./Applications/checkResponsiveness";
 export { changeCursorByPosition } from "./Applications/changeCursorByPosition";
 export { default as rememberWindowPosition } from "./Applications/rememberWindowPosition";
 export { default as resizeWindow } from "./Applications/resizeWindow";

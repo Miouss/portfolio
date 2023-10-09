@@ -97,8 +97,4 @@ export default function resizeWindow(
       style.top = resize[area].offsetTop;
     }
   });
-
-  const currentWindowSizeWidth = parseInt(style.width);
-
-  return currentWindowSizeWidth;
 }

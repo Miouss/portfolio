@@ -6,37 +6,45 @@ import {
   useReducer,
   PointerEvent,
 } from "react";
-import {
-  closeApp,
-  focusApp,
-  setWindowResponsiveFont,
-  useAppDispatch,
-} from "../../redux";
+import { closeApp, focusApp, useAppDispatch } from "../../redux";
 
 import {
   resizeWindow,
   rememberWindowPosition,
   changeCursorByPosition,
-  checkResponsiveness,
 } from "../../utils";
 import {
   useFullscreenEffect,
   useFocusEffect,
-  useWindowResizingPointersEvents,
+  useWindowResizing,
   useMinimizedEffect,
   useAppStatus,
+  useResponsiveness,
 } from "../../hooks";
 import {
-  Coordinates,
   PointerCursor,
   PointerOffsetRelative,
   PointerPosition,
-  WindowSize,
   Animation,
 } from "../../types";
 import { WindowContainer } from "../../styles";
 import MovableBar from "./WindowMovableBar";
 import Content from "./WindowContent";
+
+export enum DynamicStyleEnum {
+  FULLSCREEN = "FULLSCREEN",
+  DYNAMIC_STYLE = "DYNAMIC_STYLE",
+}
+
+enum AnimationNameEnum {
+  SPAWN = "spawnWindow",
+  DESPAWN = "despawnWindow",
+}
+
+export interface DynamicStyleAction {
+  type: DynamicStyleEnum;
+  currentDimensions?: CSSProperties;
+}
 
 interface Props {
   appName: string;
@@ -44,13 +52,12 @@ interface Props {
 
 function dynamicStyleReducer(
   _: CSSProperties | null,
-  action: {
-    type: "FULLSCREEN" | "DYNAMIC_STYLE";
-    currentDimensions?: CSSProperties;
-  }
+  action: DynamicStyleAction
 ) {
+  const { FULLSCREEN, DYNAMIC_STYLE } = DynamicStyleEnum;
+
   switch (action.type) {
-    case "FULLSCREEN":
+    case FULLSCREEN:
       return {
         width: "calc(100% + 20px)",
         height: "calc(100% - 25px)",
@@ -58,7 +65,7 @@ function dynamicStyleReducer(
         left: "-10px",
         transform: "none",
       };
-    case "DYNAMIC_STYLE":
+    case DYNAMIC_STYLE:
       const { currentDimensions } = action;
 
       return {
@@ -87,7 +94,7 @@ export default function Window({ appName }: Props) {
   const [pointerOffsetRelative, setPointerOffsetRelative] =
     useState<PointerOffsetRelative | null>(null);
 
-  const [cursor, setCursor] = useState<PointerCursor>("default");
+  const [cursor, setCursor] = useState<PointerCursor>(PointerCursor.DEFAULT);
 
   const [pointerPosition, setPointerPosition] =
     useState<PointerPosition | null>(null);
@@ -109,15 +116,13 @@ export default function Window({ appName }: Props) {
 
     if (!pointerPosition) return;
 
-    const currentWidth = resizeWindow(
+    resizeWindow(
       e,
       resizableDivRef.current!,
       pointerPosition,
       pointerOffsetRelative!,
       prevWindowPos!
     );
-
-    checkResponsiveness(currentWidth, dispatch, setWindowResponsiveFont);
   };
 
   const [prevWindowPos, setPrevWindowPos] = useState<DOMRect | null>(null);
@@ -127,7 +132,7 @@ export default function Window({ appName }: Props) {
 
     rememberWindowPosition(
       e,
-      resizableDivRef.current!,
+      resizableDivRef,
       setPointerOffsetRelative,
       setPointerPressed,
       setPrevWindowPos
@@ -137,19 +142,25 @@ export default function Window({ appName }: Props) {
   const handleAnimationEnd = ({
     animationName,
   }: React.AnimationEvent<HTMLDivElement>) => {
-    if (animationName === "despawnWindow") {
+    const hasSpawned = animationName === AnimationNameEnum.SPAWN;
+    const hasDespawned = animationName === AnimationNameEnum.DESPAWN;
+
+    if (hasDespawned) {
       dispatch(closeApp(appName));
       return;
     }
 
-    if (animationName !== "spawnWindow") return;
+    if (hasSpawned) return;
 
     const currentDimensions = resizableDivRef!.current!.getBoundingClientRect();
 
-    setDynamicStyle({ type: "DYNAMIC_STYLE", currentDimensions });
+    setDynamicStyle({
+      type: DynamicStyleEnum.DYNAMIC_STYLE,
+      currentDimensions,
+    });
   };
 
-  useWindowResizingPointersEvents(
+  useWindowResizing(
     resizableDivRef.current!,
     pointerPressed,
     setPointerPressed,
@@ -158,6 +169,7 @@ export default function Window({ appName }: Props) {
   );
 
   useFullscreenEffect(resizableDivRef.current!, setDynamicStyle, isFullscreen);
+  useResponsiveness(resizableDivRef.current?.getBoundingClientRect().width);
 
   const zIndex = useFocusEffect(appName);
   const animation: Animation = useMinimizedEffect(appName);

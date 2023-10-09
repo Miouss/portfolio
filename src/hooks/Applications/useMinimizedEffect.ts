@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { Animation } from "../../types";
-import { useAppStatus } from "../";
+import { useAppStatus } from "..";
 
 export default function useMinimizedEffect(appName: string) {
   const [isFirstRender, setIsFirstRender] = useState(true);

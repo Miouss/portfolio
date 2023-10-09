@@ -1,19 +1,19 @@
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, PointerEvent, useEffect } from "react";
 import { verifyWindowPosition } from "../../utils";
 
-export default function useWindowResizingPointersEvents(
+type handlePointerMoveType = (event: PointerEvent<HTMLDivElement>) => void;
+
+export function useWindowResizing(
   currentResizableDivRef: HTMLDivElement,
   pointerPressed: boolean,
-  setPointerPressed: Dispatch<SetStateAction<boolean>>,
-  handlePointerMove: (event: React.PointerEvent<HTMLDivElement>) => void,
+  setPointerPressed: Dispatch<boolean>,
+  handlePointerMove: handlePointerMoveType,
   prevWindowPos: DOMRect
 ) {
   useEffect(() => {
     if (!pointerPressed) return;
 
-    document.onpointermove = (e) =>
-      handlePointerMove(e as unknown as React.PointerEvent<HTMLDivElement>);
-    document.onpointerup = () => setPointerPressed(false);
+    addPointerEventsListeners(handlePointerMove, setPointerPressed);
 
     return () => {
       // Reposition window if it's outside of the screen
@@ -39,6 +39,15 @@ function resetWindowPosition(
   style.top = prevWindowPos.y + "px";
   style.width = prevWindowPos.width + "px";
   style.height = prevWindowPos.height + "px";
+}
+
+function addPointerEventsListeners(
+  handlePointerMove: handlePointerMoveType,
+  setPointerPressed: Dispatch<boolean>
+) {
+  document.onpointermove = (e) =>
+    handlePointerMove(e as unknown as PointerEvent<HTMLDivElement>);
+  document.onpointerup = () => setPointerPressed(false);
 }
 
 function cleanUpPointerEvents() {

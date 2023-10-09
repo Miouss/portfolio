@@ -3,7 +3,8 @@ export { default as useFocusEffect } from "./Applications/useFocusEffect";
 export { default as useFullscreenEffect } from "./Applications/useFullscreenEffect";
 export { default as useMinimizedEffect } from "./Applications/useMinimizedEffect";
 export { default as useWindowMovingEffect } from "./Applications/useWindowMovingEffect";
-export { default as useWindowResizingPointersEvents } from "./Applications/useWindowResizingPointersEvents";
+export * from "./Applications/useWindowResizing";
+export * from "./Applications/useResponsiveness";
 
 // Apps
 export { default as useAudioFile } from "./Apps/useAudioFile";

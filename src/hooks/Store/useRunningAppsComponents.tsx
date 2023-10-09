@@ -12,21 +12,11 @@ export default function useRunningAppsComponents() {
 
   useEffect(() => {
     setRunningAppComponents(
-      runningAppsNonNotif.map((runningApp) => {
-        if (runningApp.status.isSpecial === true) {
-          return (
-            <AppComponent
-              key={`Component ${runningApp.name}`}
-              name={runningApp.name}
-            />
-          );
+      runningAppsNonNotif.map(({ status, name }) => {
+        if (status.isSpecial === true) {
+          return <AppComponent key={`Component ${name}`} name={name} />;
         } else {
-          return (
-            <AppWindow
-              key={`Component ${runningApp.name}`}
-              appName={runningApp.name}
-            />
-          );
+          return <AppWindow key={`Component ${name}`} appName={name} />;
         }
       })
     );

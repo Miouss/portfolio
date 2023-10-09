@@ -14,50 +14,37 @@ export function changeCursorByPosition(
     right: offsetWidth - (clientX - offsetLeft),
   };
 
-  const area = (areaName: string, cond: boolean, cursorName: string) => ({
+  const area = (
+    areaName: PointerPosition,
+    cond: boolean,
+    cursorName: PointerCursor
+  ) => ({
     area: areaName,
     isInArea: cond,
-    cursor: cursorName + "-resize",
+    cursor: cursorName,
   });
 
+  const { NWSE, NESW, NS, EW, DEFAULT } = PointerCursor;
+  const { TL, TR, BL, BR, T, B, L, R } = PointerPosition;
+
   const currentPointerPosition = [
-    area(
-      "topLeft",
-      pointerOffset.left <= 10 && pointerOffset.top <= 10,
-      "nwse"
-    ),
-    area(
-      "topRight",
-      pointerOffset.right <= 10 && pointerOffset.top <= 10,
-      "nesw"
-    ),
-    area(
-      "bottomLeft",
-      pointerOffset.left <= 10 && pointerOffset.bottom <= 10,
-      "nesw"
-    ),
-    area(
-      "bottomRight",
-      pointerOffset.right <= 10 && pointerOffset.bottom <= 10,
-      "nwse"
-    ),
-    area("top", pointerOffset.left > 10 && pointerOffset.top <= 10, "ns"),
-    area(
-      "bottom",
-      pointerOffset.right > 10 && pointerOffset.bottom <= 10,
-      "ns"
-    ),
-    area("left", pointerOffset.left <= 10 && pointerOffset.top > 10, "ew"),
-    area("right", pointerOffset.right <= 10 && pointerOffset.bottom > 10, "ew"),
+    area(TL, pointerOffset.left <= 10 && pointerOffset.top <= 10, NWSE),
+    area(TR, pointerOffset.right <= 10 && pointerOffset.top <= 10, NESW),
+    area(BL, pointerOffset.left <= 10 && pointerOffset.bottom <= 10, NESW),
+    area(BR, pointerOffset.right <= 10 && pointerOffset.bottom <= 10, NWSE),
+    area(T, pointerOffset.left > 10 && pointerOffset.top <= 10, NS),
+    area(B, pointerOffset.right > 10 && pointerOffset.bottom <= 10, NS),
+    area(L, pointerOffset.left <= 10 && pointerOffset.top > 10, EW),
+    area(R, pointerOffset.right <= 10 && pointerOffset.bottom > 10, EW),
   ];
 
   for (const position of currentPointerPosition) {
     if (position.isInArea) {
-      setPointerPosition(position.area as PointerPosition);
-      setCursor(position.cursor as PointerCursor);
+      setPointerPosition(position.area);
+      setCursor(position.cursor);
       return;
     }
   }
-
   setPointerPosition(null);
+  setCursor(DEFAULT);
 }

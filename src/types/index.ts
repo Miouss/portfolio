@@ -21,22 +21,24 @@ export interface WindowSize {
   height: number;
 }
 
-export type PointerPosition =
-  | "top"
-  | "bottom"
-  | "left"
-  | "right"
-  | "topLeft"
-  | "topRight"
-  | "bottomLeft"
-  | "bottomRight";
+export enum PointerPosition {
+  TL = "topLeft",
+  TR = "topRight",
+  BL = "bottomLeft",
+  BR = "bottomRight",
+  T = "top",
+  B = "bottom",
+  L = "left",
+  R = "right",
+}
 
-export type PointerCursor =
-  | "ns-resize"
-  | "ew-resize"
-  | "nwse-resize"
-  | "nesw-resize"
-  | "default";
+export enum PointerCursor {
+  NS = "ns-resize",
+  EW = "ew-resize",
+  NWSE = "nwse-resize",
+  NESW = "nesw-resize",
+  DEFAULT = "default",
+}
 
 export type Animation = "spawnWindow" | "fadeInWindow" | "fadeOutWindow";
 export type UndefinedBoolean = boolean | undefined;
