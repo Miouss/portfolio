@@ -1,3 +1,4 @@
+import { WindowRef } from "../../components/Applications/Window";
 import { PointerOffsetRelative, PointerPosition } from "../../types";
 
 type ResizeArea = "left" | "right" | "top" | "bottom";
@@ -7,36 +8,38 @@ const MIN_WIDTH = 600;
 
 export default function resizeWindow(
   { clientX, clientY }: React.PointerEvent<HTMLDivElement>,
-  { style }: HTMLDivElement,
+  windowRef: WindowRef,
   pointerPosition: PointerPosition,
   pointerOffsetRelative: PointerOffsetRelative,
-  prevWindowPos: DOMRect
+  prevWindowRect: DOMRect
 ) {
   if (!clientX) return;
+
+  const { style } = windowRef.current!;
 
   const areaToResize: ResizeArea[] = pointerPosition
     .split(/(?=[A-Z])/) // split area like bottomLeft in [bottom, left]
     .map((area) => area.toLowerCase() as ResizeArea);
 
-  const prevOffsetTop = prevWindowPos.top + "px";
-  const prevOffsetLeft = prevWindowPos.left + "px";
-  const prevHeight = prevWindowPos.height + "px";
-  const prevWidth = prevWindowPos.width + "px";
+  const prevOffsetTop = prevWindowRect.top + "px";
+  const prevOffsetLeft = prevWindowRect.left + "px";
+  const prevHeight = prevWindowRect.height + "px";
+  const prevWidth = prevWindowRect.width + "px";
 
   const offsetFromInitialPos = {
-    y: clientY - prevWindowPos.top,
-    x: clientX - prevWindowPos.left,
+    y: clientY - prevWindowRect.top,
+    x: clientX - prevWindowRect.left,
   };
 
   const resize = {
     left: {
       offsetLeft:
-        prevWindowPos.left +
+        prevWindowRect.left +
         offsetFromInitialPos.x -
         pointerOffsetRelative.left +
         "px",
       width:
-        prevWindowPos.width -
+        prevWindowRect.width -
         (offsetFromInitialPos.x - pointerOffsetRelative.left) +
         "px",
       height: prevHeight,
@@ -44,9 +47,9 @@ export default function resizeWindow(
     },
     right: {
       width:
-        prevWindowPos.width +
+        prevWindowRect.width +
         (offsetFromInitialPos.x -
-          prevWindowPos.width -
+          prevWindowRect.width -
           pointerOffsetRelative.right) +
         "px",
       height: prevHeight,
@@ -55,12 +58,12 @@ export default function resizeWindow(
     },
     top: {
       offsetTop:
-        prevWindowPos.top +
+        prevWindowRect.top +
         offsetFromInitialPos.y -
         pointerOffsetRelative.top +
         "px",
       height:
-        prevWindowPos.height -
+        prevWindowRect.height -
         (offsetFromInitialPos.y - pointerOffsetRelative.top) +
         "px",
       width: prevWidth,
@@ -68,9 +71,9 @@ export default function resizeWindow(
     },
     bottom: {
       height:
-        prevWindowPos.height +
+        prevWindowRect.height +
         (offsetFromInitialPos.y -
-          prevWindowPos.height -
+          prevWindowRect.height -
           pointerOffsetRelative.bottom) +
         "px",
       width: prevWidth,

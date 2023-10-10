@@ -1,12 +1,16 @@
 import { Dispatch, SetStateAction } from "react";
 import { PointerCursor, PointerPosition } from "../../types";
+import { WindowRef } from "../../components/Applications/Window";
 
 export function changeCursorByPosition(
   { clientX, clientY }: React.PointerEvent<HTMLDivElement>,
-  { offsetLeft, offsetTop, offsetHeight, offsetWidth }: HTMLDivElement,
+  windowRef: WindowRef,
   setCursor: Dispatch<SetStateAction<PointerCursor>>,
   setPointerPosition: Dispatch<SetStateAction<PointerPosition | null>>
 ) {
+  const { offsetLeft, offsetTop, offsetHeight, offsetWidth } =
+    windowRef.current!;
+
   const pointerOffset = {
     left: clientX - offsetLeft,
     top: clientY - offsetTop,

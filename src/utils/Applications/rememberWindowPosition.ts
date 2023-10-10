@@ -1,17 +1,17 @@
 import { Dispatch } from "react";
 import { PointerOffsetRelative } from "../../types";
+import { WindowRef } from "../../components/Applications/Window";
 
 export default function rememberWindowPosition(
   { pageY, pageX }: React.PointerEvent<HTMLDivElement>,
-  resizableDivRef: React.RefObject<HTMLDivElement>,
+  windowRef: WindowRef,
   setPointerOffsetRelative: Dispatch<PointerOffsetRelative | null>,
-  setPointerPressed: Dispatch<boolean>,
-  setPrevWindowPos: Dispatch<DOMRect | null>
+  SetIsPointerDown: Dispatch<boolean>,
+  setPrevWindowRect: Dispatch<DOMRect | null>
 ) {
-  const windowBoundingClientRect =
-    resizableDivRef.current!.getBoundingClientRect();
+  const windowBoundingClientRect = windowRef.current!.getBoundingClientRect();
 
-  setPrevWindowPos(windowBoundingClientRect);
+  setPrevWindowRect(windowBoundingClientRect);
 
   setPointerOffsetRelative({
     top: pageY - windowBoundingClientRect.top,
@@ -20,5 +20,5 @@ export default function rememberWindowPosition(
     left: pageX - windowBoundingClientRect.left,
   });
 
-  setPointerPressed(true);
+  SetIsPointerDown(true);
 }

@@ -1,12 +1,11 @@
-import { Dispatch, useState, useEffect } from "react";
+import { Dispatch, useState, useEffect, MutableRefObject } from "react";
 
-import {
-  DynamicStyleAction,
-  DynamicStyleEnum,
-} from "../../components/Applications/Window";
+import { DynamicStyle, DynamicStyleAction } from "../../hooks";
+
+import { getDOMRect } from "../../utils";
 
 export default function useFullscreenEffect(
-  currentResizableDivRef: any,
+  resizableDivRef: MutableRefObject<HTMLDivElement | null>,
   setDynamicStyle: Dispatch<DynamicStyleAction>,
   isFullscreen?: boolean
 ) {
@@ -14,10 +13,10 @@ export default function useFullscreenEffect(
     useState<DOMRect | null>(null);
 
   useEffect(() => {
-    const { FULLSCREEN, DYNAMIC_STYLE } = DynamicStyleEnum;
+    const { FULLSCREEN, DYNAMIC } = DynamicStyle;
 
     if (isFullscreen) {
-      const windowDimensions = currentResizableDivRef.getBoundingClientRect();
+      const windowDimensions = getDOMRect(resizableDivRef);
 
       setPreviousWindowPosition(windowDimensions);
       setDynamicStyle({
@@ -30,8 +29,8 @@ export default function useFullscreenEffect(
     if (!previousWindowPosition) return;
 
     setDynamicStyle({
-      type: DYNAMIC_STYLE,
-      currentDimensions: previousWindowPosition,
+      type: DYNAMIC,
+      DOMRect: previousWindowPosition,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFullscreen]);

@@ -14,16 +14,16 @@ enum AppSize {
   LARGE = 1720,
 }
 
-export function useResponsiveness(currentWidth: number | undefined) {
+export function useResponsiveness(width: number | undefined) {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!currentWidth) return;
+    if (!width) return;
 
-    const isMinLarge = currentWidth >= AppSize.MEDIUM;
-    const isMinMedium = currentWidth >= AppSize.SMALL;
+    const isMinLarge = width >= AppSize.MEDIUM;
+    const isMinMedium = width >= AppSize.SMALL;
 
-    const isLarge = currentWidth < AppSize.LARGE && isMinLarge;
+    const isLarge = width < AppSize.LARGE && isMinLarge;
 
     const isMedium = !isMinLarge && isMinMedium;
 
@@ -44,5 +44,5 @@ export function useResponsiveness(currentWidth: number | undefined) {
     }
 
     dispatch(setWindowResponsiveFont(fontSize));
-  }, [currentWidth]);
+  }, [width]);
 }

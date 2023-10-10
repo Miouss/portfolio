@@ -15,6 +15,20 @@ export interface RunningApp {
   status: AppStatus;
 }
 
+const createApp = (isSpecial?: boolean | "notif") => ({
+  isRunning: false,
+  isFocused: false,
+  isMinimized: false,
+  isFullscreen: false,
+  isSpecial,
+});
+
+const createSpecialApp = () => createApp(true);
+const createNotifApp = () => createApp("notif");
+
+const findApp = (apps: RunningApp[], name: string) =>
+  apps.find((app) => app.name === name);
+
 const apps = createSlice({
   name: "apps",
   initialState: [] as RunningApp[],
@@ -22,47 +36,30 @@ const apps = createSlice({
     addApp: (state, { payload }: PayloadAction<string>) => {
       state.push({
         name: payload,
-        status: {
-          isRunning: false,
-          isFocused: false,
-          isMinimized: false,
-          isFullscreen: false,
-        },
+        status: createApp(),
       });
     },
     addSpecialApp: (state, { payload }: PayloadAction<string>) => {
       state.push({
         name: payload,
-        status: {
-          isRunning: false,
-          isFocused: false,
-          isMinimized: false,
-          isFullscreen: false,
-          isSpecial: true,
-        },
+        status: createSpecialApp(),
       });
     },
     addNotifApp: (state, { payload }: PayloadAction<string>) => {
       state.push({
         name: payload,
-        status: {
-          isRunning: false,
-          isFocused: false,
-          isMinimized: false,
-          isFullscreen: false,
-          isSpecial: "notif",
-        },
+        status: createNotifApp(),
       });
     },
     openApp: (state, { payload }: PayloadAction<string>) => {
-      const app = state.find((app) => app.name === payload);
+      const app = findApp(state, payload);
       if (app) {
         app.status.isRunning = true;
         focusApp(payload);
       }
     },
     closeApp: (state, { payload }: PayloadAction<string>) => {
-      const app = state.find((app) => app.name === payload);
+      const app = findApp(state, payload);
 
       if (app) {
         app.status.isRunning = false;
@@ -82,15 +79,15 @@ const apps = createSlice({
       });
     },
     minimizeApp: (state, { payload }: PayloadAction<string>) => {
-      const app = state.find((app) => app.name === payload);
-      
+      const app = findApp(state, payload);
+
       if (app) {
         app.status.isMinimized = true;
         app.status.isFocused = false;
       }
     },
     toggleFullscreenApp: (state, { payload }: PayloadAction<string>) => {
-      const app = state.find((app) => app.name === payload);
+      const app = findApp(state, payload);
 
       if (app) {
         app.status.isFullscreen = !app.status.isFullscreen;

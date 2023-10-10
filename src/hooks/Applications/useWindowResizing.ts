@@ -1,53 +1,54 @@
 import { Dispatch, PointerEvent, useEffect } from "react";
-import { verifyWindowPosition } from "../../utils";
+import { getDOMRect, verifyWindowPosition } from "../../utils";
+import { WindowRef } from "../../components/Applications/Window";
 
 type handlePointerMoveType = (event: PointerEvent<HTMLDivElement>) => void;
 
 export function useWindowResizing(
-  currentResizableDivRef: HTMLDivElement,
-  pointerPressed: boolean,
-  setPointerPressed: Dispatch<boolean>,
+  windowRef: WindowRef,
+  isPointerDown: boolean,
+  SetIsPointerDown: Dispatch<boolean>,
   handlePointerMove: handlePointerMoveType,
-  prevWindowPos: DOMRect
+  prevWindowRect: DOMRect
 ) {
   useEffect(() => {
-    if (!pointerPressed) return;
+    if (!isPointerDown) return;
 
-    addPointerEventsListeners(handlePointerMove, setPointerPressed);
+    addPointerEventsListeners(handlePointerMove, SetIsPointerDown);
 
     return () => {
       // Reposition window if it's outside of the screen
 
-      const windowPos = currentResizableDivRef.getBoundingClientRect();
+      const windowPos = getDOMRect(windowRef);
 
       const isWindowOutsideOfScreen = verifyWindowPosition(windowPos);
 
       if (isWindowOutsideOfScreen) {
-        resetWindowPosition(currentResizableDivRef.style, prevWindowPos);
+        resetWindowPosition(windowRef.current!.style, prevWindowRect);
       }
 
       cleanUpPointerEvents();
     };
-  }, [pointerPressed]);
+  }, [isPointerDown]);
 }
 
 function resetWindowPosition(
   style: CSSStyleDeclaration,
-  prevWindowPos: DOMRect
+  prevWindowRect: DOMRect
 ) {
-  style.left = prevWindowPos.x + "px";
-  style.top = prevWindowPos.y + "px";
-  style.width = prevWindowPos.width + "px";
-  style.height = prevWindowPos.height + "px";
+  style.left = prevWindowRect.x + "px";
+  style.top = prevWindowRect.y + "px";
+  style.width = prevWindowRect.width + "px";
+  style.height = prevWindowRect.height + "px";
 }
 
 function addPointerEventsListeners(
   handlePointerMove: handlePointerMoveType,
-  setPointerPressed: Dispatch<boolean>
+  SetIsPointerDown: Dispatch<boolean>
 ) {
   document.onpointermove = (e) =>
     handlePointerMove(e as unknown as PointerEvent<HTMLDivElement>);
-  document.onpointerup = () => setPointerPressed(false);
+  document.onpointerup = () => SetIsPointerDown(false);
 }
 
 function cleanUpPointerEvents() {

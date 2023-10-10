@@ -5,6 +5,7 @@ export { default as useMinimizedEffect } from "./Applications/useMinimizedEffect
 export { default as useWindowMovingEffect } from "./Applications/useWindowMovingEffect";
 export * from "./Applications/useWindowResizing";
 export * from "./Applications/useResponsiveness";
+export * from "./Applications/useDynamicStyle";
 
 // Apps
 export { default as useAudioFile } from "./Apps/useAudioFile";
