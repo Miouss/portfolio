@@ -6,22 +6,32 @@ export default function useUpdatedDate() {
   const [date, setDate] = useState<Date>(new Date());
   const { lang } = useLangContext();
   const localeDate = lang === "eng" ? "en-US" : "fr-FR";
-  const weekDay = new Intl.DateTimeFormat(localeDate, {
+
+  const [month, weekDay] = new Intl.DateTimeFormat(localeDate, {
     weekday: "long",
-  }).format(date);
-  const month = new Intl.DateTimeFormat(localeDate, { month: "long" }).format(
-    date
-  );
+    month: "long",
+  })
+    .format(date)
+    .split(" ");
+
   const day = date.toLocaleString(localeDate, { day: "numeric" });
 
+  const maxTwoDigits = (num: number) => num.toString().padStart(2, "0");
+
+  const dateTime = {
+    h: maxTwoDigits(date.getHours()),
+    m: maxTwoDigits(date.getMinutes()),
+  };
+
+  const dateCalendar = {
+    d: maxTwoDigits(date.getDate()),
+    m: maxTwoDigits(date.getMonth() + 1),
+    y: date.getFullYear(),
+  };
+
   const updatedFullDate = {
-    time: `${date.getHours().toString().padStart(2, "0")}:${date
-      .getMinutes()
-      .toString()
-      .padStart(2, "0")}`,
-    date: `${date.getDate().toString().padStart(2, "0")}/${(date.getMonth() + 1)
-      .toString()
-      .padStart(2, "0")}/${date.getFullYear()}`,
+    time: `${dateTime.h}:${dateTime.m}`,
+    date: `${dateCalendar.d}/${dateCalendar.m}/${dateCalendar.y}`,
     details: `${weekDay}, ${day} ${month}`,
   };
 
