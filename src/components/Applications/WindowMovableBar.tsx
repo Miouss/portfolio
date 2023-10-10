@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { RefObject, useRef, useState } from "react";
 import { focusApp, toggleFullscreenApp, useAppDispatch } from "../../redux";
 import { useWindowMovingEffect, useAppStatus } from "../../hooks";
 import {
@@ -8,6 +8,15 @@ import {
 } from "../../styles";
 import { AppWindowIcon } from "../../apps";
 import BarButtonGroup from "./WindowMovableBarButtonGroup";
+import { PointerCursor } from "../../types";
+
+interface WindowBarRefCurrent extends HTMLDivElement {
+  offsetParent: HTMLDivElement;
+}
+
+export interface WindowBarRef extends RefObject<HTMLDivElement> {
+  current: WindowBarRefCurrent | null;
+}
 
 interface Props {
   appName: string;
@@ -15,34 +24,36 @@ interface Props {
 
 export default function MovableBar({ appName }: Props) {
   const dispatch = useAppDispatch();
-  const windowBarRef = useRef<HTMLDivElement>() as any;
-  const [mouseIsPressed, setMouseIsPressed] = useState<boolean>(false);
+  const windowBarRef: WindowBarRef = useRef(null);
+  const [isPointerDown, setIsPointerDown] = useState<boolean>(false);
 
   const { isFullscreen } = useAppStatus(appName);
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     e.stopPropagation();
     dispatch(focusApp(appName));
-    setMouseIsPressed(true);
+    setIsPointerDown(true);
+  };
+
+  const handleDbClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    dispatch(toggleFullscreenApp(appName));
+    setIsPointerDown(false);
   };
 
   useWindowMovingEffect(
-    windowBarRef.current,
-    mouseIsPressed,
-    setMouseIsPressed,
+    windowBarRef,
+    isPointerDown,
+    setIsPointerDown,
     isFullscreen
   );
 
   return (
     <MovableBarContainer
       ref={windowBarRef}
-      style={{ cursor: "default" }}
+      style={{ cursor: PointerCursor.DEFAULT }}
       onPointerDown={handlePointerDown}
-      onDoubleClick={(e) => {
-        e.stopPropagation();
-        dispatch(toggleFullscreenApp(appName));
-        setMouseIsPressed(false);
-      }}
+      onDoubleClick={handleDbClick}
     >
       <MovableBarIcon>
         <AppWindowIcon name={appName} />
@@ -51,7 +62,7 @@ export default function MovableBar({ appName }: Props) {
 
       <BarButtonGroup
         appName={appName}
-        refAppWindow={windowBarRef.current?.offsetParent}
+        windowEl={windowBarRef.current?.offsetParent}
       />
     </MovableBarContainer>
   );

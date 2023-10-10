@@ -1,5 +1,9 @@
 import { Dispatch, PointerEvent, useEffect } from "react";
-import { getDOMRect, verifyWindowPosition } from "../../utils";
+import {
+  cleanUpPointerEvents,
+  getDOMRect,
+  verifyWindowPosition,
+} from "../../utils";
 import { WindowRef } from "../../components/Applications/Window";
 
 type handlePointerMoveType = (event: PointerEvent<HTMLDivElement>) => void;
@@ -49,9 +53,4 @@ function addPointerEventsListeners(
   document.onpointermove = (e) =>
     handlePointerMove(e as unknown as PointerEvent<HTMLDivElement>);
   document.onpointerup = () => SetIsPointerDown(false);
-}
-
-function cleanUpPointerEvents() {
-  document.onpointermove = () => false;
-  document.onpointerup = () => false;
 }

@@ -1,9 +1,5 @@
 import { useState } from "react";
-import {
-  minimizeApp,
-  toggleFullscreenApp,
-  useAppDispatch,
-} from "../../redux";
+import { minimizeApp, toggleFullscreenApp, useAppDispatch } from "../../redux";
 import {
   BarButtonGroupContainer,
   Button,
@@ -17,28 +13,34 @@ import {
   FullscreenIcon,
   FullscreenExitIcon,
 } from "../../assets";
+import { Animation } from "./Window";
 
 interface Props {
   appName: string;
-  refAppWindow: HTMLDivElement;
+  windowEl: HTMLDivElement | undefined;
 }
 
-export default function BarButtonGroup({ appName, refAppWindow }: Props) {
-  const [pointerWasDown, setPointerWasDown] = useState<boolean>(false);
+export default function BarButtonGroup({ appName, windowEl }: Props) {
   const { isFullscreen } = useAppStatus(appName);
 
   const dispatch = useAppDispatch();
 
-  const handlePointerEvent = (e: React.PointerEvent<HTMLDivElement>) => {
+  const stopPropagation = (e: React.PointerEvent<HTMLDivElement>) => {
     e.stopPropagation();
+  };
+
+  const handleAnimation = () => {
+    if (!windowEl) return;
+
+    windowEl.style.animation = `${Animation.DESPAWN} 0.15s ease-out forwards`;
   };
 
   return (
     <BarButtonGroupContainer
       color="inherit"
-      onPointerEnter={handlePointerEvent}
-      onPointerDown={handlePointerEvent}
-      onDoubleClick={handlePointerEvent}
+      onPointerEnter={stopPropagation}
+      onPointerDown={stopPropagation}
+      onDoubleClick={stopPropagation}
     >
       <Button onClick={() => dispatch(minimizeApp(appName))}>
         <MinimizeIcon />
@@ -46,12 +48,7 @@ export default function BarButtonGroup({ appName, refAppWindow }: Props) {
       <Button onClick={() => dispatch(toggleFullscreenApp(appName))}>
         {isFullscreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
       </Button>
-      <CloseButtonContainer
-        onClick={() => {
-          refAppWindow.style.animation =
-            "despawnWindow 0.15s ease-out forwards";
-        }}
-      >
+      <CloseButtonContainer onClick={handleAnimation}>
         <CloseIcon />
       </CloseButtonContainer>
     </BarButtonGroupContainer>

@@ -1,79 +1,64 @@
-import { useEffect, useState } from "react";
-import { verifyWindowPosition } from "../../utils";
+import { Dispatch, useEffect, useState } from "react";
+import { cleanUpPointerEvents, verifyWindowPosition } from "../../utils";
+import { WindowBarRef } from "../../components/Applications/WindowMovableBar";
 
 interface Offset {
-  left: string;
-  top: string;
+  left: CSSStyleDeclaration["left"];
+  top: CSSStyleDeclaration["top"];
 }
 
 export default function useWindowMovingEffect(
-  currentWindowBarRef: any,
-  mouseIsPressed: boolean,
-  setMouseIsPressed: React.Dispatch<React.SetStateAction<boolean>>,
+  windowBarRef: WindowBarRef,
+  isPointerDown: boolean,
+  setIsPointerDown: Dispatch<boolean>,
   isFullscreen: boolean
 ) {
   const [originalOffset, setOriginalOffset] = useState<Offset>();
-  const [forceFirstRerender, setForceFirstRerender] = useState(false);
 
   useEffect(() => {
-    if (currentWindowBarRef == null) return;
+    if (windowBarRef.current === null) return;
+    if (!isPointerDown || isFullscreen) return;
 
-    const refOffsetParent = currentWindowBarRef.offsetParent;
-    const refStyle = refOffsetParent.style;
+    const windowEl = windowBarRef.current.offsetParent;
+    const windowStyle = windowEl.style;
 
-    const handleMouseMovement = (e:PointerEvent) => {
+    const handlePointerMove = (e: PointerEvent) => {
       e.preventDefault();
-      if (mouseIsPressed) {
-        refStyle.left = refOffsetParent.offsetLeft + e.movementX + "px";
-        refStyle.top = refOffsetParent.offsetTop + e.movementY + "px";
-      }
+      windowStyle.left = windowEl.offsetLeft + e.movementX + "px";
+      windowStyle.top = windowEl.offsetTop + e.movementY + "px";
     };
 
-    if (mouseIsPressed && !isFullscreen) {
-      document.onpointerup = () => setMouseIsPressed(false);
-      document.onpointermove = (e) => {
-        e.stopPropagation();
-        handleMouseMovement(e);
-      };
+    document.onpointerup = () => setIsPointerDown(false);
+    document.onpointermove = handlePointerMove;
 
-      return () => {
-        const newWindowPos = refOffsetParent.getBoundingClientRect();
+    return () => {
+      const newWindowPos = windowEl.getBoundingClientRect();
+      const isLimitReached = verifyWindowPosition(newWindowPos);
 
-        if (verifyWindowPosition(newWindowPos)) {
-          refStyle.top = originalOffset!.top;
-          refStyle.left = originalOffset!.left;
-        } else {
-          setOriginalOffset({
-            left: refOffsetParent.offsetLeft + "px",
-            top: refOffsetParent.offsetTop + "px",
-          });
-        }
-        document.onpointerup = (e) => {
-          e.preventDefault();
-        };
+      if (isLimitReached) {
+        windowStyle.top = originalOffset!.top;
+        windowStyle.left = originalOffset!.left;
+      } else {
+        setOriginalOffset({
+          left: windowEl.offsetLeft + "px",
+          top: windowEl.offsetTop + "px",
+        });
+      }
 
-        document.onpointermove = (e) => {
-          e.preventDefault();
-        };
-      };
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mouseIsPressed, isFullscreen]);
+      cleanUpPointerEvents();
+    };
+  }, [isPointerDown, isFullscreen]);
 
   useEffect(() => {
-    setForceFirstRerender(true); // We force the first render to get the original offset of the window after the ref is set
-  }, []);
+    // This useEffect is used to get the very first offset of the window after it renders
+    if (!windowBarRef.current || originalOffset) return;
 
-  useEffect(() => {
-    // This useEffect is used to get the original offset of the window at the first render
-    if (currentWindowBarRef === undefined) return;
-
-    const refStyle = currentWindowBarRef.offsetParent.getBoundingClientRect();
+    const { left, top } =
+      windowBarRef.current.offsetParent.getBoundingClientRect();
 
     setOriginalOffset({
-      left: `${refStyle.left}px`,
-      top: `${refStyle.top}px`,
+      left: `${left}px`,
+      top: `${top}px`,
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [forceFirstRerender]);
+  }, [originalOffset]);
 }

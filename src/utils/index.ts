@@ -19,3 +19,4 @@ export * from "./Desktop/fillGridCells";
 // Misc
 export { default as delay } from "./Misc/delay";
 export * from "./Misc/getDOMRect";
+export * from "./Misc/cleanUpPointerEvents";
