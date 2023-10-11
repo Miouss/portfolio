@@ -42,7 +42,6 @@ export * from "./Signin/SigninLockMenuSwitchLangButton";
 export * from "./Apps/Projects";
 export * from "./Apps/ProjectsContent";
 export * from "./Apps/ProjectsContentRedirectItem";
-export * from "./Apps/ProjectsContentSliderImage";
 export * from "./Apps/TerminalApp";
 export * from "./Apps/ChillBeats";
 export * from "./Apps/Notepad";

@@ -20,7 +20,7 @@ export { default as useGridCells } from "./Desktop/useGridCells";
 // MouseEvents
 export { default as useCloseOnClick } from "./MouseEvents/useCloseOnClick";
 export { default as useCloseOnClickAway } from "./MouseEvents/useCloseOnClickAway";
-export { default as useCloseOnMouseDown } from "./MouseEvents/useCloseOnMouseDown";
+export { default as useCloseOnPointerDown } from "./MouseEvents/useCloseOnPointerDown";
 export { default as useOpenContextMenuOnRightClick } from "./MouseEvents/useOpenContextMenuOnRightClick";
 export { default as useOpenOnLeftClick } from "./MouseEvents/useOpenOnLeftClick";
 

@@ -7,11 +7,10 @@ export default function useAutoScrollOnOverflow(
 ) {
   useEffect(() => {
     const container = containerRef.current;
-    if (container) {
-      const isOverflowing = container.scrollHeight > container.clientHeight;
-      if (isOverflowing)
-        container.scrollTop = container.scrollHeight - container.clientHeight;
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (!container) return;
+
+    const isOverflowing = container.scrollHeight > container.clientHeight;
+    if (isOverflowing)
+      container.scrollTop = container.scrollHeight - container.clientHeight;
   }, [commandHistory, currentDir]);
 }

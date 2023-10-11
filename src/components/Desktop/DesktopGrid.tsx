@@ -5,7 +5,7 @@ import ContextMenu from "./DesktopGridContextMenu";
 import {
   useCloseOnClickAway,
   useOpenContextMenuOnRightClick,
-  useCloseOnMouseDown,
+  useCloseOnPointerDown,
   useGridCells,
 } from "../../hooks";
 
@@ -17,9 +17,8 @@ export interface AppStyle {
 }
 
 export default function DesktopGrid() {
-  const [openContextMenu, setOpenContextMenu] = useState<boolean | undefined>(
-    false
-  );
+  const [openContextMenu, setOpenContextMenu] =
+    useState<boolean | undefined>(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   const desktopGridContainerRef = useRef<HTMLDivElement>(null);
@@ -32,7 +31,7 @@ export default function DesktopGrid() {
     setOpenContextMenu,
     setMousePosition
   );
-  useCloseOnMouseDown(openContextMenu, setOpenContextMenu);
+  useCloseOnPointerDown(openContextMenu, setOpenContextMenu);
   useCloseOnClickAway(openContextMenu, setOpenContextMenu);
 
   return (

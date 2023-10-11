@@ -8,7 +8,7 @@ import {
   useCloseOnClickAway,
   useCloseOnClick,
   useOpenContextMenuOnRightClick,
-  useCloseOnMouseDown,
+  useCloseOnPointerDown,
 } from "../../hooks";
 import { UndefinedBoolean } from "../../types";
 
@@ -40,7 +40,7 @@ export default function StartMenu() {
     setMousePosition
   );
 
-  useCloseOnMouseDown(displayContextMenu, setDisplayContextMenu);
+  useCloseOnPointerDown(displayContextMenu, setDisplayContextMenu);
 
   useCloseOnClick(
     startMenuContainerRef,

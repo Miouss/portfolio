@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
 
-export default function useCloseOnMouseDown(
+export default function useCloseOnPointerDown(
   state: boolean | undefined,
   setState: Dispatch<SetStateAction<boolean | undefined>>
 ) {
@@ -12,8 +12,7 @@ export default function useCloseOnMouseDown(
       setState(false);
     };
 
-
-    document.addEventListener("mousedown", close, {once : true});
+    document.addEventListener("mousedown", close, { once: true });
 
     return () => document.removeEventListener("mousedown", close);
     // eslint-disable-next-line react-hooks/exhaustive-deps
