@@ -9,7 +9,7 @@ interface VolumeSliderProps {
 }
 
 export function VolumeSlider({ currentVolume, setVolume }: VolumeSliderProps) {
-  const changeVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const changeVolume = (e: ChangeEvent<HTMLInputElement>) => {
     e.stopPropagation();
     setVolume(parseInt(e.target.value));
   };
