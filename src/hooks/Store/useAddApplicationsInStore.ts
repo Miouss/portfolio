@@ -1,20 +1,32 @@
 import { useEffect } from "react";
-import { addApp, addSpecialApp, addNotifApp, useAppDispatch } from "../../redux";
+import {
+  addApp,
+  addSpecialApp,
+  addNotifApp,
+  useAppDispatch,
+} from "../../redux";
 
 export default function useAddApplicationsInStore() {
   const dispatch = useAppDispatch();
-  
-  useEffect(() => {
-    const dispatchAddApp = (name: string) => {
-      dispatch(addApp(name));
-    };
 
-    dispatchAddApp("Terminal");
-    dispatchAddApp("Projects");
-    dispatch(addSpecialApp("Mail Sender"));
-    dispatch(addNotifApp("Chill Beats"));
-    dispatchAddApp("Welcome");
-    dispatchAddApp("Presentation");
+  useEffect(() => {
+    const normalAppsName = ["Terminal", "Projects", "Welcome", "Presentation"];
+
+    const specialAppsName = ["Mail Sender"];
+
+    const notifAppsName = ["Chill Beats"];
+
+    normalAppsName.forEach((name) => {
+      dispatch(addApp(name));
+    });
+
+    specialAppsName.forEach((name) => {
+      dispatch(addSpecialApp(name));
+    });
+
+    notifAppsName.forEach((name) => {
+      dispatch(addNotifApp(name));
+    });
 
     document.onselectstart = () => {
       return false;

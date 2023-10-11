@@ -40,7 +40,6 @@ export enum PointerCursor {
   DEFAULT = "default",
 }
 
-export type Animation = "spawnWindow" | "fadeInWindow" | "fadeOutWindow";
 export type UndefinedBoolean = boolean | undefined;
 
 export type DynamicFontSize = "24px" | "16px" | "12px";
