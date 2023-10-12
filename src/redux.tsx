@@ -15,58 +15,49 @@ export interface RunningApp {
   status: AppStatus;
 }
 
-const createApp = (isSpecial?: boolean | "notif") => ({
-  isRunning: false,
-  isFocused: false,
-  isMinimized: false,
-  isFullscreen: false,
-  isSpecial,
+const createApp = (name: string, isSpecial?: boolean | "notif") => ({
+  name,
+  status: {
+    isRunning: false,
+    isFocused: false,
+    isMinimized: false,
+    isFullscreen: false,
+    isSpecial,
+  },
 });
 
-const createSpecialApp = () => createApp(true);
-const createNotifApp = () => createApp("notif");
+const createSpecialApp = (name: string) => createApp(name, true);
+const createNotifApp = (name: string) => createApp(name, "notif");
 
 const findApp = (apps: RunningApp[], name: string) =>
-  apps.find((app) => app.name === name);
+  apps.find((app) => app.name === name)!;
 
 const apps = createSlice({
   name: "apps",
   initialState: [] as RunningApp[],
   reducers: {
     addApp: (state, { payload }: PayloadAction<string>) => {
-      state.push({
-        name: payload,
-        status: createApp(),
-      });
+      state.push(createApp(payload));
     },
     addSpecialApp: (state, { payload }: PayloadAction<string>) => {
-      state.push({
-        name: payload,
-        status: createSpecialApp(),
-      });
+      state.push(createSpecialApp(payload));
     },
     addNotifApp: (state, { payload }: PayloadAction<string>) => {
-      state.push({
-        name: payload,
-        status: createNotifApp(),
-      });
+      state.push(createNotifApp(payload));
     },
     openApp: (state, { payload }: PayloadAction<string>) => {
       const app = findApp(state, payload);
-      if (app) {
-        app.status.isRunning = true;
-        focusApp(payload);
-      }
+
+      app.status.isRunning = true;
+      focusApp(payload);
     },
     closeApp: (state, { payload }: PayloadAction<string>) => {
       const app = findApp(state, payload);
 
-      if (app) {
-        app.status.isRunning = false;
-        app.status.isFocused = false;
-        app.status.isMinimized = false;
-        app.status.isFullscreen = false;
-      }
+      app.status.isRunning = false;
+      app.status.isFocused = false;
+      app.status.isMinimized = false;
+      app.status.isFullscreen = false;
     },
     focusApp: (state, { payload }: PayloadAction<string>) => {
       state.forEach((app) => {
@@ -81,18 +72,14 @@ const apps = createSlice({
     minimizeApp: (state, { payload }: PayloadAction<string>) => {
       const app = findApp(state, payload);
 
-      if (app) {
-        app.status.isMinimized = true;
-        app.status.isFocused = false;
-      }
+      app.status.isMinimized = true;
+      app.status.isFocused = false;
     },
     toggleFullscreenApp: (state, { payload }: PayloadAction<string>) => {
       const app = findApp(state, payload);
 
-      if (app) {
-        app.status.isFullscreen = !app.status.isFullscreen;
-        app.status.isFocused = true;
-      }
+      app.status.isFullscreen = !app.status.isFullscreen;
+      app.status.isFocused = true;
     },
   },
 });
@@ -101,7 +88,7 @@ const windowResponsiveFont = createSlice({
   name: "windowResponsiveFont",
   initialState: 1,
   reducers: {
-    setWindowResponsiveFont: (state, { payload }: PayloadAction<number>) => {
+    setWindowResponsiveFont: (_, { payload }: PayloadAction<number>) => {
       return payload;
     },
   },
