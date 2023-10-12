@@ -191,7 +191,7 @@ export const SendMailIcon = (style?: CSSProperties) => <TbSend style={style} />;
 export const MailMinimizeIcon = (style?: CSSProperties) => (
   <HiOutlineChevronDoubleRight style={style} />
 );
-export const MailRefocusIcon = (style?: CSSProperties) => (
+export const MailSlideIcon = (style?: CSSProperties) => (
   <HiOutlineChevronDoubleLeft style={style} />
 );
 export const NotepadIcon = (style?: CSSProperties) => (

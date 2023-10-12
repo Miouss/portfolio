@@ -1,24 +1,26 @@
 import styled from "@mui/system/styled";
-import { MailSentProps } from "../../types";
 import { propsFilter } from "../propsFilter";
+import { IsMailSent } from "../../apps/MailSender/Form";
+
+import { Animation } from "../../apps/MailSender/MailSender";
 
 export const MailSenderContainer = styled(
   "div",
   propsFilter("animation", "zIndex")
-)(({ zIndex, animation }: { zIndex: string; animation?: string }) => ({
+)(({ zIndex, animation }: { zIndex: string; animation?: Animation }) => ({
   position: "absolute",
   width: "30%",
   height: "calc(100% - 45px)",
   right: "0",
   zIndex: zIndex,
   backgroundColor: "#232327",
-  animation: animation,
+  animation: `${animation} 0.5s forwards`,
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
 
-  "@keyframes slideInMail": {
+  [`@keyframes ${Animation.SLIDE_IN}`]: {
     "0%": {
       transform: "translateX(100%)",
     },
@@ -27,7 +29,7 @@ export const MailSenderContainer = styled(
     },
   },
 
-  "@keyframes slideOutMail": {
+  [`@keyframes ${Animation.SLIDE_OUT}`]: {
     "0%": {
       transform: "translateX(0)",
     },
@@ -82,36 +84,33 @@ export const Message = styled("textarea")({
   resize: "none",
 });
 
-export const Submit = styled(
-  "button",
-  propsFilter("sendingState")
-)(({ sendingState }: { sendingState: MailSentProps }) => {
-  let bgColor;
+export const Submit = styled("button")(
+  ({ isMailSent }: { isMailSent: IsMailSent }) => {
+    const { YES, NO, SENDING, FAILED } = IsMailSent;
 
-  switch (sendingState) {
-    case "sending":
-      bgColor = "rgb(255, 255, 255, 0.1)";
-      break;
-    case true:
-      bgColor = "rgb(0, 255, 0, 0.1)";
-      break;
-    case false:
-      bgColor = "rgb(255, 0, 0, 0.1)";
-      break;
-    default:
-      bgColor = "rgb(0, 0, 0, 0.4)";
-  }
+    const rgb = (r: number) => (g: number) => (b: number) => ({
+      onHover: `rgba(${r}, ${g}, ${b}, 0.05)`,
+      default: `rgba(${r}, ${g}, ${b}, 0.1)`,
+    });
 
-  return {
-    background: bgColor,
-    ...(sendingState === undefined && {
+    const getBgColor = () => ({
+      [YES]: rgb(0)(255)(0),
+      [NO]: rgb(255)(255)(255),
+      [SENDING]: rgb(255)(255)(255),
+      [FAILED]: rgb(255)(0)(0),
+    });
+
+    const bgColor = getBgColor()?.[isMailSent];
+
+    return {
+      background: bgColor.default,
+      cursor: "pointer",
       "&:hover": {
-        cursor: "pointer",
-        backgroundColor: "rgb(255, 255, 255, 0.05)",
+        background: bgColor.onHover,
       },
-    }),
-  };
-});
+    };
+  }
+);
 
 export const MinimizeButton = styled("button")({
   position: "absolute",
@@ -130,7 +129,7 @@ export const MinimizeButton = styled("button")({
   },
 });
 
-export const RefocusButton = styled("button")({
+export const SlideButton = styled("button")({
   position: "absolute",
   left: "0",
   transform: "translateX(-23px)",
@@ -144,9 +143,12 @@ export const RefocusButton = styled("button")({
   maxWidth: "30px",
   cursor: "pointer",
 
-  animation: "refocusButton 2s ease-in-out infinite",
+  animation: "sildeButton 2s ease-in-out infinite",
+  "&:hover": {
+    animationPlayState: "paused",
+  },
 
-  "@keyframes refocusButton": {
+  "@keyframes sildeButton": {
     "0%": {
       transform: "translateX(-18px)",
     },
