@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {Miouss, langs, ArrowForwardIcon} from "../../assets";
+import { Miouss, ArrowForwardIcon } from "../../assets";
 import {
   InputButton,
   LoginFormError,
@@ -32,7 +32,11 @@ export default function FormMiouss() {
 
     e.currentTarget.value = e.currentTarget.value.slice(0, -1);
 
-    if ((e.nativeEvent as unknown as InputEvent).inputType === "deleteContentBackward") return;
+    if (
+      (e.nativeEvent as unknown as InputEvent).inputType ===
+      "deleteContentBackward"
+    )
+      return;
     e.currentTarget.value += "●";
   };
 
@@ -41,7 +45,7 @@ export default function FormMiouss() {
       <form onSubmit={handleSubmit} autoComplete="off">
         <LoginFormTitle>{name}</LoginFormTitle>
         <LoginFormInput
-          placeholder={langs[lang].signin.password.placeholder}
+          placeholder={lang.signin.password.placeholder}
           onChange={handleKeyPressed}
           type="text"
           anim={cssAnim}
@@ -54,8 +58,8 @@ export default function FormMiouss() {
         ></LoginFormInput>
         {showPasswordHint && (
           <LoginFormError>
-            <Box>{langs[lang].signin.password.hint}</Box>
-            <Box>{langs[lang].signin.password.error}</Box>
+            <Box>{lang.signin.password.hint}</Box>
+            <Box>{lang.signin.password.error}</Box>
           </LoginFormError>
         )}
       </form>

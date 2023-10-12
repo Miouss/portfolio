@@ -2,7 +2,6 @@
 import { useEffect, Dispatch, SetStateAction, useState } from "react";
 import { getFormattedText, mimicWindowsTerminal } from "../../utils";
 import { useLangContext } from "..";
-import { langs } from "../../assets";
 
 type Directory = {
   [key: string]: Directory;
@@ -41,7 +40,7 @@ export default function useTerminalCommands(
             return currentDir.length === 1
               ? createFeedbackCommandContainer(
                   ref,
-                  langs[lang].apps.terminal.error.cd.root,
+                  lang.apps.terminal.error.cd.root,
                   currentDir,
                   true
                 )
@@ -53,7 +52,7 @@ export default function useTerminalCommands(
 
             createFeedbackCommandContainer(
               ref,
-              langs[lang].apps.terminal.error.cd.path,
+              lang.apps.terminal.error.cd.path,
               currentDir
             );
         }
@@ -62,7 +61,7 @@ export default function useTerminalCommands(
           case "help":
             return createFeedbackCommandContainer(
               ref,
-              langs[lang].apps.terminal.commands.help,
+              lang.apps.terminal.commands.help,
               currentDir
             );
           case "clear":
@@ -78,7 +77,7 @@ export default function useTerminalCommands(
             if (dirContent.length === 0) {
               return createFeedbackCommandContainer(
                 ref,
-                langs[lang].apps.terminal.error.dir.empty,
+                lang.apps.terminal.error.dir.empty,
                 currentDir
               );
             }

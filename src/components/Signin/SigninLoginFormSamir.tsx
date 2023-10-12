@@ -6,7 +6,7 @@ import {
   LoginFormLoadingContainer,
   LoginFormTitle,
 } from "../../styles";
-import { langs, Samir } from "../../assets";
+import { Samir } from "../../assets";
 import { useLangContext, useIsLoggedContext } from "../../hooks";
 
 export default function FormSamir() {
@@ -36,12 +36,12 @@ export default function FormSamir() {
     if (loadDesktop) return;
 
     if (isUnlocking) {
-      setPromptMessage(langs[lang].signin.message.unlock);
-      setLoadingMessage(langs[lang].signin.loading.unlock);
+      setPromptMessage(lang.signin.message.unlock);
+      setLoadingMessage(lang.signin.loading.unlock);
       return;
     }
-    setPromptMessage(langs[lang].signin.message.connect);
-    setLoadingMessage(langs[lang].signin.loading.connect);
+    setPromptMessage(lang.signin.message.connect);
+    setLoadingMessage(lang.signin.loading.connect);
   }, [isUnlocking, lang, loadDesktop]);
 
   return (

@@ -6,6 +6,7 @@ import {
   useState,
 } from "react";
 import { LanguageProp } from "../../types";
+import { langs } from "../../assets";
 
 export const LangStateContext = createContext<LanguageProp>("fr");
 export const LangDispatchContext = createContext<
@@ -29,7 +30,8 @@ export default function useLangContext() {
   const setLang = useContext(LangDispatchContext);
 
   return {
-    lang,
+    lang: langs[lang],
     setLang,
+    langState: lang,
   };
 }

@@ -2,6 +2,7 @@ import styled from "@mui/system/styled";
 
 import { DynamicFontSize } from "../../types";
 import { propsFilter } from "../propsFilter";
+import { FontSize } from "../../apps/Notepad/Notepad";
 
 export const NotepadContainer = styled("div")({
   display: "flex",
@@ -65,12 +66,12 @@ export const DropDownMenuButton = styled("button")({
 // NotepadContainer >
 export const TextInputArea = styled(
   "textarea",
-  propsFilter("dynamicFontSize")
-)(({ dynamicFontSize }: { dynamicFontSize: DynamicFontSize }) => ({
+  propsFilter("fontSize")
+)(({ fontSize }: { fontSize: FontSize }) => ({
   flex: 1,
   overflow: "scroll !important",
   fontFamily: "inherit",
-  fontSize: dynamicFontSize,
+  fontSize,
   paddingLeft: "5px",
   resize: "none",
 }));

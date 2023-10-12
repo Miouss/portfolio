@@ -7,15 +7,10 @@ import {
   PopOverMenuItemIcon,
   PopOverMenuItemLabel,
 } from "../../styles";
-import {
-  LockIcon,
-  PopOverMenuIcon,
-  SignoutIcon,
-  langs
-} from "../../assets";
+import { LockIcon, PopOverMenuIcon, SignoutIcon } from "../../assets";
 import { useEffect, useState } from "react";
 
-import {useLangContext, useIsLoggedContext} from "../../hooks";
+import { useLangContext, useIsLoggedContext } from "../../hooks";
 
 interface Props {
   displayPopOverMenu: boolean | undefined;
@@ -39,7 +34,10 @@ export default function PopOverMenu({ displayPopOverMenu }: Props) {
     setDisplayAction(false);
   };
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, lock?: "lock") => {
+  const handleClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    lock?: "lock"
+  ) => {
     e.stopPropagation();
     return displayAction ? setIsLogged(lock ?? false) : setDisplayAction(true);
   };
@@ -75,28 +73,24 @@ export default function PopOverMenu({ displayPopOverMenu }: Props) {
         <PopOverMenuHeaderIcon>
           <PopOverMenuIcon />
         </PopOverMenuHeaderIcon>
-        <PopOverMenuHeaderLabel>
-          {langs[lang].actions.start}
-        </PopOverMenuHeaderLabel>
+        <PopOverMenuHeaderLabel>{lang.actions.start}</PopOverMenuHeaderLabel>
       </PopOverMenuHeaderBox>
       <PopOverMenuItem
-        onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => handleClick(e, "lock")}
+        onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+          handleClick(e, "lock")
+        }
         onMouseEnter={handleMouseEnter}
       >
         <PopOverMenuItemIcon>
           <LockIcon />
         </PopOverMenuItemIcon>
-        <PopOverMenuItemLabel>
-          {langs[lang].actions.lock}
-        </PopOverMenuItemLabel>
+        <PopOverMenuItemLabel>{lang.actions.lock}</PopOverMenuItemLabel>
       </PopOverMenuItem>
       <PopOverMenuItem onClick={handleClick} onMouseEnter={handleMouseEnter}>
         <PopOverMenuItemIcon>
           <SignoutIcon />
         </PopOverMenuItemIcon>
-        <PopOverMenuItemLabel>
-          {langs[lang].actions.logout}
-        </PopOverMenuItemLabel>
+        <PopOverMenuItemLabel>{lang.actions.logout}</PopOverMenuItemLabel>
       </PopOverMenuItem>
     </PopOverMenuContainer>
   );

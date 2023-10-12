@@ -3,7 +3,7 @@ import { SwitchIconButton, SwitchIconContainer } from "../../styles";
 import { useLangContext } from "../../hooks";
 
 export default function SwitchLangButton() {
-  const { lang, setLang } = useLangContext();
+  const { langState, setLang } = useLangContext();
 
   const switchLang = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
@@ -12,7 +12,9 @@ export default function SwitchLangButton() {
 
   return (
     <SwitchIconContainer>
-      <SwitchIconButton onClick={switchLang}>{lang.toUpperCase()}</SwitchIconButton>
+      <SwitchIconButton onClick={switchLang}>
+        {langState.toUpperCase()}
+      </SwitchIconButton>
     </SwitchIconContainer>
   );
 }

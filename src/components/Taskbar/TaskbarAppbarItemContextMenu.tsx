@@ -4,7 +4,6 @@ import { closeApp, minimizeApp, useAppDispatch } from "../../redux";
 
 import { CloseIcon, MinimizeIcon } from "../../assets";
 
-import { langs } from "../../assets";
 import { useLangContext } from "../../hooks";
 import { Dispatch, SetStateAction } from "react";
 
@@ -58,7 +57,7 @@ export default function ContextMenu({ anchorEl, setAnchorEl, appName }: Props) {
             onPointerOut={(event) => handlePointerOver(event)}
             style={itemListStyle}
           >
-            <MinimizeIcon /> {langs[lang].actions.minimize}
+            <MinimizeIcon /> {lang.actions.minimize}
           </MenuItem>
           <MenuItem
             onClick={() => handleClick("close")}
@@ -66,7 +65,7 @@ export default function ContextMenu({ anchorEl, setAnchorEl, appName }: Props) {
             onPointerOut={(event) => handlePointerOver(event)}
             style={itemListStyle}
           >
-            <CloseIcon /> {langs[lang].actions.close}
+            <CloseIcon /> {lang.actions.close}
           </MenuItem>
         </MenuList>
       </ClickAwayListener>

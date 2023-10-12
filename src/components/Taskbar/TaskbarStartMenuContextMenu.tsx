@@ -1,10 +1,5 @@
-import {
-  TaskbarContextMenuPop,
-  MenuList,
-  MenuItem,
-} from "../../styles";
+import { TaskbarContextMenuPop, MenuList, MenuItem } from "../../styles";
 
-import { langs } from "../../assets";
 import { useLangContext, useIsLoggedContext } from "../../hooks";
 
 export default function ContextMenu({
@@ -23,10 +18,10 @@ export default function ContextMenu({
     >
       <MenuList>
         <MenuItem onClick={() => setIsLogged(false)}>
-          {langs[lang].actions.logout}
+          {lang.actions.logout}
         </MenuItem>
         <MenuItem onClick={() => setIsLogged("lock")}>
-          {langs[lang].actions.lock}
+          {lang.actions.lock}
         </MenuItem>
       </MenuList>
     </TaskbarContextMenuPop>

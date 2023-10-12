@@ -9,12 +9,7 @@ import {
   useTerminalCommands,
 } from "../../hooks";
 
-import { langs } from "../../assets";
-import {
-  mimicWindowsTerminal,
-  clearAll,
-  mimicTyping,
-} from "../../utils";
+import { mimicWindowsTerminal, clearAll, mimicTyping } from "../../utils";
 
 interface Props {
   mode?: "notepad";
@@ -33,10 +28,10 @@ export default function Terminal({ mode }: Props) {
   const { lang } = useLangContext();
 
   const welcomeMessage = mode
-    ? langs[lang].apps.terminal.welcomeMsg
+    ? lang.apps.terminal.welcomeMsg
     : [
         "Microsoft Windows [Version 10.0.19042.867]\n(c) 2020 Microsoft Corporation. All rights reserved.\n",
-        `${langs[lang].apps.terminal.start}\n`,
+        `${lang.apps.terminal.start}\n`,
       ];
 
   const awaitMimicTyping = async () => {
@@ -93,8 +88,7 @@ export default function Terminal({ mode }: Props) {
     let textContentRef = terminalAppContentRef.current!.lastChild!.textContent;
 
     if (e.key.length === 1)
-      return (terminalAppContentRef.current!.lastChild!.textContent +=
-        e.key);
+      return (terminalAppContentRef.current!.lastChild!.textContent += e.key);
 
     switch (e.key) {
       case "Enter":

@@ -18,7 +18,7 @@ import { UndefinedBoolean } from "../../types";
 
 export default function LangPref() {
   const langPrefContainerRef = useRef<HTMLDivElement>(null);
-  const { lang } = useLangContext();
+  const { langState, lang } = useLangContext();
 
   const [openMenu, setOpenMenu] = useState<UndefinedBoolean>(undefined);
 
@@ -36,7 +36,7 @@ export default function LangPref() {
   return (
     <LangPrefContainer>
       <LangPrefCurrentBox ref={langPrefContainerRef}>
-        <LangPrefCurrent> {lang.toUpperCase()} </LangPrefCurrent>
+        <LangPrefCurrent> {langState.toUpperCase()} </LangPrefCurrent>
       </LangPrefCurrentBox>
       <LangPrefPopOverMenu
         visible={openMenu}
@@ -45,7 +45,9 @@ export default function LangPref() {
         <LangPrefItem
           code={<LangPrefIcon fontSize={"1.5rem"} />}
           label={
-            lang === "fr" ? "Préférences de langue" : "Language preferences"
+            langState === "fr"
+              ? "Préférences de langue"
+              : "Language preferences"
           }
         />
         <LangPrefDivider />
