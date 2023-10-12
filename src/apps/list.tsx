@@ -145,9 +145,9 @@ export function getAllAppsName() {
 }
 
 export function AppAction({ name }: Props) {
-  const { lang } = useLangContext();
+  const { langState } = useLangContext();
 
-  return <span>{appList[name].action[lang]!}</span>;
+  return <span>{appList[name].action[langState]!}</span>;
 }
 
 export function ShortcutDesktopIcon({ name }: Props) {
@@ -163,9 +163,9 @@ export function getShortcutLink(shortcutName: string) {
 }
 
 export function ShortcutAction({ name }: Props) {
-  const { lang } = useLangContext();
+  const { langState } = useLangContext();
 
-  return <span>{shortcutList[name].action[lang]}</span>;
+  return <span>{shortcutList[name].action[langState]}</span>;
 }
 
 export function getAllShortcutsName() {

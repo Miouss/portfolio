@@ -4,8 +4,8 @@ import { useLangContext } from "..";
 
 export default function useUpdatedDate() {
   const [date, setDate] = useState<Date>(new Date());
-  const { lang } = useLangContext();
-  const localeDate = lang === "eng" ? "en-US" : "fr-FR";
+  const { langState } = useLangContext();
+  const localeDate = langState === "eng" ? "en-US" : "fr-FR";
 
   const [month, weekDay] = new Intl.DateTimeFormat(localeDate, {
     weekday: "long",

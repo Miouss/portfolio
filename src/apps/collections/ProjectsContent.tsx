@@ -72,7 +72,7 @@ export default function ContentBuilder({
     </TechItem>
   ));
 
-  const { lang } = useLangContext();
+  const { langState } = useLangContext();
 
   const handleShowVideo = (e: React.AnimationEvent<HTMLDivElement>) => {
     if (e.animationName === "fadeInGallery") setShowVideo(true);
@@ -107,7 +107,9 @@ export default function ContentBuilder({
           <Title fsresp={fsresp}>{name}</Title>
           <Subcontent>
             <Details>
-              <Description fsresp={fsresp}>{description[lang]}</Description>
+              <Description fsresp={fsresp}>
+                {description[langState]}
+              </Description>
               <TechContainer>
                 <TechTitle fsresp={fsresp}>Technologies :</TechTitle>
                 <TechItemsContainer fsresp={fsresp}>

@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default function LangPrefItem({ code, label }: Props) {
-  const { lang, setLang } = useLangContext();
+  const { langState, setLang } = useLangContext();
   const handleClick = () => {
     typeof code === "string" && setLang(code);
   };
@@ -20,7 +20,7 @@ export default function LangPrefItem({ code, label }: Props) {
   return (
     <LangPrefPopOverMenuItem
       onClick={handleClick}
-      selected={lang === code}
+      selected={langState === code}
       disabled={typeof code !== "string"}
     >
       <LangPrefPopOverMenuItemCode>
