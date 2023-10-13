@@ -63,7 +63,7 @@ addApp(
 );
 addApp(
   "Presentation",
-  <Notepad appName="Presentation" />,
+  <Notepad />,
   <NotepadLogo />,
   1,
   4,
