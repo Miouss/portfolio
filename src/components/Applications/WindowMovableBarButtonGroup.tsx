@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { minimizeApp, toggleFullscreenApp, useAppDispatch } from "../../redux";
 import {
   BarButtonGroupContainer,
@@ -13,12 +12,13 @@ import {
   FullscreenIcon,
   FullscreenExitIcon,
 } from "../../assets";
-import { Animation } from "./Window";
 
 interface Props {
   appName: string;
   windowEl: HTMLDivElement | undefined;
 }
+
+export const DespawnAnimation = "despawnWindow 0.15s ease-out forwards";
 
 export default function BarButtonGroup({ appName, windowEl }: Props) {
   const { isFullscreen } = useAppStatus(appName);
@@ -32,7 +32,7 @@ export default function BarButtonGroup({ appName, windowEl }: Props) {
   const handleAnimation = () => {
     if (!windowEl) return;
 
-    windowEl.style.animation = `${Animation.DESPAWN} 0.15s ease-out forwards`;
+    windowEl.style.animation = DespawnAnimation;
   };
 
   return (

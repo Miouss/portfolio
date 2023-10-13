@@ -21,11 +21,10 @@ export enum FontSize {
 
 export type TriggerContext = Boolean | undefined;
 export type TriggerSetter = Dispatch<SetStateAction<TriggerContext>>;
-export const AppNameContext = createContext("");
 export const TriggerRerunContext = createContext<TriggerSetter>(() => {});
 export const TriggerClearAllContext = createContext<TriggerSetter>(() => {});
 
-export default function Notepad({ appName }: { appName: string }) {
+export default function Notepad() {
   const notepadRef = useRef<HTMLDivElement>(null);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -43,13 +42,11 @@ export default function Notepad({ appName }: { appName: string }) {
 
   return (
     <NotepadContainer ref={notepadRef}>
-      <AppNameContext.Provider value={appName}>
-        <TriggerRerunContext.Provider value={setTriggerRerun}>
-          <TriggerClearAllContext.Provider value={setTriggerClearAll}>
-            <Toolbar fontSize={fontSize} setFontSize={setFontSize} />
-          </TriggerClearAllContext.Provider>
-        </TriggerRerunContext.Provider>
-      </AppNameContext.Provider>
+      <TriggerRerunContext.Provider value={setTriggerRerun}>
+        <TriggerClearAllContext.Provider value={setTriggerClearAll}>
+          <Toolbar fontSize={fontSize} setFontSize={setFontSize} />
+        </TriggerClearAllContext.Provider>
+      </TriggerRerunContext.Provider>
       <TextInputArea
         ref={textAreaRef}
         tabIndex={0}

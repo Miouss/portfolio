@@ -9,8 +9,9 @@ export default function useAutoScrollOnOverflow(
     const container = containerRef.current;
     if (!container) return;
 
-    const isOverflowing = container.scrollHeight > container.clientHeight;
-    if (isOverflowing)
-      container.scrollTop = container.scrollHeight - container.clientHeight;
+    const { scrollHeight, clientHeight } = container;
+
+    const isOverflowing = scrollHeight > clientHeight;
+    if (isOverflowing) container.scrollTop = scrollHeight - clientHeight;
   }, [commandHistory, currentDir]);
 }

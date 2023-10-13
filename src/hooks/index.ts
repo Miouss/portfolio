@@ -12,6 +12,7 @@ export { default as useAudioFile } from "./Apps/useAudioFile";
 export { default as useAutoScrollOnOverflow } from "./Apps/useAutoScrollOnOverflow";
 export { default as useSpecialKeyHandler } from "./Apps/useSpecialKeyHandler";
 export { default as useTerminalCommands } from "./Apps/useTerminalCommands";
+export * from "./Apps/useRerun";
 
 // Desktop
 export { default as useContextMenuActions } from "./Desktop/useContextMenuActions";

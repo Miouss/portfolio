@@ -1,21 +1,21 @@
-import { useContext } from "react";
+import { useRef } from "react";
 import { useLangContext } from "../../hooks";
-import { useAppDispatch, closeApp } from "../../redux";
 import { DropDownMenuButton } from "../../styles";
-import { AppNameContext } from "./Notepad";
+import { DespawnAnimation } from "../../components/Applications/WindowMovableBarButtonGroup";
 
 export function FileButton() {
   const { lang } = useLangContext();
-  const dispatch = useAppDispatch();
+  const ref = useRef<HTMLButtonElement | null>(null);
 
-  const appName = useContext(AppNameContext);
+  const exit = () => {
+    //@ts-ignore
+    const windowRef = ref.current!.offsetParent!.offsetParent!.offsetParent!;
 
-  const exitFct = () => {
-    dispatch(closeApp(appName));
+    windowRef.style.animation = DespawnAnimation;
   };
 
   return (
-    <DropDownMenuButton onClick={exitFct}>
+    <DropDownMenuButton ref={ref} onClick={exit}>
       {lang.apps.aboutMe.toolbar.file.action}
     </DropDownMenuButton>
   );

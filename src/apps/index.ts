@@ -1,4 +1,4 @@
-export { default as TerminalApp } from "./collections/Terminal";
+export { default as TerminalApp } from "./Terminal/Terminal";
 export { default as ProjectsViewer } from "./collections/Projects";
 export { default as MailSender } from "./MailSender/MailSender";
 export { default as ChillBeats } from "./ChillBeats/ChillBeats";
