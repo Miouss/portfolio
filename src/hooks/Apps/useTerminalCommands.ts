@@ -87,6 +87,8 @@ export default function useTerminalCommands(
 
       return actionByKeys[path as CDCommand]();
     } else {
+      let errVal = command;
+
       const actionByKeys = {
         [HELP]: () =>
           createFeedbackCommandContainer(
@@ -117,7 +119,7 @@ export default function useTerminalCommands(
         [EXIT]: () => setIsExiting(true),
         [ERROR]: () => {
           const errorMessage = [
-            `\n'${command}' is not recognized as an internal`,
+            `\n'${errVal}' is not recognized as an internal`,
             "or external command, operable program",
             `or batch file.\n`,
           ];
