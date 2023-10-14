@@ -1,11 +1,12 @@
 import styled from "@mui/system/styled";
 
-import { Stack, Button, Input } from "@mui/material";
+import { Button, Input } from "@mui/material";
 import { propsFilter } from "../propsFilter";
 
-export const LoginFormTitle = styled("h2")({
+export const LoginFormTitle = styled("h1")({
   color: "white",
   fontSize: "1.4rem",
+  margin: "18px 0",
 });
 
 export const LoginFormButton = styled(Button)({
