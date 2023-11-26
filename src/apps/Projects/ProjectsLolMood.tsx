@@ -64,7 +64,7 @@ export default function Lolmood() {
     <ProjectContentBuilder
       name={name}
       description={description}
-      url="https://www.youtube.com/embed/mWt7DmbZ8_o"
+      url="https://www.youtube.com/embed/hC7gVFOhjj4"
       techs={techs}
       repo={repo}
       link={link}
