@@ -72,7 +72,7 @@ addApp(
 );
 addApp(
   "Welcome",
-  <TerminalApp key="welcome" mode="notepad" />,
+  <TerminalApp key="welcome" mode="welcome" />,
   <TerminalLogo />,
   undefined,
   undefined,

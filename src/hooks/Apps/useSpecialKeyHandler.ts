@@ -2,10 +2,11 @@ import { Dispatch, MutableRefObject, SetStateAction, useEffect } from "react";
 
 export default function useSpecialKeyHandler(
   ref: React.MutableRefObject<HTMLElement | null>,
-  setCommandHistory: Dispatch<SetStateAction<string[]>>
+  setCommandHistory: Dispatch<SetStateAction<string[]>>,
+  mode?: "notepad" | "welcome"
 ) {
   useEffect(() => {
-    if (!ref.current) return;
+    if (!ref.current || mode === "welcome") return;
     const eventCallback = (e: KeyboardEvent) =>
       keyHandler(e, setCommandHistory, ref);
 
@@ -18,7 +19,7 @@ export default function useSpecialKeyHandler(
         eventCallback as EventListener
       );
     };
-  }, [keyHandler]);
+  }, [keyHandler, mode]);
 }
 
 enum KeysHandled {

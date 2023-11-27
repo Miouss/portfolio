@@ -9,7 +9,7 @@ enum MicrosoftMsg {
 export function useRerun(
   terminalAppContentRef: MutableRefObject<HTMLDivElement | null>,
   setCurrentDir: Dispatch<string[]>,
-  mode?: "notepad"
+  mode?: "notepad" | "welcome"
 ) {
   const { lang } = useLangContext();
   const { welcomeMsg, start } = lang.apps.terminal;

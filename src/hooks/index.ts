@@ -8,6 +8,7 @@ export * from "./Applications/useResponsiveness";
 export * from "./Applications/useDynamicStyle";
 
 // Apps
+export * from "./Apps/useQuitOnAnyKey";
 export { default as useAudioFile } from "./Apps/useAudioFile";
 export { default as useAutoScrollOnOverflow } from "./Apps/useAutoScrollOnOverflow";
 export { default as useSpecialKeyHandler } from "./Apps/useSpecialKeyHandler";

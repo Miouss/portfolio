@@ -2,19 +2,19 @@ import { useRef, useState, useEffect } from "react";
 import { TerminalAppContainer, TerminalAppContent } from "../../styles";
 import {
   useAutoScrollOnOverflow,
+  useQuitOnAnyKey,
   useRerun,
   useSpecialKeyHandler,
   useTerminalCommands,
 } from "../../hooks";
 
 interface Props {
-  mode?: "notepad";
+  mode?: "notepad" | "welcome";
 }
 
 export default function Terminal({ mode }: Props) {
   const terminalAppRef = useRef<HTMLDivElement | null>(null);
   const terminalAppContentRef = useRef<HTMLDivElement | null>(null);
-  const [blink, setBlink] = useState(false);
   const [currentDir, setCurrentDir] = useState<string[]>(
     mode ? [""] : ["C:\\"]
   );
@@ -22,7 +22,6 @@ export default function Terminal({ mode }: Props) {
 
   useEffect(() => {
     terminalAppContentRef.current!.focus();
-    setBlink(!blink);
   }, []);
 
   useTerminalCommands(
@@ -32,9 +31,10 @@ export default function Terminal({ mode }: Props) {
     setCurrentDir
   );
 
-  useSpecialKeyHandler(terminalAppContentRef, setCommandHistory);
+  useSpecialKeyHandler(terminalAppContentRef, setCommandHistory, mode);
   useAutoScrollOnOverflow(terminalAppRef, commandHistory, currentDir);
   useRerun(terminalAppContentRef, setCurrentDir, mode);
+  useQuitOnAnyKey(terminalAppContentRef, mode);
 
   return (
     <TerminalAppContainer ref={terminalAppRef}>
@@ -42,7 +42,6 @@ export default function Terminal({ mode }: Props) {
         tabIndex={0}
         ref={terminalAppContentRef}
         notepad={mode}
-        blink={blink}
       />
     </TerminalAppContainer>
   );
