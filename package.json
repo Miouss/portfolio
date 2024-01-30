@@ -6,6 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "dockdev": "docker compose -f docker-compose.yaml up",
+    "dockbuild": "docker build -t ghcr.io/miouss/portfolio .",
+    "dockpush": "docker push ghcr.io/miouss/portfolio:latest",
     "preview": "vite preview"
   },
   "dependencies": {
