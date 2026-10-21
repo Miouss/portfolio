@@ -54,15 +54,15 @@ import { BsCheck2 } from "react-icons/bs";
 
 import { MdLaunch } from "react-icons/md";
 
-import notepadimg from "../logos/notepad.png";
-import chillbeatsimg from "../logos/chillbeats.png";
-import redirectimg from "../logos/redirect.png";
+import notepadimg from "../logos/notepad.webp";
+import chillbeatsimg from "../logos/chillbeats.webp";
+import redirectimg from "../logos/redirect.webp";
 import githubimg from "../logos/github.png";
 import linkedinimg from "../logos/linkedin.png";
-import projectimg from "../logos/project.png";
-import mailsenderimg from "../logos/mailsender.png";
+import projectimg from "../logos/project.webp";
+import mailsenderimg from "../logos/mailsender.webp";
 import terminalimg from "../logos/terminal.png";
-import cvimg from "../logos/cv.png";
+import cvimg from "../logos/cv.webp";
 
 import {
   VscChromeMinimize,

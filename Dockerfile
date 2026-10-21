@@ -7,4 +7,5 @@ COPY . .
 RUN yarn build
 
 FROM caddy:2.11.7-alpine
+COPY Caddyfile /etc/caddy/Caddyfile
 COPY --from=build /portfolio/dist /usr/share/caddy

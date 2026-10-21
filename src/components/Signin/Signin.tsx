@@ -51,7 +51,7 @@ export default function Signin({
       onAnimationEnd={handleAnimationEnd}
     >
       <BackgroundLayer blurred={isLogged !== "lock"}>
-        <img src={`${LoginBackground}`} alt={"login background"}></img>
+        <img src={LoginBackground} alt="login background" decoding="async" />
       </BackgroundLayer>
       <LockContainer
         ref={lockMenuRef}
