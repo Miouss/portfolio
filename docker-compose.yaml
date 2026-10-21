@@ -1,7 +1,7 @@
-version: "3.8"
 services:
   portfolio:
     image: ghcr.io/miouss/portfolio:latest
     container_name: portfolio_container
+    restart: unless-stopped
     ports:
-      - "3004:80"
+      - "127.0.0.1:3004:80"

@@ -6,8 +6,5 @@ RUN yarn install
 COPY . .
 RUN yarn build
 
-FROM nginx:stable-alpine
-WORKDIR /usr/share/nginx/html
-RUN rm -rf ./*
-COPY --from=build /portfolio/dist .
-CMD ["nginx", "-g", "daemon off;"]
+FROM caddy:2.11.7-alpine
+COPY --from=build /portfolio/dist /usr/share/caddy
